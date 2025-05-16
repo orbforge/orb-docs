@@ -1,0 +1,16 @@
+name: Generate Contributors
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Run weekly at midnight on Sunday
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  generate-contributors:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Contributors Action
+        uses: github/contributors@v1.5.8

@@ -1,0 +1,130 @@
+---
+title: Installing Orb using Docker
+shortTitle: Docker
+metaDescription: Run the Orb sensor in a Docker container on any compatible system.
+section: setup-sensor
+layout: guides
+imageUrl: ../../images/devices/docker.png
+subtitle: 'Difficulty: Intermediate 🧑‍🔬'
+---
+
+# Installing Orb using Docker
+
+## Introduction
+
+[Docker](https://www.docker.com/) allows you to run applications in isolated environments called containers. This guide shows you how to run the Orb sensor as a Docker container using Docker Compose, which makes managing multi-container Docker applications easier. This method is suitable for running Orb on various systems like servers, firewalls, routers, NAS devices (Synology, QNAP), or personal computers that have Docker installed.
+
+This guide assumes you have Docker and Docker Compose already installed and running on your host system.
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- A host machine with Docker installed and running. See the official [Docker installation guides](https://docs.docker.com/engine/install/). macOS and Windows are not currently supported for auto-discovery and local-network latency due to limitations in Docker's "host network" capability on these systems. We recommend using the Orb apps for macOS and Windows.
+- Docker Compose installed. See the [Docker Compose installation guide](https://docs.docker.com/compose/install/).
+- Basic familiarity with using the command line or terminal on your host system.
+- Your host machine must be connected to the network you wish to monitor.
+
+## Quick install
+
+If you'd like to run Orb with auto-updates and don't want to get into the details, run this command in a fresh directory:
+
+```bash
+curl -fsSL https://orb.net/docs/scripts/docker/docker-compose.yml -o docker-compose.yml && docker-compose up -d
+```
+
+Otherwise, read on!
+
+## Step 1: Prepare the Docker Compose file
+
+1.  Create a file named `docker-compose.yml` in this directory.
+2.  Paste the following content exactly into the `docker-compose.yml` file:
+
+    ```yaml
+    version: '3.0'
+
+    services:
+      orb-docker:
+        image: orbforge/orb:latest
+        container_name: orb-sensor # Optional: Give the container a specific name
+        network_mode: host # Required: Allows Orb to see network traffic
+        volumes:
+          - orb-data:/root/.config/orb # Persists Orb configuration
+        # Optional: Limit resources if needed
+        # deploy:
+        #   resources:
+        #     limits:
+        #       memory: 512m
+        restart: always # Ensures Orb restarts if it stops or on system reboot
+        labels:
+          - 'com.centurylinklabs.watchtower.enable=true' # Enable auto-updates with Watchtower
+          - 'com.centurylinklabs.watchtower.scope=orb' # Scope for Watchtower to monitor
+
+      # Optional: Watchtower automatically updates the Orb image when a new version is released
+      watchtower:
+        image: containrrr/watchtower
+        container_name: watchtower
+        restart: unless-stopped
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock # Required to monitor other containers
+        command: --label-enable --scope orb --interval 3600 # Check for updates every hour (3600s)
+
+    volumes:
+      orb-data: # Creates a named volume for persistent data
+    ```
+
+    **Explanation:**
+
+    - `orb-docker`: Defines the main Orb service.
+      - `image: orbforge/orb:latest`: Uses the official Orb Docker image.
+      - `network_mode: host`: **Crucial** for Orb to monitor network traffic directly from the host's network interfaces.
+      - `volumes: - orb-data:/root/.config/orb`: Stores Orb's configuration persistently in a Docker named volume (`orb-data`).
+      - `restart: always`: Keeps the Orb container running.
+      - `labels`: Used by Watchtower to know this container should be auto-updated.
+    - `watchtower`: (Optional but recommended) Defines the Watchtower service to automatically update the Orb container when new images are published.
+    - `volumes: orb-data:`: Declares the named volume used by the `orb-docker` service.
+
+## Step 2: Start the Orb Container
+
+1.  Make sure you are still in the directory containing your `docker-compose.yml` file in your terminal.
+2.  Run the following command to download the Orb image (if you don't have it) and start the container(s) in the background:
+    ```bash
+    docker-compose up -d
+    ```
+3.  Docker Compose will pull the necessary images (`orbforge/orb` and `containrrr/watchtower`) and start the containers. You can check the status with:
+    ```bash
+    docker-compose ps
+    ```
+    You should see `orb-sensor` (or `orb-docker` if you didn't set `container_name`) and `watchtower` with state `Up`.
+4.  You can view the logs for the Orb container using:
+    ```bash
+    docker-compose logs orb-docker # Or use 'orb-sensor' if you set container_name
+    ```
+
+## Step 3: Link your new Orb sensor
+
+1.  Once the Orb container is running, it should start broadcasting its presence on your network.
+2.  Open the Orb app on your phone or personal computer (which must be on the same network).
+3.  Your new Docker-based Orb sensor should be automatically detected and appear in the app, ready to be linked to your account. Follow the prompts in the app to link it.
+
+Congratulations! Your Docker container is now running as an Orb sensor, monitoring your network. Thanks to Watchtower, it will automatically update when new versions are released.
+
+## Troubleshooting
+
+- **Orb Not Detected:**
+  - Ensure the container is running (`docker-compose ps`).
+  - Verify `network_mode: host` is set in your `docker-compose.yml`. This is the most common issue. Without host networking, Orb cannot see network traffic or broadcast correctly.
+  - Check the container logs (`docker-compose logs orb-docker`) for any errors.
+  - Ensure your host machine's firewall is not blocking mDNS/Bonjour traffic (UDP port 5353).
+  - Make sure the device running the Orb app is on the _exact same_ network/subnet as the Docker host machine.
+- **Permission Errors (especially volume mounts):**
+  - Using Docker named volumes (`orb-data:` in the example) usually avoids permission issues compared to bind-mounting host directories. If you switched to bind mounts, ensure Docker has the correct permissions to write to the host directory.
+- **Watchtower Issues:**
+  - Check Watchtower logs: `docker-compose logs watchtower`.
+  - Ensure the Docker socket is correctly mounted (`/var/run/docker.sock:/var/run/docker.sock`).
+- **Stopping Orb:**
+  - Navigate to the directory containing `docker-compose.yml` and run `docker-compose down`.
+- **Updating Orb Manually (if not using Watchtower):**
+  - Navigate to the directory containing `docker-compose.yml`.
+  - `docker-compose pull orb-docker` (pulls the latest image).
+  - `docker-compose up -d` (recreates the container with the new image).

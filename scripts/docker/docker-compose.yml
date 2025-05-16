@@ -1,0 +1,30 @@
+version: '3.0'
+
+services:
+  orb-docker:
+    image: orbforge/orb:latest
+    container_name: orb-sensor # Optional: Give the container a specific name
+    network_mode: host # Required: Allows Orb to see network traffic
+    volumes:
+      - orb-data:/root/.config/orb # Persists Orb configuration
+    # Optional: Limit resources if needed
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory: 512m
+    restart: always # Ensures Orb restarts if it stops or on system reboot
+    labels:
+      - 'com.centurylinklabs.watchtower.enable=true' # Enable auto-updates with Watchtower
+      - 'com.centurylinklabs.watchtower.scope=orb' # Scope for Watchtower to monitor
+
+  # Optional: Watchtower automatically updates the Orb image when a new version is released
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # Required to monitor other containers
+    command: --label-enable --scope orb --interval 3600 # Check for updates every hour (3600s)
+
+volumes:
+  orb-data: # Creates a named volume for persistent data
