@@ -14,15 +14,15 @@ subtitle: 'Difficulty: Intermediate 🧑‍🔬'
 
 [Podman](https://podman.io/) is a daemonless container engine that runs containers in isolated environments. This guide shows you how to run the Orb sensor as a Podman container managed by a systemd quadlet, a declarative way to define and manage containers as system services. This method is ideal for Linux systems where systemd is available, such as servers, firewalls, routers, or personal computers with Podman installed.
 
-This guide assumes you have Podman and systemd already installed and running on your host system.
+This guide assumes you have Podman already installed and running on your host system. All commands assume being ran as the root user.
 
 ## Prerequisites
 
 Before you begin, make sure you have:
 
 - A Linux host machine with Podman installed (version 4.0 or later for quadlet support). See the official [Podman installation guides](https://podman.io/getting-started/installation).
-  - Install on Fedora: `sudo dnf install podman`
-  - Install on Ubuntu: `sudo apt-get install podman`
+  - Install on Fedora: `dnf install podman`
+  - Install on Ubuntu: `apt-get install podman`
 - Systemd installed and running (standard on most Linux distributions).
 - Basic familiarity with using the command line or terminal on your host system.
 - Your host machine must be connected to the network you wish to monitor.
@@ -39,11 +39,11 @@ podman --version
 If you'd like to run Orb with auto-updates and don't want to get into the details, run these commands:
 
 ```bash
-sudo mkdir -p /etc/containers/systemd
+mkdir -p /etc/containers/systemd
 curl -fsSL https://orb.net/docs/scripts/podman/orb-sensor.container -o /etc/containers/systemd/orb-sensor.container
-sudo systemctl daemon-reload
-sudo systemctl start orb-sensor
-sudo systemctl enable orb-sensor
+systemctl daemon-reload
+systemctl start orb-sensor
+systemctl enable orb-sensor
 podman exec -it orb-sensor /app/orb link
 ```
 
@@ -57,7 +57,7 @@ Quadlets are systemd unit files with a `.container` extension that define contai
 
 1. Create a directory for quadlet files if it doesn't exist:
    ```bash
-   sudo mkdir -p /etc/containers/systemd
+   mkdir -p /etc/containers/systemd
    ```
 
 2. Create a file named `orb-sensor.container` in `/etc/containers/systemd/` with the following content:
@@ -91,41 +91,23 @@ Quadlets are systemd unit files with a `.container` extension that define contai
    - `AutoUpdate=registry`: Enables automatic image updates when new versions are released.
    - `Restart=always`: Ensures the container restarts if it stops or on system reboot.
 
-3. Reload systemd to recognize the quadlet:
-
-   ```bash
-   sudo systemctl daemon-reload
-   ```
-
 ## Step 2: Start the Orb Container
 
-1. Start the Orb sensor service:
+1. Reload systemd to recognize the quadlet. Start and enable the Orb sensor service:
 
    ```bash
-   sudo systemctl start orb-sensor
+   systemctl daemon-reload
+   systemctl start orb-sensor
+   systemctl enable orb-sensor
    ```
 
-2. Enable the service to run on system boot:
+2. Check the status to ensure it's running:
 
    ```bash
-   sudo systemctl enable orb-sensor
+   systemctl status orb-sensor
    ```
 
-3. Register the Orb sensor with your account:
-
-   ```bash
-   podman exec -it orb-sensor /app/orb link
-   ```
-
-   This command generates a link to register the Orb sensor with your account. Copy and paste the link into your browser to complete registration.
-
-4. Check the status to ensure it's running:
-
-   ```bash
-   sudo systemctl status orb-sensor
-   ```
-
-5. Verify the container is running:
+3. Verify the container is running:
 
    ```bash
    podman ps
@@ -139,11 +121,12 @@ Quadlets are systemd unit files with a `.container` extension that define contai
 
 ## Step 3: Link your new Orb sensor
 
-1. After running the `podman exec -it orb-sensor /app/orb link` command, you should have registered the sensor via the browser link.
-2. Alternatively, open the Orb app on your phone or personal computer (which must be on the same network).
+1. Once the Orb container is running, it should start broadcasting its presence on your network.
+2. Open the Orb app on your phone or personal computer (which must be on the same network).
 3. Your new Podman-based Orb sensor should be automatically detected and appear in the app, ready to be linked to your account. Follow the prompts in the app to link it.
+4. **Alternatively**, run the command `podman exec -it orb-sensor /app/orb link` from your podman host. This command generates a link to register the Orb sensor with your account. Copy and paste the link into your browser to complete registration.
 
-Congratulations! Your Podman quadlet is now running as an Orb sensor, monitoring your network.
+Congratulations! Your Orb sensor is now running as a Podman Quadlet, monitoring your network.
 
 ## Troubleshooting
 
@@ -154,7 +137,7 @@ Congratulations! Your Podman quadlet is now running as an Orb sensor, monitoring
   - Ensure your host machine's firewall is not blocking mDNS/Bonjour traffic (UDP port 5353).
   - Make sure the device running the Orb app is on the _exact same_ network/subnet as the Podman host.
 - **Permission Errors:**
-  - Ensure you're using rootful Podman (`sudo podman`). Rootless Podman may not support `CAP_NET_RAW` or host networking.
+  - Ensure you're using rootful Podman (`podman`). Rootless Podman may not support `CAP_NET_RAW` or host networking.
   - Verify the `orb-data` volume exists (`podman volume ls`) and is accessible.
 - **Container Fails to Start:**
   - Check systemd logs: `journalctl -u orb-sensor`.
@@ -163,10 +146,8 @@ Congratulations! Your Podman quadlet is now running as an Orb sensor, monitoring
   - Ensure the `podman exec -it orb-sensor /app/orb link` command runs successfully and outputs a valid URL.
   - Check container logs (`podman logs orb-sensor`) for errors related to the link command.
 - **Stopping Orb:**
-  - Run `sudo systemctl stop orb-sensor` to stop the service.
-  - Run `sudo systemctl disable orb-sensor` to prevent it from starting on boot.
+  - Run `systemctl stop orb-sensor` to stop the service.
+  - Run `systemctl disable orb-sensor` to prevent it from starting on boot.
 - **Updating Orb Manually:**
-  - Run `sudo systemctl restart orb-sensor` to pull the latest image (if `AutoUpdate=registry` is set).
+  - Run `systemctl restart orb-sensor` to pull the latest image (if `AutoUpdate=registry` is set).
   - Alternatively, manually pull the image with `podman pull docker.io/orbforge/orb:latest` and restart the service.
-
-For additional support, file an issue on the [Orb GitHub repository](https://github.com/orbforge/orb-issues).
