@@ -104,7 +104,7 @@ Otherwise, read on!
 ## Step 3: Link your new Orb sensor
 
 ### Device on the same network
-If your docker container is running on the same network as your phone or computer and your network support Bonjour/zeroconf, you can link it to your account using the Orb app.
+If your docker container is running on the same network as your phone or computer and your network supports Bonjour/zeroconf, you can link it to your account using the Orb app.
 
 1.  Once the Orb container is running, it should start broadcasting its presence on your network.
 2.  Open the Orb app on your phone or personal computer (which must be on the same network).
