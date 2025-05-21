@@ -47,7 +47,7 @@ Otherwise, read on!
       orb-docker:
         image: orbforge/orb:latest
         container_name: orb-sensor # Optional: Give the container a specific name
-        network_mode: host # Required: Allows Orb to see network traffic
+        network_mode: host # Optional: alternatively you can use 'bridge' mode and map ports :7443 and :5353
         volumes:
           - orb-data:/root/.config/orb # Persists Orb configuration
         # Optional: Limit resources if needed
@@ -103,9 +103,26 @@ Otherwise, read on!
 
 ## Step 3: Link your new Orb sensor
 
+### Device on the same network
+If your docker container is running on the same network as your phone or computer and your network supports Bonjour/zeroconf, you can link it to your account using the Orb app.
+
 1.  Once the Orb container is running, it should start broadcasting its presence on your network.
 2.  Open the Orb app on your phone or personal computer (which must be on the same network).
 3.  Your new Docker-based Orb sensor should be automatically detected and appear in the app, ready to be linked to your account. Follow the prompts in the app to link it.
+
+### Device on a different network
+If your docker container is running on a different network than your phone or computer, you can still link it to your account, but you'll need to do it manually via the Orb CLI in the docker container.
+
+1. Open a terminal on the host machine where the Docker container is running.
+2. Run the following command to run the Orb CLI "link" command inside the running container:
+    ```bash
+    docker exec -it <replace-with-container-name-or-id> /app/orb link
+    ```
+   Replace `<replace-with-container-name-or-id>` with the name or ID of your running Orb container (e.g., `orb-sensor` or `orb-docker`).
+3. The output of that command will give you a short URL. Copy or type that URL into the browser on your phone or computer and login with the same account you use on other Orb devices.
+4. Check the Orb app on your phone or computer. Your new Docker-based Orb sensor should now be visible and ready to use.
+
+## You're Done!
 
 Congratulations! Your Docker container is now running as an Orb sensor, monitoring your network. Thanks to Watchtower, it will automatically update when new versions are released.
 
