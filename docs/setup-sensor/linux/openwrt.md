@@ -89,7 +89,7 @@ These instructions provide the manual steps for installing Orb on OpenWrt.
 Add the Orb package feed
 
 ```bash
-ARCHITECTURE=$(opkg info busybox | grep "Architecture" | awk '{print $2}')
+ARCHITECTURE=$(opkg info busybox | awk '$1 == "Architecture:" {print $2; exit}')
 echo "src/gz orb_packages https://pkgs.orb.net/stable/openwrt/$ARCHITECTURE" | tee -a /etc/opkg/customfeeds.conf
 ```
 
