@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ARCHITECTURE=$(opkg info busybox | awk '/Architecture:/ { print $2; exit }')
+ARCHITECTURE=$(opkg info busybox | awk '$1 == "Architecture:" { print $2; exit }')
 URL="https://pkgs.orb.net/stable/openwrt/$ARCHITECTURE"
 KEY_URL="https://pkgs.orb.net/stable/openwrt/key.pub"
 KEY_PATH="/etc/opkg/keys/744a82bfef3c5690"
