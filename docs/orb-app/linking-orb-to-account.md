@@ -69,7 +69,7 @@ If the newly started Orb sensor is not automatically discovered, you can link it
 
 1. Open a terminal on the device
 2. Run the `orb link` command
-  Note: this commmand need to be run as the same user that runs the Orb Sensor.
+  Note: this command needs to be run as the same user that runs the Orb Sensor.
   You could use `su` to switch to that user before running the command, or you can use  `sudo` to run the command as that user directly. 
   On most systems (Debian, Redhat, Alpine), this is typically the `orb` user. For OpenWRT variants, it is typically the `root` user.
  
