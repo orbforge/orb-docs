@@ -59,7 +59,7 @@ If you want to link an orb sensor that was automatically discovered (listed unde
 1. In the Orb Summary, find the Orb sensor you would like to link (see "Orbs on this network")
 2. Tap on the Orb setting menu (... near the sensor name)
 3. Tap "Link this Orb to your account"
-   Note: this method will only work for headless devices (e.g. raspberry pi). To manually link a device running the Orb app, sign into your account from this device and follow the steps above.
+   Note: this method will only work for headless/CLI devices (e.g. Raspberry Pi). To manually link a device running the Orb app, sign into your account from this device.
 
 <img src="../../images/orb-app/link-account.png" alt="Account Link" width=40% style="margin-left: 2em;">
 
