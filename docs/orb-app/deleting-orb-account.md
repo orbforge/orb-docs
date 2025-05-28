@@ -38,11 +38,13 @@ Open the account settings menu in the Orb app and follow these steps:
 
 <img src="../../images/orb-app/delete-account-confirm.png" alt="Confirm Delete" width=40% style="margin-left: 2em;">
 
-### Request Deletion via Email
+### From Orb.net Website
 
-If you would like Orb to delete your user account or specific Orb data, please email us at support@orb.net, with the subject line "Deletion Request" and the details of your request.
+Visit the Delete Orb Account page on our website:
 
-To ensure proper ownership, we email account owners to validate deletion requests are authorized.
+1. Go to [Delete Orb Account](https://orb.net/support/delete-account)
+2. Log in to your account
+3. Follow the prompts to confirm deletion
 
 ## What Happens to Your Data
 
