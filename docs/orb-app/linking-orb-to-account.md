@@ -31,29 +31,30 @@ Linking multiple sensors to your account provides several advantages:
 
 There are several ways to link an Orb sensor to your account:
 
-### Method 1: Automatic Discovery (Recommended)
-
-If your new Orb sensor is on the same local network as a device already signed in to your Orb account:
-
-1. Install the Orb app on the new device
-2. Open the app and wait for the automatic discovery process
-3. On your already-linked device, you'll receive a notification about the new sensor
-4. Tap "Link to my account" to connect the sensor
-
-<img src="../../images/orb-app/auto-discovery-link.png" alt="Auto Link" width=60% style="margin-left: 2em;">
-
-### Method 2: Sign In Directly
-
-You can also simply sign in to your Orb account in teh Orb app on the new device:
+### Orb on Your Phone, Desktop or Tablet
+If you have the Orb app installed on your phone, tablet, or desktop, you can link it to your account by signing in.
 
 1. Install the Orb app on the new device
 2. Open the app and tap "Sign In"
 3. Enter your Orb account email and password
 4. The device will automatically be added as a sensor to your account
 
-## Manually linking a Sensor
+### Orb on another device (e.g. Raspberry Pi)
 
-If you need to manually link a sensor to your account:
+#### Automatic Discovery (Recommended)
+
+If your new Orb sensor is on the same local network as a device already signed in to your Orb account:
+
+1. Install Orb on the new device
+2. Start the app and wait for the automatic discovery process
+3. On your already-linked device, you'll receive a notification about the new sensor
+4. Tap "Link to my account" to connect the sensor
+
+<img src="../../images/orb-app/auto-discovery-link.png" alt="Auto Link" width=60% style="margin-left: 2em;">
+
+#### Manually Linking a Discovered Sensor
+
+If you want to link an orb sensor that was automatically discovered (listed under "Orbs on this network"):
 
 1. In the Orb Summary, find the Orb sensor you would like to link (see "Orbs on this network")
 2. Tap on the Orb setting menu (... near the sensor name)
@@ -62,17 +63,27 @@ If you need to manually link a sensor to your account:
 
 <img src="../../images/orb-app/link-account.png" alt="Account Link" width=40% style="margin-left: 2em;">
 
-## Linking a Sensor with CLI
+#### Linking a Sensor from the CLI
 
-To link a sensor to your account via the command line:
+If the newly started Orb sensor is not automatically discovered, you can link it manually using the command line interface:
 
 1. Open a terminal on the device
-2. Run the command `orb link`
+2. Run the `orb link` command
+  Note: this commmand need to be run as the same user that runs the Orb Sensor.
+  You could use `su` to switch to that user before running the command, or you can use  `sudo` to run the command as that user directly. 
+  On most systems (Debian, Redhat, Alpine), this is typically the `orb` user. For OpenWRT variants, it is typically the `root` user.
+ 
+  For example, if you are using Debian or Redhat, you can run:
+  ```bash
+  sudo -u orb orb link
+  ```
 3. The output of that command will include a short URL to link to your account
 4. Copy that URL into a browser on any machine, and login to your account at the prompt
 5. That Orb will now show up in any app where you’re logged in
 
-## Naming Your Orb Sensors
+## Managing Linked Sensors
+
+### Naming Your Orb Sensors
 
 After linking a sensor, it's helpful to give it a descriptive name:
 
@@ -85,7 +96,7 @@ After linking a sensor, it's helpful to give it a descriptive name:
   <img src="../../images/orb-app/rename-orb-2.png" alt="Rename Orb 2" width="40%" style="display: inline-block;">
 </div>
 
-## Unlinking a Sensor
+### Unlinking a Sensor
 
 If you need to remove a sensor from your account:
 
@@ -105,7 +116,7 @@ If automatic discovery fails:
 
 - Ensure both devices are on the same local network
 - Check that your network allows device discovery (some corporate or public networks restrict this)
-- Try the manual linking method instead
+- Try the CLI linking method instead
 
 ## Next Steps
 
