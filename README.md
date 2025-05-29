@@ -47,6 +47,34 @@ When creating your pull request, please describe:
 - Add a link to the new documentation in the relevant section of the navigation.md file
 - Run `./validate-links.py` to check for broken links or images in the documentation
 
+### Running the Documentation Preview Site
+
+This repository includes a SvelteKit-based preview site that allows you to view the documentation locally with generic styling and navigation.
+
+To run the preview site:
+
+1. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+3. Open your browser to [http://localhost:5174](http://localhost:5174)
+
+The preview site features:
+
+- Live reloading when you edit documentation files
+- Navigation sidebar matching the main website
+- Syntax highlighting for code blocks
+- Table of Contents generation for articles
+- Proper link handling for internal documentation links
+
 ### Scripts
 
 - the `/scripts` directory contains scripts for installing & configuring Orb on various platforms. If you are adding a new script, please ensure it follows the same structure and is tested on the respective platform.
