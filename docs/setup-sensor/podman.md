@@ -146,7 +146,7 @@ Congratulations! Your Orb sensor is now running as a Podman Quadlet, monitoring 
 - **Stopping Orb Temporarily:**
   - Run `systemctl stop orb-sensor` to stop the service.
 - **Deleting Orb:**
-  - Run 'rm /etc/containers/systemd/orb-sensor.container' to delete the orb service and prevent it from starting at boot time
+  - Run `rm /etc/containers/systemd/orb-sensor.container` to delete the orb service and prevent it from starting at boot time
 - **Updating Orb Manually:**
   - Run `systemctl restart orb-sensor` to pull the latest image (if `AutoUpdate=registry` is set).
   - Alternatively, manually pull the image with `podman pull docker.io/orbforge/orb:latest` and restart the service.
