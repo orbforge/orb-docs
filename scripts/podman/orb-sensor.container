@@ -1,0 +1,17 @@
+[Unit]
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+AutoUpdate=registry
+Image=docker.io/orbforge/orb:latest
+ContainerName=orb-sensor
+Network=host
+AddCapability=CAP_NET_RAW
+Volume=orb-data:/root/.config/orb:z
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
