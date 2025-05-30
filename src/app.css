@@ -133,8 +133,10 @@ table tr:nth-child(2n) {
 
 .nav-section h3 {
 	margin: 0;
-	font-size: 16px;
+	font-size: 20px;
 	font-weight: normal;
+	padding-top: 6px;
+	paddind-bottom: 6px;
 }
 
 /* Section link styling */
@@ -144,7 +146,7 @@ table tr:nth-child(2n) {
 	border-radius: 4px;
 	color: #333;
 	font-weight: 600;
-	margin: 5px 0;
+	margin: 3px 0;
 }
 
 .section-link:hover {
