@@ -91,6 +91,7 @@ Before you begin, make sure you have:
         driver: macvlan  # if the host interfaces have their own gateways already setup, you can skip this driver
         driver_opts:
           parent: enp9s0f1 # the 2nd interface you want to monitor
+					# parent: enp9s0f1.02 # you can also set vlan tags by appending .[vlan-tag] to the interface
   
     volumes:
       primary_isp_data:
@@ -106,6 +107,7 @@ Before you begin, make sure you have:
       - `labels`: Used by Watchtower to know this container should be auto-updated.
     - `watchtower`: (Optional but recommended) Defines the Watchtower service to automatically update the Orb container when new images are published.
     - `volumes:`: Sets up different volumes for each Orb container, so each get's it's own config.
+		- `networks:`: Defines each network the orb instances can use. Depending on your local network setup, you can choose to use the [`macvlan`](https://docs.docker.com/engine/network/drivers/macvlan/), [`ipvlan`](https://docs.docker.com/engine/network/drivers/ipvlan/), or other network drivers supported by Docker. 
 
 ## Step 2: Start the Orb Container
 
