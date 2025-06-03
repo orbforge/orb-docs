@@ -56,7 +56,7 @@ Before you begin, make sure you have:
         volumes:
           - primary_isp_data:/root/.config/orb
 
-	   # you can add as many orb sensors as you want to test for
+      # you can add as many orb sensors as you want to test for
       orb_secondary:
         image: orbforge/orb:latest
         container_name: orb-secondary-isp
