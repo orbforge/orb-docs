@@ -23,6 +23,7 @@
 - [Docker](/docs/setup-sensor/docker.md)
 - [Home Assistant](/docs/setup-sensor/home-assistant.md)
 - [Proxmox](/docs/setup-sensor/proxmox.md)
+- [Firewalla](/docs/setup-sensor/firewalla.md)
 - [Steam Deck](/docs/setup-sensor/steam-deck.md)
 - [GL.iNet Brume 2](/docs/setup-sensor/gl-mt2500-standalone.md)
 - [Spare iPhone](/docs/setup-sensor/spare-iphone.md)
