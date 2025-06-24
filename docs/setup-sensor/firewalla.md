@@ -97,6 +97,8 @@ The final step is to link your new Orb sensor to your account:
 3. Follow the in-app prompts to link the sensor to your Orb account
 4. Once linked, your Firewalla Orb will appear in your Orb dashboard
 
+If you are currently on a different network than the provisioned Orb, or mDNS is disabled on your network, you can [manually link your Orb](/docs/setup-sensor/docker#device-on-a-different-network).
+
 ## Troubleshooting
 
 ### SSH Connection Failed
