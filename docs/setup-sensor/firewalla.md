@@ -42,7 +42,7 @@ The "Validated" column denotes device models that have been verified to run Orb 
 Before you begin, make sure you have:
 
 - A Firewalla device (Gold, Purple, or Blue Plus)
-- SSH access enabled on your Firewalla
+- The Firewalla app on your mobile device
 - The Orb app installed on your mobile device or computer (see [Install Orb](/docs/install-orb))
 - A terminal application on a device connected to the same network as your Firewalla
 
