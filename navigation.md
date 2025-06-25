@@ -24,6 +24,8 @@
 - [Podman](/docs/setup-sensor/podman.md)
 - [Home Assistant](/docs/setup-sensor/home-assistant.md)
 - [Proxmox](/docs/setup-sensor/proxmox.md)
+- [Synology NAS](/docs/setup-sensor/synology.md)
+- [QNAP NAS](/docs/setup-sensor/qnap.md)
 - [Steam Deck](/docs/setup-sensor/steam-deck.md)
 - [GL.iNet Brume 2](/docs/setup-sensor/gl-mt2500-standalone.md)
 - [Spare iPhone](/docs/setup-sensor/spare-iphone.md)
