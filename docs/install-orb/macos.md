@@ -11,7 +11,7 @@ This guide will walk you through the process of installing the Orb app on your M
 
 ## System Requirements
 
-- macOS 11 (Big Sur) or newer
+- macOS 13 (Ventura) or newer
 
 ## Installation Steps
 
