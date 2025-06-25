@@ -28,6 +28,7 @@ The best sensor device for you depends on your specific needs:
 - [Raspberry Pi](/docs/setup-sensor/raspberry-pi.md)
 - [OpenWrt](/docs/setup-sensor/linux/openwrt.md)
 - [Docker](/docs/setup-sensor/docker.md)
+- [Podman](/docs/setup-sensor/podman.md)
 - [Home Assistant](/docs/setup-sensor/home-assistant.md)
 - [Proxmox](/docs/setup-sensor/proxmox.md)
 - [Steam Deck](/docs/setup-sensor/steam-deck.md)
