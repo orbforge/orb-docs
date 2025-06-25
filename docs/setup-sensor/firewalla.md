@@ -113,8 +113,8 @@ If you cannot connect via SSH:
 
 If the Orb container fails to start:
 
-- Check container status: `docker ps -a`
-- View container logs: `docker logs orb-sensor`
+- Check container status: `sudo docker-compose ps`
+- View container logs: `sudo docker-compose logs orb-docker`
 - Ensure no other services are using the required ports
 
 ### Orb Sensor Not Being Detected
@@ -122,8 +122,8 @@ If the Orb container fails to start:
 If your Orb sensor is not automatically detected by the app:
 
 - Ensure your mobile device or computer is on the same network as your Firewalla
-- Verify the container is running: `docker ps`
-- Restart the container: `docker-compose restart`
+- Verify the container is running: `sudo docker-compose ps`
+- Restart the container: `sudo docker-compose restart`
 
 ## Additional Resources
 
