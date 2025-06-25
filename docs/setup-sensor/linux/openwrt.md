@@ -74,14 +74,6 @@ Congratulations! Your OpenWrt device is now running as an Orb Sensor, monitoring
   - Check firewall settings on the OpenWrt device (System > Firewall in LuCI) to ensure they aren't blocking discovery (mDNS/Bonjour, UDP port 5353). The default OpenWrt firewall settings usually allow this on the LAN side.
 - **General OpenWrt Issues:** Refer to the official [OpenWrt Documentation](https://openwrt.org/docs/start).
 
-## Automatic Installation
-
-For a simple setup, use the one-line setup script.
-
-```bash
-curl -fsSL https://orb.net/docs/scripts/openwrt/setup.sh | sh
-```
-
 ## Manual Installation
 
 These instructions provide the manual steps for installing Orb on OpenWrt.
