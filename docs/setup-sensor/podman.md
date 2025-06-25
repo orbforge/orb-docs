@@ -4,7 +4,6 @@ shortTitle: Podman Quadlet
 metaDescription: Run the Orb sensor as a Podman container managed by a systemd quadlet on any compatible system.
 section: setup-sensor
 layout: guides
-imageUrl: ../../images/devices/podman.png
 subtitle: 'Difficulty: Intermediate 🧑‍🔬'
 ---
 
