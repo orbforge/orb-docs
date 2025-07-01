@@ -1,20 +1,24 @@
 ---
-title: Measuring multiple connections
-shortTitle: Multiple Connections
-metaDescription: Run the Orb sensor in a setup with multiple connections
+title: Measuring multiple interfaces
+shortTitle: Multiple Interfaces
+metaDescription: Run the Orb sensor in a setup with multiple interfaces
 section: setup-sensor
 layout: guides
 imageUrl: ../../images/devices/docker.png
 subtitle: 'Difficulty: Advanced 🧑‍🔬'
 ---
 
-# Installing multiple Orbs to monitor multiple connections
+# Installing multiple Orbs to monitor multiple interfaces
 
 ## Introduction
 
-On a device with multiple subnets and gateways, you can configure multiple orbs to measure each connection simultaneously. For this setup we're going to be using Docker on Linux. This guide will show you how to configure Orb in a multi-sensor setup, using [Docker](https://www.docker.com/) and the `macvlan` driver.
+On a device with multiple subnets and gateways, you can configure multiple orbs to measure each interface simultaneously. For this setup we're going to be using Docker on Linux. This guide will show you how to configure Orb in a multi-sensor setup, using [Docker](https://www.docker.com/) and (optionally) the `macvlan` driver.
 
 This guide assumes you have Docker and Docker Compose already installed and running on your host system.
+
+### VLAN support
+
+Multiple connections can be available in different setups, either provided through "physical" vlans, multiple nics with different subnets and gateways, or maybe other virtual networks inside the host machine. This docker setup below describes a single host with multiple subnets and a gateway per subnet. Please refer to the [#VLAN support](#VLAN+support) section which describes how to tag the docker container to use specific VLAN tags if needed.
 
 ## Prerequisites
 
@@ -33,8 +37,8 @@ Before you begin, make sure you have:
 2.  Paste the following content exactly into the `docker-compose.yml` file:
 
     ```yaml
+    version: '3.0'
     services:
-    
       orb_primary:
         image: orbforge/orb:latest
         container_name: orb-primary-isp
@@ -43,6 +47,7 @@ Before you begin, make sure you have:
         labels:
           - "com.centurylinklabs.watchtower.enable=true"
           - "com.centurylinklabs.watchtower.scope=orb"
+
         networks:
           isp_primary:
             # optional, if you need to set a static ip, this is the place to do it
@@ -66,6 +71,7 @@ Before you begin, make sure you have:
           - "com.centurylinklabs.watchtower.enable=true"
           - "com.centurylinklabs.watchtower.scope=orb"
         networks:
+          # optional, if you need to set a static ip, this is the place to do it
           isp_secondary:
             ipv4_address: 10.0.20.50
         # mac_address: '02:42:0A:00:01:BB'
@@ -84,6 +90,9 @@ Before you begin, make sure you have:
 
     networks:
       isp_primary:
+			  # optional: if this is pointing to the host's primary interface,
+				# you don't need to configure a driver, you can enable it here
+        # driver: macvlan
         driver_opts:
           parent: enp8s0f1  # the interface you want to monitor
   
@@ -91,7 +100,7 @@ Before you begin, make sure you have:
         driver: macvlan  # if the host interfaces have their own gateways already setup, you can skip this driver
         driver_opts:
           parent: enp9s0f1 # the 2nd interface you want to monitor
-					# parent: enp9s0f1.02 # you can also set vlan tags by appending .[vlan-tag] to the interface
+          # parent: enp9s0f1.02 # you can also set vlan tags by appending .[vlan-tag] to the interface
   
     volumes:
       primary_isp_data:
@@ -107,7 +116,17 @@ Before you begin, make sure you have:
       - `labels`: Used by Watchtower to know this container should be auto-updated.
     - `watchtower`: (Optional but recommended) Defines the Watchtower service to automatically update the Orb container when new images are published.
     - `volumes:`: Sets up different volumes for each Orb container, so each get's it's own config.
-		- `networks:`: Defines each network the orb instances can use. Depending on your local network setup, you can choose to use the [`macvlan`](https://docs.docker.com/engine/network/drivers/macvlan/), [`ipvlan`](https://docs.docker.com/engine/network/drivers/ipvlan/), or other network drivers supported by Docker. 
+    - `networks:`: Defines each network the orb instances can use. Depending on your local network setup, you can choose to use the [`macvlan`](https://docs.docker.com/engine/network/drivers/macvlan/), [`ipvlan`](https://docs.docker.com/engine/network/drivers/ipvlan/), or other network drivers supported by Docker. __You can have multiple networks using the `macvlan` driver, pointing to different parents__
+
+### VLAN support
+If you have a host device with ethernet ports that support vlan tagging on the network level, you can tell the driver to add the vlan tags like so:
+
+```
+isp_secondary:
+	driver: macvlan  # if the host interfaces have their own gateways already setup, you can skip this driver
+	driver_opts:
+		parent: enp9s0f1.02 # This would set the vlan tag 2, using the `enp9s0f1` device
+```
 
 ## Step 2: Start the Orb Container
 
