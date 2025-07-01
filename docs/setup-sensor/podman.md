@@ -41,6 +41,7 @@ If you'd like to run Orb with auto-updates and don't want to get into the detail
 mkdir -p /etc/containers/systemd
 curl -fsSL https://orb.net/docs/scripts/podman/orb-sensor.container -o /etc/containers/systemd/orb-sensor.container
 systemctl daemon-reload
+systemctl enable --now podman-auto-update.timer
 systemctl start orb-sensor
 podman exec -it orb-sensor /app/orb link
 ```
@@ -91,10 +92,11 @@ Quadlets are systemd unit files with a `.container` extension that define contai
 
 ## Step 2: Start the Orb Container
 
-1. Reload systemd to recognize the quadlet, then start the Orb sensor service:
+1. Reload systemd to recognize the quadlet, enable auto updates, and start the Orb sensor service:
 
    ```bash
    systemctl daemon-reload
+   systemctl enable --now podman-auto-update.timer
    systemctl start orb-sensor
    ```
 
