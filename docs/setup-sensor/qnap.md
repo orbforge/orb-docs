@@ -34,29 +34,32 @@ First, access the Container Station application:
 1. Open your QNAP interface in a web browser
 2. Open the **Container Station** application from the main menu
 
-## Step 2: Search for the Orb Container
+## Step 2: Search & Create the Orb Container
 
 In Container Station:
 
-1. Navigate to the **Create** section
-2. In the search bar, type "orbforge"
-3. Look for **orbforge/orb** in the search results
-4. Click on the container to select it
+1. Navigate to **Containers** option in the left hand side
+2. Click the **Create** button
+3. In the **Image** field enter **orbforge/orb**
+4. Give the container a name
 
 ## Step 3: Configure Network Settings
 
 The Orb sensor requires host network mode to function properly:
 
-1. In the container configuration, find the **Network** settings
-2. Set the network mode to **Host**
-3. This allows the container to access your network directly
+1. In the container configuration where you name the container, find **Advanced Settings** at the bottom left
+2. Click **Networks** in the left hand side menu
+3. Select **Custom** for the Network mode
+4. In the drop down, select **Host**
+5. Select **Apply**
+6. This allows the container to access your network directly
 
 ## Step 4: Start the Container
 
 Now you're ready to launch the Orb sensor:
 
 1. Review your settings to ensure the network mode is set to Host
-2. Click **Create** or **Apply** to start the container
+2. Click **Finish** to start the container
 3. Orb should now be running on your QNAP NAS
 
 ## Step 5: Link Your Orb to Your Account
