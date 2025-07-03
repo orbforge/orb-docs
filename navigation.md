@@ -18,6 +18,7 @@
 ## [Set up an Orb sensor](/docs/setup-sensor)
 
 - [Linux](/docs/setup-sensor/linux)
+- [macOS](/docs/setup-sensor/macos.md)
 - [Raspberry Pi](/docs/setup-sensor/raspberry-pi.md)
 - [OpenWrt](/docs/setup-sensor/linux/openwrt.md)
 - [Docker](/docs/setup-sensor/docker.md)
