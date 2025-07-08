@@ -1,6 +1,6 @@
 ---
-title: Orb Scores & Metrics
-shortTitle: Scores & Metrics
+title: Orb Scores and Metrics
+shortTitle: Scores and Metrics
 metaDescription: Understand how Orb calculates network performance scores and what the different metrics mean for your internet experience.
 section: Orb app
 ---
@@ -70,6 +70,15 @@ When reviewing your Orb scores and metrics:
 2. **Consider your usage**: Different activities have different requirements
 3. **Compare to expectations**: How does performance compare to your internet plan?
 4. **Track changes over time**: Is performance improving or deteriorating?
+
+## Sharing Your Scores
+
+- You can share your Orb scores with support teams or community forums to get help diagnosing issues.
+- Use the "Share Orb Score" feature in the Orb app to generate a link that includes your Orb Scores.
+- This feature can be found by expanding the Orb menu (...) from either the summary or detail view of the Orb app.
+<Image src="../../images/orb-app/orb-score-share-menu.png" alt="Orb Score Share Menu" />
+- This will generate a link that you can copy and share with others, allowing them to view your Orb Scores without needing to log in to your account.
+<Image src="../../images/orb-app/orb-score-share.png" alt="Orb Score Share" />
 
 ## Next Steps
 
