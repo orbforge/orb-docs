@@ -10,7 +10,6 @@ section: Getting Started
 Orb is an intelligent app &amp; platform designed to help you understand and improve your internet connectivity. Unlike traditional speed tests that provide only a momentary snapshot, Orb continuously monitors your network to give you a complete picture of your true internet experience, beyond just peak speed.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ZkQqpeaJOKI?si=F7HkaAGgBkO0rsCt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-<br />
 
 ## Key Features
 
