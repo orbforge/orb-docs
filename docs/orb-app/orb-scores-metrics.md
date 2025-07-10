@@ -25,7 +25,7 @@ A higher Orb Score indicates better overall performance. The score is color-code
 - **Orange (50-69)**: Fair performance with noticeable issues
 - **Red (0-49)**: Poor performance that needs attention
 
-<Image src="../../images/orb-app/orb-score-scale.png" alt="Orb Score Scale" />
+<image src="../../images/orb-app/orb-score-scale.png" alt="Orb Score Scale" />
 
 ## Key Metrics
 
@@ -77,11 +77,11 @@ When reviewing your Orb scores and metrics:
 - Use the "Share Orb Score" feature in the Orb app to generate a link that includes your Orb Scores.
 - This feature can be found by expanding the Orb menu (...) from either the summary or detail view of the Orb app.
 
-<Image src="../../images/orb-app/orb-score-share-menu.png" alt="Orb Score Share Menu" />
+<image src="../../images/orb-app/orb-score-share-menu.png" alt="Orb Score Share Menu" width=40% style="margin-left: 2em;"/>
 
 - This will generate a link that you can copy and share with others, allowing them to view your Orb Scores without needing to log in to your account.
 
-<Image src="../../images/orb-app/orb-score-share.png" alt="Orb Score Share" />
+<image src="../../images/orb-app/orb-score-share.png" alt="Orb Score Share" width=40% style="margin-left: 2em;"/>
 
 ## Next Steps
 
