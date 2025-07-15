@@ -17,8 +17,6 @@ Orb can send notifications to keep you informed about your network:
 
 **Sensor Status**: Alerts about your Orb sensors going offline or coming back online
 
-**Additional notification types and settings coming soon!**
-
 ## Notification Settings
 
 ### Accessing Notification Settings from Account Settings
@@ -30,9 +28,17 @@ Orb can send notifications to keep you informed about your network:
    - Allow Notifications: toggling this allows the device to receive notifications from your Orbs
    - Orb list: all Orbs linked to your account appear below, specify which Orbs you would like to reeceive notifications from.
 
-   <img src="../../images/orb-app/notifications-account-menu.png" alt="Notifications Settings Menu" width=40% style="margin-left: 2em;">
+   <img src="../../images/orb-app/notifications-account-menu-v2.png" alt="Notifications Settings Menu" width=40% style="margin-left: 2em;"/>
 
    Note: receiving notifications from mobile devices may be too noisy as these Orbs will go online and offline frequently (when app closed or backgrounded). Exceptions include: using a spare phone as a dedicated sensor or using the "keep awake" feature.
+4. Set your preference for the sensivity of your notifications by using the dropdown menu with the following options:
+   - Instant: receive notifications immediately when an Orb goes offline or comes back online
+   - 10 seconds: default setting, receive notifications after 10 seconds of being offline
+   - 1 minute: receive notifications after 1 minute of being offline
+   - 5 minutes: receive notifications after 5 minutes of being offline
+   - 10 minutes: receive notifications after 15 minutes of being offline
+
+   <img src="../../images/orb-app/notifications-threshold-menu.png" alt="Notifications Settings Menu" width=40% style="margin-left: 2em;"/>
 
 ### Accessing Notification Settings from Orb Settings Menu
 
