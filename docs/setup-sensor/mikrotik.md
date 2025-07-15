@@ -227,6 +227,10 @@ For devices experiencing high CPU usage:
 - Monitor CPU usage via **System > Resources**
 - Consider upgrading to a more powerful device if issues persist
 
+### Updating the Container
+
+Unfortunately, RouterOS does not support a mechanism for easily updating to the latest version of the Orb image-- automated or otherwise. The solution is to delete the container and make a new container with the same configuration, which will pull the :latest tagged image from Docker Hub. As we set up persistent storage, you will not need to re-link and your history will be preserved.
+
 ### Container Shell Access Issues
 
 If you cannot access the container shell:

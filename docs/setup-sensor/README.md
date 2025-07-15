@@ -31,6 +31,7 @@ The best sensor device for you depends on your specific needs:
 - [Podman](/docs/setup-sensor/podman.md)
 - [Home Assistant](/docs/setup-sensor/home-assistant.md)
 - [Proxmox](/docs/setup-sensor/proxmox.md)
+- [MikroTik](/docs/setup-sensor/mikrotik.md)
 - [Firewalla](/docs/setup-sensor/firewalla.md)
 - [Synology NAS](/docs/setup-sensor/synology.md)
 - [QNAP NAS](/docs/setup-sensor/qnap.md)
