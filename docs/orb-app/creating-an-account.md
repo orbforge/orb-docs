@@ -38,9 +38,8 @@ An Orb account provides several benefits:
 
 ### Method 2: From the Website
 
-1. Visit [Orb.net](https://orb.net/sign-in) in your web browser
-2. Click "Sign In" in the top right corner, then select "Create Account"
-   - If you already have an account, you can log in here
+1. Visit [Orb.net/sign-in](https://orb.net/sign-in) in your web browser
+2. Select "Create Account"
 3. Enter your email address or choose one of the other authentication methods
    - Google
    - Apple
