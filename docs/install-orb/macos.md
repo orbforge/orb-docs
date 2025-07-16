@@ -22,12 +22,12 @@ This guide will walk you through the process of installing the Orb app on your M
 3. Tap "Get" to download the app
 4. Wait for the download and installation to complete
 
-### Step 3: Open the App
+### Step 2: Open the App
 
 1. Once the installation is complete, tap "Open" or alternatively, find the Orb app icon on your home screen and tap it
 2. Proceed through onboarding and permission requests
 
-### Step 4: Onboarding and Permissions
+### Step 3: Onboarding and Permissions
 
 When you first open the app, you will be guided through the onboarding process with a variety of information modals and permission requests:
 
@@ -53,7 +53,7 @@ If you're having trouble downloading the app:
 If the app downloads but won't open:
 
 1. Restart your device
-2. Check if iOS needs to be updated
+2. Check if macOS needs to be updated
 3. Delete and reinstall the app
 
 ## Next Steps
