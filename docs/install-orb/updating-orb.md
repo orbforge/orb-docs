@@ -1,13 +1,13 @@
 ---
 title: Updating Orb
 shortTitle: Updating Orb
-metaDescription: Learn how to keep your Orb app and sensors up-to-date on all platforms
+metaDescription: Learn how to keep your Orb app and sensors up to date on all platforms
 section: Install Orb
 ---
 
 # Updating Orb
 
-Keeping your Orb app and sensors up-to-date ensures you have access to the latest features, improvements, and security updates. This guide explains how to update Orb on different platforms.
+Keeping your Orb app and sensors up to date ensures you have access to the latest features, improvements, and security updates. This guide explains how to update Orb on different platforms.
 
 ## Updating the Orb app
 
@@ -35,7 +35,7 @@ Keeping your Orb app and sensors up-to-date ensures you have access to the lates
 Automatic updates coming soon!
 
 1. Download the latest version from the [Windows installation page](/docs/install-orb/windows.md)
-2. Once the .exe file is downloaded, double click on the file to run the installer
+2. Once the .exe file is downloaded, double-click on the file to run the installer
 3. Follow the installation prompts to update Orb
 
 ## Updating Orb Sensors

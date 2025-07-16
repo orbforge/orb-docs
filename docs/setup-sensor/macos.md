@@ -27,7 +27,7 @@ To start orbforge/orb/orb immediately and restart at login:
 brew services start orbforge/orb/orb
 ```
 
-If you don't want/need a background service or would likse to use other CLI functions, you can run:
+If you don't want or need a background service or would like to use other CLI functions, you can run:
 
 ```bash
 /opt/homebrew/opt/orb/bin/orb help

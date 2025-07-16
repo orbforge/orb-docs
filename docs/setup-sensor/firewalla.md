@@ -23,17 +23,17 @@ With the Orb sensor running on your Firewalla, you can:
 
 The following Firewalla devices noted as "Supported" support Docker and should be able to run the Orb sensor:
 
-| Device | Supported | Validated | Notes |
-|--------|----------------|-----------|--|
-| Gold | ✓ | | |
-| Gold SE | ✓ | ✓ | |
-| Gold Plus | ✓ | ✓ | |
-| Gold Pro | ✓ | | |
-| Purple | ✓ | | |
-| Purple SE | ✓ | | |
-| Blue Plus | ✓ | | |
-| Blue | ✗ | | |
-| Red | ✗ | | |
+| Device      | Supported | Validated | Notes |
+|-------------|:---------:|:---------:|-------|
+| Gold        | ✓         |           |       |
+| Gold SE     | ✓         | ✓         |       |
+| Gold Plus   | ✓         | ✓         |       |
+| Gold Pro    | ✓         |           |       |
+| Purple      | ✓         |           |       |
+| Purple SE   | ✓         |           |       |
+| Blue Plus   | ✓         |           |       |
+| Blue        | ✗         |           |       |
+| Red         | ✗         |           |       |
 
 The "Validated" column denotes device models that have been verified to run Orb by the Orb Forge team or members of the Orb community.
 

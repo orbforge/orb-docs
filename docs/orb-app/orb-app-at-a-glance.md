@@ -1,11 +1,11 @@
 ---
-title: The Orb app at a glance
+title: The Orb App at a Glance
 shortTitle: App Overview
 metaDescription: Get a quick overview of the Orb app interface, features, and navigation to help you get started.
-section: Orb app
+section: Orb App
 ---
 
-# The Orb app at a glance
+# The Orb App at a Glance
 
 This guide provides a quick tour of the Orb app interface to help you get oriented and start using Orb effectively.
 
@@ -54,12 +54,12 @@ In addition to the information above, the detail screen includes:
     - Responsiveness over time
     - Packet loss over time
   - Speed
-    - Content Download speed (Mbps)
-    - Content Upload speed (Mbps)
-    - Peak Download speed (Mbps)
-    - Peak Upload speed (Mbps)
+    - Content download speed (Mbps)
+    - Content upload speed (Mbps)
+    - Peak download speed (Mbps)
+    - Peak upload speed (Mbps)
 - Status message tailored to your internet experience
-- Improve Connection feature (when score below 80)
+- Improve Connection feature (when score is below 80)
 
 ### Account Settings
 
@@ -70,8 +70,8 @@ Important settings:
 - Account management (signing in and out)
 - Notification preferences
 - Sensor configurations (keep awake)
-- Submit Feedback
-- Privacy Policy and Terms of Use
+- Submit feedback
+- Privacy policy and terms of use
 
 <img src="../../images/orb-app/orb-account-menu.png" alt="Orb Account Menu" width=40% style="margin-left: 2em;">
 
@@ -86,6 +86,6 @@ Important settings:
 
 Now that you're familiar with the app interface, check out these guides to learn more:
 
-- [Orb summary view](/docs/orb-app/orb-summary-view.md) - Learn about the Orb Summary
-- [Orb detail view](/docs/orb-app/orb-detail-view.md) - Explore the detailed metrics available for each sensor
-- [Orb scores & metrics](/docs/orb-app/orb-scores-metrics.md) - Understand how Orb measures your network
+- [Orb Summary View](/docs/orb-app/orb-summary-view.md) - Learn about the Orb Summary
+- [Orb Detail View](/docs/orb-app/orb-detail-view.md) - Explore the detailed metrics available for each sensor
+- [Orb Scores & Metrics](/docs/orb-app/orb-scores-metrics.md) - Understand how Orb measures your network

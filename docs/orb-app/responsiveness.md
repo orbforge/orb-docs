@@ -29,7 +29,7 @@ The variation in latency over time, reported in milliseconds (ms). High jitter c
 
 The percentage of data packets that are lost or delayed during transmission, reported as a percentage (%). High packet loss or significantly delayed packets will impact lag due to packet resubmission.
 
-### Web load (typical)
+### Web Load (Typical)
 
 The time it takes to load a typical web page, reported in milliseconds (ms). This metric gives you an idea of how quickly your connection can handle everyday tasks. This metric is informational only.
 
@@ -102,5 +102,5 @@ If your responsiveness metrics show room for improvement, consider these actions
 To learn more about Orb measurements:
 
 - [Orb Scores and Metrics](/docs/orb-app/orb-scores-metrics.md)
-- [Understanding Speed metrics](/docs/orb-app/speed.md)
-- [Understanding Reliability metrics](/docs/orb-app/reliability.md)
+- [Understanding Speed Metrics](/docs/orb-app/speed.md)
+- [Understanding Reliability Metrics](/docs/orb-app/reliability.md)

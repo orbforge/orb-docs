@@ -14,16 +14,16 @@ subtitle: 'Difficulty: Intermediate 🧑‍🔬'
 
 The GL.iNet [Brume 2](https://www.gl-inet.com/products/gl-mt2500/) (GL-MT2500 and GL-MT2500A) is a VPN Gateway - essentially a well-equipped tiny computer that's perfect for running as a standalone Orb device!
 
-This guide will walk you through flashing a new firmware image with Orb pre-installed, which will allow you to plug the Brume 2 into an open ethernet port on your router, a network switch, or a mesh unit to continuously monitor your network. If you already have a Brume 2 set up as a VPN Gateway, router, or Pi Hole and wish to retain the stock firmware, a separate guide for that option is coming soon.
+This guide will walk you through flashing a new firmware image with Orb pre-installed, which will allow you to plug the Brume 2 into an open Ethernet port on your router, a network switch, or a mesh unit to continuously monitor your network. If you already have a Brume 2 set up as a VPN Gateway, router, or Pi-hole and wish to retain the stock firmware, a separate guide for that option is coming soon.
 
 ## Equipment Needed
 
 Before you begin, make sure you have:
 
 - GL.iNet Brume 2 (model GL-MT2500 or GL-MT2500A)
-- 2 ethernet cables (note: the Brume 2 comes with one)
-- An open ethernet port on your home router or network switch
-- A personal computer with an ethernet port (or with a USB ethernet adapter)
+- 2 Ethernet cables (note: the Brume 2 comes with one)
+- An open Ethernet port on your home router or network switch
+- A personal computer with an Ethernet port (or with a USB Ethernet adapter)
 - Power supply for the Brume 2 (included with the device)
 
 ## Step 1: Create your OpenWRT Image
@@ -143,10 +143,10 @@ chmod +x /etc/init.d/orb-setup
 
 Now we'll set up the physical connections for your Brume 2:
 
-1. Identify the ports on your Brume 2. The device has two ethernet ports labeled "WAN" and "LAN"
-2. Plug one ethernet cable into an open port on your home network router or switch
+1. Identify the ports on your Brume 2. The device has two Ethernet ports labeled "WAN" and "LAN"
+2. Plug one Ethernet cable into an open port on your home network router or switch
 3. Connect the other end of this cable to the **WAN** port on the Brume 2
-4. Plug a second ethernet cable into your computer's ethernet port (or USB ethernet adapter)
+4. Plug a second Ethernet cable into your computer's Ethernet port (or USB Ethernet adapter)
 5. Connect the other end of this cable to the **LAN** port on the Brume 2
 6. Connect the USB-C power adapter (included with your Brume 2) to the device
 7. Plug the power adapter into a wall outlet or power strip
@@ -157,7 +157,7 @@ Now we'll set up the physical connections for your Brume 2:
 
 Now we'll install the custom OpenWRT image with Orb pre-installed:
 
-1. When you visit http://192.168.8.1, the Brume 2 will display its setup page and prompt you to set a password
+1. When you visit <http://192.168.8.1>, the Brume 2 will display its setup page and prompt you to set a password
 2. Create a password as instructed and proceed to the main dashboard
 
 ![Set stock firmware password](../../images/gl-mt2500/3.2.png)
@@ -180,7 +180,7 @@ Now we'll install the custom OpenWRT image with Orb pre-installed:
 
 7. You'll see a progress indicator - **DO NOT disconnect power during this process**
 8. The device will automatically reboot when the upgrade is complete
-9. Once the lights on the Brume 2 stop flashing and stabilize, unplug the ethernet cable from the LAN port (the one connected to your computer)
+9. Once the lights on the Brume 2 stop flashing and stabilize, unplug the Ethernet cable from the LAN port (the one connected to your computer)
 10. Open the Orb app on your phone or personal computer. Your new Orb should be automatically detected and ready to link to your account!
 
 ## Step 4: Set a root password
@@ -188,7 +188,7 @@ Now we'll install the custom OpenWRT image with Orb pre-installed:
 Now we'll set a root password for your new device for security purposes:
 
 1. The new Orb in the Orb app will have a name in the format of "Orb-1234" (where 1234 is a random number)
-2. To access the device's admin interface, open a web browser and visit http://orb-1234.local, replacing "1234" with the actual number shown in your Orb app
+2. To access the device's admin interface, open a web browser and visit <http://orb-1234.local>, replacing "1234" with the actual number shown in your Orb app
 3. Click the "Log in" button without setting a password
 
 ![Login prompt](../../images/gl-mt2500/4.3.png)

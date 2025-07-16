@@ -1,5 +1,5 @@
 ---
-title: Installing the Orb sensor on a Raspberry Pi
+title: Installing the Orb Sensor on a Raspberry Pi
 shortTitle: Raspberry Pi
 metaDescription: Set up a Raspberry Pi with Raspberry Pi OS to act as a standalone Orb sensor for monitoring your network.
 section: setup-sensor
@@ -8,11 +8,11 @@ imageUrl: ../../images/devices/raspberry-pi.png
 subtitle: 'Difficulty: Intermediate 🧑‍🔬'
 ---
 
-# Installing the Orb sensor on a Raspberry Pi
+# Installing the Orb Sensor on a Raspberry Pi
 
 ## Introduction
 
-This guide walks you through setting up a Raspberry Pi with Raspberry Pi OS to act as a standalone Orb sensor to monitor your network via a WiFi or ethernet connection. If you already have a Raspberry Pi set up and running Raspberry Pi OS and wish to install Orb, simply see the [Linux install guide](/docs/setup-sensor/linux).
+This guide walks you through setting up a Raspberry Pi with Raspberry Pi OS to act as a standalone Orb sensor to monitor your network via a WiFi or Ethernet connection. If you already have a Raspberry Pi set up and running Raspberry Pi OS and wish to install Orb, simply see the [Linux install guide](/docs/setup-sensor/linux).
 
 ## Equipment Needed
 
@@ -24,7 +24,7 @@ This guide walks you through setting up a Raspberry Pi with Raspberry Pi OS to a
 ## Step 1: Download and Install Raspberry Pi OS
 
 1. Download **Raspberry Pi Imager** from [the official website](https://www.raspberrypi.com/software/).
-2. Insert your SD card into your computer (directly or via USB adapter).  
+2. Insert your SD card into your computer (directly or via USB adapter).
    ⚠️ **Warning:** This will erase all data on the SD card!
 3. Open Raspberry Pi Imager and click **"CHOOSE DEVICE"**.
 4. Select your Raspberry Pi model (e.g., **"Raspberry Pi 5"**).
@@ -68,7 +68,7 @@ When prompted with **"Use OS customization?"**, click **"EDIT SETTINGS"** and co
 6. Enter your password and press Enter (the cursor will not move as you type).
 7. You are now connected when you see: `orb@raspberrypi-orb:~$`
 
-## Step 4: Install the Orb service
+## Step 4: Install the Orb Service
 
 ```bash
 # Add Orb Forge's GPG key
@@ -82,7 +82,7 @@ sudo apt-get update && sudo apt-get install orb
 sudo systemctl enable --now orb-update.timer
 ```
 
-## Step 5: Link your Orb to your account
+## Step 5: Link to your Orb account
 
 1. Once the installation script finishes, the Orb sensor should be running on your Raspberry Pi device.
 2. Open the Orb app on your phone or personal computer.

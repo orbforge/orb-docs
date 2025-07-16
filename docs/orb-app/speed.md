@@ -11,12 +11,12 @@ Speed is one of the three key components of your Orb Score, measuring how quickl
 
 ## Speed Measurements
 
-Speed measures how quickly data can be transferred to and from a devices. It includes:
+Speed measures how quickly data can be transferred to and from devices. It includes:
 
 - **Content Download Speed**: How quickly you can receive data, reported in Mbps
 - **Content Upload Speed**: How quickly you can send data, reported in Mbps
 
-Orb's primary speed measurements and important for activities like streaming videos, downloading files, video conferencing, and other relevant day-to-day activities. Content speed tests are performed by downloading and uploading a small amount of data (10 MB file) to and from your device.
+Orb's primary speed measurements are important for activities like streaming videos, downloading files, video conferencing, and other relevant day-to-day activities. Content speed tests are performed by downloading and uploading a small amount of data (10 MB file) to and from your device.
 
 <img src="../../images/orb-app/speed-card-expanded.png" alt="Speed" width=60% style="margin-left: 2em;">
 

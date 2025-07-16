@@ -15,9 +15,9 @@ This guide will walk you through the process of setting up the Orb sensor on you
 
 With the Orb sensor running on your MikroTik device, you can:
 
-- Monitor your internet experience from your MikroTik routers, switches, and access points to determine where a network issue exists
-- Track network reliability and responsiveness over time without impacting other services
-- Receive push notifications on your Android or iOS device when your MikroTik device experiences connectivity issues
+- Monitor your internet experience from your MikroTik routers, switches, and access points to determine where a network issue exists.
+- Track network reliability and responsiveness over time without impacting other services.
+- Receive push notifications on your Android or iOS device when your MikroTik device experiences connectivity issues.
 
 ## Compatibility
 
@@ -87,22 +87,24 @@ Before you begin, make sure you have:
 
 First, you need to install and enable the container package:
 
-1. Connect to your device via WebFig
-2. Select the **Advanced** tab in the top-right
-3. Navigate to **System > Packages**
-4. Click **Check for Updates**
-5. Update RouterOS if available (recommended)
-6. Once completed, click **Check for Updates** again
-7. Select the **container** package and click **Enable**, then **Apply Changes**
+1. Connect to your device via WebFig.
+2. Select the **Advanced** tab in the top-right.
+3. Navigate to **System > Packages**.
+4. Click **Check for Updates**.
+5. Update RouterOS if available (recommended).
+6. Once completed, click **Check for Updates** again.
+7. Select the **container** package and click **Enable**, then **Apply Changes**.
 
 Next, update the device mode to enable container support:
 
-1. Select the **Terminal** tab in the top-right
+1. Select the **Terminal** tab in the top-right.
 2. Enter the following command:
+
    ```routeros
    /system/device-mode/update container=yes
    ```
-3. Press the physical reset or mode button on your device within the 5-minute countdown as instructed
+
+3. Press the physical reset or mode button on your device within the 5-minute countdown as instructed.
 
 ## Step 2: Configure Container Networking
 
@@ -110,77 +112,80 @@ Create a dedicated network for the Orb container:
 
 ### Create Container Bridge
 
-1. Navigate to **Bridge > New**
+1. Navigate to **Bridge > New**.
    - Name: `containers`
-   - Click **OK**
+   - Click **OK**.
 
 ### Create Virtual Ethernet Interface
 
-1. Navigate to **Interfaces > New > VETH**
+1. Navigate to **Interfaces > New > VETH**.
    - Name: `veth-orb`
-   - Click the **+** next to **Address**
-   - Enter IP: `172.19.0.2/24` (or alternate if this network is in use)
-   - Gateway: `172.19.0.1`
-   - Click **OK**
+   - Click the **+** next to **Address**.
+   - Enter IP: `172.19.0.2/24` (or alternate if this network is in use).
+   - Gateway: `172.19.0.1`.
+   - Click **OK**.
 
 ### Add Interface to Bridge
 
-1. Navigate to **Bridge > Ports > New**
-   - Interface: `veth-orb`
-   - Bridge: `containers`
-   - Click **OK**
+1. Navigate to **Bridge > Ports > New**.
+   - Interface: `veth-orb`.
+   - Bridge: `containers`.
+   - Click **OK**.
 
 ## Step 3: Configure Container Storage and Environment
 
 ### Create Data Mount
 
-1. Navigate to **Container > Mounts > New**
-   - Name: `MOUNT_ORB_DATA`
-   - Src: `/orb-data`
-   - Dst: `/root/.config/orb`
-   - Click **OK**
+1. Navigate to **Container > Mounts > New**.
+   - Name: `MOUNT_ORB_DATA`.
+   - Src: `/orb-data`.
+   - Dst: `/root/.config/orb`.
+   - Click **OK**.
 
 ### Configure Environment Variables
 
 For router deployments, disable first-hop monitoring:
 
-1. Navigate to **Container > Envs > New**
-   - Name: `ENV_ORB`
-   - Key: `ORB_FIRSTHOP_DISABLED`
-   - Value: `1`
-   - Click **OK**
+1. Navigate to **Container > Envs > New**.
+   - Name: `ENV_ORB`.
+   - Key: `ORB_FIRSTHOP_DISABLED`.
+   - Value: `1`.
+   - Click **OK**.
 
 For devices with limited CPU (ARMv5), also disable bandwidth tests:
 
-1. Navigate to **Container > Envs > New**
-   - Name: `ENV_ORB`
-   - Key: `ORB_BANDWIDTH_DISABLED`
-   - Value: `1`
-   - Click **OK**
+1. Navigate to **Container > Envs > New**.
+   - Name: `ENV_ORB`.
+   - Key: `ORB_BANDWIDTH_DISABLED`.
+   - Value: `1`.
+   - Click **OK**.
 
 ## Step 4: Deploy the Orb Container
 
 ### Add Container
 
-1. Navigate to **Container > Container > New**
+1. Navigate to **Container > Container > New**.
 2. Click the **+** next to **Remote Image** and enter:
-   ```
+
+   ```bash
    registry.hub.docker.com/orbforge/orb-busybox:latest
    ```
+
 3. Configure the following settings:
-   - Interface: `veth-orb`
-   - Envlist: `ENV_ORB`
-   - Workdir: `/app`
-   - Mounts: `MOUNT_ORB_DATA`
-   - Logging: **enabled**
-   - Start On Boot: **enabled**
-4. Click **Apply**
-5. Click **Start**
+   - Interface: `veth-orb`.
+   - Envlist: `ENV_ORB`.
+   - Workdir: `/app`.
+   - Mounts: `MOUNT_ORB_DATA`.
+   - Logging: **enabled**.
+   - Start On Boot: **enabled**.
+4. Click **Apply**.
+5. Click **Start**.
 
 ### Configure NAT for Outbound Traffic
 
-1. Select the **Terminal** tab
+1. Select the **Terminal** tab.
 2. Enter the following command:
+
    ```routeros
    /ip/firewall/nat/add chain=srcnat action=masquerade src-address=172.19.0.0/24
    ```
@@ -190,15 +195,19 @@ For devices with limited CPU (ARMv5), also disable bandwidth tests:
 The final step is to link your new Orb sensor to your account:
 
 1. In the RouterOS terminal, connect to the container:
+
    ```routeros
    /container shell [find where name~"orb-busybox:latest"]
    ```
+
 2. Run the link command:
+
    ```bash
    /app/orb link
    ```
-3. Follow the instructions provided to complete the linking process
-4. Once linked, your MikroTik Orb will appear in your Orb dashboard
+
+3. Follow the instructions provided to complete the linking process.
+4. Once linked, your MikroTik Orb will appear in your Orb dashboard.
 
 ## Troubleshooting
 
@@ -206,42 +215,42 @@ The final step is to link your new Orb sensor to your account:
 
 If the Orb container fails to start:
 
-- Check container status in **Container > Container**
-- View logs in Terminal: `/log/print` (ensure logging is enabled in container settings)
-- Verify the veth interface has the correct IP configuration
-- Ensure NAT rule is properly configured
+- Check container status in **Container > Container**.
+- View logs in Terminal: `/log/print` (ensure logging is enabled in container settings).
+- Verify the veth interface has the correct IP configuration.
+- Ensure the NAT rule is properly configured.
 
 ### Network Connectivity Issues
 
 If the container cannot reach the internet:
 
-- Verify the NAT rule source address matches your container network
-- Check firewall rules aren't blocking container traffic
-- Ensure DNS is properly configured for the container
+- Verify the NAT rule source address matches your container network.
+- Check firewall rules aren't blocking container traffic.
+- Ensure DNS is properly configured for the container.
 
 ### Resource Constraints
 
 For devices experiencing high CPU usage:
 
-- Ensure `ORB_BANDWIDTH_DISABLED=1` is set for ARMv5 devices
-- Monitor CPU usage via **System > Resources**
-- Consider upgrading to a more powerful device if issues persist
+- Ensure `ORB_BANDWIDTH_DISABLED=1` is set for ARMv5 devices.
+- Monitor CPU usage via **System > Resources**.
+- Consider upgrading to a more powerful device if issues persist.
 
 ### Updating the Container
 
-Unfortunately, RouterOS does not support a mechanism for easily updating to the latest version of the Orb image-- automated or otherwise. The solution is to delete the container and make a new container with the same configuration, which will pull the :latest tagged image from Docker Hub. As we set up persistent storage, you will not need to re-link and your history will be preserved.
+Unfortunately, RouterOS does not support a mechanism for easily updating to the latest version of the Orb image—automated or otherwise. The solution is to delete the container and create a new container with the same configuration, which will pull the :latest tagged image from Docker Hub. As we set up persistent storage, you will not need to re-link, and your history will be preserved.
 
 ### Container Shell Access Issues
 
 If you cannot access the container shell:
 
-- Ensure the container is running
-- Try using the container ID instead of name pattern
-- Restart the container and try again
+- Ensure the container is running.
+- Try using the container ID instead of the name pattern.
+- Restart the container and try again.
 
 ## Additional Resources
 
-- For more details on RouterOS containers, see [MikroTik's Container documentation](https://help.mikrotik.com/docs/spaces/ROS/pages/84901929/Container)
-- To find compatible devices, use [MikroTik's hardware catalog](https://mikrotik.com/products?filter&s=c&a=%5B%22arm%22,%22arm64%22%5D#)
-- For alternative installation methods, see [Install Orb on Docker](/docs/setup-sensor/docker)
-- For general Orb troubleshooting, see the [Orb documentation](/docs)
+- For more details on RouterOS containers, see [MikroTik's Container documentation](https://help.mikrotik.com/docs/spaces/ROS/pages/84901929/Container).
+- To find compatible devices, use [MikroTik's hardware catalog](https://mikrotik.com/products?filter&s=c&a=%5B%22arm%22,%22arm64%22%5D#).
+- For alternative installation methods, see [Install Orb on Docker](/docs/setup-sensor/docker).
+- For general Orb troubleshooting, see the [Orb documentation](/docs).

@@ -1,11 +1,11 @@
 ---
-title: Using Orb apps
-shortTitle: Using Orb apps
+title: Using Orb Apps
+shortTitle: Using Orb Apps
 metaDescription: How to use the Orb apps - learn about the interface, features, account management, and settings to get the most out of your Orb experience.
-section: Orb app
+section: Orb App
 ---
 
-# Using Orb apps
+# Using Orb Apps
 
 This section covers everything you need to know about using the Orb app, from navigating the interface to customizing your settings.
 
@@ -17,7 +17,7 @@ This section covers everything you need to know about using the Orb app, from na
 
 ## Scores & Metrics
 
-- [Orb scores & Metrics](/docs/orb-app/orb-scores-metrics.md) - Understand how Orb evaluates your network performance
+- [Orb scores & metrics](/docs/orb-app/orb-scores-metrics.md) - Understand how Orb evaluates your network performance
 - [Responsiveness](/docs/orb-app/responsiveness.md) - Learn how Orb measures network responsiveness
 - [Reliability](/docs/orb-app/reliability.md) - Discover how Orb evaluates network reliability
 - [Speed](/docs/orb-app/speed.md) - Understand how Orb tests and measures your network speed

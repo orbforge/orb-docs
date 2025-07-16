@@ -7,7 +7,7 @@ section: Getting Started
 
 # What is Orb?
 
-Orb is an intelligent app &amp; platform designed to help you understand and improve your internet connectivity. Unlike traditional speed tests that provide only a momentary snapshot, Orb continuously monitors your network to give you a complete picture of your true internet experience, beyond just peak speed.
+Orb is an intelligent app and platform designed to help you understand and improve your internet connectivity. Unlike traditional speed tests that provide only a momentary snapshot, Orb continuously monitors your network to give you a complete picture of your true internet experience, beyond just peak speed.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ZkQqpeaJOKI?si=F7HkaAGgBkO0rsCt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 <br />
@@ -34,16 +34,15 @@ These Orb sensors collect data about your network's performance and send it to t
 
 Orb tracks three key aspects of your network performance:
 
-- **Responsiveness**: How quickly your network responds to requests
-- **Reliability**: How consistently your connection works without interruptions
-- **Speed**: How fast data can be transferred to and from your devices
+- **Responsiveness**: How quickly your network responds to requests.
+- **Reliability**: How consistently your connection works without interruptions.
+- **Speed**: How fast data can be transferred to and from your devices.
 
-Together, these metrics provide a comprehensive view of your Internet Experience.
+Together, these metrics provide a comprehensive view of your internet experience.
 
 ## Orb Scores
 
-Orb measures various metrics grouped into ⚡️Responsiveness, 💎Reliability, and 🕕Speed,
-giving each a simple score out of 100, which combine into your overall Orb Score.
+Orb measures various metrics grouped into ⚡️Responsiveness, 💎Reliability, and 🕕Speed, giving each a simple score out of 100, which combines into your overall Orb Score.
 
 ## Orb Score Scale
 

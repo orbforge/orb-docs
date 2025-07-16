@@ -44,7 +44,8 @@ First, we need to add the Orb repository to your Home Assistant add-on store:
 ![Select Repositories from menu](../../images/home-assistant/1.4.png)
 
 5. Add the following URL to your repositories:
-   ```
+
+   ```bash
    https://github.com/orbforge/addon-orb
    ```
 

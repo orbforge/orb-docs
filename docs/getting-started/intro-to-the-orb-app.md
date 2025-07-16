@@ -16,7 +16,7 @@ The Orb app is your command center for monitoring and understanding your network
 The Orb Summary is the first screen you'll see when opening the app. It provides:
 
 - An overall Orb Score for your network
-- Orb name, location, connection type (WiFi, Wired LAN, Cellular) and Internet Service Provider (ISP) information
+- Orb name, location, connection type (WiFi, Wired LAN, Cellular), and Internet Service Provider (ISP) information
 - Current status of each Orb linked to your account and found on the network (Online, Offline, Connecting)
 - Timeframe selector to view performance over different periods of time
 - Compare Orb Scores across multiple Orbs linked to your account or found nearby
@@ -27,7 +27,7 @@ The Orb Summary is the first screen you'll see when opening the app. It provides
 
 Tap on any Orb card to access the detail view, which shows:
 
-- Orb Score, Status Message, and Suggest Improvements button (when score below 80)
+- Orb Score, Status Message, and Suggest Improvements button (when score is below 80)
 - Cards for Responsiveness, Reliability, and Speed including
   - A score for each
   - Expand the card to view the metrics used to calculate each score
@@ -42,8 +42,8 @@ Tap on any Orb card to access the detail view, which shows:
 Access your account settings by tapping on the gear icon in the top right corner.
 
 - Manage your notification settings
-- Sign in and out of your account.
-- Provide feedback or submit bug reports directly from the app.
+- Sign in and out of your account
+- Provide feedback or submit bug reports directly from the app
 
 <img src="../../images/orb-app/orb-account-menu.png" alt="Orb Account" height=30% width=30% style="margin-left: 2em;">
 
