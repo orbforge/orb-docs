@@ -4,7 +4,6 @@ shortTitle: UDM (Pro)
 metaDescription: Install the Orb sensor on your UDM (Pro)
 section: setup-sensor
 layout: guides
-imageUrl: ../../images/devices/steam-deck.png
 subtitle: 'Difficulty: Intermediate 🧑‍🔬'
 ---
 
