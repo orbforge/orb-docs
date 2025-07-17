@@ -15,16 +15,16 @@ If you need to remove Orb from your devices, this guide provides instructions fo
 
 1. Find the Orb app icon on your Home Screen or App Library.
 2. Press and hold the app icon until a menu appears.
-3. Tap "Remove App."
+3. Tap "Remove App".
 4. Tap "Delete App" in the confirmation dialog.
 5. Tap "Delete" to confirm.
 
 ### Android
 
 1. Open the Settings app on your Android device.
-2. Tap "Apps" or "Applications."
+2. Tap "Apps" or "Applications".
 3. Find and tap on Orb in the list of apps.
-4. Tap "Uninstall."
+4. Tap "Uninstall".
 5. Tap "OK" to confirm.
 
 Alternatively:
@@ -40,14 +40,14 @@ Alternatively:
 1. Open Finder.
 2. Click "Applications" in the sidebar.
 3. Find the Orb app.
-4. Drag it to the Trash, or right-click and select "Move to Trash."
+4. Drag it to the Trash, or right-click and select "Move to Trash".
 5. Empty the Trash to completely remove the app.
 
 ### Windows
 
 1. In Settings, go to Apps > Installed Apps.
 2. Find Orb in the list of installed apps.
-3. Click on the ... menu and select "Uninstall."
+3. Click on the ... menu and select "Uninstall".
 4. Confirm the uninstallation.
 
 ## Removing Dedicated Sensors

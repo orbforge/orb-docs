@@ -25,7 +25,7 @@ An Orb account provides several benefits:
 
 1. Download and install the Orb app from the Google Play Store, App Store, or from our website.
 2. Open the app and proceed through the onboarding steps.
-3. On the Orb Summary view, tap "Create Account."
+3. On the Orb Summary view, tap "Create Account".
 4. Enter your email address or choose one of the other authentication methods:
    - Google
    - Apple
@@ -39,7 +39,7 @@ An Orb account provides several benefits:
 ### Method 2: From the Website
 
 1. Visit [Orb.net/sign-in](https://orb.net/sign-in) in your web browser.
-2. Select "Create Account."
+2. Select "Create Account".
 3. Enter your email address or choose one of the other authentication methods:
    - Google
    - Apple
@@ -94,7 +94,7 @@ Once your account is created, you can customize your settings:
 After creating your account, the next step is to set up an Orb sensor:
 
 1. In the Orb app, click on the menu (...) of the Orb you would like to add to your account.
-2. Select "Link this Orb to my account."
+2. Select "Link this Orb to my account".
 3. Rename the device if desired (example: Home MacBook).
 
 For more information on setting up sensors, see [Linking an Orb to your account](/docs/orb-app/linking-orb-to-account.md).

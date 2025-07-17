@@ -31,7 +31,7 @@ If you're experiencing issues with Orb, you might consider these alternatives be
 
 Open the account settings menu in the Orb app and follow these steps:
 
-1. Tap on "Delete Account."
+1. Tap on "Delete Account".
 2. Confirm your decision.
 
 <img src="../../images/orb-app/delete-account.png" alt="Delete Account" width=40% style="margin-left: 2em;">

@@ -19,9 +19,9 @@ This guide will walk you through the process of installing the Orb app on your A
 ### Step 1: Download from Google Play Store
 
 1. Open the Google Play Store on your Android device.
-2. Search for "Orb."
+2. Search for "Orb".
 3. Tap on the Orb app in the search results.
-4. Tap "Install."
+4. Tap "Install".
 5. Wait for the download and installation to complete.
 
 Alternatively, you can use this direct link: [Download Orb on Google Play](https://play.google.com/store/apps/details?id=net.orb.orb)
@@ -35,7 +35,7 @@ Alternatively, you can use this direct link: [Download Orb on Google Play](https
 
 When you first open the app, you'll be presented with several onboarding screens.
 
-1. **Welcome**: Create an account or sign in by tapping "Sign In," or skip to continue.
+1. **Welcome**: Create an account or sign in by tapping "Sign In", or skip to continue.
 2. **Location Access**: Location modal to describe the app's use of location data.
 3. **Allow Notifications**: Optional but recommended for alerts about network issues.
 

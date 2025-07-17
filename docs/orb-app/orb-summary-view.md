@@ -34,7 +34,7 @@ When you open the Orb app, the summary view is the first screen you'll see. It's
 
 ### This Orb
 
-In the upper-left corner of the screen, you’ll see a section labeled “This Orb.” It shows the Orb that’s installed on the device you’re currently using.
+In the upper-left corner of the screen, you’ll see a section labeled "This Orb". It shows the Orb that’s installed on the device you’re currently using.
 
 <img src="../../images/orb-app/this-orb.png" alt="This Orb" width=40% style="margin-left: 2em;">
 

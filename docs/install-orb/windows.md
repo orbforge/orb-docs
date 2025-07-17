@@ -45,8 +45,8 @@ When you open the app for the first time, you will be guided through the onboard
 
 If Windows SmartScreen shows a warning:
 
-1. Click "More info."
-2. Click "Run anyway."
+1. Click "More info".
+2. Click "Run anyway".
 
 ### Installation Fails
 
