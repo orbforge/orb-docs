@@ -13,6 +13,8 @@ subtitle: 'Difficulty: Intermediate 🧑‍🔬'
 
 This guide walks you through installing the Orb sensor on your Unifi Dream Machine (UDM) Pro. This will allow you to monitor your network connectivity right on your router, and access the information from anywhere within or outside the network.
 
+**NOTE: This may work on other UniFi OS routers, but is currently untested.**
+
 ## Step 1: Enable SSH
 
 In order to install Orb on your UDM (Pro), we'll need enable SSH access. If you already have SSH access enabled, skip ahead to Step 2.
