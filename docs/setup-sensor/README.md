@@ -36,6 +36,7 @@ The best sensor device for you depends on your specific needs:
 - [Firewalla](/docs/setup-sensor/firewalla.md)
 - [Synology NAS](/docs/setup-sensor/synology.md)
 - [QNAP NAS](/docs/setup-sensor/qnap.md)
+- [Unifi Dream Machine Pro](/docs/setup-sensor/udm-pro.md)
 - [Steam Deck](/docs/setup-sensor/steam-deck.md)
 - [GL.iNet Brume 2](/docs/setup-sensor/gl-mt2500-standalone.md)
 - [Spare iPhone](/docs/setup-sensor/spare-iphone.md)
