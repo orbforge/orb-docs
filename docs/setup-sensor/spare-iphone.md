@@ -1,18 +1,18 @@
 ---
-title: Using an Spare iPhone as a Standalone Orb
+title: Using a Spare iPhone as a Standalone Orb
 shortTitle: Spare iPhone Orb
-metaDescription: Turn your Spare iPhone into a dedicated Orb sensor to continuously monitor your network without purchasing additional hardware.
+metaDescription: Turn your spare iPhone into a dedicated Orb sensor to continuously monitor your network without purchasing additional hardware.
 section: setup-sensor
 layout: guides
 imageUrl: ../../images/devices/iphone.png
 subtitle: 'Difficulty: Beginner 🧑‍💻'
 ---
 
-# Using an Spare iPhone as a Standalone Orb
+# Using a Spare iPhone as a Standalone Orb
 
 ## Introduction
 
-That Spare iPhone sitting in a drawer gathering dust can find new purpose as a dedicated Orb sensor! By repurposing your unused device, you can continuously monitor your network health without purchasing additional hardware. This guide will walk you through the simple process of setting up your iPhone as a standalone Orb.
+That spare iPhone sitting in a drawer gathering dust can find new purpose as a dedicated Orb sensor! By repurposing your unused device, you can continuously monitor your network health without purchasing additional hardware. This guide will walk you through the simple process of setting up your iPhone as a standalone Orb.
 
 ## Equipment Needed
 
@@ -79,4 +79,4 @@ If you want to monitor your wired network connection instead of WiFi:
 - Try restarting your iPhone
 - Reinstall the app from the App Store
 
-Congratulations! Your Spare iPhone is now repurposed as a dedicated Orb sensor, continuously monitoring your network health.
+Congratulations! Your spare iPhone is now repurposed as a dedicated Orb sensor, continuously monitoring your network health.

@@ -13,7 +13,7 @@ Reliability is one of the three key components of your Orb Score, measuring how 
 
 Orb measures reliability across two main aspects of your connection's stability:
 
-### Responsiveness over time
+### Responsiveness over Time
 
 How responsive, consistent, and robust your connection is over time.
 
@@ -50,12 +50,12 @@ The Reliability Score (0-100) is a simplified representation of your connection'
 The reliability status timeline in the Orb app shows:
 
 - **Responsive Time**: When your connection was working normally
-- **Outage events**: When your connection dropped completely
-- **Laggy periods**: When your connection was laggy
+- **Outage Events**: When your connection dropped completely
+- **Laggy Periods**: When your connection was laggy
 
 The packet loss timeline shows periods of packet loss.
 
-Absences of data are shown without color indicating that your device was not active during that window. Learn more about continuous monitoring in the [Set up sensor](/docs/setup-sensor) guide.
+Absences of data are shown without color, indicating that your device was not active during that window. Learn more about continuous monitoring in the [Set up sensor](/docs/setup-sensor) guide.
 
 ## Factors Affecting Reliability
 
@@ -104,5 +104,5 @@ If your reliability metrics show room for improvement, consider these actions:
 To learn more about Orb measurements:
 
 - [Orb Scores and Metrics](/docs/orb-app/orb-scores-metrics.md)
-- [Understanding Speed metrics](/docs/orb-app/speed.md)
-- [Understanding Responsiveness metrics](/docs/orb-app/responsiveness.md)
+- [Understanding Speed Metrics](/docs/orb-app/speed.md)
+- [Understanding Responsiveness Metrics](/docs/orb-app/responsiveness.md)

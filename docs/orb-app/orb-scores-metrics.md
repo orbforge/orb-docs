@@ -11,7 +11,7 @@ Orb provides a comprehensive view of your network connectivity through a variety
 
 ## The Orb Score
 
-The Orb Score is a single number from 0-100 that represents the overall health of your network. It's calculated by combining scores from three categories of performance:
+The Orb Score is a single number from 0 to 100 that represents the overall health of your network. It's calculated by combining scores from three categories of performance:
 
 - **Responsiveness**: How fast and smoothly a network responds to requests
 - **Reliability**: How consistent and dependable the network is
@@ -53,7 +53,7 @@ Reliability is crucial for all online activities, especially those that require 
 
 ### Speed
 
-[Speed](/docs/orb-app/speed.md) measures how quickly data can be transferred to and from a devices. It includes:
+[Speed](/docs/orb-app/speed.md) measures how quickly data can be transferred to and from devices. It includes:
 
 - **Content Download Speed**: How quickly you can receive data, reported in Mbps
 - **Content Upload Speed**: How quickly you can send data, reported in Mbps

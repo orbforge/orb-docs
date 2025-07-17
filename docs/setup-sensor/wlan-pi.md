@@ -28,43 +28,49 @@ Before you begin, make sure you have:
 
 ## Step 1: Connect to your WLAN Pi device via SSH
 
-1.  Open a terminal or command prompt on your computer.
+1. Open a terminal or command prompt on your computer.
     - **macOS/Linux:** Use the Terminal application.
     - **Windows:** Use PowerShell or Command Prompt.
-2.  Connect to your WLAN Pi device using the following command, replacing `<your-wlanpi-ip-address>` with the actual IP address:
+2. Connect to your WLAN Pi device using the following command, replacing `<your-wlanpi-ip-address>` with the actual IP address:
+
     ```bash
     ssh wlanpi@<your-wlanpi-ip-address>
     ```
-3.  If prompted about the authenticity of the host, type `yes` and press Enter.
-4.  Enter the password for your WLAN Pi device when prompted (default is `wlanpi`). You should now have a command prompt logged into your WLAN Pi device.
+
+3. If prompted about the authenticity of the host, type `yes` and press Enter.
+4. Enter the password for your WLAN Pi device when prompted (default is `wlanpi`). You should now have a command prompt logged into your WLAN Pi device.
 
 ## Step 2: Install Orb
 
-1.  At the WLAN Pi command prompt, run the following command exactly as shown:
+1. At the WLAN Pi command prompt, run the following command exactly as shown:
+
     ```bash
     curl -fsSL https://pkgs.orb.net/install.sh | sh
     ```
-2.  This command downloads the Orb setup script and executes it. The script will:
+
+2. This command downloads the Orb setup script and executes it. The script will:
     - Detect the device's architecture and operating system.
     - Add the Orb package repository.
     - Install the Orb package (`orb`) and its dependencies using the system's package manager (apt).
     - Start the Orb Sensor service using systemd.
     - Enable auto-updates to keep Orb up-to-date.
-3.  Wait for the script to complete. You should see output indicating the progress of the installation. You might be prompted for your password again during the installation if `sudo` is required.
+3. Wait for the script to complete. You should see output indicating the progress of the installation. You might be prompted for your password again during the installation if `sudo` is required.
 
 ## Step 3: Open Firewall Port
 
-1.  WLAN Pi uses `ufw` (Uncomplicated Firewall). To allow the Orb app to communicate with the sensor, you need to open port 7443. Run the following command:
+1. WLAN Pi uses `ufw` (Uncomplicated Firewall). To allow the Orb app to communicate with the sensor, you need to open port 7443. Run the following command:
+
     ```bash
     sudo ufw allow 7443/tcp
     ```
-2.  Enter your password if prompted. This command configures the firewall to allow incoming TCP traffic on port 7443, which Orb uses.
+
+2. Enter your password if prompted. This command configures the firewall to allow incoming TCP traffic on port 7443, which Orb uses.
 
 ## Step 4: Link your new Orb Sensor
 
-1.  Once the installation and firewall configuration are done, the Orb Sensor should be running on your WLAN Pi device.
-2.  Open the Orb app on your phone or personal computer.
-3.  Your new Orb Sensor should be automatically detected on your network and appear in the app, ready to be linked to your account. Follow the prompts in the app to link it.
+1. Once the installation and firewall configuration are done, the Orb Sensor should be running on your WLAN Pi device.
+2. Open the Orb app on your phone or personal computer.
+3. Your new Orb Sensor should be automatically detected on your network and appear in the app, ready to be linked to your account. Follow the prompts in the app to link it.
 
 Congratulations! Your WLAN Pi device is now running as an Orb Sensor, monitoring your network.
 

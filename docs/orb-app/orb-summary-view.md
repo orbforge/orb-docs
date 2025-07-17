@@ -34,7 +34,7 @@ When you open the Orb app, the summary view is the first screen you'll see. It's
 
 ### This Orb
 
-In the upper‑left corner of the screen, you’ll see a section labeled “This Orb.” It shows the Orb that’s installed on the device you’re currently using.
+In the upper-left corner of the screen, you’ll see a section labeled "This Orb". It shows the Orb that’s installed on the device you’re currently using.
 
 <img src="../../images/orb-app/this-orb.png" alt="This Orb" width=40% style="margin-left: 2em;">
 
@@ -64,7 +64,7 @@ To add an Orb to your account, tap on the Orb menu button (...) in the top right
 
 ### Orbs on this network
 
-This section displays Orbs found on the network, but not linked to your account. You can tap on any Orb to view more detailed information about the device and connection. However, you will not be able to rename or initiate speed tests on these Orbs.
+This section displays Orbs found on the network but not linked to your account. You can tap on any Orb to view more detailed information about the device and connection. However, you will not be able to rename or initiate speed tests on these Orbs.
 
 <img src="../../images/orb-app/orbs-on-this-network.png" alt="Orbs on Network" width=40% style="margin-left: 2em;">
 
@@ -76,7 +76,7 @@ Tap on the notifications bell to see any alerts from your Orbs. "Clear" notifica
 
 <img src="../../images/orb-app/notifications.png" alt="Notifications" width=40% style="margin-left: 2em;">
 
-To learn more about settings up notifications, see the [Notifications](/docs/orb-app/notifications.md) guide.
+To learn more about setting up notifications, see the [Notifications](/docs/orb-app/notifications.md) guide.
 
 ## Account Settings
 

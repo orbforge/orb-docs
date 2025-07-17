@@ -15,19 +15,19 @@ These instructions are for installing Orb on RPM-based Linux distributions like 
 sudo dnf config-manager addrepo --from-repofile=https://pkgs.orb.net/stable/rpm/orb.repo
 ```
 
-Install orb
+Install Orb
 
 ```bash
 sudo dnf install orb
 ```
 
-Start orb
+Start Orb
 
 ```bash
 sudo systemctl enable --now orb
 ```
 
-Enable autoupdates
+Enable auto-updates
 
 ```bash
 sudo systemctl enable --now orb-update.timer

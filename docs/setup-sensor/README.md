@@ -17,10 +17,10 @@ The Orb app can be installed on phones, tablets, or computers and runs an Orb se
 
 The best sensor device for you depends on your specific needs:
 
-- **Always-on monitoring**: Choose a dedicated device like a Raspberry Pi or repurposed old phone
-- **Monitoring a specific location**: Set up a sensor at that location for accurate results
-- **Quick setup**: Use your existing smartphone, tablet, or computer with the Orb app installed
-- **High reliability**: Consider a router-based sensor or a dedicated single-board computer
+- **Always-on monitoring**: Choose a dedicated device like a Raspberry Pi or a repurposed old phone.
+- **Monitoring a specific location**: Set up a sensor at that location for accurate results.
+- **Quick setup**: Use your existing smartphone, tablet, or computer with the Orb app installed.
+- **High reliability**: Consider a router-based sensor or a dedicated single-board computer.
 
 ## Orb Sensor Setup Guides
 
@@ -46,19 +46,19 @@ The best sensor device for you depends on your specific needs:
 
 For the best results:
 
-- Place your sensor in a location where you most commonly use the internet
-- To monitor your internet without Wi-Fi, make sure the sensor device is wired via ethernet to your network
-- If monitoring Wi-Fi, move the sensor device around or use multiple devices to fully assess your Wi-Fi picture
-- For monitoring multiple locations, set up distinct sensors in each area
+- Place your sensor in a location where you most commonly use the internet.
+- To monitor your internet without Wi-Fi, make sure the sensor device is wired via Ethernet to your network.
+- If monitoring Wi-Fi, move the sensor device around or use multiple devices to fully assess your Wi-Fi picture.
+- For monitoring multiple locations, set up distinct sensors in each area.
 
 ## Multiple Sensors
 
 You can add multiple sensors to your Orb account to monitor different networks or locations. This is particularly useful for:
 
-- Monitoring different areas of a large home or office
-- Tracking both wired and wireless connections
-- Keeping an eye on a vacation home or remote location
-- Checking internet connectivity at home while on-the-go
-- Comparing home and work connectivity
+- Monitoring different areas of a large home or office.
+- Tracking both wired and wireless connections.
+- Keeping an eye on a vacation home or remote location.
+- Checking internet connectivity at home while on the go.
+- Comparing home and work connectivity.
 
 To add multiple sensors, simply follow the setup guide for each device and link them all to the same Orb account.

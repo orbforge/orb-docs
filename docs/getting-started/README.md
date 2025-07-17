@@ -7,7 +7,7 @@ section: Getting Started
 
 # Getting Started with Orb
 
-Welcome to Orb! This section will guide you through everything you need to know to get started with Orb - from understanding what Orb is to installing the app or setting up your first sensor.
+Welcome to Orb! This section will guide you through everything you need to know to get started with Orb - from understanding what Orb is to installing the app and setting up your first sensor.
 
 ## Quick Navigation
 

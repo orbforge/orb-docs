@@ -17,7 +17,7 @@ Add Orb Forge's GPG key
 curl -fsSL https://pkgs.orb.net/stable/debian/orbforge.asc | sudo apt-key add -
 ```
 
-Add the orb repository
+Add the Orb repository
 
 ```bash
 curl -fsSL https://pkgs.orb.net/stable/debian/debian.list | sudo tee /etc/apt/sources.list.d/orb.list

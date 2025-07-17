@@ -13,42 +13,42 @@ If you need to remove Orb from your devices, this guide provides instructions fo
 
 ### iOS (iPhone and iPad)
 
-1. Find the Orb app icon on your Home Screen or App Library
-2. Press and hold the app icon until a menu appears
-3. Tap "Remove App"
-4. Tap "Delete App" in the confirmation dialog
-5. Tap "Delete" to confirm
+1. Find the Orb app icon on your Home Screen or App Library.
+2. Press and hold the app icon until a menu appears.
+3. Tap "Remove App".
+4. Tap "Delete App" in the confirmation dialog.
+5. Tap "Delete" to confirm.
 
 ### Android
 
-1. Open the Settings app on your Android device
-2. Tap "Apps" or "Applications"
-3. Find and tap on Orb in the list of apps
-4. Tap "Uninstall"
-5. Tap "OK" to confirm
+1. Open the Settings app on your Android device.
+2. Tap "Apps" or "Applications".
+3. Find and tap on Orb in the list of apps.
+4. Tap "Uninstall".
+5. Tap "OK" to confirm.
 
 Alternatively:
 
-1. Press and hold the Orb app icon in your app drawer or home screen
-2. Drag it to the "Uninstall" option that appears
-3. Tap "OK" to confirm
+1. Press and hold the Orb app icon in your app drawer or home screen.
+2. Drag it to the "Uninstall" option that appears.
+3. Tap "OK" to confirm.
 
 ## Uninstalling from Desktop
 
 ### macOS
 
-1. Open Finder
-2. Click "Applications" in the sidebar
-3. Find the Orb app
-4. Drag it to the Trash, or right-click and select "Move to Trash"
-5. Empty the Trash to completely remove the app
+1. Open Finder.
+2. Click "Applications" in the sidebar.
+3. Find the Orb app.
+4. Drag it to the Trash, or right-click and select "Move to Trash".
+5. Empty the Trash to completely remove the app.
 
 ### Windows
 
-1. In Settings, Apps > Installed Apps
-2. Find Orb in the list of installed apps
-3. Click on the ... menu, select "Uninstall"
-4. Confirm the uninstallation
+1. In Settings, go to Apps > Installed Apps.
+2. Find Orb in the list of installed apps.
+3. Click on the ... menu and select "Uninstall".
+4. Confirm the uninstallation.
 
 ## Removing Dedicated Sensors
 
@@ -94,4 +94,4 @@ Uninstalling the app does not automatically delete your account data from our se
 
 ## Feedback
 
-We're sorry to see you go! If you're uninstalling due to an issue or concern, we'd appreciate your feedback to help us improve. Please consider sending your feedback to support@orb.net.
+We're sorry to see you go! If you're uninstalling due to an issue or concern, we'd appreciate your feedback to help us improve. Please consider sending your feedback to <support@orb.net>.

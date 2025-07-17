@@ -37,8 +37,8 @@ Otherwise, read on!
 
 ## Step 1: Prepare the Docker Compose file
 
-1.  Create a file named `docker-compose.yml` in this directory.
-2.  Paste the following content exactly into the `docker-compose.yml` file:
+1. Create a file named `docker-compose.yml` in this directory.
+2. Paste the following content exactly into the `docker-compose.yml` file:
 
     ```yaml
     version: '3.0'
@@ -86,17 +86,22 @@ Otherwise, read on!
 
 ## Step 2: Start the Orb Container
 
-1.  Make sure you are still in the directory containing your `docker-compose.yml` file in your terminal.
-2.  Run the following command to download the Orb image (if you don't have it) and start the container(s) in the background:
+1. Make sure you are still in the directory containing your `docker-compose.yml` file in your terminal.
+2. Run the following command to download the Orb image (if you don't have it) and start the container(s) in the background:
+
     ```bash
     docker-compose up -d
     ```
-3.  Docker Compose will pull the necessary images (`orbforge/orb` and `containrrr/watchtower`) and start the containers. You can check the status with:
+
+3. Docker Compose will pull the necessary images (`orbforge/orb` and `containrrr/watchtower`) and start the containers. You can check the status with:
+
     ```bash
     docker-compose ps
     ```
+
     You should see `orb-sensor` (or `orb-docker` if you didn't set `container_name`) and `watchtower` with state `Up`.
-4.  You can view the logs for the Orb container using:
+4. You can view the logs for the Orb container using:
+
     ```bash
     docker-compose logs orb-docker # Or use 'orb-sensor' if you set container_name
     ```
@@ -104,25 +109,29 @@ Otherwise, read on!
 ## Step 3: Link your new Orb sensor
 
 ### Device on the same network
-If your docker container is running on the same network as your phone or computer and your network supports Bonjour/zeroconf, you can link it to your account using the Orb app.
 
-1.  Once the Orb container is running, it should start broadcasting its presence on your network.
-2.  Open the Orb app on your phone or personal computer (which must be on the same network).
-3.  Your new Docker-based Orb sensor should be automatically detected and appear in the app, ready to be linked to your account. Follow the prompts in the app to link it.
+If your Docker container is running on the same network as your phone or computer and your network supports Bonjour/zeroconf, you can link it to your account using the Orb app.
+
+1. Once the Orb container is running, it should start broadcasting its presence on your network.
+2. Open the Orb app on your phone or personal computer (which must be on the same network).
+3. Your new Docker-based Orb sensor should be automatically detected and appear in the app, ready to be linked to your account. Follow the prompts in the app to link it.
 
 ### Device on a different network
+
 If your docker container is running on a different network than your phone or computer, you can still link it to your account, but you'll need to do it manually via the Orb CLI in the docker container.
 
 1. Open a terminal on the host machine where the Docker container is running.
 2. Run the following command to run the Orb CLI "link" command inside the running container:
+
     ```bash
     docker exec -it <replace-with-container-name-or-id> /app/orb link
     ```
+
    Replace `<replace-with-container-name-or-id>` with the name or ID of your running Orb container (e.g., `orb-sensor` or `orb-docker`).
 3. The output of that command will give you a short URL. Copy or type that URL into the browser on your phone or computer and login with the same account you use on other Orb devices.
 4. Check the Orb app on your phone or computer. Your new Docker-based Orb sensor should now be visible and ready to use.
 
-## You're Done!
+## You're Done
 
 Congratulations! Your Docker container is now running as an Orb sensor, monitoring your network. Thanks to Watchtower, it will automatically update when new versions are released.
 

@@ -34,26 +34,27 @@ On the left, you'll see your overall Orb Score for the time period selected. You
 
 <img src="../../images/orb-app/orb-score-and-status-message.png" alt="Orb Score Status" width=40% style="margin-left: 2em;">
 
-There are indicators within the Orb Score that respresents Responsiveness, Reliability, and Speed. When illuminated, these indicate what scores are contributing to the overall Orb Score.
+There are indicators within the Orb Score that represent Responsiveness, Reliability, and Speed. When illuminated, these indicate which scores are contributing to the overall Orb Score.
 
 <img src="../../images/orb-app/orb-score-indicators.png" alt="Score Indicators" width=30% style="margin-left: 2em;">
 
 ### Improve Connection
 
-When your score is below an 80, an "Improve Connection" button will appear. Tapping this button will provide you with tailored recommendations to improve your internet experience.
+When your score is below 80, an "Improve Connection" button will appear. Tapping this button will provide you with tailored recommendations to improve your internet experience.
 
 <img src="../../images/orb-app/improve-connection.png" alt="Improve Connection" width=40% style="margin-left: 2em;">
 
 ## Responsiveness and Reliability Detail
 
-The Responsiveness detail view focuses on your connection's lag, latency and packet loss.
+The Responsiveness detail view focuses on your connection's lag, latency, and packet loss.
+
 <img src="../../images/orb-app/responsiveness-card-expanded.png" alt="Responsiveness" width=60% style="margin-left: 2em;">
 
 The Reliability detail view focuses on your connection's stability.
 
 <img src="../../images/orb-app/reliability-card-expanded.png" alt="Reliability" width=60% style="margin-left: 2em;">
 
-The detail view displays Responsiveness and Reliability scores for the selected time period. Each of these contribute to your overall Orb Score. Tap on each card to expand and view more detailed metrics.
+The detail view displays Responsiveness and Reliability scores for the selected time period. Each of these contributes to your overall Orb Score. Tap on each card to expand and view more detailed metrics.
 
 Each category is represented by:
 
@@ -69,14 +70,14 @@ The Speed detail view focuses on your connection's throughput.
 
 ### Content Download and Upload Speed Results
 
-- Content download and upload speed measurements are performed on a regular cadence
-- These measurements are included in speed score and Orb Score, when available
-- Content speed measurements can be initiated at any time by the user
+- Content download and upload speed measurements are performed on a regular cadence.
+- These measurements are included in the speed score and Orb Score, when available.
+- Content speed measurements can be initiated at any time by the user.
 
 ### Peak Download and Upload Speed Results
 
-- Peak download and upload speed measurements can be initiated at any time by the user
-- These results are informational only and not included in your speed or Orb Score
+- Peak download and upload speed measurements can be initiated at any time by the user.
+- These results are informational only and not included in your speed or Orb Score.
 
 ## Next Steps
 

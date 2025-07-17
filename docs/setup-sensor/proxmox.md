@@ -34,21 +34,21 @@ Before you begin, make sure you have:
 
 First, you need to access the command-line shell for the Proxmox node where you want to install Orb:
 
-1.  Navigate to your Proxmox admin interface in your web browser and log in.
-2.  In the left-hand server view pane, click on the specific Proxmox node you wish to install Orb on.
-3.  With the node selected, click the **Shell** button in the main panel. This will open a terminal window connected to your node.
+1. Navigate to your Proxmox admin interface in your web browser and log in.
+2. In the left-hand server view pane, click on the specific Proxmox node you wish to install Orb on.
+3. With the node selected, click the **Shell** button in the main panel. This will open a terminal window connected to your node.
 
 ## Step 2: Install Orb
 
 Now, run the Orb installation script:
 
-1.  In the Proxmox node shell, execute the following command. This script will download and install the Orb sensor package and configure it to start automatically and receive updates:
+1. In the Proxmox node shell, execute the following command. This script will download and install the Orb sensor package and configure it to start automatically and receive updates:
 
     ```bash
     curl -fsSL https://pkgs.orb.net/install.sh | sh
     ```
 
-2.  The script will detect your operating system (Proxmox VE is based on Debian) and install the appropriate package. Follow any on-screen prompts if necessary.
+2. The script will detect your operating system (Proxmox VE is based on Debian) and install the appropriate package. Follow any on-screen prompts if necessary.
 
 ## Step 3: Repeat for Other Nodes (Optional)
 
@@ -58,10 +58,10 @@ If you have a Proxmox cluster and want to monitor multiple nodes, repeat Step 1 
 
 The final step is to link your new Orb sensor(s) to your account:
 
-1.  Open the Orb app on your mobile device or computer.
-2.  Your new Orb sensor(s) running on the Proxmox node(s) should be automatically detected on your local network.
-3.  Follow the in-app prompts to link each sensor to your Orb account.
-4.  Once linked, your Proxmox Orb(s) will appear in your Orb dashboard.
+1. Open the Orb app on your mobile device or computer.
+2. Your new Orb sensor(s) running on the Proxmox node(s) should be automatically detected on your local network.
+3. Follow the in-app prompts to link each sensor to your Orb account.
+4. Once linked, your Proxmox Orb(s) will appear in your Orb dashboard.
 
 ## Troubleshooting
 
