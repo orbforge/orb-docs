@@ -1,34 +1,34 @@
 ---
-title: Install Orb on Unifi Dream Machine Pro
-shortTitle: Unifi Dream Machine Pro
-metaDescription: Install the Orb sensor on your Unifi Dream Machine Pro
+title: Install Orb on UniFi Routers
+shortTitle: UniFi Routers
+metaDescription: Install the Orb sensor on your UniFi Routers including the Dream Machine and Dream Router.
 section: setup-sensor
 layout: guides
 subtitle: 'Difficulty: Intermediate 🧑‍🔬'
 ---
 
-# Install Orb on Unifi Dream Machine Pro with UniFi OS >= 4.2.0
+# Install Orb on UniFi Routers with UniFi OS >= 4.2.0
 
 ## Introduction
 
-This guide walks you through installing the Orb sensor on your Unifi Dream Machine (UDM) Pro. This will allow you to monitor your network connectivity right on your router, and access the information from anywhere within or outside the network.
+This guide walks you through installing the Orb sensor on UniFi Routers, including the Dream Machine and Dream Router. This will allow you to monitor your network connectivity right on your router, and access the information from anywhere within or outside the network using the Orb app.
 
-**NOTE: This may work on other UniFi OS routers, but is currently untested.**
+**NOTE: These instructions have been tested on the Dream Machine Pro, but should work on other UniFi OS routers as well.**
 
 ## Step 1: Enable SSH
 
-In order to install Orb on your UDM (Pro), we'll need enable SSH access. If you already have SSH access enabled, skip ahead to Step 2.
+In order to install Orb on your UniFi Router, you'll need enable SSH access. If you already have SSH access enabled, skip ahead to Step 2.
 
-1. Browse to your UDM control interface
+1. Browse to your UniFi Router control interface.
 2. Go to Settings -> Control Plane -> Console.
 3. Enable the SSH option and click 'Confirm'.
 4. Optional: Generate a new password if you have lost it.
 
 ## Step 2: Install Orb
 
-You can now login to your UDM device over ssh, so we can install the Orb sensor:
+You can now login to your UniFi Router over ssh, so we can install the Orb sensor:
 
-1. Open your terminal and type `ssh root@[udm-ip]`. It will ask for the password.
+1. Open your terminal and type `ssh root@[router-ip]`. It will ask for the password.
 
 2. Create Orb install script:
 
