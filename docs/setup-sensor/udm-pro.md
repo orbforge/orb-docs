@@ -28,35 +28,37 @@ You can now login to your UDM device over ssh, so we can install the Orb sensor:
 
 1. Open your terminal and type `ssh root@[udm-ip]`. It will ask for the password.
 
-2. Add Orb Forge's GPG key
+2. Create Orb install script:
 
-```bash
+```
+mkdir -p /mnt/data/on_boot.d/ && cat <<'EOF' > /mnt/data/on_boot.d/orb.sh && chmod +x /mnt/data/on_boot.d/orb.sh
+#!/bin/bash
+
+# install the Orb keyring
 sudo mkdir -p --mode=0755 /usr/share/keyrings
 curl -fsSL https://pkgs.orb.net/stable/debian/orbforge.noarmor.gpg | sudo tee /usr/share/keyrings/orbforge-keyring.gpg >/dev/null
-```
 
-3. Add the Orb repository
-
-```bash
+# add the Orb repository
 curl -fsSL https://pkgs.orb.net/stable/ubuntu/ubuntu.orbforge-keyring.list | sudo tee /etc/apt/sources.list.d/orb.list
-```
 
-4. Install Orb
-
-```bash
+# install Orb (no-op if already installed)
 sudo apt-get update && sudo apt-get install orb
-```
 
-5. Enable auto-update
-
-```bash
+# enable auto-update
 sudo systemctl enable --now orb-update.timer
+EOF
 ```
 
-6. Link the orb install to your account. Run this command and copy the link in your browser
+3. Run the just created Orb installer:
+
+```
+/mnt/data/on_boot.d/orb.sh
+```
+
+4. Link the orb install to your account. Run this command and copy the link in your browser
 
 ```bash
 sudo -u orb orb link
 ```
 
-7. Done
+5. Done
