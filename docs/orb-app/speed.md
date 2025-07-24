@@ -18,16 +18,19 @@ Speed measures how quickly data can be transferred to and from devices. It inclu
 
 Orb's primary speed measurements are important for activities like streaming videos, downloading files, video conferencing, and other relevant day-to-day activities. Content speed tests are performed by downloading and uploading a small amount of data (10 MB file) to and from your device.
 
-<img src="../../images/orb-app/speed-card-expanded.png" alt="Speed" width=60% style="margin-left: 2em;">
+<img src="../../images/orb-app/speed-card-expanded-v2.png" alt="Speed" width=60% style="margin-left: 2em;">
 
 While peak speed measurements are available and can be initiated by the user at any time, they are informational only and not included in the Orb Score. Peak speed tests are performed by fully flooding your connection with data to measure the maximum speed your device can achieve.
 
-The Orb Score is based on content speed measurements only, which are performed on a regular cadence.
+The Orb Score is based on content speed measurements only, which are performed on a regular cadence by default.
 
 ### Speed Measurement Cadence
 
-- **Content Speed Measurements**: Performed on a regular cadence (at app launch and every hour)
-- **Peak Speed Measurements**: Can be initiated by the user at any time
+- **Content Speed Measurements**: Performed on a regular cadence (at app launch and every hour by default)
+  - Cadence can be adjusted to every 4, 6, or 24 hours, or disabled entirely.
+  <img src="../../images/orb-app/speed-cadence.png" alt="Speed" width=60% style="margin-left: 2em;"><br>
+  - Results are included in the Speed score and Orb Score, even if the measurement was performed outside of the selected time period.
+- **Peak Speed Measurements**: Can be initiated by the user at any time.
 
 ### Download Speed
 

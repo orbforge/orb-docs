@@ -32,10 +32,10 @@ Tap on any Orb card to access the detail view, which shows:
   - A score for each
   - Expand the card to view the metrics used to calculate each score
   - Expand the card to view graphical representations of the data
-- Content and peak speed tests that can be manually initiated at any time. Note: content speed runs automatically once per hour and on app start.
+- Content and peak speed tests that can be manually initiated at any time. Note: content speed tests run automatically once per hour and on app start by default. This can be disabled or configured to run less frequently by expanding the speed card and changing the settings.
 - Timeframe selector to view performance over different periods of time
 
-<img src="../../images/orb-app/orb-detail.png" alt="Orb Detail" width=60% style="margin-left: 2em;">
+<img src="../../images/orb-app/orb-detail-v2.png" alt="Orb Detail" width=60% style="margin-left: 2em;">
 
 ### Account Settings
 
@@ -43,9 +43,11 @@ Access your account settings by tapping on the gear icon in the top right corner
 
 - Manage your notification settings
 - Sign in and out of your account
+- Reset password
+- Delete your account
 - Provide feedback or submit bug reports directly from the app
 
-<img src="../../images/orb-app/orb-account-menu.png" alt="Orb Account" height=30% width=30% style="margin-left: 2em;">
+<img src="../../images/orb-app/orb-account-menu-v2.png" alt="Orb Account" height=30% width=30% style="margin-left: 2em;">
 
 ### Notifications
 

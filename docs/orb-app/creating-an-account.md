@@ -48,8 +48,6 @@ An Orb account provides several benefits:
 4. Create a password if using the email method.
 5. Follow the verification steps sent to your email.
 
-<img src="../../images/orb-app/web-sign-in.png" alt="Web Sign In" width=40% style="margin-left: 2em;">
-
 ## Required Information
 
 To create your Orb account, you'll need to provide:
@@ -84,10 +82,12 @@ Once your account is created, you can customize your settings:
 2. Navigate to Account Settings by tapping the gear icon in the top right corner.
 3. From here, you can:
    - Sign in and out of your account.
+   - Delete your account.
+   - Reset your password.
    - Adjust notification preferences.
    - Submit feedback or report bugs.
 
-<img src="../../images/orb-app/orb-account-menu.png" alt="Orb Account" height=30% width=30% style="margin-left: 2em;">
+<img src="../../images/orb-app/orb-account-menu-v2.png" alt="Orb Account" height=30% width=30% style="margin-left: 2em;">
 
 ## Adding Your First Sensor
 

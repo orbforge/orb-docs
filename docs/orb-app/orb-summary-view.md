@@ -80,9 +80,9 @@ To learn more about setting up notifications, see the [Notifications](/docs/orb-
 
 ## Account Settings
 
-Tap on the gear icon in the top right corner to access your account settings. Here, you can manage your notification preferences, sign in and out of your account, and provide feedback or submit bug reports directly from the app.
+Tap on the gear icon in the top right corner to access your account settings. Here, you can manage your notification preferences, sign in and out of your account, reset your account password, delete account, and provide feedback or submit bug reports directly from the app.
 
-<img src="../../images/orb-app/orb-account-menu.png" alt="Account Settings" width=40% style="margin-left: 2em;">
+<img src="../../images/orb-app/orb-account-menu-v2.png" alt="Account Settings" width=40% style="margin-left: 2em;">
 
 ## Next Steps
 
