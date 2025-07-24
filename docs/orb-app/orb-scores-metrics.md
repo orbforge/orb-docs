@@ -51,6 +51,8 @@ Responsiveness is particularly important for interactive activities like gaming,
 
 Reliability is crucial for all online activities, especially those that require a continuous connection like video calls or online gaming.
 
+For app versions 1.2.0 and later, Reliability now only affects your overall Orb score during true outages or disruptions, giving a more precise reflection of your experience.
+
 ### Speed
 
 [Speed](/docs/orb-app/speed.md) measures how quickly data can be transferred to and from devices. It includes:
@@ -59,6 +61,8 @@ Reliability is crucial for all online activities, especially those that require 
 - **Content Upload Speed**: How quickly you can send data, reported in Mbps
 
 Orb's primary speed measurements are important for activities like streaming videos, downloading files, video conferencing, and other relevant day-to-day activities.
+
+For app versions 1.2.0 and later, Speed scores are included in the overall Orb Score even if the most recent content speed test was performed outside of the selected time period.
 
 While peak speed measurements are available and can be initiated by the user at any time, they are informational only and not included in the Orb Score. The Orb Score is based on content speed measurements only, which are performed on a regular cadence.
 

@@ -38,7 +38,7 @@ Key elements:
 
 Tapping on any Orb sensor card will launch the Orb detail screen, which provides in-depth information about that specific sensor.
 
-<img src="../../images/orb-app/orb-detail.png" alt="Orb Detail" width=50% style="margin-left: 2em;">
+<img src="../../images/orb-app/orb-detail-v2.png" alt="Orb Detail" width=50% style="margin-left: 2em;">
 
 Key elements: <br>
 In addition to the information above, the detail screen includes:
@@ -49,9 +49,11 @@ In addition to the information above, the detail screen includes:
     - Latency (ms)
     - Jitter (ms)
     - Packet loss (%)
-    - Typical web load time (ms)
+    - DNS resolve time (ms)
+    - Time to first byte (ms)
   - Reliability
     - Responsiveness over time
+    - % of time in the following states: responsive, laggy, unresponsive, inactive
     - Packet loss over time
   - Speed
     - Content download speed (Mbps)
@@ -68,12 +70,14 @@ The account settings menu allows you to customize your Orb experience.
 Important settings:
 
 - Account management (signing in and out)
+- Reset password
+- Delete account
 - Notification preferences
 - Sensor configurations (keep awake)
-- Submit feedback
+- Submit feedback & report bugs
 - Privacy policy and terms of use
 
-<img src="../../images/orb-app/orb-account-menu.png" alt="Orb Account Menu" width=40% style="margin-left: 2em;">
+<img src="../../images/orb-app/orb-account-menu-v2.png" alt="Orb Account Menu" width=40% style="margin-left: 2em;">
 
 ### Notifications
 

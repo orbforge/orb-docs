@@ -34,7 +34,7 @@ On the left, you'll see your overall Orb Score for the time period selected. You
 
 <img src="../../images/orb-app/orb-score-and-status-message.png" alt="Orb Score Status" width=40% style="margin-left: 2em;">
 
-There are indicators within the Orb Score that represent Responsiveness, Reliability, and Speed. When illuminated, these indicate which scores are contributing to the overall Orb Score.
+There are indicators within the Orb Score that represent Responsiveness, Reliability, and Speed. When illuminated, the component is considered adequate for inclusion. If the indicator is dimmed, it indicates that while the the component is included, it may not be adequate (e.g. a stale speed score or not enough reliability data has been collected in the timeframe selected.)
 
 <img src="../../images/orb-app/orb-score-indicators.png" alt="Score Indicators" width=30% style="margin-left: 2em;">
 
@@ -46,13 +46,17 @@ When your score is below 80, an "Improve Connection" button will appear. Tapping
 
 ## Responsiveness and Reliability Detail
 
-The Responsiveness detail view focuses on your connection's lag, latency, and packet loss.
+The Responsiveness detail view focuses on your connection's lag, latency, jitter, and packet loss for device-to-router and router-to-internet. Also included is DNS resolution time and time to first byte (TTFB) for the selected time period.
 
-<img src="../../images/orb-app/responsiveness-card-expanded.png" alt="Responsiveness" width=60% style="margin-left: 2em;">
+<img src="../../images/orb-app/responsiveness-card-expanded-v2.png" alt="Responsiveness" width=60% style="margin-left: 2em;">
 
-The Reliability detail view focuses on your connection's stability.
+The Reliability detail view focuses on your connection's stability. It includes the amount of time spent in the following states:
+- Responsive
+- Laggy
+- Unresponsive
+- Inactive
 
-<img src="../../images/orb-app/reliability-card-expanded.png" alt="Reliability" width=60% style="margin-left: 2em;">
+<img src="../../images/orb-app/reliability-card-expanded-v2.png" alt="Reliability" width=60% style="margin-left: 2em;">
 
 The detail view displays Responsiveness and Reliability scores for the selected time period. Each of these contributes to your overall Orb Score. Tap on each card to expand and view more detailed metrics.
 
@@ -66,13 +70,23 @@ Each category is represented by:
 
 The Speed detail view focuses on your connection's throughput.
 
-<img src="../../images/orb-app/speed-card-expanded.png" alt="Speed" width=60% style="margin-left: 2em;">
+<img src="../../images/orb-app/speed-card-expanded-v2.png" alt="Speed" width=60% style="margin-left: 2em;">
 
 ### Content Download and Upload Speed Results
 
-- Content download and upload speed measurements are performed on a regular cadence.
-- These measurements are included in the speed score and Orb Score, when available.
-- Content speed measurements can be initiated at any time by the user.
+- Content download and upload speed measurements are performed on a one-hour cadence by default.
+- These measurements are included in the Speed score and Orb Score, even when the measurement was performed outside of the selected time period.
+- To disable or change the frequency of content speed measurements, use the dropdown menu in the expanded Speed card.
+
+<img src="../../images/orb-app/speed-cadence.png" alt="Speed" width=60% style="margin-left: 2em;">
+
+- The dropdown menu allows you to select from the following options:
+  - Every 1 hour (default)
+  - Every 4 hours
+  - Every 6 hours
+  - Every 24 hours
+  - Never (disables content speed measurements)
+- Content speed measurements can also be initiated at any time by the user.
 
 ### Peak Download and Upload Speed Results
 

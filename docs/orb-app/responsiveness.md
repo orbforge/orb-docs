@@ -13,6 +13,8 @@ Responsiveness is one of the three key components of your Orb Score, measuring h
 
 Responsiveness metrics measure several aspects of your connection's ability to respond quickly and smoothly to requests.
 
+The following metrics are reported for device-to-router and router-to-internet connections when the device is connected to WiFi. When connected to a cellular network, the metrics are reported for device-to-internet connections.
+
 ### Lag
 
 The amount of time it takes to get an applicable response from an internet service, reported in milliseconds (ms). Lag is reported with best, worst, and typical values. Lower lag indicates a more responsive connection.
@@ -29,9 +31,13 @@ The variation in latency over time, reported in milliseconds (ms). High jitter c
 
 The percentage of data packets that are lost or delayed during transmission, reported as a percentage (%). High packet loss or significantly delayed packets will impact lag due to packet resubmission.
 
-### Web Load (Typical)
+**The following internet metrics are informational only and do not contribute to your Responsiveness score:**
 
-The time it takes to load a typical web page, reported in milliseconds (ms). This metric gives you an idea of how quickly your connection can handle everyday tasks. This metric is informational only.
+### DNS Resolve Time
+Also known as DNS lookup time, the time it takes for a DNS server to translate a human-readable domain name (like www.example.com) into its corresponding IP address, reported in milliseconds (ms). This metric is important for web browsing and other activities that rely on DNS lookups.
+
+### Time to First Byte (TTFB)
+The time it takes for the first byte of data to be received after making a request, reported in milliseconds (ms).
 
 ## Interpreting Your Responsiveness Metrics
 
@@ -39,7 +45,7 @@ The time it takes to load a typical web page, reported in milliseconds (ms). Thi
 
 The Responsiveness Score (0-100) is a simplified representation of your connection's lag, which includes latency, jitter, and packet loss. Higher scores indicate lower lag and better responsiveness.
 
-<img src="../../images/orb-app/responsiveness-card-expanded.png" alt="Responsiveness" width=60% style="margin-left: 2em;">
+<img src="../../images/orb-app/responsiveness-card-expanded-v2.png" alt="Responsiveness" width=60% style="margin-left: 2em;">
 
 ### Responsiveness Timeline
 

@@ -34,3 +34,5 @@ If you don't want or need a background service or would like to use other CLI fu
 ```
 
 for a list of available commands.
+
+For instructions on linking your Orb sensor to your account, refer to the [Linking an Orb to Your Account](/docs/orb-app/linking-orb-to-account.md) guide.
