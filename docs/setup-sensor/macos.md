@@ -59,7 +59,7 @@ Flags:
 
 To uninstall the Orb CLI, you can use the following command in your terminal:
 ```bash
-orb uninstall
+brew uninstall orbforge/orb/orb
 ```
 This will remove the Orb CLI from your system.
 
