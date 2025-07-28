@@ -31,10 +31,14 @@ If you're experiencing issues with Orb, you might consider these alternatives be
 
 Open the account settings menu in the Orb app and follow these steps:
 
-1. Tap on "Delete Account".
-2. Confirm your decision.
+1. Tap "Account".
+2. Tap on "Delete Account".
+3. Verify your identity via code sent to your email. 
+   - If you don't receive the code, check your spam folder.
+4. Read the confirmation message about data loss.
+5. Tap "Delete Account" to proceed.
 
-<img src="../../images/orb-app/delete-account.png" alt="Delete Account" width=40% style="margin-left: 2em;">
+<img src="../../images/orb-app/delete-account-v2.png" alt="Delete Account" width=40% style="margin-left: 2em;"><br>
 
 <img src="../../images/orb-app/delete-account-confirm.png" alt="Confirm Delete" width=40% style="margin-left: 2em;">
 
@@ -43,7 +47,7 @@ Open the account settings menu in the Orb app and follow these steps:
 Visit the Delete Orb Account page on our website:
 
 1. Go to [Delete Orb Account](https://orb.net/support/delete-account).
-2. Log in to your account.
+2. Sign in to your account.
 3. Follow the prompts to confirm deletion.
 
 ## What Happens to Your Data
