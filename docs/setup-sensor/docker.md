@@ -67,7 +67,7 @@ Otherwise, read on!
         restart: unless-stopped
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock # Required to monitor other containers
-        command: --label-enable --scope orb --interval 3600 # Check for updates every hour (3600s)
+        command: --label-enable --scope orb --cleanup --interval 3600 # Check for updates every hour (3600s)
 
     volumes:
       orb-data: # Creates a named volume for persistent data
