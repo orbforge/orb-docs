@@ -22,7 +22,7 @@ Update package list and install Orb
 
 ```bash
 apk update
-apk install orb
+apk add orb
 ```
 
 Install Orb update service
