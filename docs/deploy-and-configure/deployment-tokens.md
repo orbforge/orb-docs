@@ -28,7 +28,6 @@ Deployment Tokens can be utilized to easily link Orbs to your Space and ensure t
 1. [Directly in the Orb mobile and desktop application interfaces](/docs/deploy-and-configure/deployment-tokens#using-the-apps)
 2. [Utilizing an environment variable](/docs/deploy-and-configure/deployment-tokens#using-environment-variable)
 3. [Utilizing a .txt file](/docs/deploy-and-configure/deployment-tokens#using-a-txt-file)
-4. [Utilizing Mobile Device Management (MDM) tools for Windows and macOS](/docs/deploy-and-configure/deployment-tokens#using-mdm)
 
 :::tip
 If you are managing a handful of Orbs, Deployment Tokens are not necessary for Linking or Configuration, as you may use other options such as logging into the application, discovery from another logged in Orb application, or using the CLI. See [Linking an Orb to your account](/docs/orb-app/linking-orb-to-account) for more details.
