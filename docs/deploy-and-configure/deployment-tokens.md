@@ -13,7 +13,7 @@ Deployment Tokens are an Orb Cloud feature that allow you to:
 2. Manage the [Configuration](/docs/deploy-and-configure/configuration) of Orbs at scale
 3. Set different Tags and Configurations for different sets of Orbs
 
-By visiting the [Orchestration](https://cloud.orb.net/orchestration) section of Orb Cloud, you can create and delete Deployment Tokens, edit attached Configrations and Tags, and apply these changes to the Orbs associated with the Configuration Token.
+By visiting the [Orchestration](https://cloud.orb.net/orchestration) section of Orb Cloud, you can create and delete Deployment Tokens, edit attached Configurations and Tags, and apply these changes to the Orbs associated with the Configuration Token.
 
 ![Deployment Tokens](../../images/deploy-and-configure/configuration-tokens.png)
 
