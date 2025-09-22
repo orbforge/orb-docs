@@ -56,12 +56,42 @@ def validate_markdown_links(file_path: str) -> List[Tuple[int, str, str]]:
                 if link_path.startswith(('http://', 'https://', 'ftp://', 'mailto:', 'tel:', '#')):
                     continue
                 
-                # Only check .md files and other known document types
-                if link_path.endswith(('.md', '.markdown', '.txt', '.rst')):
-                    target_path = resolve_path(base_dir, link_path)
-                    
-                    if not check_file_exists(target_path):
-                        errors.append((line_num, link_text, link_path))
+                # Remove anchor from path if present (e.g., /path#anchor -> /path)
+                path_without_anchor = link_path.split('#')[0]
+                
+                # Skip if no actual path (just an anchor)
+                if not path_without_anchor:
+                    continue
+                
+                # Skip links outside of /docs URL space
+                if path_without_anchor.startswith('/'):
+                    # Skip if it's exactly /docs (root docs link)
+                    if path_without_anchor == '/docs':
+                        continue
+                    # Skip if it doesn't start with /docs/
+                    if not path_without_anchor.startswith('/docs/'):
+                        continue
+                
+                # Check for internal documentation links
+                # These could be .md files, directories with README.md, or extensionless paths
+                target_path = resolve_path(base_dir, path_without_anchor)
+                
+                # Check if the link is valid in various forms
+                link_exists = False
+                
+                # 1. Check if it exists as-is
+                if check_file_exists(target_path):
+                    link_exists = True
+                # 2. Check if it exists with .md extension
+                elif check_file_exists(target_path + '.md'):
+                    link_exists = True
+                # 3. Check if it's a directory with README.md
+                elif os.path.isdir(target_path) and check_file_exists(os.path.join(target_path, 'README.md')):
+                    link_exists = True
+                
+                # Report error if link doesn't exist in any form
+                if not link_exists:
+                    errors.append((line_num, link_text, link_path))
     
     return errors
 

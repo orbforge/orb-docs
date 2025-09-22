@@ -29,7 +29,11 @@ Linking multiple sensors to your account provides several advantages:
 
 ## Linking Methods
 
-There are several ways to link an Orb sensor to your account:
+Orbs can be linked to your account via the device running Orb or remotely.
+
+:::tip
+If you are managing and deploying many Orbs, or have complex configuration needs, consider utilizing [Deployment Tokens](/docs/deploy-and-configure/deployment-tokens).
+:::
 
 ### Orb on Your Phone, Desktop, or Tablet
 
@@ -83,6 +87,10 @@ If the newly started Orb sensor is not automatically discovered, you can link it
 3. The output of that command will include a short URL to link to your account
 4. Copy that URL into a browser on any machine, and log in to your account at the prompt
 5. That Orb will now show up in any app where you’re logged in
+
+:::info
+If utilizing containers, see the sections on linking with [Docker](/docs/setup-sensor/docker#device-on-a-different-network) and [Podman](/docs/setup-sensor/podman#step-3-link-your-new-orb-sensor).
+:::
 
 ## Managing Linked Sensors
 

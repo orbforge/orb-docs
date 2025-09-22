@@ -50,3 +50,15 @@
 - [Deleting an Orb account](/docs/orb-app/deleting-orb-account.md)
 - [Notifications](/docs/orb-app/notifications.md)
 - [Sensor mode](/docs/orb-app/sensor-mode.md)
+
+## [Using Orb Cloud](/docs/orb-cloud)
+
+- [Status](/docs/orb-cloud/status.md)
+
+## [Deploy & Configure](/docs/deploy-and-configure)
+
+- [Configuration](/docs/deploy-and-configure/configuration.md)
+- [Datasets configuration](/docs/deploy-and-configure/datasets-configuration.md)
+- [Datasets](/docs/deploy-and-configure/datasets.md)
+- [Local Analytics](/docs/deploy-and-configure/local-analytics.md)
+- [Deployment Tokens](/docs/deploy-and-configure/deployment-tokens.md)
