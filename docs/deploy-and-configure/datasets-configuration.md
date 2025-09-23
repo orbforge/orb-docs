@@ -53,12 +53,6 @@ The easiest way to get started with Orb Local API is using our Orb [Local Analyt
 
 ```json
 {
-  "datasets.datasets": [
-    "scores_1m",
-    "responsiveness_1s",
-    "speed_results",
-    "web_responsiveness_results"
-  ],
   "datasets.api": [
     "identifiable=true",    
     "port=7080",
