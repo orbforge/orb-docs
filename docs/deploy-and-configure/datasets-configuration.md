@@ -87,7 +87,7 @@ GET /api/v2/datasets/{name}.{format}?id={caller_id}
 **Example:**
 
 ```
-GET http://localhost:7080/api/v2/datasets/speed_results.json?id=123
+GET http://localhost:7080/api/v2/datasets/responsiveness_1s.json?id=123
 ```
 
 **Example Response:**
