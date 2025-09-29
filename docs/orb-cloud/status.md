@@ -69,7 +69,12 @@ Tap on the clock icon to change your refresh interval. You can choose from the f
 
 Click on the three dots icon on the right side of any Orb listed to open the Orb menu. Here, you can access the following:
 - **Timeline**: Opens a detailed timeline view of the Orb's status over time.
-- **Edit**: Allows you to edit the name, add or remove tags associated with the Orb. Additionally, you can change the Orb's configuration under the "Advanced" option.
+- **Analytics**: Opens the analytics view for the Orb, showing Orb and sub-scores over the time selected. More advanced analytics are available in our paid subscription plans.
+- **Edit**: Allows you to edit the name, add or remove tags, and change the Orb's configuration.
 - **Remove device**: Permanently removes the Orb from your account.
 
+![Orb Menu](../../images/orb-cloud/orb-cloud-orb-menu.png)
+
+Learn more about [Managing users](/docs/orb-cloud/manage-users).<br>
+Learn more about [Orb Analytics](/docs/orb-cloud/analytics).<br>
 Learn more about [Orb Deployment & Configuration](/docs/deploy-and-configure).

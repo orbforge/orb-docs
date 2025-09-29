@@ -72,7 +72,9 @@ The following table shows MikroTik device compatibility:
 
 ¹ ARMv5 devices have limited CPU performance. If using these devices for routing without hardware offload, disable bandwidth tests using `ORB_BANDWIDTH_DISABLED=1` to prevent CPU spikes.
 
-> **Note**: After installation, ensure the device has at least 20MB of disk space remaining for the Orb database and logs.
+:::note
+After installation, ensure the device has at least 20MB of disk space remaining for the Orb database and logs.
+:::
 
 ## Prerequisites
 

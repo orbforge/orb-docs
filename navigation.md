@@ -54,6 +54,8 @@
 ## [Using Orb Cloud](/docs/orb-cloud)
 
 - [Status](/docs/orb-cloud/status.md)
+- [Analytics](/docs/orb-cloud/analytics.md)
+- [Manage Users](/docs/orb-cloud/manage-users.md)
 
 ## [Deploy & Configure](/docs/deploy-and-configure)
 
@@ -62,3 +64,4 @@
 - [Datasets](/docs/deploy-and-configure/datasets.md)
 - [Local Analytics](/docs/deploy-and-configure/local-analytics.md)
 - [Deployment Tokens](/docs/deploy-and-configure/deployment-tokens.md)
+- [MDM](/docs/deploy-and-configure/mdm)

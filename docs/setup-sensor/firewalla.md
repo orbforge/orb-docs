@@ -56,7 +56,9 @@ First, you need to access your Firewalla via SSH:
    ssh pi@fire.walla
    ```
 
-   > **Note**: If Firewalla is your DNS resolver, the hostname `fire.walla` will work. Otherwise, use your Firewalla's IP address or local DNS hostname.
+:::note
+If Firewalla is your DNS resolver, the hostname `fire.walla` will work. Otherwise, use your Firewalla's IP address or local DNS hostname.
+:::
 
 2. When prompted for a password, find it in your Firewalla app:
    **Settings** > **Advanced** > **Configurations** > **SSH Console**
