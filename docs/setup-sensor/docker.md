@@ -20,10 +20,14 @@ This guide assumes you have Docker and Docker Compose already installed and runn
 
 Before you begin, make sure you have:
 
-- A host machine with Docker installed and running. See the official [Docker installation guides](https://docs.docker.com/engine/install/). macOS and Windows are not currently supported for auto-discovery and local-network latency due to limitations in Docker's "host network" capability on these systems. We recommend using the Orb apps for macOS and Windows.
+- A host machine with Docker installed and running. See the official [Docker installation guides](https://docs.docker.com/engine/install/).
 - Docker Compose installed. See the [Docker Compose installation guide](https://docs.docker.com/compose/install/).
 - Basic familiarity with using the command line or terminal on your host system.
 - Your host machine must be connected to the network you wish to monitor.
+
+:::warning
+macOS and Windows are not currently supported for auto-discovery and local-network latency due to limitations in Docker's "host network" capability on these systems. We recommend using the Orb apps for macOS and Windows.
+:::
 
 ## Quick install
 
@@ -92,6 +96,10 @@ Otherwise, read on!
     ```bash
     docker-compose up -d
     ```
+
+:::warning
+Depending on your Docker version, you may need to use "`docker compose`" rather than "`docker-compose`".
+:::
 
 3. Docker Compose will pull the necessary images (`orbforge/orb` and `containrrr/watchtower`) and start the containers. You can check the status with:
 

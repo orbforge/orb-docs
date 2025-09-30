@@ -13,7 +13,9 @@ subtitle: 'Difficulty: Intermediate 🧑‍🔬'
 
 This guide walks you through installing the Orb sensor on UniFi Routers, including the Dream Machine and Dream Router. This will allow you to monitor your network connectivity right on your router, and access the information from anywhere within or outside the network using the Orb app.
 
-**NOTE: These instructions have been tested on the Dream Machine Pro, but should work on other UniFi OS routers as well.**
+:::note
+These instructions have been tested on the Dream Machine Pro, but should work on other UniFi OS routers as well.**
+:::
 
 ## Step 1: Enable SSH
 

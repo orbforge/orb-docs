@@ -7,7 +7,7 @@ section: Deploy & Configure
 
 # Local Analytics
 
-Orb Local Analytics is an open source project that allows you to easily stand up a simple "TIG stack" (Telegraf, InfluxDB, Grafana) set of containers to receive and visualize Orb Datasets via [Orb Local API](/docs/deploy-and-configure/datasets-configuration#local-api).
+Orb Local Analytics is an open source project that allows you to easily stand up a simple "TIG stack" (Telegraf, InfluxDB, Grafana) set of containers to receive and visualize Orb Datasets via [Orb Local API](/docs/deploy-and-configure/datasets-configuration#local-api) or [Data Push](/docs/deploy-and-configure/datasets-configuration#data-push).
 
 ![Local Analytics screenshot](../../images/deploy-and-configure/local-analytics.png)
 

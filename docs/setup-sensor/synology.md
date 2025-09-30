@@ -79,9 +79,17 @@ The Orb sensor requires host network mode to function properly:
 
 ![Advanced settings host mode](../../images/synology/5.3.png)
 
-4. Click **Next** to save the advanced settings
+## Step 6: Configure Volume
 
-## Step 6: Start the Container
+The Orb sensor needs a persistent volume for configuration and the local database:
+
+1. Remaining in **Advanced Settings**
+2. Find the **Volume Settings** section
+3. Click **Add Folder**
+4. Give the folder the name "`/docker/orb`" and map it to "`/root/.config/orb`" with "Read/Write" permissions
+5. Click **Next** to save the advanced settings
+
+## Step 7: Start the Container
 
 Now you're ready to start the Orb sensor:
 
@@ -91,7 +99,7 @@ Now you're ready to start the Orb sensor:
 
 You can verify the container is running by checking its status in the Container list - it should show as "Running".
 
-## Step 7: Link Your Orb to Your Account
+## Step 8: Link Your Orb to Your Account
 
 The final step is to link your new Orb sensor to your account:
 

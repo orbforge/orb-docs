@@ -7,7 +7,7 @@ section: Deploy & Configure
 
 # Orb Datasets
 
-Orb applications and sensors are capable of producing **Datasets** for Scores, Responsiveness, Web Responsiveness, and Speed data. These datasets may be streamed to Orb [Local Analytics](/docs/deploy-and-configure/local-analytics), or a destination of your choice via Local API. This document describes the available datasets and their schemas. For details on configuring Orb to send Datasets to your desired backend, see [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration).
+Orb applications and sensors are capable of producing **Datasets** for Scores, Responsiveness, Web Responsiveness, and Speed data. These datasets may be streamed to Orb Cloud, Orb Local Analytics, or a destination of your choice. This document describes the available datasets and their schemas. For details on configuring Orb to send Datasets to your desired backend, see [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration).
 
 ## Current Version
 

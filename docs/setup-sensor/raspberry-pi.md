@@ -25,7 +25,11 @@ This guide walks you through setting up a Raspberry Pi with Raspberry Pi OS to a
 
 1. Download **Raspberry Pi Imager** from [the official website](https://www.raspberrypi.com/software/).
 2. Insert your SD card into your computer (directly or via USB adapter).
-   ⚠️ **Warning:** This will erase all data on the SD card!
+
+:::warning
+This will erase all data on the SD card!
+:::
+
 3. Open Raspberry Pi Imager and click **"CHOOSE DEVICE"**.
 4. Select your Raspberry Pi model (e.g., **"Raspberry Pi 5"**).
 5. Click **"CHOOSE OS"** and select **"Raspberry Pi OS (Other)"**.
