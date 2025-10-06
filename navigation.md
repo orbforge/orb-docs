@@ -49,7 +49,7 @@
 - [Linking an Orb to your account](/docs/orb-app/linking-orb-to-account.md)
 - [Deleting an Orb account](/docs/orb-app/deleting-orb-account.md)
 - [Notifications](/docs/orb-app/notifications.md)
-- [Sensor mode](/docs/orb-app/sensor-mode.md)
+- [App Settings](/docs/orb-app/app-settings.md)
 
 ## [Using Orb Cloud](/docs/orb-cloud)
 
