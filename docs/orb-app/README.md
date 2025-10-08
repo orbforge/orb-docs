@@ -31,4 +31,4 @@ This section covers everything you need to know about using the Orb app, from na
 ## Settings & Customization
 
 - [Notifications](/docs/orb-app/notifications.md) - Configure how and when Orb notifies you about network issues
-- [Keep Awake (Sensor Mode)](/docs/orb-app/sensor-mode.md) - Learn about the keep awake setting (sensor mode)
+- [App Settings](/docs/orb-app/app-settings.md) - Learn about view-only mode, keep awake (sensor mode), start in background, display language settings, and more.
