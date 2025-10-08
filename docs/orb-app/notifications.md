@@ -64,5 +64,5 @@ If you're not receiving expected notifications:
 
 Now that you've configured your notifications, learn more about:
 
-- [Sensor Mode](/docs/orb-app/sensor-mode.md)
+- [App Settings](/docs/orb-app/app-settings.md)
 - [Understanding Orb Scores](/docs/orb-app/orb-scores-metrics.md)

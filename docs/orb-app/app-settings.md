@@ -35,10 +35,10 @@ View-Only Mode is a setting that disables the measurement functionality of the O
 <img src="../../images/orb-app/view-only.png" alt="Display Language" width=40% style="margin-left: 2em;">
 
 # Start in background (Desktop only)
-This explains the Start in background setting found within the App Settings menu on macOS and Windows.
+This explains the Start in Background setting found within the App Settings menu on macOS and Windows.
 
 ## What is Start in background?
-The Start in background setting allows the Orb app to launch automatically in the background when you start your Mac. This is useful for users who want the app to run without needing to manually open it each time.
+The Start in Background setting allows the Orb app to launch automatically in the background when you start your Mac. This is useful for users who want the app to run without needing to manually open it each time.
 
 ## Enabling Start in background
 1. Navigate to the App Settings menu by tapping the gear icon in the top right corner of the app.
@@ -65,7 +65,7 @@ Note: use the system tray icon to access the app when the Dock icon is hidden.
 This explains the Launch app at startup setting found within the App Settings menu on Windows.
 
 ## What is Launch App at Startup?
-The Launch app at startup setting allows the Orb app to launch automatically when you start your Windows computer. This is useful for users who want the app to run without needing to manually open it each time.
+The Launch App at Startup setting allows the Orb app to launch automatically when you start your Windows computer. This is useful for users who want the app to run without needing to manually open it each time.
 
 ## Enabling Launch App at Startup
 1. Navigate to the App Settings menu by tapping the gear icon in the top right corner of the app.
@@ -73,7 +73,7 @@ The Launch app at startup setting allows the Orb app to launch automatically whe
 
 <img src="../../images/orb-app/launch-startup.png" alt="Display Language" width=40% style="margin-left: 2em;">
 
-# Sensor Mode (Mobile only)
+# Keep Awake/Sensor Mode (Mobile only)
 
 This explains the Sensor Mode or "Keep Awake" setting found within the App Settings menu.
 

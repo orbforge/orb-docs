@@ -134,5 +134,5 @@ If automatic discovery fails:
 Now that you've linked your sensors, learn more about:
 
 - [Orb summary view](/docs/orb-app/orb-summary-view.md)
-- [Sensor Mode](/docs/orb-app/sensor-mode.md)
+- [App Settings](/docs/orb-app/app-settings.md)
 - [Notifications](/docs/orb-app/notifications.md)
