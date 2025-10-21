@@ -45,14 +45,15 @@ curl -fsSL https://pkgs.orb.net/stable/debian/orbforge.noarmor.gpg | sudo tee /u
 # add the Orb repository
 curl -fsSL https://pkgs.orb.net/stable/ubuntu/ubuntu.orbforge-keyring.list | sudo tee /etc/apt/sources.list.d/orb.list
 
-# install Orb (no-op if already installed)
-sudo apt-get update && sudo apt-get install orb
-
 # disable mdns discovery, as it collides with Protect ports
 cat <<'EOD' > /etc/default/orb
 ORB_ZEROCONF_BROWSE=0
-ORB_ZEROCONF_PUBLISH=0 
+ORB_ZEROCONF_PUBLISH=0
+ORB_FIRSTHOP_DISABLED=1
 EOD
+
+# install Orb (no-op if already installed)
+sudo apt-get update && sudo apt-get install orb
 
 # enable auto-update
 sudo systemctl enable --now orb-update.timer
