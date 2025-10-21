@@ -48,6 +48,12 @@ curl -fsSL https://pkgs.orb.net/stable/ubuntu/ubuntu.orbforge-keyring.list | sud
 # install Orb (no-op if already installed)
 sudo apt-get update && sudo apt-get install orb
 
+# disable mdns discovery, as it collides with Protect ports
+cat <<'EOD' > /etc/default/orb
+ORB_ZEROCONF_BROWSE=0
+ORB_ZEROCONF_PUBLISH=0 
+EOD
+
 # enable auto-update
 sudo systemctl enable --now orb-update.timer
 EOF
