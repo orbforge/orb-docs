@@ -29,7 +29,7 @@ The following Firewalla devices noted as "Supported" support Docker and should b
 | Gold SE     | ✓         | ✓         |       |
 | Gold Plus   | ✓         | ✓         |       |
 | Gold Pro    | ✓         |           |       |
-| Purple      | ✓         |           |       |
+| Purple      | ✓         | ✓         |       |
 | Purple SE   | ✓         |           |       |
 | Blue Plus   | ✓         |           |       |
 | Blue        | ✗         |           |       |
