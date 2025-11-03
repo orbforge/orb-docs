@@ -89,7 +89,7 @@ Before you begin, make sure you have:
         command: --label-enable --scope orb --interval 86400
 
     networks:
-      isp_primary
+      isp_primary:
         # optional: if this is pointing to the host's primary interface,
         # you don't need to configure a driver, you can enable it here
         # driver: macvlan
