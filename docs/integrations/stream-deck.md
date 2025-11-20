@@ -62,20 +62,30 @@ Alternatively, you can install the plugin directly from the Stream Deck software
 ### Adding Orb to Your Stream Deck
 
 1. Open the Stream Deck software
-2. Locate the Orb action in the actions list
-3. Drag the Orb action to a button on your Stream Deck
-4. Configure which metric you want to display:
-   - **Orb Score**: Your overall connectivity quality score
-   - **Lag**: Network lag measurements
-   - **Latency**: Current latency metrics
+2. Locate the Orb plugin in the actions list. Two actions are available to you.
+  - Show Score
+  - Show Lag
+3. Drag the action to a button on your Stream Deck
 
-### Connecting to a Remote Orb
+### Configuring an Action
+1. Configure what data you want to display:
+  - **Show Score** lets you pick from 4 scores:
+    - **Orb Score**: Your overall connectivity quality score
+    - **Responsiveness Score**: Your overall connectivity quality score
+    - **Speed Score**: Your overall connectivity quality score
+    - **Reliability Score**: Your overall connectivity quality score
+  - **Show Latency** lets you pick from 2 metrics:
+    - **Lag**: Network lag measurements
+    - **Latency**: Current latency metrics
 
+2. Specify the Orb to query for the data being displayed
+
+By default, the plugin is configured to query a local orb running on the machine connected to the Stream Deck.
 If you want to display data from an Orb running on another machine on your local network:
 
-1. Click on the Orb action in your Stream Deck configuration
-2. Enter the IP address or hostname of the machine running Orb
-3. Ensure the Local API is enabled on that remote machine
+- Click on the Orb action in your Stream Deck configuration
+- Enter the IP address or hostname of the machine running Orb. Make sure to include the port. The default local API port is 7080.
+- Ensure the Local API is enabled on that remote machine
 
 ## Troubleshooting
 
