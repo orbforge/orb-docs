@@ -24,8 +24,10 @@ The best sensor device for you depends on your specific needs:
 
 ## Orb Sensor Setup Guides
 
-- [Linux](/docs/setup-sensor/linux)
+- [Windows](/docs/setup-sensor/windows.md)
 - [macOS](/docs/setup-sensor/macos.md)
+- [Linux](/docs/setup-sensor/linux)
+- [FreeBSD](/docs/setup-sensor/freebsd.md)
 - [Raspberry Pi](/docs/setup-sensor/raspberry-pi.md)
 - [OpenWrt](/docs/setup-sensor/linux/openwrt.md)
 - [Docker](/docs/setup-sensor/docker.md)

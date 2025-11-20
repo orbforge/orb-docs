@@ -17,8 +17,10 @@
 
 ## [Set up an Orb sensor](/docs/setup-sensor)
 
-- [Linux](/docs/setup-sensor/linux)
+- [Windows](/docs/setup-sensor/windows.md)
 - [macOS](/docs/setup-sensor/macos.md)
+- [Linux](/docs/setup-sensor/linux)
+- [FreeBSD](/docs/setup-sensor/freebsd.md)
 - [Raspberry Pi](/docs/setup-sensor/raspberry-pi.md)
 - [OpenWrt](/docs/setup-sensor/linux/openwrt.md)
 - [Docker](/docs/setup-sensor/docker.md)
@@ -65,3 +67,8 @@
 - [Local Analytics](/docs/deploy-and-configure/local-analytics.md)
 - [Deployment Tokens](/docs/deploy-and-configure/deployment-tokens.md)
 - [MDM](/docs/deploy-and-configure/mdm)
+
+## [Integrations](/docs/integrations)
+
+- [Elgato Stream Deck](/docs/integrations/stream-deck.md)
+- [Hamina Live View](/docs/integrations/hamina.md)

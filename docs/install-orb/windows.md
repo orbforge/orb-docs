@@ -29,6 +29,10 @@ This guide will walk you through the process of installing the Orb app on your W
 4. Follow the on-screen instructions in the installer.
 5. Click "Finish" when the installation is complete.
 
+:::note
+If you are having troubles with the installer, there is an experimental, early access .exe installer available on [the Forge](https://orb.net/the-forge/early-access/orb-beta-for-windows-(.exe)). The .exe installer does not currently include automatic updates.
+:::
+
 ### Step 3: First Launch
 
 1. The Orb app should launch automatically after installation.
