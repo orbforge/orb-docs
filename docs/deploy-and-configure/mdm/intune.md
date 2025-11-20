@@ -5,7 +5,7 @@ metaDescription: Deploy Orb via Microsoft Intune MDM.
 section: Deploy & Configure
 ---
 
-# Deploy Orb on macOS using Microsoft Intune
+# Deploy Orb on Microsoft Windows using Intune
 
 This guide walks you through using Microsoft Intune to deploy Orb to run in an automated and unobtrusive fashion across your fleet of Windows devices. The guide covers:
 
