@@ -81,7 +81,7 @@ Select a client with an Orb Score, and the **Client Details** window will appear
 
 :::note
 You might need to zoom out to find the client and associated Client Details window.
-::
+:::
 
 As usual, the Client Details window will show statistics from the network infrastructure vendor, but it will be augmented with information from Orb.
 
