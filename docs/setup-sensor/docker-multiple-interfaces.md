@@ -1,166 +1,385 @@
 ---
-title: Measuring multiple interfaces
-shortTitle: Multiple Interfaces
-metaDescription: Run the Orb sensor in a setup with multiple interfaces
+title: Measuring multiple network interfaces (or VLANs)
+shortTitle: Multiple Interfaces (or VLANs)
+metaDescription: Run multiple Orb sensor containers measuring different connections
 section: setup-sensor
 layout: guides
 imageUrl: ../../images/devices/docker.png
 subtitle: 'Difficulty: Advanced 🧑‍🔬'
 ---
 
-# Installing multiple Orbs to monitor multiple interfaces
+# Measuring multiple network interfaces (or VLANs)
 
 ## Introduction
 
-On a device with multiple subnets and gateways, you can configure multiple orbs to measure each interface simultaneously. For this setup we're going to be using Docker on Linux. This guide will show you how to configure Orb in a multi-sensor setup, using [Docker](https://www.docker.com/) and (optionally) the `macvlan` driver.
+On a device or VM with multiple networks (multiple physical network interfaces and/or multiple VLANs), you can run separate Orb sensors in Docker, each one monitoring a different network continuously.
 
-This guide assumes you have Docker and Docker Compose already installed and running on your host system.
+This guide shows how to configure multiple Orb sensors in Docker, where each container attaches to a separate VLAN or network interface and receives its own DHCP lease. This allows a single VM or host to measure multiple network connections independently.
 
-### VLAN support
+This guide uses:
 
-Multiple connections can be available in different setups, either provided through "physical" vlans, multiple nics with different subnets and gateways, or maybe other virtual networks inside the host machine. This docker setup below describes a single host with multiple subnets and a gateway per subnet. Please refer to the [#VLAN support](#VLAN+support) section which describes how to tag the docker container to use specific VLAN tags if needed.
+- Docker + Docker Compose
+- Linux host system
+- VLAN subinterfaces on the host
+- Docker’s `macvlan` network driver
 
 ## Prerequisites
 
-Before you begin, make sure you have:
+Before continuing, ensure you have:
 
-- A host machine with Docker installed and running. See the official [Docker installation guides](https://docs.docker.com/engine/install/). We're using the `macvlan` module. This module is currently only available on linux. But depending on your setup, it is possible to use the default network module, and skip the `macvlan` module in the config below.
-- All interfaces should be available for use on the host.
-- Subnet and gateway information for each network you want to monitor.
-- Docker Compose installed. See the [Docker Compose installation guide](https://docs.docker.com/compose/install/).
-- Good familiarity with using the command line or terminal on your host system.
-- Your host machine must be physically connected to the networks you wish to monitor.
+- A Linux host (physical or VM) with Docker installed
+- Docker Compose installed
+- Multiple network interfaces OR a network interface receiving one or more **802.1Q VLAN tags**
+- Basic Linux command-line experience
+- Physical connectivity to each network you want to monitor
 
-## Step 1: Prepare the Docker Compose file
+---
 
-1.  Create a file named `docker-compose.yml` in a working directory.
-2.  Paste the following content exactly into the `docker-compose.yml` file:
+# Prepare VLAN Subinterfaces on the Host (skip if you're not using VLANs)
 
-    ```yaml
-    version: '3.0'
-    services:
-      orb_primary:
-        image: orbforge/orb:latest
-        container_name: orb-primary-isp
-        hostname: orb-primary-isp
-        restart: always
-        labels:
-          - "com.centurylinklabs.watchtower.enable=true"
-          - "com.centurylinklabs.watchtower.scope=orb"
+If the host receives an 802.1Q trunk carrying multiple VLANs, you can create a subinterface for each VLAN.  
+Later, we'll attach Orb sensor containers to these subinterfaces the same way we would attach them to a physical interface.
 
-        networks:
-          isp_primary:
-            # optional, if you need to set a static ip, this is the place to do it
-            # if not, it will just use dhcp by default
-            # ipv4_address: 10.0.10.50
-            # ipv6_address: 
-        # optional: set a mac address
-        # mac_address: '02:42:0A:00:01:AA'
-        cap_add:
-          - NET_RAW
-        volumes:
-          - primary_isp_data:/root/.config/orb
+## Identify physical network interface (NIC)
 
-      # you can add as many orb sensors as you want to test for
-      orb_secondary:
-        image: orbforge/orb:latest
-        container_name: orb-secondary-isp
-        hostname: orb-secondary-isp
-        restart: always
-        labels:
-          - "com.centurylinklabs.watchtower.enable=true"
-          - "com.centurylinklabs.watchtower.scope=orb"
-        networks:
-          # optional, if you need to set a static ip, this is the place to do it
-          isp_secondary:
-            ipv4_address: 10.0.20.50
-        # mac_address: '02:42:0A:00:01:BB'
-        cap_add:
-          - NET_RAW
-        volumes:
-          - secondary_isp_data:/root/.config/orb
+Before creating VLAN subinterfaces, you must determine which physical network interface on your host is receiving the VLAN trunk (the tagged networks).
 
-      watchtower:
-        image: containrrr/watchtower
-        container_name: watchtower
-        restart: unless-stopped
-        volumes:
-          - /var/run/docker.sock:/var/run/docker.sock
-        command: --label-enable --scope orb --interval 86400
+```sh
+ip addr
+```
 
-    networks:
-      isp_primary:
-        # optional: if this is pointing to the host's primary interface,
-        # you don't need to configure a driver, you can enable it here
-        # driver: macvlan
-        driver_opts:
-          parent: enp8s0f1  # the interface you want to monitor
-  
-      isp_secondary:
-        driver: macvlan  # if the host interfaces have their own gateways already setup, you can skip this driver
-        driver_opts:
-          parent: enp9s0f1 # the 2nd interface you want to monitor
-          # parent: enp9s0f1.02 # you can also set vlan tags by appending .[vlan-tag] to the interface
-  
+Look for the interface that has your host’s primary IP address (e.g., your management LAN IP).
+
+This is usually one of:
+
+- `ens18`
+- `eth0`
+- `enp3s0`
+- `eno1`
+
+or similar.
+
+Example output:
+
+```sh
+2: ens18: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qlen 1000
+    link/ether bc:24:11:5d:30:3e brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.141/24 brd 192.168.1.255 scope global dynamic ens18
+       valid_lft 85466sec preferred_lft 85466sec
+```
+
+In this example, the physical NIC is `ens18`.
+
+## Create subinterfaces for each VLAN
+
+These subinterfaces allow the host (and later Docker) to interact with each tagged VLAN independently.
+
+Each VLAN subinterface is created using the naming pattern:
+
+```
+<physical-NIC>.<vlan-id>
+```
+
+For example:
+
+- VLAN 10 → `ens18.10`
+- VLAN 20 → `ens18.20`
+- VLAN 30 → `ens18.30`
+
+Create the subinterfaces:
+
+```sh
+sudo ip link add link ens18 name ens18.10 type vlan id 10
+sudo ip link add link ens18 name ens18.20 type vlan id 20
+sudo ip link add link ens18 name ens18.30 type vlan id 30
+```
+
+Bring each interface online:
+
+```sh
+sudo ip link set ens18.10 up
+sudo ip link set ens18.20 up
+sudo ip link set ens18.30 up
+```
+
+Verify that the VLAN interfaces are active:
+
+```sh
+ip addr show ens18.10
+ip addr show ens18.20
+ip addr show ens18.30
+```
+
+When working correctly, each subinterface will appear with:
+
+- A valid MAC address
+- A state of `UP`
+- A `BROADCAST,MULTICAST` capability set
+- (Optionally) an assigned DHCP IP if you tested with dhclient
+
+Example (VLAN 10):
+
+```sh
+3: ens18.10@ens18: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500
+    link/ether bc:24:11:5d:30:3e brd ff:ff:ff:ff:ff:ff
+```
+
+If the interface is missing or shows as DOWN, double-check:
+
+- The VLAN ID is correct
+- The switch/router port is configured as a trunk
+- You created the subinterface using the correct parent NIC (`ens18` in this example)
+
+Once these VLAN subinterfaces are active, Docker can bind `macvlan` networks to them—allowing each container to receive a DHCP lease on its own VLAN.
+
+## (Optional) Test VLAN connectivity using DHCP
+
+Before moving on, you may want to verify that each VLAN subinterface can successfully communicate with its upstream network and receive a DHCP lease. Docker and the Orb containers do **not** require `dhclient` on the host. This step is only to validate your network trunking before involving Docker.
+
+This step confirms:
+
+1. The switch/router trunk is configured correctly
+2. The VLAN ID is correct
+3. DHCP is enabled on each VLAN
+4. The host can reach the correct gateway on that VLAN
+
+Test each interface by requesting a DHCP lease directly on the host:
+
+```sh
+sudo dhclient ens18.10
+sudo dhclient ens18.20
+sudo dhclient ens18.30
+```
+
+If the VLAN is configured properly, each command should result in a valid IP being assigned. For example:
+
+```
+inet 192.168.154.141/24 brd 192.168.154.255 scope global dynamic ens18.10
+```
+
+Check:
+
+```sh
+ip addr show ens18.10
+```
+
+If `dhclient` hangs, fails, or the interface remains without an IP address:
+
+- Ensure the switch port is set to trunk/tagged mode
+- Verify the DHCP server is active for that VLAN
+- Confirm the correct VLAN ID is being used
+- Ensure nothing upstream filters DHCP packets (UDP 67/68)
+
+---
+
+# Set up your Docker Compose workspace
+
+Create a Docker Compose project folder to hold your `docker-compose.yml` and supporting files.  
+You can name this project anything you want.
+
+You'll end up with a project directory like this:
+
+```
+<your-project-folder>/
+├── docker-compose.yml
+├── orb-entrypoint.sh
+└── udhcpc-script.sh
+```
+
+## Create DHCP Hook Script
+
+Each Orb container needs a DHCP client so it can obtain and renew its VLAN-specific IP address. Orb’s container image is based on Alpine Linux and includes `udhcpc`, but the lease must be applied via a custom hook script we need to add.
+
+Create a file named `udhcpc-script.sh`:
+
+```sh
+#!/bin/sh
+
+case "$1" in
+  bound|renew)
+    ip addr flush dev "$interface" 2>/dev/null || true
+    ip addr add "$ip"/"$mask" dev "$interface"
+    ip route del default 2>/dev/null || true
+    ip route add default via "$router" dev "$interface"
+    echo "nameserver $dns" > /etc/resolv.conf
+    ;;
+esac
+```
+
+Make executable:
+
+```sh
+chmod +x udhcpc-script.sh
+```
+
+---
+
+## Create Orb Entrypoint Script
+
+We override the default container entrypoint so that DHCP runs first, then the Orb sensor starts normally.
+
+Create a file named `orb-entrypoint.sh`:
+
+```
+#!/bin/sh
+set -e
+
+# Acquire DHCP lease; udhcpc then daemonizes for ongoing renewals.
+udhcpc -i eth0 -s /udhcpc-script.sh -R
+
+# Start Orb
+exec /app/orb sensor
+```
+
+Make executable:
+
+```sh
+chmod +x orb-entrypoint.sh
+```
+
+---
+
+## Create the Docker Compose File
+
+Each Orb instance runs on its own macvlan network.  
+Because Docker requires an IPAM subnet even when using DHCP, we use **TEST-NET placeholder ranges** defined in RFC 5737.
+
+Docker uses these TEST-NET ranges only to satisfy macvlan’s IPAM requirement. The Orb containers will receive their **real** IP addresses from your actual DHCP server.
+
+This example creates 3 Orb containers, each attached to a different VLAN subinterface:
+
+- `ens18.10`
+- `ens18.20`
+- `ens18.30`
+
+You may add as many containers as needed, as long as each macvlan network’s `parent` maps to a valid interface or VLAN subinterface.
+
+Create `docker-compose.yml`:
+
+```yaml
+services:
+  orb_vlan10:
+    image: orbforge/orb:latest
+    container_name: orb_vlan10
+    entrypoint: ['/orb-entrypoint.sh']
     volumes:
-      primary_isp_data:
-      secondary_isp_data:
-    ```
+      - ./orb-entrypoint.sh:/orb-entrypoint.sh:ro
+      - ./udhcpc-script.sh:/udhcpc-script.sh:ro
+    cap_add: ['NET_ADMIN']
+    networks: ['vlan10']
+    restart: unless-stopped
 
-    **Explanation:**
+  orb_vlan20:
+    image: orbforge/orb:latest
+    container_name: orb_vlan20
+    entrypoint: ['/orb-entrypoint.sh']
+    volumes:
+      - ./orb-entrypoint.sh:/orb-entrypoint.sh:ro
+      - ./udhcpc-script.sh:/udhcpc-script.sh:ro
+    cap_add: ['NET_ADMIN']
+    networks: ['vlan20']
+    restart: unless-stopped
 
-    - `orb_primary/orb_secondary`: Defines the Orb services, add as many as you want to monitor
-      - `image: orbforge/orb:latest`: Uses the official Orb Docker image.
-      - `volumes:`: Stores Orb's configuration persistently in a Docker volume. Each service/connection needs it's own volume
-      - `restart: always`: Keeps the Orb container running.
-      - `labels`: Used by Watchtower to know this container should be auto-updated.
-    - `watchtower`: (Optional but recommended) Defines the Watchtower service to automatically update the Orb container when new images are published.
-    - `volumes:`: Sets up different volumes for each Orb container, so each get's it's own config.
-    - `networks:`: Defines each network the orb instances can use. Depending on your local network setup, you can choose to use the [`macvlan`](https://docs.docker.com/engine/network/drivers/macvlan/), [`ipvlan`](https://docs.docker.com/engine/network/drivers/ipvlan/), or other network drivers supported by Docker. __You can have multiple networks using the `macvlan` driver, pointing to different parents__
+  orb_vlan30:
+    image: orbforge/orb:latest
+    container_name: orb_vlan30
+    entrypoint: ['/orb-entrypoint.sh']
+    volumes:
+      - ./orb-entrypoint.sh:/orb-entrypoint.sh:ro
+      - ./udhcpc-script.sh:/udhcpc-script.sh:ro
+    cap_add: ['NET_ADMIN']
+    networks: ['vlan30']
+    restart: unless-stopped
 
-### VLAN support
-If you have a host device with ethernet ports that support vlan tagging on the network level, you can tell the driver to add the vlan tags like so:
+networks:
+  vlan10:
+    driver: macvlan
+    driver_opts:
+      parent: ens18.10
+    ipam:
+      config:
+        - subnet: 192.0.2.0/24
+          gateway: 192.0.2.1
 
+  vlan20:
+    driver: macvlan
+    driver_opts:
+      parent: ens18.20
+    ipam:
+      config:
+        - subnet: 198.51.100.0/24
+          gateway: 198.51.100.1
+
+  vlan30:
+    driver: macvlan
+    driver_opts:
+      parent: ens18.30
+    ipam:
+      config:
+        - subnet: 203.0.113.0/24
+          gateway: 203.0.113.1
 ```
-isp_secondary:
-	driver: macvlan  # if the host interfaces have their own gateways already setup, you can skip this driver
-	driver_opts:
-		parent: enp9s0f1.02 # This would set the vlan tag 2, using the `enp9s0f1` device
+
+---
+
+# Start the Orb Containers
+
+From your project directory:
+
+```sh
+docker compose up -d
 ```
 
-## Step 2: Start the Orb Container
+Check status:
 
-1.  Make sure you are still in the directory containing your `docker-compose.yml` file in your terminal.
-2.  Run the following command to download the Orb image (if you don't have it) and start the container(s) in the background:
-    ```bash
-    docker-compose up -d
-    ```
-3.  Docker Compose will pull the necessary images (`orbforge/orb` and `containrrr/watchtower`) and start the containers. You can check the status with:
-    ```bash
-    docker-compose ps
-    ```
-    You should see containers for each sensor you have configured.
-
-## Step 3: Link your new Orb sensors
-
-As the instances are all running inside their own network, zeroconf discovery is unreliable. Instead, use the `orb link` command to link each sensor to your account:
-
-1. For each sensor, run this command:
-```
-docker exec [name-of-container] /app/orb link
-# ie:
-# docker exec orb_primary /app/orb link
+```sh
+docker compose ps
 ```
 
-The output will be something like:
-```
-docker exec -ti orb-primary-isp /app/orb link
-2025/05/29 07:46:55 INFO Orb ID orbID=123p5x7xmehfs456xyzs83uqwff
-To link your device, visit the following URL in a web browser and log into your Orb account:
-Device link: https://orb.net/v/xyz (expires May 7 13:37)
+Each container will:
+
+1. Start
+2. Run udhcpc to obtain its VLAN-specific DHCP lease
+3. Apply IP/route/DNS via the hook script
+4. Launch the Orb sensor
+5. Renew its DHCP lease automatically over time
+
+---
+
+# Confirm the DHCP Lease
+
+Check the assigned address:
+
+```sh
+docker exec -it orb_vlan10 ip addr
 ```
 
-2. Follow that link to add the sensor to your account. Repeat for each sensor.
-3. Check the Orb app on your phone or computer. Your new Docker-based Orb sensor should now be visible and ready to use.
+You should see a valid DHCP address from VLAN 10.
 
-## You're Done! 🥳
+Repeat for the other containers.
+
+---
+
+# (Optional) Link Each Orb Sensor to an Orb Account
+
+These Orbs can be linked to your Orb account like any other Orb device. It may be easiest to link them now via the CLI, since each Orb runs on a separate network and may not be directly accessible from your current device.
+
+Alternatively, you can use a Deployment Token via the container’s `environment:` section to automatically link at startup.
+
+Link manually:
+
+```sh
+docker exec -it orb_vlan10 /app/orb link
+docker exec -it orb_vlan20 /app/orb link
+docker exec -it orb_vlan30 /app/orb link
+```
+
+Follow the link provided in each command’s output to associate the sensor with your Orb account.
+
+---
+
+# You're Done! 🥳
+
+You now have multiple Orb sensors running in Docker on a single host or VM, each bound to a unique VLAN or network interface, each obtaining its own DHCP-assigned IP address.
+
+This is the recommended solution for environments where a single machine must measure multiple independent networks.
