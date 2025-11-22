@@ -75,9 +75,9 @@ If you change your mind:
 
 If you need assistance with account deletion or have questions before proceeding:
 
-- Contact our support team at <support@orb.net>.
+- [Contact our support team](https://orb.net/contact).
 - Visit our [Support Center](/support).
 
 ## Feedback
 
-We're sorry to see you go! If you're deleting your account due to an issue with our service, we'd appreciate your feedback to help us improve. You can share your thoughts during the deletion process or by emailing <support@orb.net>.
+We're sorry to see you go! If you're deleting your account due to an issue with our service, we'd appreciate your feedback to help us improve. You can share your thoughts during the deletion process or via our [Contact Us](https://orb.net/contact) page.

@@ -117,7 +117,7 @@ If you can't log in to your account:
 - Verify you're using the correct email and password.
 - Reset your password if necessary.
 - Ensure your account has been verified via email.
-- Contact <support@orb.net> if issues persist.
+- [Contact the Orb team](https://orb.net/contact) if issues persist.
 
 ## Privacy and Data Usage
 
