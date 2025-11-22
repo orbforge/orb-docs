@@ -111,5 +111,5 @@ If you receive connection errors:
 For additional help with the Stream Deck plugin:
 
 - Join our [Discord community](https://discord.gg/orbforge)
-- Contact [support@orb.net](mailto:support@orb.net)
+- [Contact the Orb team](https://orb.net/contact)
 - Visit the [Elgato Marketplace page](https://marketplace.elgato.com/product/orb-10e40a4f-9022-4220-bad2-edff84f1df98)

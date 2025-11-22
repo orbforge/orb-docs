@@ -94,4 +94,4 @@ Uninstalling the app does not automatically delete your account data from our se
 
 ## Feedback
 
-We're sorry to see you go! If you're uninstalling due to an issue or concern, we'd appreciate your feedback to help us improve. Please consider sending your feedback to <support@orb.net>.
+We're sorry to see you go! If you're uninstalling due to an issue or concern, we'd appreciate your feedback to help us improve. Please consider sending your feedback via our [Contact Us](https://orb.net/contact) page.
