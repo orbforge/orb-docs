@@ -1,7 +1,7 @@
 ---
 title: Install Orb on Ubuntu before 20.04
 shortTitle: Ubuntu < 20.04
-metaDescription: Install the Orb sensor on Ubuntu versions prior to 20.04
+metaDescription: Set up the Orb sensor on older Ubuntu systems (Bionic, Xenial, and earlier).
 section: setup-sensor
 layout: guides
 imageUrl: ../../../images/devices/linux.png

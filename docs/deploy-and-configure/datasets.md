@@ -1,7 +1,7 @@
 ---
 title: Orb Datasets
 shortTitle: Datasets
-metaDescription: Datasets produced by Orb.
+metaDescription: Reference documentation for Orb dataset schemas including Scores, Responsiveness, and Speed data.
 section: Deploy & Configure
 ---
 

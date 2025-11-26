@@ -1,7 +1,7 @@
 ---
 title: Install Orb on QNAP NAS
 shortTitle: QNAP NAS
-metaDescription: Install the Orb sensor on your QNAP NAS using Container Station for network monitoring.
+metaDescription: Monitor network performance from your QNAP NAS using Container Station.
 section: setup-sensor
 layout: guides
 subtitle: 'Difficulty: Beginner 🧑‍💻'

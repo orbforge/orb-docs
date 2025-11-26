@@ -1,7 +1,7 @@
 ---
 title: Install Orb on UniFi Routers
 shortTitle: UniFi Routers
-metaDescription: Install the Orb sensor on your UniFi Routers including the Dream Machine and Dream Router.
+metaDescription: Monitor network performance directly from your UniFi Dream Machine, Dream Router, or other UniFi routers.
 section: setup-sensor
 layout: guides
 subtitle: 'Difficulty: Intermediate 🧑‍🔬'

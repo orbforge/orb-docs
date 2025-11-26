@@ -1,7 +1,7 @@
 ---
 title: Install Orb on Windows
 shortTitle: Windows
-metaDescription: Install the Orb sensor on Windows as a headless service
+metaDescription: Run the Orb sensor as a background Windows service for continuous network monitoring.
 section: setup-sensor
 layout: guides
 subtitle: 'Difficulty: Beginner 🧑‍💻'

@@ -1,7 +1,7 @@
 ---
 title: Orb Configuration
 shortTitle: Orb Configuration
-metaDescription: Configuring the behavior of Orb.
+metaDescription: Control Orb behavior using environment variables and remote configuration options.
 section: Deploy & Configure
 ---
 

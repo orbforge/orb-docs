@@ -1,7 +1,7 @@
 ---
 title: Install Orb on Synology NAS
 shortTitle: Synology NAS
-metaDescription: Install the Orb sensor on your Synology NAS using Container Manager for network monitoring.
+metaDescription: Monitor network performance from your Synology NAS using Container Manager.
 section: setup-sensor
 layout: guides
 subtitle: 'Difficulty: Beginner 🧑‍💻'

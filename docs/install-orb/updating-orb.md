@@ -1,7 +1,7 @@
 ---
 title: Updating Orb
 shortTitle: Updating Orb
-metaDescription: Learn how to keep your Orb app and sensors up to date on all platforms
+metaDescription: Learn how to keep your Orb app and sensors up to date on all platforms.
 section: Install Orb
 ---
 

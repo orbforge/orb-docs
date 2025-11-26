@@ -1,7 +1,7 @@
 ---
 title: Integrations
 shortTitle: Integrations
-metaDescription: Connect Orb with third-party apps and services
+metaDescription: Connect Orb with third-party apps and services.
 section: Integrations
 ---
 

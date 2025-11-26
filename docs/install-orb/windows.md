@@ -1,7 +1,7 @@
 ---
 title: Installing Orb on Windows
 shortTitle: Windows
-metaDescription: Step-by-step guide for installing the Orb app on Windows PCs
+metaDescription: Step-by-step guide for installing the Orb app on Windows PCs.
 section: Install Orb
 ---
 

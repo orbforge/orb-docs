@@ -1,7 +1,7 @@
 ---
 title: Orb Cloud
 shortTitle: Orb Cloud
-metaDescription: Orb Cloud overview and quick start.
+metaDescription: View, manage, and analyze your Orb network data in the cloud with analytics, status monitoring, and team collaboration.
 section: Orb Cloud
 ---
 

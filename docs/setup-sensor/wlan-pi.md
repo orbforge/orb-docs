@@ -1,7 +1,7 @@
 ---
 title: Installing Orb on WLAN Pi
 shortTitle: WLAN Pi
-metaDescription: Install the Orb sensor on your WLAN Pi device using a simple command.
+metaDescription: Add network monitoring to your WLAN Pi Wi-Fi troubleshooting toolkit.
 section: setup-sensor
 layout: guides
 imageUrl: ../../images/devices/raspberry-pi.png

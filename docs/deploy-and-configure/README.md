@@ -1,7 +1,7 @@
 ---
 title: Deploy & Configure
 shortTitle: Deploy & Configure
-metaDescription: Deploy & Configure Orbs
+metaDescription: Deployment options, configuration settings, and data management for Orb at any scale.
 section: Deploy & Configure
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Installing Orb on OpenWrt
 shortTitle: OpenWrt
-metaDescription: Install the Orb sensor on your OpenWrt device using a simple command.
+metaDescription: Monitor network performance directly from your OpenWrt router with a single command.
 section: setup-sensor
 layout: guides
 imageUrl: ../../../images/devices/openwrt.png

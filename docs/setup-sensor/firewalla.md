@@ -1,7 +1,7 @@
 ---
 title: Install Orb on Firewalla
 shortTitle: Firewalla
-metaDescription: Install the Orb sensor on your Firewalla device for network monitoring.
+metaDescription: Monitor network performance directly from your Firewalla firewall device.
 section: setup-sensor
 layout: guides
 subtitle: 'Difficulty: Easy 🧑‍💻'

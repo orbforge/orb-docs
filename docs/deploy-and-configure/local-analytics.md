@@ -1,7 +1,7 @@
 ---
 title: Local Analytics
 shortTitle: Local Analytics
-metaDescription: Setup Local Analytics.
+metaDescription: Host your own Orb analytics dashboard using a TIG stack (Telegraf, InfluxDB, Grafana).
 section: Deploy & Configure
 ---
 

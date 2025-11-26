@@ -1,7 +1,7 @@
 ---
 title: Install Orb on Debian before Bullseye (11)
 shortTitle: Debian < 11
-metaDescription: Install the Orb sensor on Debian versions prior to Bullseye (11)
+metaDescription: Set up the Orb sensor on older Debian systems (Buster, Stretch, and earlier).
 section: setup-sensor
 layout: guides
 imageUrl: ../../../images/devices/linux.png

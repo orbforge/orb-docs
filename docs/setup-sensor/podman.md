@@ -1,7 +1,7 @@
 ---
 title: Installing Orb using Podman Quadlet
 shortTitle: Podman Quadlet
-metaDescription: Run the Orb sensor as a Podman container managed by a systemd quadlet on any compatible system.
+metaDescription: Deploy the Orb sensor as a Podman container with systemd integration for reliable startup.
 section: setup-sensor
 layout: guides
 subtitle: 'Difficulty: Intermediate 🧑‍🔬'

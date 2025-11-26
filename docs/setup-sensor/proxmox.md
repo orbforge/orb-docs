@@ -1,7 +1,7 @@
 ---
 title: Install Orb on Proxmox
 shortTitle: Proxmox
-metaDescription: Install the Orb sensor on a Proxmox node for network monitoring.
+metaDescription: Monitor network performance from your Proxmox virtualization host.
 section: setup-sensor
 layout: guides
 # TODO: Add a Proxmox image URL if available, otherwise remove or use a generic Linux one

@@ -1,7 +1,7 @@
 ---
 title: Mosyle
 shortTitle: Mosyle
-metaDescription: Deploy Orb via Mosyle MDM.
+metaDescription: Deploy Orb across your macOS fleet using Mosyle with automated configuration.
 section: Deploy & Configure
 ---
 

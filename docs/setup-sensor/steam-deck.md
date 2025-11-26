@@ -1,7 +1,7 @@
 ---
 title: Install Orb on Steam Deck
 shortTitle: Steam Deck
-metaDescription: Install the Orb sensor on your Steam Deck to monitor connectivity while gaming or downloading games.
+metaDescription: Monitor your Steam Deck's network connectivity while gaming or downloading.
 section: setup-sensor
 layout: guides
 imageUrl: ../../images/devices/steam-deck.png

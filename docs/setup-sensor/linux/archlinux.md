@@ -1,7 +1,7 @@
 ---
 title: Install Orb on Arch Linux
 shortTitle: Arch Linux
-metaDescription: Install the Orb sensor on Arch Linux
+metaDescription: Set up continuous network monitoring on Arch Linux with the Orb sensor.
 section: setup-sensor
 layout: guides
 imageUrl: ../../../images/devices/linux.png

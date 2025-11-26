@@ -1,7 +1,7 @@
 ---
 title: Install Orb on MikroTik RouterOS
 shortTitle: MikroTik
-metaDescription: Install the Orb sensor on your MikroTik RouterOS device for internet experience monitoring.
+metaDescription: Monitor network performance directly from your MikroTik RouterOS device.
 section: setup-sensor
 layout: guides
 subtitle: 'Difficulty: Advanced 🧑‍🚀'

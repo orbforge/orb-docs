@@ -1,7 +1,7 @@
 ---
 title: Installing Orb on Android
 shortTitle: Android
-metaDescription: Step-by-step guide for installing the Orb app on Android devices
+metaDescription: Step-by-step guide for installing the Orb app on Android devices.
 section: Install Orb
 ---
 
