@@ -148,7 +148,6 @@ except TimeoutException:
 ### More Information
 
 - **PyPI Package**: [orb-cloud-client](https://pypi.org/project/orb-cloud-client/)
-- **Source Code**: [github.com/orbforge/orb-cloud](https://github.com/orbforge/orb-cloud)
 
 ## Example: Webhook Integration
 
