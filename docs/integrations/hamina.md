@@ -54,7 +54,28 @@ Before setting up the integration, ensure you have:
 
 6. In the **API Keys** section, the new key will appear. Click on it to copy it to the clipboard.
 
-### Step 2: Configure Hamina Live View
+### Step 2: Enable Identifiable Data
+
+The Hamina integration requires additional identifiable information (such as MAC address) to match Orb devices with clients in your network infrastructure. You must enable this in your Orb configuration.
+
+1. Visit the [Orchestration](https://cloud.orb.net/orchestration) page.
+2. For each Configuration you wish to work with Live View, click the **...** menu next to it and select **Edit**.
+3. In the Edit configuration window, select the **Advanced** tab.
+4. Add the following to your JSON configuration (see screenshot below):
+
+```json
+{
+  "orb.identifiable_level": [
+    "full"
+  ]
+}
+```
+
+![Identifiable Configuration](../../images/integrations/hamina-identifiable-config.png)
+
+5. Click **Save & Apply**.
+
+### Step 3: Configure Hamina Live View
 
 1. Open a project that is already connected to network infrastructure. If you haven't set up the Live View, see [Live View (Beta)](https://docs.hamina.com/planner/import-export/live-view) for more information.
 2. In the **Projects** menu, select the current project, and select **Live analysis settings** from the menu.
