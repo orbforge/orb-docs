@@ -1,7 +1,7 @@
 ---
 title: Install Orb on FreeBSD
 shortTitle: FreeBSD
-metaDescription: Install the Orb sensor on FreeBSD
+metaDescription: Set up continuous network monitoring on FreeBSD with the Orb sensor.
 section: setup-sensor
 layout: guides
 subtitle: 'Difficulty: Beginner 🧑‍💻'

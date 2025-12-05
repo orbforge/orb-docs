@@ -1,7 +1,7 @@
 ---
 title: Install Orb on Ubuntu 20.04 and above
 shortTitle: Ubuntu 20.04+
-metaDescription: Install the Orb sensor on Ubuntu 20.04 and above
+metaDescription: Set up the Orb sensor on modern Ubuntu systems (Focal Fossa and newer).
 section: setup-sensor
 layout: guides
 imageUrl: ../../../images/devices/linux.png

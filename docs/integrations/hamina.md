@@ -1,7 +1,7 @@
 ---
 title: Orb for Hamina Live View
 shortTitle: Hamina Live View
-metaDescription: Integrate Orb connectivity data with Hamina Planner Live View
+metaDescription: Integrate Orb connectivity data with Hamina Planner Live View.
 section: Integrations
 layout: guides
 subtitle: 'Difficulty: Intermediate 🧑‍💻'

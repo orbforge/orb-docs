@@ -1,7 +1,7 @@
 ---
 title: Manage users
 shortTitle: Manage users
-metaDescription: Learn how to manage your space members in the Orb Cloud dashboard.
+metaDescription: Add, remove, and manage team members and their permissions in your Orb Cloud space.
 section: Orb Cloud
 ---
 

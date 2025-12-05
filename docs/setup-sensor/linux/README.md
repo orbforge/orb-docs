@@ -1,7 +1,7 @@
 ---
 title: Install Orb on Linux
 shortTitle: Debian
-metaDescription: Install the Orb sensor on Linux
+metaDescription: Set up continuous network monitoring on Linux with packages for Ubuntu, Debian, Arch, Alpine, RHEL, and more.
 section: setup-sensor
 layout: guides
 imageUrl: ../../../images/devices/linux.png

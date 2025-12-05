@@ -1,7 +1,7 @@
 ---
 title: Datasets Configuration
 shortTitle: Datasets Configuration
-metaDescription: Configuring datasets.
+metaDescription: Configure which datasets your Orbs generate, where they are sent, and what information is included.
 section: Deploy & Configure
 ---
 

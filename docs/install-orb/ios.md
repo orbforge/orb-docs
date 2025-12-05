@@ -1,7 +1,7 @@
 ---
 title: Installing Orb on iOS
 shortTitle: iOS
-metaDescription: Step-by-step guide for installing the Orb app on iPhone or iPad
+metaDescription: Step-by-step guide for installing the Orb app on iPhone or iPad.
 section: Install Orb
 ---
 

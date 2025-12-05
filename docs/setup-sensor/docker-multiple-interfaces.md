@@ -1,7 +1,7 @@
 ---
 title: Measuring multiple network interfaces (or VLANs)
 shortTitle: Multiple Interfaces (or VLANs)
-metaDescription: Run multiple Orb sensor containers measuring different connections
+metaDescription: Monitor multiple network interfaces or VLANs simultaneously using separate Docker containers.
 section: setup-sensor
 layout: guides
 imageUrl: ../../images/devices/docker.png

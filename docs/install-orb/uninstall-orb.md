@@ -1,7 +1,7 @@
 ---
 title: Uninstall Orb
 shortTitle: Uninstall Orb
-metaDescription: Instructions for completely removing Orb from your devices
+metaDescription: Instructions for completely removing Orb from your devices.
 section: Install Orb
 ---
 

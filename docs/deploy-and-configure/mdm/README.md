@@ -1,7 +1,7 @@
 ---
 title: Mobile Device Management
 shortTitle: MDM
-metaDescription: Deploy Orb via MDM.
+metaDescription: Deploy Orb across your organization using Mobile Device Management systems like Intune, Jamf Pro, and Mosyle.
 section: Deploy & Configure
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Jamf Pro
 shortTitle: Jamf Pro
-metaDescription: Deploy Orb via Jamf Pro MDM.
+metaDescription: Deploy Orb across your macOS fleet using Jamf Pro with automated configuration.
 section: Deploy & Configure
 ---
 

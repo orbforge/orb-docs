@@ -1,7 +1,7 @@
 ---
 title: Installing Orb on macOS
 shortTitle: macOS
-metaDescription: Step-by-step guide for installing the Orb app on macOS
+metaDescription: Step-by-step guide for installing the Orb app on macOS.
 section: Install Orb
 ---
 

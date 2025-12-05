@@ -1,7 +1,7 @@
 ---
 title: Microsoft Intune
 shortTitle: Intune
-metaDescription: Deploy Orb via Microsoft Intune MDM.
+metaDescription: Deploy Orb across your Windows fleet using Microsoft Intune with automated configuration.
 section: Deploy & Configure
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Install Orb on RPM-based Systems
 shortTitle: RPM Systems
-metaDescription: Install the Orb sensor on RPM-based Linux distributions (CentOS, Fedora, RHEL)
+metaDescription: Set up the Orb sensor on CentOS, Fedora, Red Hat Enterprise Linux, and other RPM-based systems.
 section: setup-sensor
 layout: guides
 imageUrl: ../../../images/devices/linux.png

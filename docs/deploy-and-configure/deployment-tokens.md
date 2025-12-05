@@ -1,7 +1,7 @@
 ---
 title: Deployment Tokens
 shortTitle: Deployment Tokens
-metaDescription: Using configuration tokens.
+metaDescription: Use deployment tokens to link Orbs to your Space and manage configuration at scale.
 section: Deploy & Configure
 ---
 

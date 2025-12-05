@@ -1,7 +1,7 @@
 ---
 title: Orb for Elgato Stream Deck
 shortTitle: Stream Deck
-metaDescription: Display real-time Orb network data on your Elgato Stream Deck
+metaDescription: Display real-time Orb network data on your Elgato Stream Deck.
 section: Integrations
 layout: guides
 subtitle: 'Difficulty: Beginner 🧑‍💻'

@@ -1,7 +1,7 @@
 ---
 title: Install Orb on Alpine Linux
 shortTitle: Alpine
-metaDescription: Install the Orb sensor on Alpine Linux
+metaDescription: Set up continuous network monitoring on Alpine Linux with the Orb sensor.
 section: setup-sensor
 layout: guides
 imageUrl: ../../../images/devices/linux.png

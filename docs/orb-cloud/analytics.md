@@ -1,7 +1,7 @@
 ---
 title: Analytics
 shortTitle: Analytics
-metaDescription: Learn how to analyze your network performace using the Orb Cloud dashboard.
+metaDescription: Analyze network performance with Orb Scores, sub-scores, and historical data in the Orb Cloud dashboard.
 section: Orb Cloud
 ---
 

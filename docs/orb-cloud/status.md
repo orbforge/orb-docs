@@ -1,7 +1,7 @@
 ---
 title: Status
 shortTitle: Status
-metaDescription: Learn how to view the status of, manage, and filter your orbs in the Orb Cloud dashboard.
+metaDescription: Monitor your Orbs in real-time, view connectivity status, and manage devices from the Orb Cloud dashboard.
 section: Orb Cloud
 ---
 

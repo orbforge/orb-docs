@@ -1,7 +1,7 @@
 ---
 title: Installing Orb using Docker
 shortTitle: Docker
-metaDescription: Run the Orb sensor in a Docker container on any compatible system.
+metaDescription: Deploy the Orb sensor as a Docker container on servers, NAS devices, or any Docker-capable system.
 section: setup-sensor
 layout: guides
 imageUrl: ../../images/devices/docker.png

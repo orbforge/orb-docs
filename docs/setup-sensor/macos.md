@@ -1,7 +1,7 @@
 ---
 title: Install Orb on macOS
 shortTitle: macOS
-metaDescription: Install the Orb sensor on macOS via Homebrew
+metaDescription: Set up continuous network monitoring on macOS using Homebrew.
 section: setup-sensor
 layout: guides
 subtitle: 'Difficulty: Beginner 🧑‍💻'

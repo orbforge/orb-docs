@@ -1,7 +1,7 @@
 ---
 title: Install Orb on Home Assistant
 shortTitle: Home Assistant
-metaDescription: Install the Orb sensor as an add-on in your Home Assistant environment for network monitoring.
+metaDescription: Add network monitoring to your Home Assistant smart home setup with the Orb add-on.
 section: setup-sensor
 layout: guides
 imageUrl: ../../images/devices/home-assistant.png
