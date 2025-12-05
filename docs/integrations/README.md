@@ -11,6 +11,7 @@ Orb can integrate with various third-party applications and services to display 
 
 ## Available Integrations
 
+- [API](/docs/integrations/api.md)
 - [Elgato Stream Deck](/docs/integrations/stream-deck.md)
 - [Hamina Live View](/docs/integrations/hamina.md)
 
