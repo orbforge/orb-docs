@@ -4,7 +4,7 @@ shortTitle: OpenWrt
 metaDescription: Monitor network performance directly from your OpenWrt router with a single command.
 section: setup-sensor
 layout: guides
-imageUrl: ../../../images/devices/openwrt.png
+imageUrl: ../../images/devices/openwrt.png
 subtitle: 'Difficulty: Intermediate 🧑‍🔬'
 ---
 
@@ -34,9 +34,9 @@ Before you begin, make sure you have:
     - **Windows:** Use PowerShell or Command Prompt.
 2. Connect to your OpenWrt device using the following command, replacing `<your-OpenWrt-ip-address>` with the actual IP address:
 
-    ```bash
-    ssh root@<your-OpenWrt-ip-address>
-    ```
+```bash
+ssh root@<your-OpenWrt-ip-address>
+```
 
 3. If prompted about the authenticity of the host, type `yes` and press Enter.
 4. Enter the root password for your OpenWrt device when prompted. You should now have a command prompt logged into your OpenWrt device.
@@ -45,9 +45,9 @@ Before you begin, make sure you have:
 
 1. At the OpenWrt command prompt, run the following command exactly as shown:
 
-    ```bash
-    wget -qO- https://pkgs.orb.net/install.sh | sh
-    ```
+```bash
+wget -qO- https://pkgs.orb.net/install.sh | sh
+```
 
 2. This command downloads the Orb setup script and executes it. The script will:
     - Detect the device's architecture.
