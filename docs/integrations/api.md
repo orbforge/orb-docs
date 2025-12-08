@@ -62,125 +62,11 @@ curl -H "Authorization: Bearer YOUR_API_KEY" \
 
 For Python developers, we provide an official client library that simplifies API integration.
 
-### Installation
-
 ```bash
 pip install orb-cloud-client
 ```
 
-**Requirements:**
-- Python 3.8 or higher
-- httpx >= 0.24.0
-- pydantic >= 2.0.0
-
-### Quick Start
-
-```python
-from orb_cloud_client import OrbCloudClient
-
-# Initialize the client
-client = OrbCloudClient(
-    base_url="https://panel.orb.net",
-    token="YOUR_API_KEY"
-)
-
-# Get all devices in an organization
-devices = client.get_organization_devices(organization_id="your-org-id")
-
-for device in devices:
-    print(f"Device: {device.name}")
-    print(f"  ID: {device.id}")
-    print(f"  Connected: {device.connection_status}")
-
-# Close the client when done
-client.close()
-```
-
-### Available Methods
-
-The `OrbCloudClient` class provides these methods:
-
-| Method | Description |
-|--------|-------------|
-| `get_organization_devices(organization_id)` | Retrieve all devices for an organization |
-| `configure_temporary_datasets(device_id, temp_datasets_request)` | Configure temporary data collection with custom endpoints |
-| `request(method, endpoint, **kwargs)` | Make custom HTTP requests to the API |
-| `close()` | Close the HTTP client connection |
-
-### Data Models
-
-The library uses Pydantic models for type-safe data handling:
-
-- **Device**: Represents an Orb device with properties like `id`, `name`, `connection_status`, geo-IP info, and network details
-- **TempDatasetsRequest**: Configuration for temporary data collection
-- **Datasets**: Data collection settings with push configuration
-- **DataPush**: External webhook endpoint configuration
-- **GeoIPInfo**: Geographic location information from IP address
-- **DeviceInfo**: Hardware and software specifications
-- **NetworkInterface**: Network adapter details
-
-### Available Datasets
-
-When configuring data collection, these dataset types are available:
-
-- `responsiveness_{timeframe}` (e.g., `responsiveness_1s`, `responsiveness_1m`)
-- `scores_{timeframe}` (e.g., `scores_1m`, `scores_5m`)
-- `speed_results`
-- `web_responsiveness_results`
-
-### Error Handling
-
-The client raises standard httpx exceptions:
-
-```python
-from httpx import HTTPStatusError, RequestError, TimeoutException
-
-try:
-    devices = client.get_organization_devices(org_id)
-except HTTPStatusError as e:
-    print(f"HTTP error: {e.response.status_code}")
-except RequestError as e:
-    print(f"Request failed: {e}")
-except TimeoutException:
-    print("Request timed out")
-```
-
-### More Information
-
-- **PyPI Package**: [orb-cloud-client](https://pypi.org/project/orb-cloud-client/)
-
-## Example: Webhook Integration
-
-Configure an Orb device to push data to your own endpoint:
-
-```python
-from orb_cloud_client import (
-    OrbCloudClient,
-    TempDatasetsRequest,
-    Datasets,
-    DataPush
-)
-
-client = OrbCloudClient(token="YOUR_API_KEY")
-
-# Configure temporary data collection with webhook
-config = TempDatasetsRequest(
-    datasets=Datasets(
-        responsiveness_1s=DataPush(
-            url="https://your-server.com/webhook/orb-data",
-            headers={"X-Custom-Header": "value"}
-        )
-    ),
-    duration_seconds=3600  # Collect for 1 hour
-)
-
-client.configure_temporary_datasets(
-    device_id="your-device-id",
-    temp_datasets_request=config
-)
-
-client.close()
-```
+See the [orb-cloud-client](https://pypi.org/project/orb-cloud-client/) listing for up-to-date documentation on usage with examples.
 
 ## Rate Limits
 
@@ -188,8 +74,9 @@ API requests are subject to rate limiting. If you exceed the limits, you'll rece
 
 ## Support
 
-For help with the Orb Cloud API:
+For additional help with the Orb Cloud API:
 
-- **API Reference**: [panel.orb.net/api/v1/docs](https://panel.orb.net/api/v1/docs)
-- **Discord Community**: [discord.gg/orbforge](https://discord.gg/orbforge)
-- **Contact**: [orb.net/contact](https://orb.net/contact)
+- Join our [Discord community](https://discord.gg/orbforge)
+- [Contact the Orb team](https://orb.net/contact)
+- Visit the [API Reference](https://panel.orb.net/api/v1/docs)
+- See the [Python client on PyPI](https://pypi.org/project/orb-cloud-client/)
