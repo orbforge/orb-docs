@@ -71,5 +71,6 @@
 
 ## [Integrations](/docs/integrations)
 
+- [API](/docs/integrations/api.md)
 - [Elgato Stream Deck](/docs/integrations/stream-deck.md)
 - [Hamina Live View](/docs/integrations/hamina.md)
