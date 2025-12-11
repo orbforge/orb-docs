@@ -12,7 +12,7 @@ subtitle: 'Difficulty: Advanced 🧑‍💻'
 The Orb Cloud API allows you to access Orb details, stream real-time data, and trigger speed tests via API for use in your customer-facing or back of house apps. 
 
 :::info
-API access requires an [Orb Cloud Business](https://orb.net/plans/business) or [Enterprise](https://orb.net/plans/enterprise) plan. A Business plan is available with a **14-day free trial**. For special considerations or questions about API access entitlements, please [contact the Orb team](https://orb.net/contact).
+API access requires an Orb Cloud [Plus](https://orb.net/plans/plus), [Business](https://orb.net/plans/business) or [Enterprise](https://orb.net/plans/enterprise) plan. A Plus or Business plan is available with a **14-day free trial**. For special considerations or questions about API access entitlements, please [contact the Orb team](https://orb.net/contact).
 :::
 
 ## Features
