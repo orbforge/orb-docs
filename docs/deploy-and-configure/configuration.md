@@ -25,7 +25,7 @@ The following environment variables can be set:
 | `ORB_ZEROCONF_PUBLISH`		| Disables publishing Zeroconf information on the network `ORB_ZEROCONF_PUBLISH=0` | 1.3
 | `ORB_SENSOR_API_PORT`			| Configures the api port that will be used for local access | `ORB_SENSOR_API_PORT=4242` | 1.3
 | `ORB_CLOUD_HOST`					| Configures the Orb Cloud domain to be used (Used in Orb Self Hosted) | `ORB_CLOUD_HOST=orb.internal.mydomain.com` | 1.3
-| `ORB_CLOUD_BACKUP_HOST`		| Configures the backup domain for the Orb Cloud hostname to be used (Used in Orb Self Hosted) | `ORB_CLOUD_HOST=orb.internal.mydomain.com` | 1.3
+| `ORB_CLOUD_BACKUP_HOST`		| Configures the backup domain for the Orb Cloud hostname to be used (Used in Orb Self Hosted) | `ORB_CLOUD_BACKUP_HOST=orb2.internal.mydomain.com` | 1.3
 | `ORB_MQTT_HOST`						| Configures the Orb MQTT domain to be used (Used in Orb Self Hosted) | `ORB_MQTT_HOST=mqtt.internal.mydomain.com` | 1.3
 | `ORB_EPHEMERAL_MODE` 			| Configures the Orb Sensor to write no data to disk, useful for environments with low or volatile storage mediums | `ORB_EPHEMERAL_MODE=1` | 1.4 |
 
