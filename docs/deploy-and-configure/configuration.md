@@ -15,12 +15,19 @@ The following environment variables can be set:
 
 | Name | Description | Example | Minimum Version |
 | ---- | ----------- | ------- | ----------------|
-| `ORB_DATA_DIR` | Sets the data directory for Orb configuration and database | `ORB_DATA_DIR=~/orbdata` | 1.0 |
-| `ORB_DB_DIR` | Sets the database directory for Orb | `ORB_DB_DIR=/tmp/orb/database` | 1.3 |
-| `ORB_CONFIG_DIR` | Sets the persistent configuration directory for Orb | `ORB_CONFIG_DIR=~/orbconfig` | 1.3 |
-| `ORB_FIRSTHOP_DISABLED` | Disables measuring and storing first-hop latency. Should generally be utilized on devices that are acting as a router | `ORB_FIRSTHOP_DISABLED=1` | 1.2 |
-| `ORB_BANDWIDTH_DISABLED` | Disables perfoming periodic content speed tests | `ORB_BANDWIDTH_DISABLED=1` | 1.2 |
-| `ORB_DEPLOYMENT_TOKEN` | Sets the [Deployment Token](/docs/deploy-and-configure/deployment-tokens#using-environment-variable) | `ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678` | 1.2 |
+| `ORB_DATA_DIR` 						| Sets the data directory for Orb configuration and database | `ORB_DATA_DIR=~/orbdata` | 1.0 |
+| `ORB_DB_DIR` 							| Sets the database directory for Orb | `ORB_DB_DIR=/tmp/orb/database` | 1.3 |
+| `ORB_CONFIG_DIR` 					| Sets the persistent configuration directory for Orb | `ORB_CONFIG_DIR=~/orbconfig` | 1.3 |
+| `ORB_FIRSTHOP_DISABLED` 	| Disables measuring and storing first-hop latency. Should generally be utilized on devices that are acting as a router | `ORB_FIRSTHOP_DISABLED=1` | 1.2 |
+| `ORB_BANDWIDTH_DISABLED` 	| Disables perfoming periodic content speed tests | `ORB_BANDWIDTH_DISABLED=1` | 1.2 |
+| `ORB_DEPLOYMENT_TOKEN` 		| Sets the [Deployment Token](/docs/deploy-and-configure/deployment-tokens#using-environment-variable) | `ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678` | 1.2 |
+| `ORB_ZEROCONF_BROWSE`			| Disables Zeroconf discovery on the network | `ORB_ZEROCONF_BROWSE=0` | 1.3
+| `ORB_ZEROCONF_PUBLISH`		| Disables publishing Zeroconf information on the network `ORB_ZEROCONF_PUBLISH=0` | 1.3
+| `ORB_SENSOR_API_PORT`			| Configures the api port that will be used for local access | `ORB_SENSOR_API_PORT=4242` | 1.3
+| `ORB_CLOUD_HOST`					| Configures the Orb Cloud domain to be used (Used in Orb Self Hosted) | `ORB_CLOUD_HOST=orb.internal.mydomain.com` | 1.3
+| `ORB_CLOUD_BACKUP_HOST`		| Configures the backup domain for the Orb Cloud hostname to be used (Used in Orb Self Hosted) | `ORB_CLOUD_HOST=orb.internal.mydomain.com` | 1.3
+| `ORB_MQTT_HOST`						| Configures the Orb MQTT domain to be used (Used in Orb Self Hosted) | `ORB_MQTT_HOST=mqtt.internal.mydomain.com` | 1.3
+| `ORB_EPHEMERAL_MODE` 			| Configures the Orb Sensor to write no data to disk, useful for environments with low or volatile storage mediums | `ORB_EPHEMERAL_MODE=1` | 1.4 |
 
 ## Remote Configuration
 
