@@ -11,7 +11,7 @@ This guide will walk you through the process of installing the Orb app on your A
 
 ## System Requirements
 
-- Android 10 or newer
+- Android 12 or newer
 - Google Play Store installed
 
 ## Installation Steps

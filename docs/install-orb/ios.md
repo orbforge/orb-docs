@@ -11,7 +11,7 @@ This guide will walk you through the process of installing the Orb app on your i
 
 ## System Requirements
 
-- iOS version 13 or newer
+- iOS version 17 or newer
 - An Apple Account
 
 ## Installation Steps
