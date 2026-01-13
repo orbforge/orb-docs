@@ -42,41 +42,70 @@ Otherwise, read on!
 ## Step 1: Prepare the Docker Compose file
 
 1. Create a file named `docker-compose.yml` in this directory.
-2. Paste the following content exactly into the `docker-compose.yml` file:
+2. Paste the one of the following content blocks exactly into the `docker-compose.yml` file:
 
-    ```yaml
-    version: '3.0'
-
-    services:
-      orb-docker:
-        image: orbforge/orb:latest
-        container_name: orb-sensor # Optional: Give the container a specific name
-        network_mode: host # Optional: alternatively you can use 'bridge' mode and map ports :7443 and :5353
-        volumes:
-          - orb-data:/root/.config/orb # Persists Orb configuration
-        # Optional: Limit resources if needed
-        # deploy:
-        #   resources:
-        #     limits:
-        #       memory: 512m
-        restart: always # Ensures Orb restarts if it stops or on system reboot
-        labels:
-          - 'com.centurylinklabs.watchtower.enable=true' # Enable auto-updates with Watchtower
-          - 'com.centurylinklabs.watchtower.scope=orb' # Scope for Watchtower to monitor
-
-      # Optional: Watchtower automatically updates the Orb image when a new version is released
-      watchtower:
-        image: containrrr/watchtower
-        container_name: watchtower
-        restart: unless-stopped
-        volumes:
-          - /var/run/docker.sock:/var/run/docker.sock # Required to monitor other containers
-        command: --label-enable --scope orb --cleanup --interval 3600 # Check for updates every hour (3600s)
-
+  a. `docker-compose.yml` with [WUD](https://getwud.github.io/wud) for auto-update (**recommended**)
+```yaml
+services:
+  orb-docker:
+    image: orbforge/orb:latest
+    container_name: orb-sensor # Optional: Give the container a specific name
+    network_mode: host # Optional: alternatively you can use 'bridge' mode and map ports :7443 and :5353
     volumes:
-      orb-data: # Creates a named volume for persistent data
-    ```
+      - orb-data:/root/.config/orb # Persists Orb configuration
+    restart: always # Ensures Orb restarts if it stops or on system reboot
+    labels:
+      - "wud.watch=true"
+      - "wud.trigger.include=docker.orb"
+    #
+    # Optional: Limit resources if needed
+    #
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory: 512m
 
+  wud:
+    image: ghcr.io/getwud/wud
+    container_name: wud
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WUD_WATCHER_LOCAL_WATCHBYDEFAULT=false
+      - WUD_TRIGGER_DOCKER_ORB_AUTO=true
+      - WUD_TRIGGER_DOCKER_ORB_PRUNE=true
+    #
+    # Optional: expose WUD web interface (default host port 3000, adjust as needed)
+    #
+    # ports:
+    #  - "3000:3000"
+
+volumes:
+  orb-data: # Creates a named volume for persistent data
+```
+
+  b. `docker-compose.yml` without auto-update (**please ensure some orchestration or process exists to update Orb regularly**)
+```yaml
+services:
+  orb-docker:
+    image: orbforge/orb:latest
+    container_name: orb-sensor # Optional: Give the container a specific name
+    network_mode: host # Optional: alternatively you can use 'bridge' mode and map ports :7443 and :5353
+    volumes:
+      - orb-data:/root/.config/orb # Persists Orb configuration
+    restart: always # Ensures Orb restarts if it stops or on system reboot
+    #
+    # Optional: Limit resources if needed
+    #
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory: 512m
+
+volumes:
+  orb-data: # Creates a named volume for persistent data
+```
     **Explanation:**
 
     - `orb-docker`: Defines the main Orb service.
@@ -84,8 +113,8 @@ Otherwise, read on!
       - `network_mode: host`: **Crucial** for Orb to monitor network traffic directly from the host's network interfaces.
       - `volumes: - orb-data:/root/.config/orb`: Stores Orb's configuration persistently in a Docker named volume (`orb-data`).
       - `restart: always`: Keeps the Orb container running.
-      - `labels`: Used by Watchtower to know this container should be auto-updated.
-    - `watchtower`: (Optional but recommended) Defines the Watchtower service to automatically update the Orb container when new images are published.
+      - `labels`: Used by WUD to know this container should be auto-updated.
+    - `wud`: (Optional but recommended) Defines the WUD service to automatically update the Orb container when new images are published.
     - `volumes: orb-data:`: Declares the named volume used by the `orb-docker` service.
 
 ## Step 2: Start the Orb Container
@@ -101,13 +130,13 @@ Otherwise, read on!
 Depending on your Docker version, you may need to use "`docker compose`" rather than "`docker-compose`".
 :::
 
-3. Docker Compose will pull the necessary images (`orbforge/orb` and `containrrr/watchtower`) and start the containers. You can check the status with:
+3. Docker Compose will pull the necessary images (`orbforge/orb` and `ghcr.io/getwud/wud`) and start the containers. You can check the status with:
 
     ```bash
     docker-compose ps
     ```
 
-    You should see `orb-sensor` (or `orb-docker` if you didn't set `container_name`) and `watchtower` with state `Up`.
+    You should see `orb-sensor` (or `orb-docker` if you didn't set `container_name`) and `wud` with state `Up`.
 4. You can view the logs for the Orb container using:
 
     ```bash
@@ -141,7 +170,7 @@ If your docker container is running on a different network than your phone or co
 
 ## You're Done
 
-Congratulations! Your Docker container is now running as an Orb sensor, monitoring your network. Thanks to Watchtower, it will automatically update when new versions are released.
+Congratulations! Your Docker container is now running as an Orb sensor, monitoring your network. Thanks to WUD, it will automatically update when new versions are released.
 
 ## Troubleshooting
 
@@ -153,12 +182,12 @@ Congratulations! Your Docker container is now running as an Orb sensor, monitori
   - Make sure the device running the Orb app is on the _exact same_ network/subnet as the Docker host machine.
 - **Permission Errors (especially volume mounts):**
   - Using Docker named volumes (`orb-data:` in the example) usually avoids permission issues compared to bind-mounting host directories. If you switched to bind mounts, ensure Docker has the correct permissions to write to the host directory.
-- **Watchtower Issues:**
-  - Check Watchtower logs: `docker-compose logs watchtower`.
+- **Auto-update Issues:**
+  - Check WUD logs: `docker-compose logs wud`.
   - Ensure the Docker socket is correctly mounted (`/var/run/docker.sock:/var/run/docker.sock`).
 - **Stopping Orb:**
   - Navigate to the directory containing `docker-compose.yml` and run `docker-compose down`.
-- **Updating Orb Manually (if not using Watchtower):**
+- **Updating Orb Manually (if not using WUD):**
   - Navigate to the directory containing `docker-compose.yml`.
   - `docker-compose pull orb-docker` (pulls the latest image).
   - `docker-compose up -d` (recreates the container with the new image).

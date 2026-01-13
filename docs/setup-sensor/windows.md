@@ -75,11 +75,27 @@ When running as LocalSystem (the default), Orb saves data in:
 C:\ProgramData\Orb
 ```
 
-## Using Deployment Tokens
+## Configuring the Orb Sensor
+You can configure the Orb sensor with any options from [Orb Configuration](docs/deploy-and-configure/configuration) docs.
+
+### Environment Variables
+To set environment variables for the Orb sensor Windows Service, you can use the `New-ItemProperty` cmdlet in PowerShell.
+
+
+Example with `ORB_FIRSTHOP_DISABLED` and `ORB_DEPLOYMENT_TOKEN` environment variables:
+```powershell
+New-ItemProperty `
+  -Path "HKLM:\SYSTEM\CurrentControlSet\Services\OrbService" `
+  -Name "Environment" `
+  -PropertyType MultiString `
+  -Value @("ORB_FIRSTHOP_DISABLED=1", "ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678")
+```
+
+### Using Deployment Tokens
 
 You can automatically link your Orb sensor to your Orb Cloud Space using a deployment token. This is especially useful for deploying multiple sensors or automating setup.
 
-To use a deployment token, create a file named `deployment_token.txt` in the Orb configuration directory containing your token:
+To use a deployment token, you can use the [Environment Variables](#environment-variables) approach above to set `ORB_DEPLOYMENT_TOKEN`, or create a file named `deployment_token.txt` in the Orb configuration directory containing your token:
 
 ```cmd
 echo orb-dt1-yourdeploymenttoken678 > C:\ProgramData\Orb\deployment_token.txt
