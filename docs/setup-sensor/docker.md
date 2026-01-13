@@ -44,68 +44,68 @@ Otherwise, read on!
 1. Create a file named `docker-compose.yml` in this directory.
 2. Paste the one of the following content blocks exactly into the `docker-compose.yml` file:
 
-  a. `docker-compose.yml` with [WUD](https://getwud.github.io/wud) for auto-update (**recommended**)
-```yaml
-services:
-  orb-docker:
-    image: orbforge/orb:latest
-    container_name: orb-sensor # Optional: Give the container a specific name
-    network_mode: host # Optional: alternatively you can use 'bridge' mode and map ports :7443 and :5353
+    a. `docker-compose.yml` with [WUD](https://getwud.github.io/wud) for auto-update (**recommended**)
+    ```yaml
+    services:
+      orb-docker:
+        image: orbforge/orb:latest
+        container_name: orb-sensor # Optional: Give the container a specific name
+        network_mode: host # Optional: alternatively you can use 'bridge' mode and map ports :7443 and :5353
+        volumes:
+          - orb-data:/root/.config/orb # Persists Orb configuration
+        restart: always # Ensures Orb restarts if it stops or on system reboot
+        labels:
+          - "wud.watch=true"
+          - "wud.trigger.include=docker.orb"
+        #
+        # Optional: Limit resources if needed
+        #
+        # deploy:
+        #   resources:
+        #     limits:
+        #       memory: 512m
+
+      wud:
+        image: ghcr.io/getwud/wud
+        container_name: wud
+        restart: unless-stopped
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+        environment:
+          - WUD_WATCHER_LOCAL_WATCHBYDEFAULT=false
+          - WUD_TRIGGER_DOCKER_ORB_AUTO=true
+          - WUD_TRIGGER_DOCKER_ORB_PRUNE=true
+        #
+        # Optional: expose WUD web interface (default host port 3000, adjust as needed)
+        #
+        # ports:
+        #  - "3000:3000"
+
     volumes:
-      - orb-data:/root/.config/orb # Persists Orb configuration
-    restart: always # Ensures Orb restarts if it stops or on system reboot
-    labels:
-      - "wud.watch=true"
-      - "wud.trigger.include=docker.orb"
-    #
-    # Optional: Limit resources if needed
-    #
-    # deploy:
-    #   resources:
-    #     limits:
-    #       memory: 512m
+      orb-data: # Creates a named volume for persistent data
+    ```
 
-  wud:
-    image: ghcr.io/getwud/wud
-    container_name: wud
-    restart: unless-stopped
+    b. `docker-compose.yml` without auto-update (*please ensure some orchestration or process exists to update Orb regularly*)
+    ```yaml
+    services:
+      orb-docker:
+        image: orbforge/orb:latest
+        container_name: orb-sensor # Optional: Give the container a specific name
+        network_mode: host # Optional: alternatively you can use 'bridge' mode and map ports :7443 and :5353
+        volumes:
+          - orb-data:/root/.config/orb # Persists Orb configuration
+        restart: always # Ensures Orb restarts if it stops or on system reboot
+        #
+        # Optional: Limit resources if needed
+        #
+        # deploy:
+        #   resources:
+        #     limits:
+        #       memory: 512m
+
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - WUD_WATCHER_LOCAL_WATCHBYDEFAULT=false
-      - WUD_TRIGGER_DOCKER_ORB_AUTO=true
-      - WUD_TRIGGER_DOCKER_ORB_PRUNE=true
-    #
-    # Optional: expose WUD web interface (default host port 3000, adjust as needed)
-    #
-    # ports:
-    #  - "3000:3000"
-
-volumes:
-  orb-data: # Creates a named volume for persistent data
-```
-
-  b. `docker-compose.yml` without auto-update (**please ensure some orchestration or process exists to update Orb regularly**)
-```yaml
-services:
-  orb-docker:
-    image: orbforge/orb:latest
-    container_name: orb-sensor # Optional: Give the container a specific name
-    network_mode: host # Optional: alternatively you can use 'bridge' mode and map ports :7443 and :5353
-    volumes:
-      - orb-data:/root/.config/orb # Persists Orb configuration
-    restart: always # Ensures Orb restarts if it stops or on system reboot
-    #
-    # Optional: Limit resources if needed
-    #
-    # deploy:
-    #   resources:
-    #     limits:
-    #       memory: 512m
-
-volumes:
-  orb-data: # Creates a named volume for persistent data
-```
+      orb-data: # Creates a named volume for persistent data
+    ```
     **Explanation:**
 
     - `orb-docker`: Defines the main Orb service.
