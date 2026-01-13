@@ -42,3 +42,38 @@ On the Status page, you can select Orbs, click "Apply Configuration", and select
 ### Configuring Datasets
 
 Orb applications and sensors are capable of producing [Datasets](/docs/deploy-and-configure/datasets) for Scores, Responsiveness, Web Responsiveness, and Speed data. These datasets may be streamed to Orb Cloud, Orb [Local Analytics](/docs/deploy-and-configure/local-analytics), or a destination of your choice. See [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration) for details.
+
+### Configuring Collection of Identifiable Information
+Orb can collect attributes of your device and network which may be considered identifiable information (e.g. public IP address, network name, or device MAC address). By default, Orb minimizes the amount of potentially identifiable information collected, collecting enough to make the experience work (like your network name) without collecting more potentially identifiable information (like your device MAC address or private IP).
+
+Some users may want to see that extra detail in Orb Cloud, Local Analytics, or via Orb APIs to better identify their devices and networks.
+
+#### Identifiable levels
+| Level | Description |
+|-------|-------------|
+| `none` | Orb will ignore any fields that are known to potentially identify your device or network. Your experience in Orb apps and Orb Cloud may be impacted as networks and device details will be obfuscated and it may be hard to tell which device you are looking at. |
+| `minimal` | (Default) Collects some basic potentially identifiable information, like network name, to make the normal Orb app and Orb Cloud user experiences work  |
+| `full` | Collects additional potentially identifiable information in addition to basic information, like private IP address and device MAC address (when available). |
+
+#### Configuration
+
+Identifiable level is controlled via the `orb.identifiable_level` field in Orb Cloud config.
+
+##### Advanced Configuration Editor
+To set the identifiable level using the advanced configuration editor, add the following property to the root of your configuration JSON.
+
+```json
+{
+  "orb.identifiable_level": ["full"],
+  ...
+}
+```
+
+##### Simple Configuration Editor
+
+In the simple configuration editor, `orb.identifiable_level` can be set to `full` by enabling the "Collect Additional Identifiable Information" option. Unsetting this option will set `orb.identifiable_level` back to `minimal` (default).
+
+#### Enabling identifiable information in datasets
+While `orb.identifiable_level` informs which attributes of your device and network an Orb collects, there is an additional option to obfuscate or remove identifiable information in Datasets outputs.
+
+This allows you to control whether identifiable information is included in Datasets sent to Orb Cloud, Local Analytics, or custom endpoints separately from what is collected. See [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration#identifiable-information) for details.
