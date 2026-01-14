@@ -52,9 +52,9 @@ Some users may want to see that extra detail in Orb Cloud, Local Analytics, or v
 #### Identifiable levels
 | Level | Description |
 |-------|-------------|
-| `none` | Orb will ignore any fields that are known to potentially identify your device or network. Your experience in Orb apps and Orb Cloud may be impacted as networks and device details will be obfuscated and it may be hard to tell which device you are looking at. |
-| `minimal` | (Default) Collects some basic potentially identifiable information, like network name, to make the normal Orb app and Orb Cloud user experiences work  |
-| `full` | Collects additional potentially identifiable information in addition to basic information, like private IP address and device MAC address (when available). |
+| `none` | Orb will obfuscate any fields that are known to potentially identify your device or network. Your experience in Orb apps and Orb Cloud may be impacted as networks and device details will be obfuscated and it may be hard to tell which device you are looking at. |
+| `minimal` | (Default) Orb will not obfuscate some basic potentially identifiable information, like network name, to make the normal Orb app and Orb Cloud user experiences work. Identifiable fields not required for basic app usage, like MAC Address, will still be obfuscated.  |
+| `full` | Orb will not obfuscate any fields of collected data. |
 
 #### Configuration
 
@@ -72,9 +72,10 @@ To set the identifiable level using the advanced configuration editor, add the f
 
 ##### Simple Configuration Editor
 
-In the simple configuration editor, `orb.identifiable_level` can be set to `full` by enabling the "Collect Additional Identifiable Information" option. Unsetting this option will set `orb.identifiable_level` back to `minimal` (default).
+In the simple configuration editor, `orb.identifiable_level` can be set via the "Identifiable Information" option.
 
 #### Enabling identifiable information in datasets
 While `orb.identifiable_level` informs which attributes of your device and network an Orb collects, there is an additional option to obfuscate or remove identifiable information in Datasets outputs.
+The "Identifiable Information" option in the simple configuration editor also enables identifiable information in Datasets when set to "full".
 
 This allows you to control whether identifiable information is included in Datasets sent to Orb Cloud, Local Analytics, or custom endpoints separately from what is collected. See [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration#identifiable-information) for details.
