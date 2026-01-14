@@ -6,10 +6,22 @@ section: setup-sensor
 layout: guides
 subtitle: 'Difficulty: Beginner 🧑‍💻'
 ---
+# Orb Sensor on Windows
 
-# Install the Orb Sensor on Windows
+## Install the Orb Sensor on Windows using Chocolatey
 
-## Installation
+Chocolatey is a popular command-line package manager for Windows that simplifies software installation and management.
+0. Ensure you have [Chocolatey installed](https://chocolatey.org/install#individual) on your Windows machine.
+1. Open Command Prompt or PowerShell as Administrator.
+2. Run the following command to install the Orb sensor and follow the prompts:
+```cmd
+choco install orb
+```
+Once the installation is complete, you can verify that it succeeded by [looking at the service status](#check-service-status).
+
+## Install the Orb Sensor on Windows (manual)
+
+### Installation
 
 Setting up a Windows device as an Orb sensor allows you to run continuous network monitoring as a background service.
 
@@ -25,12 +37,11 @@ The Orb CLI for Windows is currently Early Access software.
 
 After downloading, extract `orb.exe` to a permanent location on your system (e.g., `C:\Program Files\Orb\orb.exe`).
 
-## Setting Up as a Windows Service
+### Setting Up as a Windows Service
 
 You can install Orb as a Windows service using either PowerShell or the `sc.exe` command.
 
-### Option 1: Using PowerShell (Recommended)
-
+#### Option 1: Using PowerShell (Recommended)
 Open PowerShell as Administrator and run:
 
 ```powershell
@@ -39,7 +50,7 @@ New-Service -Name "Orb" -BinaryPathName "C:\Program Files\Orb\orb.exe windowsser
 
 Replace `C:\Program Files\Orb\orb.exe` with the actual path where you placed the Orb executable.
 
-### Option 2: Using sc.exe
+#### Option 2: Using sc.exe
 
 Open Command Prompt as Administrator and run:
 
@@ -51,7 +62,7 @@ sc.exe create Orb binPath= "C:\Program Files\Orb\orb.exe windowsservice" Display
 Note the space after `binPath=`, `DisplayName=`, and `start=` in the `sc.exe` command. This is required syntax.
 :::
 
-## Starting the Service
+### Starting the Service
 
 After creating the service, start it using:
 
@@ -66,14 +77,6 @@ sc.exe start Orb
 ```
 
 The service will now start automatically on system boot.
-
-## Data Storage
-
-When running as LocalSystem (the default), Orb saves data in:
-
-```
-C:\ProgramData\Orb
-```
 
 ## Configuring the Orb Sensor
 You can configure the Orb sensor with any options from [Orb Configuration](docs/deploy-and-configure/configuration) docs.
@@ -107,7 +110,15 @@ When the Orb service starts, it will automatically read this file and link to yo
 
 For more details on deployment tokens and other linking methods, see the [Deployment Tokens](/docs/deploy-and-configure/deployment-tokens) guide.
 
-## Orb CLI Commands
+### Data Storage
+
+When running as LocalSystem (the default), Orb saves data in:
+
+```
+C:\ProgramData\Orb
+```
+
+### Orb CLI Commands
 
 The Orb CLI provides a set of commands to manage your Orb sensors and interact with your Orb account. To use these commands, run `orb.exe` directly (not as a service):
 
@@ -157,6 +168,13 @@ sc.exe query Orb
 
 ### Uninstall the Service
 
+**Chocolatey Uninstall:**
+If you installed Orb using Chocolatey, you can uninstall it with:
+```cmd
+choco uninstall orb
+```
+
+**Manual Uninstall:**
 First, stop the service, then remove it:
 
 **PowerShell:**
@@ -170,6 +188,7 @@ Remove-Service -Name "Orb"
 sc.exe stop Orb
 sc.exe delete Orb
 ```
+
 
 ## Troubleshooting
 
