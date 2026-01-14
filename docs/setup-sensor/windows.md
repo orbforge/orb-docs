@@ -85,7 +85,7 @@ To set environment variables for the Orb sensor Windows Service, you can use the
 Example with `ORB_FIRSTHOP_DISABLED` and `ORB_DEPLOYMENT_TOKEN` environment variables:
 ```powershell
 New-ItemProperty `
-  -Path "HKLM:\SYSTEM\CurrentControlSet\Services\OrbService" `
+  -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Orb" `
   -Name "Environment" `
   -PropertyType MultiString `
   -Value @("ORB_FIRSTHOP_DISABLED=1", "ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678")
