@@ -19,6 +19,53 @@ choco install orb
 ```
 Once the installation is complete, you can verify that it succeeded by [looking at the service status](#check-service-status).
 
+## Keeping Orb Up to Date with Chocolatey
+
+If you installed Orb using Chocolatey, you can easily keep it updated to the latest version.
+
+### Manual Updates
+
+To manually update Orb to the latest version, run:
+
+```cmd
+choco upgrade orb -y
+```
+
+The `-y` flag automatically confirms the upgrade without prompting.
+
+### Automatic Updates with Task Scheduler
+
+To ensure Orb stays up to date automatically, you can set up a Windows Task Scheduler task to run regular updates.
+
+Open PowerShell as Administrator and run:
+
+```powershell
+Register-ScheduledTask -TaskName "Orb Auto-Update" `
+  -Action (New-ScheduledTaskAction -Execute "C:\ProgramData\chocolatey\bin\choco.exe" -Argument "upgrade orb -y") `
+  -Trigger (New-ScheduledTaskTrigger -Weekly -DaysOfWeek Sunday -At 3am) `
+  -Principal (New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest) `
+  -Settings (New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable) `
+  -Description "Automatically updates Orb sensor via Chocolatey"
+```
+
+#### Verify the Scheduled Task
+
+To verify the task was created successfully:
+
+```powershell
+Get-ScheduledTask -TaskName "Orb Auto-Update"
+```
+
+You can manually run the task to test it:
+
+```powershell
+Start-ScheduledTask -TaskName "Orb Auto-Update"
+```
+
+:::note
+After Chocolatey updates Orb, the Windows service will automatically restart with the new version.
+:::
+
 ## Install the Orb Sensor on Windows (manual)
 
 ### Installation
