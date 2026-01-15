@@ -11,6 +11,8 @@ subtitle: 'Difficulty: Beginner 🧑‍💻'
 ## Install the Orb Sensor on Windows using Chocolatey
 
 Chocolatey is a popular command-line package manager for Windows that simplifies software installation and management.
+See the [Orb package on Chocolatey](https://community.chocolatey.org/packages/orb) for available versions and package details.
+
 0. Ensure you have [Chocolatey installed](https://chocolatey.org/install#individual) on your Windows machine.
 1. Open Command Prompt or PowerShell as Administrator.
 2. Run the following command to install the Orb sensor and follow the prompts:
