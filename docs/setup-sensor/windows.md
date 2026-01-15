@@ -42,7 +42,7 @@ Open PowerShell as Administrator and run:
 ```powershell
 Register-ScheduledTask -TaskName "Orb Auto-Update" `
   -Action (New-ScheduledTaskAction -Execute "C:\ProgramData\chocolatey\bin\choco.exe" -Argument "upgrade orb -y") `
-  -Trigger (New-ScheduledTaskTrigger -Weekly -DaysOfWeek Sunday -At 3am) `
+  -Trigger (New-ScheduledTaskTrigger -Daily -At 3am) `
   -Principal (New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest) `
   -Settings (New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable) `
   -Description "Automatically updates Orb sensor via Chocolatey"
