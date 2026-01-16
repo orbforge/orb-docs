@@ -115,6 +115,8 @@ In a text editor, such as Visual Studio Code, create a new file called my-config
             <true/>
             <key>HideDockIcon</key>
             <true/>
+            <key>OrbDeviceNameOverride</key>
+            <string>REPLACE WITH DESIRED NAME (optional)</string>
         </dict>
     </array>
     <key>PayloadDisplayName</key>

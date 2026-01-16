@@ -6,10 +6,71 @@ section: setup-sensor
 layout: guides
 subtitle: 'Difficulty: Beginner 🧑‍💻'
 ---
+# Orb Sensor on Windows
 
-# Install the Orb Sensor on Windows
+## Install the Orb Sensor on Windows using Chocolatey
 
-## Installation
+Chocolatey is a popular command-line package manager for Windows that simplifies software installation and management.
+See the [Orb package on Chocolatey](https://community.chocolatey.org/packages/orb) for available versions and package details.
+
+0. Ensure you have [Chocolatey installed](https://chocolatey.org/install#individual) on your Windows machine.
+1. Open Command Prompt or PowerShell as Administrator.
+2. Run the following command to install the Orb sensor and follow the prompts:
+```cmd
+choco install orb
+```
+Once the installation is complete, you can verify that it succeeded by [looking at the service status](#check-service-status).
+
+## Keeping Orb Up to Date with Chocolatey
+
+If you installed Orb using Chocolatey, you can easily keep it updated to the latest version.
+
+### Manual Updates
+
+To manually update Orb to the latest version, run:
+
+```cmd
+choco upgrade orb -y
+```
+
+The `-y` flag automatically confirms the upgrade without prompting.
+
+### Automatic Updates with Task Scheduler
+
+To ensure Orb stays up to date automatically, you can set up a Windows Task Scheduler task to run regular updates.
+
+Open PowerShell as Administrator and run:
+
+```powershell
+Register-ScheduledTask -TaskName "Orb Auto-Update" `
+  -Action (New-ScheduledTaskAction -Execute "C:\ProgramData\chocolatey\bin\choco.exe" -Argument "upgrade orb -y") `
+  -Trigger (New-ScheduledTaskTrigger -Daily -At 3am) `
+  -Principal (New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest) `
+  -Settings (New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable) `
+  -Description "Automatically updates Orb sensor via Chocolatey"
+```
+
+#### Verify the Scheduled Task
+
+To verify the task was created successfully:
+
+```powershell
+Get-ScheduledTask -TaskName "Orb Auto-Update"
+```
+
+You can manually run the task to test it:
+
+```powershell
+Start-ScheduledTask -TaskName "Orb Auto-Update"
+```
+
+:::note
+After Chocolatey updates Orb, the Windows service will automatically restart with the new version.
+:::
+
+## Install the Orb Sensor on Windows (manual)
+
+### Installation
 
 Setting up a Windows device as an Orb sensor allows you to run continuous network monitoring as a background service.
 
@@ -25,12 +86,11 @@ The Orb CLI for Windows is currently Early Access software.
 
 After downloading, extract `orb.exe` to a permanent location on your system (e.g., `C:\Program Files\Orb\orb.exe`).
 
-## Setting Up as a Windows Service
+### Setting Up as a Windows Service
 
 You can install Orb as a Windows service using either PowerShell or the `sc.exe` command.
 
-### Option 1: Using PowerShell (Recommended)
-
+#### Option 1: Using PowerShell (Recommended)
 Open PowerShell as Administrator and run:
 
 ```powershell
@@ -39,7 +99,7 @@ New-Service -Name "Orb" -BinaryPathName "C:\Program Files\Orb\orb.exe windowsser
 
 Replace `C:\Program Files\Orb\orb.exe` with the actual path where you placed the Orb executable.
 
-### Option 2: Using sc.exe
+#### Option 2: Using sc.exe
 
 Open Command Prompt as Administrator and run:
 
@@ -51,7 +111,7 @@ sc.exe create Orb binPath= "C:\Program Files\Orb\orb.exe windowsservice" Display
 Note the space after `binPath=`, `DisplayName=`, and `start=` in the `sc.exe` command. This is required syntax.
 :::
 
-## Starting the Service
+### Starting the Service
 
 After creating the service, start it using:
 
@@ -67,19 +127,27 @@ sc.exe start Orb
 
 The service will now start automatically on system boot.
 
-## Data Storage
+## Configuring the Orb Sensor
+You can configure the Orb sensor with any options from [Orb Configuration](/docs/deploy-and-configure/configuration) docs.
 
-When running as LocalSystem (the default), Orb saves data in:
+### Environment Variables
+To set environment variables for the Orb sensor Windows Service, you can use the `New-ItemProperty` cmdlet in PowerShell.
 
+
+Example with `ORB_FIRSTHOP_DISABLED` and `ORB_DEPLOYMENT_TOKEN` environment variables:
+```powershell
+New-ItemProperty `
+  -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Orb" `
+  -Name "Environment" `
+  -PropertyType MultiString `
+  -Value @("ORB_FIRSTHOP_DISABLED=1", "ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678")
 ```
-C:\ProgramData\Orb
-```
 
-## Using Deployment Tokens
+### Using Deployment Tokens
 
 You can automatically link your Orb sensor to your Orb Cloud Space using a deployment token. This is especially useful for deploying multiple sensors or automating setup.
 
-To use a deployment token, create a file named `deployment_token.txt` in the Orb configuration directory containing your token:
+To use a deployment token, you can use the [Environment Variables](#environment-variables) approach above to set `ORB_DEPLOYMENT_TOKEN`, or create a file named `deployment_token.txt` in the Orb configuration directory containing your token:
 
 ```cmd
 echo orb-dt1-yourdeploymenttoken678 > C:\ProgramData\Orb\deployment_token.txt
@@ -91,7 +159,15 @@ When the Orb service starts, it will automatically read this file and link to yo
 
 For more details on deployment tokens and other linking methods, see the [Deployment Tokens](/docs/deploy-and-configure/deployment-tokens) guide.
 
-## Orb CLI Commands
+### Data Storage
+
+When running as LocalSystem (the default), Orb saves data in:
+
+```
+C:\ProgramData\Orb
+```
+
+### Orb CLI Commands
 
 The Orb CLI provides a set of commands to manage your Orb sensors and interact with your Orb account. To use these commands, run `orb.exe` directly (not as a service):
 
@@ -141,6 +217,13 @@ sc.exe query Orb
 
 ### Uninstall the Service
 
+**Chocolatey Uninstall:**
+If you installed Orb using Chocolatey, you can uninstall it with:
+```cmd
+choco uninstall orb
+```
+
+**Manual Uninstall:**
 First, stop the service, then remove it:
 
 **PowerShell:**
@@ -154,6 +237,7 @@ Remove-Service -Name "Orb"
 sc.exe stop Orb
 sc.exe delete Orb
 ```
+
 
 ## Troubleshooting
 

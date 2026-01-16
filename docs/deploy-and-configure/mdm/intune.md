@@ -192,3 +192,8 @@ Verify the installation parameters:
 2. Check that `/START_IN_BACKGROUND=1` is included for silent operation
 3. Verify Windows startup items aren't disabled by Group Policy
 4. Verify the `LaunchAtStartup` and `StartInBackground` items exists in the Registry Editor and have values of `1` in `COMPUTER\HKEY_LOCAL_MACHINE\SOFTWARE\Orb\MDM`
+
+## Additional Configuration Options
+
+### Device Name Overrides
+You can set a custom device name to use during installation by setting the `OrbDeviceNameOverride` item key in the Registry Editor for `COMPUTER\HKEY_LOCAL_MACHINE\SOFTWARE\Orb\MDM`.
