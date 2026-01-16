@@ -70,12 +70,7 @@ To set the identifiable level using the advanced configuration editor, add the f
 }
 ```
 
-##### Simple Configuration Editor
-
-In the simple configuration editor, `orb.identifiable_level` can be set via the "Identifiable Information" option.
-
 #### Enabling identifiable information in datasets
-While `orb.identifiable_level` informs which attributes of your device and network an Orb collects, there is an additional option to obfuscate or remove identifiable information in Datasets outputs.
-The "Identifiable Information" option in the simple configuration editor also enables identifiable information in Datasets when set to "full".
+While `orb.identifiable_level` informs which attributes of your device and network an Orb obfuscates during collection, there is an additonal option to only obfuscate identifiable information in Datasets outputs.
 
 This allows you to control whether identifiable information is included in Datasets sent to Orb Cloud, Local Analytics, or custom endpoints separately from what is collected. See [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration#identifiable-information) for details.
