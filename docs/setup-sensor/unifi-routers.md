@@ -50,6 +50,7 @@ cat <<'EOD' > /etc/default/orb
 ORB_ZEROCONF_BROWSE=0
 ORB_ZEROCONF_PUBLISH=0
 ORB_FIRSTHOP_DISABLED=1
+ORB_EPHEMERAL_MODE=1
 EOD
 
 # install Orb (no-op if already installed)
