@@ -16,7 +16,11 @@ services:
     #   resources:
     #     limits:
     #       memory: 512m
-
+    # Optional: Set environment variables
+    #
+    # environment:
+    #   - ORB_EPHEMERAL_MODE=1
+    #   - ORB_FIRSTHOP_DISABLED=1
   wud:
     image: ghcr.io/getwud/wud
     container_name: wud

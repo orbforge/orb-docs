@@ -64,7 +64,12 @@ Otherwise, read on!
         #   resources:
         #     limits:
         #       memory: 512m
-
+        #
+        # Optional: Set environment variables
+        #
+        # environment:
+        #   - ORB_EPHEMERAL_MODE=1
+        #   - ORB_FIRSTHOP_DISABLED=1
       wud:
         image: ghcr.io/getwud/wud
         container_name: wud
@@ -102,6 +107,12 @@ Otherwise, read on!
         #   resources:
         #     limits:
         #       memory: 512m
+        #
+        # Optional: Set environment variables
+        #
+        # environment:
+        #   - ORB_EPHEMERAL_MODE=1
+        #   - ORB_FIRSTHOP_DISABLED=1
 
     volumes:
       orb-data: # Creates a named volume for persistent data

@@ -85,10 +85,24 @@ Now, create the Orb configuration and start the container:
 2. Download the Docker Compose configuration and start Orb:
 
    ```bash
-   curl -fsSL https://orb.net/docs/scripts/docker/docker-compose.yml -o docker-compose.yml && sudo docker-compose up -d
+   curl -fsSL https://orb.net/docs/scripts/docker/docker-compose.yml -o docker-compose.yml
    ```
 
-   This command will download the configuration file and start the Orb sensor in the background. Orb will automatically be kept up-to-date. See [Install Orb on Docker](/docs/setup-sensor/docker) for more details.
+   This command will download the configuration file.
+   
+   **Recommended:** Edit docker-compose.yml and remove the comments (`#`) for portions of the environment section to disable first-hop testing and enable ephemeral mode:
+
+   ```yaml
+      environment:
+         - ORB_EPHEMERAL_MODE=1
+         - ORB_FIRSTHOP_DISABLED=1
+   ```
+
+   Start the Orb sensor in the background. Orb will automatically be kept up-to-date. See [Install Orb on Docker](/docs/setup-sensor/docker) for more details.
+
+   ```bash
+   sudo docker-compose up -d
+   ```
 
 ## Step 4: Link Your Orb to Your Account
 

@@ -16,6 +16,11 @@ The [WLAN Pi](https://www.wlanpi.com/) is a popular multi-tool for Wi-Fi enginee
 
 This guide assumes your WLAN Pi is already set up, connected to your network, and has internet access. We will connect to the device using SSH and run a simple command to install Orb.
 
+:::note
+The [WLAN Pi User Guide](https://userguide.wlanpi.com/wlan-pi-os/network-info/making-your-own-namespace-configuration) now has step-by-step instructions and video for setting up Orb instances to monitor the internet experience of your Wi-Fi and wired connection simultaneously.
+:::
+
+
 ## Prerequisites
 
 Before you begin, make sure you have:

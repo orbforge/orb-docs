@@ -114,13 +114,13 @@ Create a dedicated network for the Orb container:
 
 ### Create Container Bridge
 
-1. Navigate to **Bridge > New**.
+Navigate to **Bridge > New**.
    - Name: `containers`
    - Click **OK**.
 
 ### Create Virtual Ethernet Interface
 
-1. Navigate to **Interfaces > New > VETH**.
+Navigate to **Interfaces > New > VETH**.
    - Name: `veth-orb`
    - Click the **+** next to **Address**.
    - Enter IP: `172.19.0.2/24` (or alternate if this network is in use).
@@ -129,7 +129,7 @@ Create a dedicated network for the Orb container:
 
 ### Add Interface to Bridge
 
-1. Navigate to **Bridge > Ports > New**.
+Navigate to **Bridge > Ports > New**.
    - Interface: `veth-orb`.
    - Bridge: `containers`.
    - Click **OK**.
@@ -138,7 +138,7 @@ Create a dedicated network for the Orb container:
 
 ### Create Data Mount
 
-1. Navigate to **Container > Mounts > New**.
+Navigate to **Container > Mounts > New**.
    - Name: `MOUNT_ORB_DATA`.
    - Src: `/orb-data`.
    - Dst: `/root/.config/orb`.
@@ -146,9 +146,17 @@ Create a dedicated network for the Orb container:
 
 ### Configure Environment Variables
 
+Enable ephemeral mode to prevent writing to flash:
+
+Navigate to **Container > Envs > New**.
+   - Name: `ENV_ORB`.
+   - Key: `ORB_EPHEMERAL_MODE`.
+   - Value: `1`.
+   - Click **OK**.
+
 For router deployments, disable first-hop monitoring:
 
-1. Navigate to **Container > Envs > New**.
+Navigate to **Container > Envs > New**.
    - Name: `ENV_ORB`.
    - Key: `ORB_FIRSTHOP_DISABLED`.
    - Value: `1`.
@@ -156,7 +164,7 @@ For router deployments, disable first-hop monitoring:
 
 For devices with limited CPU (ARMv5), also disable bandwidth tests:
 
-1. Navigate to **Container > Envs > New**.
+Navigate to **Container > Envs > New**.
    - Name: `ENV_ORB`.
    - Key: `ORB_BANDWIDTH_DISABLED`.
    - Value: `1`.
