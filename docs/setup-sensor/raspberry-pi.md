@@ -75,15 +75,7 @@ When prompted with **"Use OS customization?"**, click **"EDIT SETTINGS"** and co
 ## Step 4: Install the Orb Service
 
 ```bash
-# Add Orb Forge's GPG key
-sudo mkdir -p --mode=0755 /usr/share/keyrings
-curl -fsSL https://pkgs.orb.net/orbforge.noarmor.gpg | sudo tee /usr/share/keyrings/orbforge-keyring.gpg >/dev/null
-# Add the orb repository
-curl -fsSL https://pkgs.orb.net/stable/debian/debian.orbforge-keyring.list | sudo tee /etc/apt/sources.list.d/orb.list
-# Install Orb
-sudo apt-get update && sudo apt-get install orb
-# Enable auto-update
-sudo systemctl enable --now orb-update.timer
+curl -fsSL https://pkgs.orb.net/install.sh | sh
 ```
 
 ## Step 5: Link to your Orb account
