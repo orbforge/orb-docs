@@ -35,3 +35,14 @@ Enable auto-update
 ```bash
 sudo systemctl enable --now orb-update.timer
 ```
+
+Enable ephemeral mode (optional)
+
+:::info
+[Ephemeral mode](/docs/deploy-and-configure/configuration) prevents writes to disk by storing the Orb data in memory rather than in a local database. This is useful in applications where the file system is on a physical medium sensitive to continous writes (e.g. SD card, NAND flash).
+:::
+
+```bash
+echo 'ORB_EPHEMERAL_MODE=1' | sudo tee -a /etc/default/orb >/dev/null
+sudo systemctl restart orb
+```

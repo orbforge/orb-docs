@@ -78,6 +78,10 @@ When prompted with **"Use OS customization?"**, click **"EDIT SETTINGS"** and co
 curl -fsSL https://pkgs.orb.net/install.sh | sh
 ```
 
+:::info
+If you are using an SD card as instructed in this guide (rather than using an M.2 hat), it is recommended you run your Orb in [ephemeral mode](/docs/deploy-and-configure/configuration) to preserve the life of your SD card and prevent your Orb sensor from failing. To do so, add the line `ORB_EPHEMERAL_MODE=1` to `/etc/default/orb`
+:::
+
 ## Step 5: Link to your Orb account
 
 1. Once the installation script finishes, the Orb sensor should be running on your Raspberry Pi device.
