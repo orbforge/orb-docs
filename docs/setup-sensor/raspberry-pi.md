@@ -75,16 +75,12 @@ When prompted with **"Use OS customization?"**, click **"EDIT SETTINGS"** and co
 ## Step 4: Install the Orb Service
 
 ```bash
-# Add Orb Forge's GPG key
-sudo mkdir -p --mode=0755 /usr/share/keyrings
-curl -fsSL https://pkgs.orb.net/orbforge.noarmor.gpg | sudo tee /usr/share/keyrings/orbforge-keyring.gpg >/dev/null
-# Add the orb repository
-curl -fsSL https://pkgs.orb.net/stable/debian/debian.orbforge-keyring.list | sudo tee /etc/apt/sources.list.d/orb.list
-# Install Orb
-sudo apt-get update && sudo apt-get install orb
-# Enable auto-update
-sudo systemctl enable --now orb-update.timer
+curl -fsSL https://pkgs.orb.net/install.sh | sh
 ```
+
+:::info
+If you are using an SD card as instructed in this guide (rather than using an M.2 hat), it is recommended you run your Orb in [ephemeral mode](/docs/deploy-and-configure/configuration) to preserve the life of your SD card and prevent your Orb sensor from failing. To do so, add the line `ORB_EPHEMERAL_MODE=1` to `/etc/default/orb`
+:::
 
 ## Step 5: Link to your Orb account
 
