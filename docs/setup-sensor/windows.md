@@ -8,34 +8,77 @@ subtitle: 'Difficulty: Beginner 🧑‍💻'
 ---
 # Orb Sensor on Windows
 
-## Install the Orb Sensor on Windows using Chocolatey
+## PowerShell Install Script
+
+### Installation
+
+You can install the Orb sensor on Windows using PowerShell by following these steps:
+1. Open PowerShell as Administrator.
+2. Run the following commands to download and install the Orb sensor:
+```powershell
+iwr -useb https://pkgs.orb.net/install.ps1 | iex
+```
+3. Follow the prompts to complete the installation.
+Once the installation is complete, you can verify that it succeeded by [looking at the service status](#check-service-status). You can return the previous command in the future to update the Orb sensor to the latest version.
+
+### Management
+The installation script also provides additional functions that you can use to manage the Orb sensor:
+```powershell
+# Install only
+iex "& { $(iwr -useb https://pkgs.orb.net/install.ps1) } -InstallOnly"
+
+# Update only
+iex "& { $(iwr -useb https://pkgs.orb.net/install.ps1) } -UpdateOnly"
+
+# Uninstall
+iex "& { $(iwr -useb https://pkgs.orb.net/install.ps1) } -Uninstall"
+```
+
+### Automatic Updates
+
+You can configure Windows Task Scheduler to automatically check for and install Orb updates on a regular schedule.
+
+**Create a Scheduled Task using PowerShell:**
+
+Open PowerShell as Administrator and run:
+
+```powershell
+$action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument '-NoProfile -WindowStyle Hidden -Command "iwr -useb https://pkgs.orb.net/install.ps1 | iex"'
+$trigger = New-ScheduledTaskTrigger -Daily -At 3am -RandomDelay (New-TimeSpan -Hours 1)
+$principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
+$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable
+Register-ScheduledTask -TaskName "Orb Auto Update" -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Description "Automatically updates the Orb sensor daily"
+```
+
+## Chocolatey Installation
 
 Chocolatey is a popular command-line package manager for Windows that simplifies software installation and management.
-See the [Orb package on Chocolatey](https://community.chocolatey.org/packages/orb) for available versions and package details.
 
-0. Ensure you have [Chocolatey installed](https://chocolatey.org/install#individual) on your Windows machine.
-1. Open Command Prompt or PowerShell as Administrator.
-2. Run the following command to install the Orb sensor and follow the prompts:
+### Installation
+See the [Orb package on Chocolatey](https://community.chocolatey.org/packages/orb) for available versions and package details.
+1. Ensure you have [Chocolatey installed](https://chocolatey.org/install#individual) on your Windows machine.
+2. Open Command Prompt or PowerShell as Administrator.
+3. Run the following command to install the Orb sensor and follow the prompts:
 ```cmd
 choco install orb
 ```
 Once the installation is complete, you can verify that it succeeded by [looking at the service status](#check-service-status).
 
-## Keeping Orb Up to Date with Chocolatey
+### Management
 
-If you installed Orb using Chocolatey, you can easily keep it updated to the latest version.
+You can uninstall the Orb sensor with:
+```cmd
+choco uninstall orb
+```
 
-### Manual Updates
-
-To manually update Orb to the latest version, run:
-
+You can upgrade the Orb sensor with:
 ```cmd
 choco upgrade orb -y
 ```
-
 The `-y` flag automatically confirms the upgrade without prompting.
 
-### Automatic Updates with Task Scheduler
+
+### Automatic Updates
 
 To ensure Orb stays up to date automatically, you can set up a Windows Task Scheduler task to run regular updates.
 
@@ -44,13 +87,11 @@ Open PowerShell as Administrator and run:
 ```powershell
 Register-ScheduledTask -TaskName "Orb Auto-Update" `
   -Action (New-ScheduledTaskAction -Execute "C:\ProgramData\chocolatey\bin\choco.exe" -Argument "upgrade orb -y") `
-  -Trigger (New-ScheduledTaskTrigger -Daily -At 3am) `
+  -Trigger (New-ScheduledTaskTrigger -Daily -At 3am -RandomDelay (New-TimeSpan -Hours 1)) `
   -Principal (New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest) `
   -Settings (New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable) `
   -Description "Automatically updates Orb sensor via Chocolatey"
 ```
-
-#### Verify the Scheduled Task
 
 To verify the task was created successfully:
 
@@ -68,29 +109,21 @@ Start-ScheduledTask -TaskName "Orb Auto-Update"
 After Chocolatey updates Orb, the Windows service will automatically restart with the new version.
 :::
 
-## Install the Orb Sensor on Windows (manual)
+## Manual Installation
 
 ### Installation
 
-Setting up a Windows device as an Orb sensor allows you to run continuous network monitoring as a background service.
-
-### Download
-
+#### Download
 Download the Orb CLI for Windows from our Early Access page:
-
 [Download Orb CLI for Windows](https://orb.net/the-forge/early-access/orb-cli-for-windows)
-
-:::note
-The Orb CLI for Windows is currently Early Access software.
-:::
 
 After downloading, extract `orb.exe` to a permanent location on your system (e.g., `C:\Program Files\Orb\orb.exe`).
 
-### Setting Up as a Windows Service
+#### Setting up the Windows Service
 
 You can install Orb as a Windows service using either PowerShell or the `sc.exe` command.
 
-#### Option 1: Using PowerShell (Recommended)
+**PowerShell:**
 Open PowerShell as Administrator and run:
 
 ```powershell
@@ -99,10 +132,8 @@ New-Service -Name "Orb" -BinaryPathName "C:\Program Files\Orb\orb.exe windowsser
 
 Replace `C:\Program Files\Orb\orb.exe` with the actual path where you placed the Orb executable.
 
-#### Option 2: Using sc.exe
-
+**Command Prompt:**
 Open Command Prompt as Administrator and run:
-
 ```cmd
 sc.exe create Orb binPath= "C:\Program Files\Orb\orb.exe windowsservice" DisplayName= "Orb Sensor Service" start= auto
 ```
@@ -111,7 +142,7 @@ sc.exe create Orb binPath= "C:\Program Files\Orb\orb.exe windowsservice" Display
 Note the space after `binPath=`, `DisplayName=`, and `start=` in the `sc.exe` command. This is required syntax.
 :::
 
-### Starting the Service
+#### Start the Service
 
 After creating the service, start it using:
 
@@ -124,11 +155,41 @@ Start-Service -Name "Orb"
 ```cmd
 sc.exe start Orb
 ```
-
 The service will now start automatically on system boot.
 
-## Configuring the Orb Sensor
-You can configure the Orb sensor with any options from [Orb Configuration](/docs/deploy-and-configure/configuration) docs.
+### Management
+
+**Uninstall:**
+First, stop the service, then remove it:
+
+**PowerShell:**
+```powershell
+Stop-Service -Name "Orb"
+Remove-Service -Name "Orb"
+```
+
+**Command Prompt:**
+```cmd
+sc.exe stop Orb
+sc.exe delete Orb
+```
+The Orb.exe file can then be deleted from your system if desired.
+
+## Check Service Status
+
+**PowerShell:**
+```powershell
+Get-Service -Name "Orb"
+```
+
+**Command Prompt:**
+```cmd
+sc.exe query Orb
+```
+
+
+## Configuration
+You can configure the Orb sensor with any options from [Orb Configuration](docs/deploy-and-configure/configuration) docs.
 
 ### Environment Variables
 To set environment variables for the Orb sensor Windows Service, you can use the `New-ItemProperty` cmdlet in PowerShell.
@@ -188,56 +249,6 @@ Flags:
   -h, --help     help for example
   -r  --remote   connect to remote host
 ```
-
-## Managing the Service
-
-### Stop the Service
-
-**PowerShell:**
-```powershell
-Stop-Service -Name "Orb"
-```
-
-**Command Prompt:**
-```cmd
-sc.exe stop Orb
-```
-
-### Check Service Status
-
-**PowerShell:**
-```powershell
-Get-Service -Name "Orb"
-```
-
-**Command Prompt:**
-```cmd
-sc.exe query Orb
-```
-
-### Uninstall the Service
-
-**Chocolatey Uninstall:**
-If you installed Orb using Chocolatey, you can uninstall it with:
-```cmd
-choco uninstall orb
-```
-
-**Manual Uninstall:**
-First, stop the service, then remove it:
-
-**PowerShell:**
-```powershell
-Stop-Service -Name "Orb"
-Remove-Service -Name "Orb"
-```
-
-**Command Prompt:**
-```cmd
-sc.exe stop Orb
-sc.exe delete Orb
-```
-
 
 ## Troubleshooting
 
