@@ -43,8 +43,8 @@ You can configure Windows Task Scheduler to automatically check for and install 
 Open PowerShell as Administrator and run:
 
 ```powershell
-$action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument '-NoProfile -WindowStyle Hidden -Command "iex \"& { $(iwr -useb https://pkgs.orb.net/install.ps1) } -UpdateOnly\""'
-$trigger = New-ScheduledTaskTrigger -Daily -At 3am
+$action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument '-NoProfile -WindowStyle Hidden -Command "iwr -useb https://pkgs.orb.net/install.ps1 | iex"'
+$trigger = New-ScheduledTaskTrigger -Daily -At 3am -RandomDelay (New-TimeSpan -Hours 1)
 $principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
 $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable
 Register-ScheduledTask -TaskName "Orb Auto Update" -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Description "Automatically updates the Orb sensor daily"
@@ -87,7 +87,7 @@ Open PowerShell as Administrator and run:
 ```powershell
 Register-ScheduledTask -TaskName "Orb Auto-Update" `
   -Action (New-ScheduledTaskAction -Execute "C:\ProgramData\chocolatey\bin\choco.exe" -Argument "upgrade orb -y") `
-  -Trigger (New-ScheduledTaskTrigger -Daily -At 3am) `
+  -Trigger (New-ScheduledTaskTrigger -Daily -At 3am -RandomDelay (New-TimeSpan -Hours 1)) `
   -Principal (New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest) `
   -Settings (New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable) `
   -Description "Automatically updates Orb sensor via Chocolatey"
