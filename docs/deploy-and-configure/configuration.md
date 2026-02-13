@@ -112,6 +112,109 @@ To configure custom responsiveness endpoints using the advanced configuration ed
 - TCP tests establish connections to the specified port to measure connection establishment time
 - Changes to endpoint configuration take effect within a few minutes of applying the configuration
 
+### Configuring Web Responsiveness Endpoints
+
+Orb measures web responsiveness by performing DNS resolution and Time to First Byte (TTFB) measurements against web endpoints. You can configure which URLs Orb uses for these measurements and customize the testing behavior.
+
+#### Default Behavior
+
+By default, Orb automatically selects appropriate web endpoints for DNS and TTFB testing based on popular and reliable websites that provide good baseline measurements for web browsing performance.
+
+#### Custom Web Endpoint Configuration
+
+You can specify custom web endpoints and testing parameters using the following configuration options:
+
+- **`collectors.bandwidth.web_urls`**: List of HTTPS URLs to test
+- **`collectors.bandwidth.web_interval`**: Interval between tests
+- **`collectors.bandwidth.web_timeout`**: Timeout for individual tests
+- **`collectors.bandwidth.web_selection_method`**: Method for choosing which URL to test
+
+##### Configuration Parameters
+
+**Web URLs (`web_urls`)**
+- Specify a list of HTTPS URLs for DNS resolution and TTFB testing
+- URLs should be reliable, publicly accessible websites
+- Examples: company websites, CDN endpoints, or critical web services
+
+**Test Interval (`web_interval`)**
+- Controls how frequently web responsiveness tests are performed
+- Minimum value: `5s` (5 seconds)
+- Format: Duration string (e.g., `10s`, `1m`, `30s`)
+
+**Test Timeout (`web_timeout`)**
+- Maximum time to wait for a test to complete before considering it failed
+- Minimum: `100ms`, Maximum: `20s`
+- Must be less than the web_interval value
+- Format: Duration string (e.g., `5s`, `2s`, `500ms`)
+
+**Selection Method (`web_selection_method`)**
+- **`round_robin`**: Cycles through URLs in order
+- **`random`**: Randomly selects a URL for each test
+
+##### Advanced Configuration Editor
+
+To configure custom web responsiveness endpoints using the advanced configuration editor, add the following properties to your configuration JSON:
+
+```json
+{
+  "collectors.bandwidth.web_urls": [
+    "https://www.orb.net",
+    "https://orb.horse"
+  ],
+  "collectors.bandwidth.web_interval": [
+    "10s"
+  ],
+  "collectors.bandwidth.web_timeout": [
+    "5s"
+  ],
+  "collectors.bandwidth.web_selection_method": [
+    "round_robin"
+  ]
+}
+```
+
+##### Example Use Cases
+
+**Corporate Website Monitoring**:
+```json
+{
+  "collectors.bandwidth.web_urls": [
+    "https://www.company.com",
+    "https://portal.company.com",
+    "https://app.company.com"
+  ],
+  "collectors.bandwidth.web_interval": ["30s"],
+  "collectors.bandwidth.web_timeout": ["10s"],
+  "collectors.bandwidth.web_selection_method": ["round_robin"]
+}
+```
+
+**CDN Performance Testing**:
+```json
+{
+  "collectors.bandwidth.web_urls": [
+    "https://cdn1.example.com",
+    "https://cdn2.example.com",
+    "https://cdn3.example.com"
+  ],
+  "collectors.bandwidth.web_interval": ["15s"],
+  "collectors.bandwidth.web_timeout": ["3s"],
+  "collectors.bandwidth.web_selection_method": ["random"]
+}
+```
+
+##### Important Notes
+
+- Web responsiveness measurements include DNS resolution time and Time to First Byte (TTFB)
+- Only HTTPS URLs are supported for security and consistency
+- Web responsiveness data is included in [Web Responsiveness Datasets](/docs/deploy-and-configure/datasets#web-responsiveness)
+- DNS measurements test your configured DNS servers' performance
+- TTFB measurements indicate overall web browsing experience quality
+- Changes to web endpoint configuration take effect within a few minutes of applying the configuration
+- Ensure URLs are publicly accessible and don't require authentication
+
+
+
 ### Configuring Datasets
 
 Orb applications and sensors are capable of producing [Datasets](/docs/deploy-and-configure/datasets) for Scores, Responsiveness, Web Responsiveness, and Speed data. These datasets may be streamed to Orb Cloud, Orb [Local Analytics](/docs/deploy-and-configure/local-analytics), or a destination of your choice. See [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration) for details.
