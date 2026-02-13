@@ -40,6 +40,77 @@ The Token associated with your Configuration can be used to link Orbs (see [Depl
 
 On the Status page, you can select Orbs, click "Apply Configuration", and select your named configuration to push that config to the selected Orbs.
 
+### Configuring Responsiveness Endpoints
+
+Orb measures network responsiveness by performing latency tests to various endpoints. You can configure which endpoints Orb uses for its responsiveness measurements to better align with your specific use case or network environment.
+
+#### Default Behavior
+
+By default, Orb automatically selects appropriate endpoints for responsiveness testing based on your network location and ISP.
+
+#### Custom Endpoint Configuration
+
+You can specify custom endpoints for responsiveness measurements using the `collectors.response.lag_endpoints` configuration option. This allows you to test responsiveness to endpoints that are most relevant to your use case, such as:
+
+- Your company's servers or data centers
+- Specific cloud providers or CDNs you rely on
+- Gaming servers or real-time application endpoints
+- Regional internet exchange points
+
+##### Configuration Format
+
+Endpoints are specified as a list of endpoint URLs using the format `protocol://host:port`. Supported protocols are:
+
+- **`icmp`**: ICMP ping tests (e.g., `icmp://8.8.8.8`)
+- **`https`**: HTTPS connection tests (e.g., `https://example.com:443`)
+- **`h3`**: HTTP/3 connection tests (e.g., `h3://fonts.google.com`)
+
+If no port is specified, the default port for the protocol will be used.
+
+##### Advanced Configuration Editor
+
+To configure custom responsiveness endpoints using the advanced configuration editor, add the following property to your configuration JSON:
+
+```json
+{
+  "collectors.response.lag_endpoints": [
+    "icmp://8.8.8.8",
+    "icmp://1.1.1.1",
+    "https://your-server.example.com:443",
+    "h3://fonts.google.com"
+  ]
+}
+```
+
+##### Example Use Cases
+
+**Gaming Network Monitoring**:
+```json
+{
+  "collectors.response.lag_endpoints": [
+    "icmp://na-west1.valve.net",
+    "https://riot-ping-na-central1.na.leagueoflegends.com"
+  ]
+}
+```
+
+**Enterprise Network Monitoring**:
+```json
+{
+  "collectors.response.lag_endpoints": [
+    "icmp://dc1.company.com",
+    "https://backup.company.com:443"
+  ]
+}
+```
+
+##### Important Notes
+
+- Endpoint responsiveness data is included in [Responsiveness Datasets](/docs/deploy-and-configure/datasets#responsiveness) 
+- ICMP (ping) tests require appropriate network permissions and may be blocked by some firewalls
+- TCP tests establish connections to the specified port to measure connection establishment time
+- Changes to endpoint configuration take effect within a few minutes of applying the configuration
+
 ### Configuring Datasets
 
 Orb applications and sensors are capable of producing [Datasets](/docs/deploy-and-configure/datasets) for Scores, Responsiveness, Web Responsiveness, and Speed data. These datasets may be streamed to Orb Cloud, Orb [Local Analytics](/docs/deploy-and-configure/local-analytics), or a destination of your choice. See [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration) for details.
