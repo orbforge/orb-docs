@@ -62,8 +62,7 @@ You can specify custom endpoints for responsiveness measurements using the `coll
 Endpoints are specified as a list of endpoint URLs using the format `protocol://host:port`. Supported protocols are:
 
 - **`icmp`**: ICMP ping tests (e.g., `icmp://8.8.8.8`)
-- **`tcp`**: TCP connection tests (e.g., `tcp://example.com:443`)
-- **`udp`**: UDP tests (e.g., `udp://example.com:53`)
+- **`https`**: HTTPS connection tests (e.g., `https://example.com:443`)
 - **`h3`**: HTTP/3 connection tests (e.g., `h3://fonts.google.com`)
 
 If no port is specified, the default port for the protocol will be used.
@@ -77,7 +76,7 @@ To configure custom responsiveness endpoints using the advanced configuration ed
   "collectors.response.lag_endpoints": [
     "icmp://8.8.8.8",
     "icmp://1.1.1.1",
-    "tcp://your-server.example.com:443",
+    "https://your-server.example.com:443",
     "h3://fonts.google.com"
   ]
 }
@@ -90,7 +89,7 @@ To configure custom responsiveness endpoints using the advanced configuration ed
 {
   "collectors.response.lag_endpoints": [
     "icmp://na-west1.valve.net",
-    "tcp://riot-ping-na-central1.na.leagueoflegends.com:80"
+    "https://riot-ping-na-central1.na.leagueoflegends.com"
   ]
 }
 ```
@@ -100,7 +99,7 @@ To configure custom responsiveness endpoints using the advanced configuration ed
 {
   "collectors.response.lag_endpoints": [
     "icmp://dc1.company.com",
-    "tcp://backup.company.com:443"
+    "https://backup.company.com:443"
   ]
 }
 ```
