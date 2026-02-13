@@ -106,7 +106,6 @@ To configure custom responsiveness endpoints using the advanced configuration ed
 
 ##### Important Notes
 
-- When custom endpoints are configured, they supplement (rather than replace) the responsiveness measurements
 - Endpoint responsiveness data is included in [Responsiveness Datasets](/docs/deploy-and-configure/datasets#responsiveness) 
 - ICMP (ping) tests require appropriate network permissions and may be blocked by some firewalls
 - TCP tests establish connections to the specified port to measure connection establishment time
