@@ -57,11 +57,14 @@ Once per minute, the default Orb configuration conducts Web Responsiveness tests
 **Test Interval (`web_interval`)**
 - Controls how frequently web responsiveness tests are performed
 - Minimum value: `5s` (5 seconds)
+- Default value: `1m` (1 minute) 
 - Format: Duration string (e.g., `10s`, `1m`, `30s`)
 
 **Test Timeout (`web_timeout`)**
 - Maximum time to wait for a test to complete before considering it failed
-- Minimum: `100ms`, Maximum: `20s`
+- Minimum value: `100ms` (100 milliseconds)
+- Maximum value: `20s` (20 seconds)
+- Default value: `20s`(20 seconds)
 - Must be less than the web_interval value
 - Format: Duration string (e.g., `5s`, `2s`, `500ms`)
 
@@ -80,10 +83,10 @@ To configure custom web responsiveness endpoints using the advanced configuratio
     "https://orb.horse"
   ],
   "collectors.bandwidth.web_interval": [
-    "10s"
+    "1m"
   ],
   "collectors.bandwidth.web_timeout": [
-    "5s"
+    "20s"
   ],
   "collectors.bandwidth.web_selection_method": [
     "round_robin"
