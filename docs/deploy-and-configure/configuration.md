@@ -40,89 +40,9 @@ The Token associated with your Configuration can be used to link Orbs (see [Depl
 
 On the Status page, you can select Orbs, click "Apply Configuration", and select your named configuration to push that config to the selected Orbs.
 
-### Configuring Responsiveness Endpoints
+### Custom Web Responsiveness Endpoints
 
-Orb measures network responsiveness by performing latency tests to various endpoints. You can configure which endpoints Orb uses for its responsiveness measurements to better align with your specific use case or network environment.
-
-#### Default Behavior
-
-By default, Orb automatically selects appropriate endpoints for responsiveness testing based on your network location and ISP.
-
-#### Custom Endpoint Configuration
-
-You can specify custom endpoints for responsiveness measurements using the `collectors.response.lag_endpoints` configuration option. This allows you to test responsiveness to endpoints that are most relevant to your use case, such as:
-
-- Your company's servers or data centers
-- Specific cloud providers or CDNs you rely on
-- Gaming servers or real-time application endpoints
-- Regional internet exchange points
-
-##### Configuration Format
-
-Endpoints are specified as a list of endpoint URLs using the format `protocol://host:port`. Supported protocols are:
-
-- **`icmp`**: ICMP ping tests (e.g., `icmp://8.8.8.8`)
-- **`https`**: HTTPS connection tests (e.g., `https://example.com:443`)
-- **`h3`**: HTTP/3 connection tests (e.g., `h3://fonts.google.com`)
-
-If no port is specified, the default port for the protocol will be used.
-
-##### Advanced Configuration Editor
-
-To configure custom responsiveness endpoints using the advanced configuration editor, add the following property to your configuration JSON:
-
-```json
-{
-  "collectors.response.lag_endpoints": [
-    "icmp://8.8.8.8",
-    "icmp://1.1.1.1",
-    "https://your-server.example.com:443",
-    "h3://fonts.google.com"
-  ]
-}
-```
-
-##### Example Use Cases
-
-**Gaming Network Monitoring**:
-```json
-{
-  "collectors.response.lag_endpoints": [
-    "icmp://na-west1.valve.net",
-    "https://riot-ping-na-central1.na.leagueoflegends.com"
-  ]
-}
-```
-
-**Enterprise Network Monitoring**:
-```json
-{
-  "collectors.response.lag_endpoints": [
-    "icmp://dc1.company.com",
-    "https://backup.company.com:443"
-  ]
-}
-```
-
-##### Important Notes
-
-- When custom endpoints are configured, they supplement (rather than replace) the responsiveness measurements
-- Endpoint responsiveness data is included in [Responsiveness Datasets](/docs/deploy-and-configure/datasets#responsiveness) 
-- ICMP (ping) tests require appropriate network permissions and may be blocked by some firewalls
-- TCP tests establish connections to the specified port to measure connection establishment time
-- Changes to endpoint configuration take effect within a few minutes of applying the configuration
-
-### Configuring Web Responsiveness Endpoints
-
-Orb measures web responsiveness by performing DNS resolution and Time to First Byte (TTFB) measurements against web endpoints. You can configure which URLs Orb uses for these measurements and customize the testing behavior.
-
-#### Default Behavior
-
-By default, Orb automatically selects appropriate web endpoints for DNS and TTFB testing based on popular and reliable websites that provide good baseline measurements for web browsing performance.
-
-#### Custom Web Endpoint Configuration
-
-You can specify custom web endpoints and testing parameters using the following configuration options:
+Once per minute, the default Orb configuration conducts Web Responsiveness tests to Orb infrastructure partners. This allows you to view Time to First Byte (TTFB) and DNS Resolution Time metrics in the Orb apps, Orb Cloud Analytics, and Orb Local Analytics. You can optionally specify custom web endpoints and testing parameters should you want to periodically test web endpoints that are critical to you or your users. The following configuration options are available:
 
 - **`collectors.bandwidth.web_urls`**: List of HTTPS URLs to test
 - **`collectors.bandwidth.web_interval`**: Interval between tests
@@ -133,8 +53,6 @@ You can specify custom web endpoints and testing parameters using the following 
 
 **Web URLs (`web_urls`)**
 - Specify a list of HTTPS URLs for DNS resolution and TTFB testing
-- URLs should be reliable, publicly accessible websites
-- Examples: company websites, CDN endpoints, or critical web services
 
 **Test Interval (`web_interval`)**
 - Controls how frequently web responsiveness tests are performed
@@ -153,7 +71,7 @@ You can specify custom web endpoints and testing parameters using the following 
 
 ##### Advanced Configuration Editor
 
-To configure custom web responsiveness endpoints using the advanced configuration editor, add the following properties to your configuration JSON:
+To configure custom web responsiveness endpoints using the advanced configuration editor in Orb Cloud, add the following properties to your configuration JSON:
 
 ```json
 {
@@ -173,47 +91,7 @@ To configure custom web responsiveness endpoints using the advanced configuratio
 }
 ```
 
-##### Example Use Cases
-
-**Corporate Website Monitoring**:
-```json
-{
-  "collectors.bandwidth.web_urls": [
-    "https://www.company.com",
-    "https://portal.company.com",
-    "https://app.company.com"
-  ],
-  "collectors.bandwidth.web_interval": ["30s"],
-  "collectors.bandwidth.web_timeout": ["10s"],
-  "collectors.bandwidth.web_selection_method": ["round_robin"]
-}
-```
-
-**CDN Performance Testing**:
-```json
-{
-  "collectors.bandwidth.web_urls": [
-    "https://cdn1.example.com",
-    "https://cdn2.example.com",
-    "https://cdn3.example.com"
-  ],
-  "collectors.bandwidth.web_interval": ["15s"],
-  "collectors.bandwidth.web_timeout": ["3s"],
-  "collectors.bandwidth.web_selection_method": ["random"]
-}
-```
-
-##### Important Notes
-
-- Web responsiveness measurements include DNS resolution time and Time to First Byte (TTFB)
-- Only HTTPS URLs are supported for security and consistency
-- Web responsiveness data is included in [Web Responsiveness Datasets](/docs/deploy-and-configure/datasets#web-responsiveness)
-- DNS measurements test your configured DNS servers' performance
-- TTFB measurements indicate overall web browsing experience quality
-- Changes to web endpoint configuration take effect within a few minutes of applying the configuration
-- Ensure URLs are publicly accessible and don't require authentication
-
-
+Web responsiveness data is included in [Web Responsiveness Datasets](/docs/deploy-and-configure/datasets#web-responsiveness)
 
 ### Configuring Datasets
 
