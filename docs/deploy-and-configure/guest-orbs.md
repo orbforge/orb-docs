@@ -86,7 +86,7 @@ The device owner always retains full control of the Orb installed on their devic
 
 Guests may unlink their Orb from the managed network at any time directly within the Orb app.
 
-![Guest Orb Link Removal](../../images/deploy-and-configure/guest-invite-link-removal.png)
+![Guest Orb Link Removal](../../images/deploy-and-configure/guest-invite-unlink.png)
 
 ## Account Limits
 
