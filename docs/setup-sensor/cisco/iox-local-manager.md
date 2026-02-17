@@ -29,7 +29,7 @@ Before you begin, ensure you have:
 
 ## Building Your IOx Package
 
-Pre-built packages are coming soon. In the meantime, you must build your own `package.tar` that includes your deployment token. Follow the [Building the IOx Package](/docs/setup-sensor/cisco/ioxclient#building-the-iox-package) section in the ioxclient guide to create your package using the IOx SDE.
+Pre-built packages are coming soon. In the meantime, you must build your own `package.tar` that includes your deployment token. Follow the [Building the IOx Package](/docs/setup-sensor/cisco/ioxclient) section in the ioxclient guide to create your package using the IOx SDE.
 
 Once you have your `package.tar`, return here to deploy it via IOx Local Manager.
 
