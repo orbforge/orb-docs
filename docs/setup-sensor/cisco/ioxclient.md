@@ -28,7 +28,7 @@ Before you begin, ensure you have:
 - [Skopeo](https://github.com/containers/skopeo) installed on your workstation
 - An Orb [deployment token](/docs/deploy-and-configure/deployment-tokens)
 
-## Building the IOx Package {#building-the-iox-package}
+## Building the IOx Package
 
 Before deploying Orb to any Cisco IOx device, you must build an IOx package (`package.tar`) that contains the Orb sensor image and your deployment token. This section covers the complete package building process.
 
