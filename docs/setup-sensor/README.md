@@ -37,6 +37,7 @@ The best sensor device for you depends on your specific needs:
 - [Proxmox](/docs/setup-sensor/proxmox.md)
 - [UniFi Routers](/docs/setup-sensor/unifi-routers.md)
 - [MikroTik](/docs/setup-sensor/mikrotik.md)
+- [Cisco IOx](/docs/setup-sensor/cisco)
 - [Firewalla](/docs/setup-sensor/firewalla.md)
 - [Synology NAS](/docs/setup-sensor/synology.md)
 - [QNAP NAS](/docs/setup-sensor/qnap.md)
