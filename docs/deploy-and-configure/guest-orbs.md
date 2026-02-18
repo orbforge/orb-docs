@@ -28,17 +28,17 @@ When creating an invite, administrators can configure the following settings:
 
 1. Network Name: Specify the name of the managed Orb network. This name is shown to invited users.
 2. Invitation Message: Customize the message presented to users explaining the purpose of the invite and encouraging participation.
-3. Configuration Assignment: Select the Orb configuration that will be automatically applied to any guest who accepts the invite.
+3. Configuration Assignment: Select the Orb configuration that will be automatically applied to any guest who accepts the invite. <br>
 This ensures:
 - Standardized monitoring behavior
 - Consistent test parameters
 - Comparable results across devices and operating systems
-4. Invite Duration: Define how long the invite remains valid.
+4. Invite Duration: Define how long the invite remains valid. <br>
 You may:
 - Set a fixed expiration date
 - Create a short-term invite for events
 - Leave the invite active for ongoing programs
-5. Usage Limits: Specify how many times the invite can be used.
+5. Usage Limits: Specify how many times the invite can be used. <br>
 Options include:
 - A limited number of uses
 - Unlimited uses
