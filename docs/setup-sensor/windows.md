@@ -189,7 +189,7 @@ sc.exe query Orb
 
 
 ## Configuration
-You can configure the Orb sensor with any options from [Orb Configuration](docs/deploy-and-configure/configuration) docs.
+You can configure the Orb sensor with any options from [Orb Configuration](/docs/deploy-and-configure/configuration) docs.
 
 ### Environment Variables
 To set environment variables for the Orb sensor Windows Service, you can use the `New-ItemProperty` cmdlet in PowerShell.
