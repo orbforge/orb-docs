@@ -230,3 +230,25 @@ Note: Wi-Fi Dataset fields are not currently available on iOS.
 | `longitude` | Orb location longitude (max 2-decimals,unless identifiable=true) | float |
 | `location_source` | Location Source<br>`0: unknown`<br>`1: geoip` | integer |
 | `speed_test_engine` | Testing engine<br>`0: orb`<br>`1: iperf`                                                                                                                                                  | integer |
+
+
+## Wi-Fi data availablility by platform
+
+| Field                   | Android | Windows | Linux | macOS |
+| :---------------------- | :-----: | :-----: | :---: | :---: |
+| RSSI dBm                |   🟢    |   🟢    |  🟢   |  🟢   |
+| Frequency MHz           |   🟢    |   🟢    |  🟢   |  🟢   |
+| TX Rate Mbps            |   🟢    |   🟢    |  🟢   |  🟢   |
+| RX Rate Mbps            |   🟢    |   🟢    |  🟢   |  ❌   |
+| SNR                     |   🟢    |   🟢    |  🟢   |  🟢   |
+| Noise dBm               |   🟢    |   🟢    |  🟢   |  🟢   |
+| PHY Mode                |   🟢    |   🟢    |  🟢   |  🟢   |
+| Security                |   ❌    |   🟢    |  🟢   |  🟢   |
+| Channel Width           |   ❌    |   🟢    |  🟢   |  🟢   |
+| BSSID                   |   🟢    |   🟢    |  🟢   |  🟢   |
+| Client MAC Address      |   🟢    |   🟢    |  🟢   |  🟢   |
+| Channel Number          |   🟢    |   🟢    |  🟢   |  🟢   |
+| Channel Band            |   🟢    |   🟢    |  🟢   |  🟢   |
+| Supported WLAN Channels |   🟢    |   ❌    |  🟢   |  🟢   |
+| MCS                     |   ❌    |   ❌    |  🟢   |  ❌   |
+| NSS                     |   ❌    |   ❌    |  🟢   |  ❌   |
