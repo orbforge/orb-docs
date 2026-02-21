@@ -232,7 +232,7 @@ Note: Wi-Fi Dataset fields are not currently available on iOS.
 | `speed_test_engine` | Testing engine<br>`0: orb`<br>`1: iperf`                                                                                                                                                  | integer |
 
 
-## Wi-Fi data availablility by platform
+## Wi-Fi data availability by platform
 
 | Field                   | Android | Windows | Linux | macOS |
 | :---------------------- | :-----: | :-----: | :---: | :---: |
