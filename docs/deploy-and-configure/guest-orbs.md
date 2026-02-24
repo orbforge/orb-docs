@@ -9,7 +9,7 @@ section: Deploy & Configure
 
 Guest Orbs allow network administrators to invite users on a managed network to participate in end-user monitoring with Orb.
 
-This feature is designed for large public or high-density networks such as campuses, airports, hotels, venues, libraries, cruise ships, and convention centers.
+This feature is designed for large public or high-density networks such as campuses, airports, hotels, venues, libraries, cruise ships, and convention centers. However, it can be just as useful for monitoring networks in corporate and home environments. 
 
 Guest Orbs enable consistent configuration, standardized data collection, and scalable end-user visibility across unmanaged guest devices.
 

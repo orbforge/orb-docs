@@ -69,6 +69,7 @@
 - [Local Analytics](/docs/deploy-and-configure/local-analytics.md)
 - [Deployment Tokens](/docs/deploy-and-configure/deployment-tokens.md)
 - [MDM](/docs/deploy-and-configure/mdm)
+- [Guest Orbs](/docs/deploy-and-configure/guest-orbs)
 
 ## [Integrations](/docs/integrations)
 
