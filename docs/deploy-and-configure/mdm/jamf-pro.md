@@ -99,7 +99,7 @@ In a text editor, such as Visual Studio Code, create a new file called my-config
             <string>Configures deployment token for Orb network monitoring</string>
             <key>PayloadOrganization</key>
             <string>Your Organization</string>
-            <key>ORB_DEPLOYMENT_TOKEN</key>
+            <key>OrbDeploymentToken</key>
             <string>REPLACE-WITH-YOUR-DEPLOYMENT-TOKEN</string>
             <key>LaunchInBackground</key>
             <true/>
