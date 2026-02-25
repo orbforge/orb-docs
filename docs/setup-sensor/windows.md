@@ -47,7 +47,7 @@ $action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument '-NoProfil
 $trigger = New-ScheduledTaskTrigger -Daily -At 3am -RandomDelay (New-TimeSpan -Hours 1)
 $principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
 $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable
-Register-ScheduledTask -TaskName "Orb Auto Update" -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Description "Automatically updates the Orb sensor daily"
+Register-ScheduledTask -TaskName "Orb Auto-Update" -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Description "Automatically updates the Orb sensor daily"
 ```
 
 ## Chocolatey Installation
