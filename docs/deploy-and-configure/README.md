@@ -16,3 +16,4 @@ The Orb platform supports a range of deployment options and is highly configurab
 * [Link Orbs with Deployment Tokens](/docs/deploy-and-configure/deployment-tokens) - configure and link Orbs at scale
 * [Windows & macOS MDM](/docs/deploy-and-configure/mdm) - easily deploy to corporate laptops or POS systems
 * [Guest Orbs](/docs/deploy-and-configure/guest-orbs) - easily link any Orb to your account with Guest Orbs
+* [Endpoints & Engines](/docs/deploy-and-configure/endpoints) - configure testing endpoints, test engines, and run your own Orb servers

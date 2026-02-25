@@ -23,6 +23,8 @@ The following environment variables can be set:
 | `ORB_DEPLOYMENT_TOKEN` | Sets the [Deployment Token](/docs/deploy-and-configure/deployment-tokens#using-environment-variable) | `ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678` | 1.2 |
 | `ORB_EPHEMERAL_MODE` | Sets Orb measurement data storage to in-memory only. Protects flash memory from frequent writes. All measurement data stored on the Orb is lost when Orb is stopped or restarted.  | `ORB_EPHEMERAL_MODE=1` | 1.4.0 |
 | `ORB_DEVICE_NAME_OVERRIDE` | Sets this Orb's name which appears in Orb apps and Orb Cloud | `ORB_DEVICE_NAME_OVERRIDE=MyDeviceName` | 1.4.1 |
+| `ORB_MEASURE_SERVER_ENABLED` | Enables the Orb to act as a server for speed and responsiveness testing | `ORB_MEASURE_SERVER_ENABLED=1` | 1.4.10 |
+| `ORB_MEASURE_SERVER_PORT` | Set the port for the Orb measurement server | `ORB_MEASURE_SERVER_PORT=8080` | 1.4.10 |
 
 ## Remote Configuration
 
@@ -40,61 +42,13 @@ The Token associated with your Configuration can be used to link Orbs (see [Depl
 
 On the Status page, you can select Orbs, click "Apply Configuration", and select your named configuration to push that config to the selected Orbs.
 
-### Custom Web Responsiveness Endpoints
+### Endpoint Configuration
 
-Once per minute, the default Orb configuration conducts Web Responsiveness tests to Orb infrastructure partners. This allows you to view Time to First Byte (TTFB) and DNS Resolution Time metrics in the Orb apps, Orb Cloud Analytics, and Orb Local Analytics. You can optionally specify custom web endpoints and testing parameters should you want to periodically test web endpoints that are critical to you or your users. The following configuration options are available:
+Orb offers extensive options for testing Responsiveness, Web Responsiveness, and Speed to different endpoints. Including your own! See the [Endpoints & Engines](/docs/deploy-and-configure/endpoints) documentation for more details.
 
-- **`collectors.bandwidth.web_urls`**: List of HTTPS URLs to test
-- **`collectors.bandwidth.web_interval`**: Interval between tests
-- **`collectors.bandwidth.web_timeout`**: Timeout for individual tests
-- **`collectors.bandwidth.web_selection_method`**: Method for choosing which URL to test
+#### Custom Web Responsiveness Endpoints
 
-##### Configuration Parameters
-
-**Web URLs (`web_urls`)**
-- Specify a list of HTTPS URLs for DNS resolution and TTFB testing
-
-**Test Interval (`web_interval`)**
-- Controls how frequently web responsiveness tests are performed
-- Minimum value: `5s` (5 seconds)
-- Default value: `1m` (1 minute) 
-- Format: Duration string (e.g., `10s`, `1m`, `30s`)
-
-**Test Timeout (`web_timeout`)**
-- Maximum time to wait for a test to complete before considering it failed
-- Minimum value: `100ms` (100 milliseconds)
-- Maximum value: `20s` (20 seconds)
-- Default value: `20s`(20 seconds)
-- Must be less than the web_interval value
-- Format: Duration string (e.g., `5s`, `2s`, `500ms`)
-
-**Selection Method (`web_selection_method`)**
-- **`round_robin`**: Cycles through URLs in order
-- **`random`**: Randomly selects a URL for each test
-
-##### Advanced Configuration Editor
-
-To configure custom web responsiveness endpoints using the advanced configuration editor in Orb Cloud, add the following properties to your configuration JSON:
-
-```json
-{
-  "collectors.bandwidth.web_urls": [
-    "https://www.orb.net",
-    "https://orb.horse"
-  ],
-  "collectors.bandwidth.web_interval": [
-    "1m"
-  ],
-  "collectors.bandwidth.web_timeout": [
-    "20s"
-  ],
-  "collectors.bandwidth.web_selection_method": [
-    "round_robin"
-  ]
-}
-```
-
-Web responsiveness data is included in [Web Responsiveness Datasets](/docs/deploy-and-configure/datasets#web-responsiveness)
+This section was moved to the [Endpoints & Engines](/docs/deploy-and-configure/endpoints) page.
 
 ### Configuring Datasets
 
