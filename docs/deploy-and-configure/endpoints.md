@@ -57,13 +57,19 @@ Add the following to your configuration to test Content Speed and Peak Speed to 
 ]
 ```
 
-#### Experimental Speed Test Engine
+### Experimental Speed Test Engine
 
 Members of of the Orb community and Orb customers have requested that the "Peak Speed" test, which measures the maximum download and upload throughput a connection can achieve, deliver results more in-line with the tools they've utilized in the past so they can fully switch to Orb from legacy speed test tools.
 
 Orb now offers an experimental "wave" engine, which can achieve higher throughput in a shorter duration when compared to the "orb" engine and many other legacy speed test tools.
 
-Add the following to your configuration to test Content Speed and Peak Speed to the previously configured server, replacing the `<ip>` placeholder with the routable IP address of the Orb Server:
+To configure Orbs to perform speed tests with the "wave" engine, visit the Orb Cloud [Status](https://cloud.orb.net/status) or [Orchestration](https://cloud.orb.net/orchestration) sections to edit the configuration for an individual Orb, or in-bulk via *Configurations*, respectively. If this is your first time configuring an Orb remotely, see the [Remote Configuration documentation](/docs/deploy-and-configure/configuration#remote-configuration).
+
+Changes will be made under the "Advanced" tab in the "Edit Configuration" screen.
+
+#### Orb Server with "wave"
+
+Add the following to your configuration to test Content Speed and Peak Speed to a [previously configured server](/docs/deploy-and-configure/endpoints#orb-server), replacing the `<ip>` placeholder with the routable IP address of the Orb Server:
 
 ```json
 "collectors.bandwidth.speed_servers": [
@@ -72,6 +78,16 @@ Add the following to your configuration to test Content Speed and Peak Speed to 
 ```
 
 There is no configuration step needed for the "server" Orb.
+
+#### Default Cloudflare test with "wave"
+
+Add the following to your configuration to use the "wave" engine when testing speed to the internet:
+
+```json
+"collectors.bandwidth.speed_servers": [
+  "wave://speed.cloudflare.com"
+]
+```
 
 ## Custom Responsiveness Endpoints
 
