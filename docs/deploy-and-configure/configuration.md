@@ -48,7 +48,7 @@ Orb offers extensive options for testing Responsiveness, Web Responsiveness, and
 
 #### Custom Web Responsiveness Endpoints
 
-This section was moved to the [Endpoints & Engines](/docs/deploy-and-configure/endpoints) page.
+This section was moved to the [Endpoints & Engines](/docs/deploy-and-configure/endpoints#custom-web-responsiveness-endpoints) page.
 
 ### Configuring Datasets
 
