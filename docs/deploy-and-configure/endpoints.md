@@ -89,6 +89,24 @@ Add the following to your configuration to use the "wave" engine when testing sp
 ]
 ```
 
+## Experimental Fastly speed test
+
+In addition to our existing collaboration with Cloudflare, Orb now partners with Fastly as well to support responsiveness, reliability, and speed testing. By supporting both Cloudflare and Fastly to measure internet experience, Orb provides an unparalleled platform for measuring real-world application experience. Orb already supports measuring responsiveness and reliability to Fastly. We are looking to our community and partners to test a new Fastly-powered speed test before making it more widely available and seamlessly integrated.
+
+To configure Orbs to perform speed tests to Fastly infrastructure, visit the Orb Cloud [Status](https://cloud.orb.net/status) or [Orchestration](https://cloud.orb.net/orchestration) sections to edit the configuration for an individual Orb, or in-bulk via *Configurations*, respectively. If this is your first time configuring an Orb remotely, see the [Remote Configuration documentation](/docs/deploy-and-configure/configuration#remote-configuration).
+
+Changes will be made under the "Advanced" tab in the "Edit Configuration" screen.
+
+```json
+"collectors.bandwidth.speed_servers": [
+  "orb://fastly-measure.prod.orb.net"
+]
+```
+
+:::warning
+This features is experimental, and not yet intended for production environments. We appreciate your testing and feedback. Please use our [Help & Support](https://orb.net/support) page or [Discord](https://discord.gg/orbforge) to report issues and ask questions.
+:::
+
 ## Custom Responsiveness Endpoints
 
 Orb measures network responsiveness by conducting latency measurements to various internet endpoints. Orb can be configured to use alternative endpoints should you wish to:
