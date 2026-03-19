@@ -51,10 +51,11 @@ In-app Deployment Token linking requires Orb app versions 1.3 and above.
 To link using Deployment Tokens in the Orb apps:
 
 1. Visit the [Orchestration](https://cloud.orb.net/orchestration) section of Orb Cloud and copy the desired Token from the Configuration table.
-2. In the Orb app on the device you wish to link, tap or click the settings cog, select "App Settings", and select "Link to existing account".
-3. Paste the Deployment Token from step 1 into the "Enter token" field and hit "Apply".
+2. In the Orb app on the device you wish to link, tap or click the device menu button (dots) and select "Link to a Space".
+3. Paste the Deployment Token from step 1 into the "Enter Guest Invite Code or Deployment Token" field and hit "Link with Deployment Token".
 
-<img src="../../images/deploy-and-configure/app-deployment-token.png" alt="App Deployment Token" style="max-height:500px;margin:auto;">
+<img src="../../images/deploy-and-configure/app-device-settings.png" alt="App device settings" style="max-height:500px;max-width:500px;margin:auto;">
+<img src="../../images/deploy-and-configure/app-deployment-token.png" alt="App Deployment Token" style="max-height:500px;max-width:500px;margin:auto;">
 
 Your Orb is now linked to your Space! If you receive an error, the Orb is likely already linked to another Space and will need to be un-linked before trying again. Ensure the "View Only" mode is disabled in the Orb app, or the linked Orb will not collect any data.
 

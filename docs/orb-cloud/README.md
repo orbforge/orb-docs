@@ -31,7 +31,7 @@ You're done! As a next step, you can [Configure](/docs/deploy-and-configure/conf
 ## Plus and Business quickstart
 
 1. Visit [https://plans.orb.net/plans-pricing](https://plans.orb.net/plans-pricing), select a plan, and start a trial.
-2. Link an Orb to your Space using the Deployment Token generated at onboarding by opening an Orb app, tapping or clicking the settings cog, selecting "App Settings", and selecting "Link to existing account". Paste in your Deployment Token and hit "Apply". See ["Using Tokens for Deployment"](/docs/deploy-and-configure/deployment-tokens#using-tokens-for-deployment) for more details and additional options.
+2. Link an Orb to your Space using the Deployment Token generated at onboarding by opening an Orb app, tap or click the device menu button (dots) and select "Link to a Space". Paste in your Deployment Token and hit "Link with Deployment Token". See ["Using Tokens for Deployment"](/docs/deploy-and-configure/deployment-tokens#using-tokens-for-deployment) for more details and additional options.
 
 <img src="../../images/deploy-and-configure/app-deployment-token.png" alt="App Deployment Token" style="max-height:500px;margin:auto;">
 
