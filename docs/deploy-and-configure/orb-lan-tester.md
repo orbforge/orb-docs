@@ -5,7 +5,13 @@ metaDescription: Configure a single Wi-Fi+Ethernet device to measure LAN perform
 section: Deploy & Configure
 ---
 
+
 # Orb LAN Tester
+
+:::danger
+This guide uses features from [Endpoints & Engines](/docs/deploy-and-configure/endpoints) that are experimental, and not yet intended for production environments. We appreciate your testing and feedback. Please use our [Help & Support](https://orb.net/support) page or [Discord](https://discord.gg/orbforge) to report issues and ask questions.
+:::
+
 
 This guide walks you through setting up an **Orb LAN Tester**: a dual-interface device that measures the real-world performance of your Wi-Fi network by routing Orb measurement traffic from a Wi-Fi interface, through your router, and back to an Ethernet-connected Orb measurement server — all from a single device.
 
@@ -46,7 +52,7 @@ This configuration will be used by the Wi-Fi interface Orb running on the host. 
 - Collects Wi-Fi metrics (RSSI, link quality, etc.)
 - Sends analytics data to Orb Cloud Analytics (alternatively, you can configure [Orb Local Analytics](/docs/deploy-and-configure/local-analytics))
 
-<img src="../../images/deploy-and-configure/orb-lan-tester-wifi-config-view.png" alt="App device settings" style="max-height:500px;max-width:500px;margin:auto;">
+<img src="../../images/deploy-and-configure/orb-lan-tester-wifi-config.png" alt="App device settings" style="max-height:500px;max-width:500px;margin:auto;">
 
 #### Advanced Config
 ```json
@@ -87,7 +93,7 @@ Since we are focusing on the LAN performance measurement in this guide, we will 
 - Disables Speed measurement
 - Sends analytics data to Orb Cloud Analytics (alternatively, you can configure [Orb Local Analytics](/docs/deploy-and-configure/local-analytics))
 
-<img src="../../images/deploy-and-configure/orb-lan-tester-eth-config-view.png" alt="App device settings" style="max-height:500px;max-width:500px;margin:auto;">
+<img src="../../images/deploy-and-configure/orb-lan-tester-eth-config.png" alt="App device settings" style="max-height:500px;max-width:500px;margin:auto;">
 
 ---
 
