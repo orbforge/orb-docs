@@ -34,7 +34,10 @@ Even though both Orbs run on the same device, traffic actually traverses your ne
 - Both **Wi-Fi (`wlan0`) and Ethernet (`eth0`) connected**
 - An Orb Cloud account
 
-> In this guide we use a **Raspberry Pi 4 Model B**, but any Debian host with both interfaces works.
+In this guide we use a **Raspberry Pi 4 Model B**, but any Debian host with both interfaces works.
+
+See setup notes for specific devices that may require additional considerations or steps:
+ - [WLAN Pi R4](#setup-notes-for-a-wlan-pi-r4)
 
 ---
 
@@ -153,35 +156,6 @@ This IP is dynamically tracked and updated automatically.
 
 ---
 
-## 🧠 Step 4: Understand How the Loop Works
-
-Your system is now running:
-
-| Component        | Interface | Role |
-|------------------|----------|------|
-| Host Orb         | Wi-Fi     | Test source (captures Wi-Fi metrics in addition to Responsiveness, Reliability, and Speed measurements) |
-| Docker Orb       | Ethernet  | Test target (also measures WAN connectivity) |
-
-When the Wi-Fi Orb runs tests against:
-
-```
-orb-lan-tester-ethernet.local
-```
-
-Traffic flows:
-
-```
-WiFi → Router/AP → Ethernet → Docker Orb
-```
-
-This ensures:
-
-- No kernel shortcutting  
-- Real RF + LAN traversal  
-- Accurate Wi-Fi performance measurement  
-
----
-
 ## 📊 Step 4: View Results in Orb Cloud
 
 In Orb Cloud, use Analytics and/or Live View for the **Wi-Fi Orb** to visualize the LAN performance of your Wi-Fi network.
@@ -248,3 +222,46 @@ You now have:
 - Full visibility into Wi-Fi performance from Orb Cloud  
 
 This is one of the most effective ways to measure **real Wi-Fi experience** without needing multiple physical devices and without including WAN connectivity in your measurements.
+
+
+## Setup Notes for a WLAN Pi R4
+
+A [WLAN Pi R4](https://userguide.wlanpi.com/hardware/wlan-pi-r4) makes a great LAN testing device if you have one.
+
+This specific LAN testing setup modifies NetworkManager configurations in ways that are not compatible with functionality of WLAN Pi OS.
+We recommend using a separate SD card in your WLAN Pi, with Raspberry Pi OS, for this guide.
+
+Steps:
+1. Connect an available/empty SD card to flash
+2. Open [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
+3. Select "Raspberry Pi 4" device
+4. Select "Raspberry Pi OS (other)" > "Raspberry Pi OS Lite (64-bit)" OS
+5. Select your connected SD card as the target storage
+6. Configure the hostname, localization, user, and Wi-Fi connection details (SSID / password to auto-connect on boot)
+7. Enable SSH with password authentication (used to connect to the device for this guide)
+8. Write the SD card
+
+Once you install this SD card and boot your WLAN Pi, there's one more step to force Raspberry Pi OS to always use the USB Wi-Fi card and not the Raspberry Pi 4B's built-in Wi-Fi chip.
+1. SSH into your WLAN Pi
+```sh
+ssh <user>@<hostname>
+```
+2. Disable the onboard WiFi, by adding `ndtoverlay=disable-wifi` to the end of `/boot/firmware/config.txt` (in `[all]` section)
+```sh
+echo -e "\ndtoverlay=disable-wifi" | sudo tee -a /boot/firmware/config.txt > /dev/null
+```
+3. Reboot for configuration change to take effect
+```sh
+sudo reboot
+```
+
+After reboot, you can confirm `wlan0` is now the only Wi-Fi interface available:
+```sh
+iwconfig
+```
+And confirm it's using the USB device (path should contain `usb`)
+```sh
+udevadm info -q path -p /sys/class/net/wlan0
+```
+
+Once you've confirmed `wlan0` and `eth0` are both up and connected, you can proceed with the normal LAN tester setup guide above.
