@@ -37,7 +37,7 @@ Even though both Orbs run on the same device, traffic actually traverses your ne
 In this guide we use a **Raspberry Pi 4 Model B**, but any Debian host with both interfaces works.
 
 See setup notes for specific devices that may require additional considerations or steps:
- - [WLAN Pi R4](#setup-notes-for-a-wlan-pi-r4)
+ - [WLAN Pi R4](#wlan-pi-r4)
 
 ---
 
@@ -160,6 +160,16 @@ This IP is dynamically tracked and updated automatically.
 
 In Orb Cloud, use Analytics and/or Live View for the **Wi-Fi Orb** to visualize the LAN performance of your Wi-Fi network.
 
+## ✅ Summary
+
+You now have:
+
+- A dual-interface Orb setup on a single device  
+- Real Wi-Fi → LAN → Ethernet testing 
+- Full visibility into Wi-Fi performance from Orb Cloud
+
+This is one of the most effective ways to measure **real Wi-Fi experience** without needing multiple physical devices and without including WAN connectivity in your measurements.
+
 ## 🧠 Why This Works
 
 Your system is now running:
@@ -197,34 +207,14 @@ This setup avoids that by:
 
 The result is a **true loop through your LAN**, not a local shortcut.
 
----
-
-## 🔁 Reliability & Self-Healing
-
-This setup is designed to recover automatically:
-
-- If Ethernet or Wi-Fi disconnects → it recovers when restored  
-- If DHCP IP changes → `/etc/hosts` updates automatically  
-- On reboot → everything comes back up cleanly  
-
-Once both interfaces are active, the system should always return to a good state.
+This setup is designed to recover automatically in cases where Wi-Fi or Ethernet disconnects, device reboots, etc...
+As long as the device is on and both interfaces are connected, the system should always return to a good state.
 It is expected that Orb measurements may time out or be invalid for up to 30 seconds after both interfaces are up and in a good state, while the host overrides are adjusted.
 
 ---
 
-## ✅ Summary
-
-You now have:
-
-- A dual-interface Orb setup on a single device  
-- Real Wi-Fi → LAN → Ethernet testing  
-- Continuous, self-healing operation  
-- Full visibility into Wi-Fi performance from Orb Cloud  
-
-This is one of the most effective ways to measure **real Wi-Fi experience** without needing multiple physical devices and without including WAN connectivity in your measurements.
-
-
-## Setup Notes for a WLAN Pi R4
+# Device-specific Setup Notes
+## WLAN Pi R4
 
 A [WLAN Pi R4](https://userguide.wlanpi.com/hardware/wlan-pi-r4) makes a great LAN testing device if you have one.
 
