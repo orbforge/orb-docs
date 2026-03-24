@@ -213,8 +213,8 @@ It is expected that Orb measurements may time out or be invalid for up to 30 sec
 
 ---
 
-# Device-specific Setup Notes
-## WLAN Pi R4
+## Device-specific Setup Notes
+### WLAN Pi R4
 
 A [WLAN Pi R4](https://userguide.wlanpi.com/hardware/wlan-pi-r4) makes a great LAN testing device if you have one.
 
