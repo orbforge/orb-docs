@@ -9,7 +9,7 @@ section: Deploy & Configure
 # Orb LAN Tester
 
 :::danger
-This guide is intended to setup a dedicated LAN measurement devices. We do not recommend following this guide on a multi-use machine, as it will make impactful changes to the networking setup specifically tailored to LAN measurement. These changes may be detrimental to the general usability of you device. For SD-card based devices like Raspberry Pi, we recommend using a dedicated SD card.
+This guide is intended to setup a dedicated LAN measurement devices. We do not recommend following this guide on a multi-use machine, as it will make impactful changes to the networking setup specifically tailored to LAN measurement. These changes may be detrimental to the general usability of your device. For SD-card based devices like Raspberry Pi, we recommend using a dedicated SD card.
 
 This guide also uses features from [Endpoints & Engines](/docs/deploy-and-configure/endpoints) that are experimental, and not yet intended for production environments.
 
