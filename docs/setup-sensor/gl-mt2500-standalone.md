@@ -30,7 +30,7 @@ Before you begin, make sure you have:
 
 The Brume 2 ships with the OpenWRT operating system, which is pre-configured with many features to act as a router, VPN gateway, and more. For this guide, we'll create a new OpenWRT image that installs the Orb sensor and configures the device to connect to your network as a monitoring device.
 
-1. Visit the [OpenWRT Firmware Selector](https://firmware-selector.openwrt.org/?version=24.10.0&target=mediatek%2Ffilogic&id=glinet_gl-mt2500) for the Brume 2 GL-MT2500
+1. Visit the [OpenWRT Firmware Selector](https://firmware-selector.openwrt.org/?version=24.10.6&target=mediatek%2Ffilogic&id=glinet_gl-mt2500) for the Brume 2 GL-MT2500
 2. Click "Customize installed packages and/or first boot script" to expand the customization options
 
 ![Customize installed packages and/or first boot script](../../images/gl-mt2500/1.2.png)
@@ -84,6 +84,18 @@ mkdir /.config
 ln -s /overlay/orb /.config/orb
 
 echo "src/gz orb_packages $URL"  | tee -a /etc/opkg/customfeeds.conf
+
+# Optional: Customize Orb configuration before first launch
+# You can set a deployment token to automatically link this Orb to your Orb Space, or adjust other settings.
+# See the https://orb.net/docs/deploy-and-configure/configuration for all available options.
+# 
+# cat << EOF > /etc/config/orb
+# config orb 'orb'
+# 	list env 'ORB_DATA_DIR=/root'
+# 	list env 'ORB_EPHEMERAL_MODE=1'
+# 	list env 'ORB_LOG_CONSOLE_FORMAT=syslog'
+# 	list env 'ORB_DEPLOYMENT_TOKEN=<YOUR-DEPLOYMENT-TOKEN-HERE>'
+# EOF
 
 # Create orb-setup service
 cat << EOF > /etc/init.d/orb-setup
