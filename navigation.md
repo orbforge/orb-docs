@@ -71,6 +71,7 @@
 - [MDM](/docs/deploy-and-configure/mdm)
 - [Guest Orbs](/docs/deploy-and-configure/guest-orbs)
 - [Endpoints & Engines](/docs/deploy-and-configure/endpoints)
+- [Orb LAN Tester](/docs/deploy-and-configure/orb-lan-tester)
 
 ## [Integrations](/docs/integrations)
 
