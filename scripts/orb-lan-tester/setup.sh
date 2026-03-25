@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -eu
 
 SUCCESS=0
@@ -212,7 +212,7 @@ EOF
 
 write_hosts_updater_script() {
   cat > /usr/local/bin/update-orb-ethernet-hosts <<EOF
-#!/bin/sh
+#!/bin/bash
 set -eu
 
 ALIAS_NAME="${ETH_HOSTS_ALIAS}"
