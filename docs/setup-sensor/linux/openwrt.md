@@ -41,7 +41,22 @@ Before you begin, make sure you have:
 3. If prompted about the authenticity of the host, type `yes` and press Enter.
 4. Enter the root password for your OpenWrt device when prompted. You should now have a command prompt logged into your OpenWrt device.
 
-## Step 2: Install Orb
+## Step 2: Pre-configure Orb (Optional)
+You can optionally create a configuration file to customize Orb behavior from the start. You can set a deployment token to automatically link this Orb to your Orb Space, or adjust other settings. See the [configuration docs](/docs/deploy-and-configure/configuration) for all available options.
+
+1. Create the configuration file:
+
+    ```bash
+    cat << EOF > /etc/config/orb
+    config orb 'orb'
+        list env 'ORB_DATA_DIR=/root'
+        list env 'ORB_EPHEMERAL_MODE=1'
+        list env 'ORB_LOG_CONSOLE_FORMAT=syslog'
+        list env 'ORB_DEPLOYMENT_TOKEN=<YOUR-DEPLOYMENT-TOKEN-HERE>'
+    EOF
+    ```
+
+## Step 3: Install Orb
 
 1. At the OpenWrt command prompt, run the following command exactly as shown:
 
@@ -57,7 +72,9 @@ Before you begin, make sure you have:
     - Enable auto-updates to keep Orb up-to-date.
 3. Wait for the script to complete. You should see output indicating the progress of the installation.
 
-## Step 3: Link your new Orb Sensor
+## Step 4: Link your new Orb Sensor (Optional)
+
+If you didn't configure a Deployment Token to auto-link your new Orb in Step 2, you can link it to your Orb Space now.
 
 1. Once the installation script finishes, the Orb Sensor should be running on your OpenWrt device.
 2. Open the Orb app on your phone or personal computer.
@@ -93,6 +110,18 @@ Add the Orb public key
 
 ```bash
 curl https://pkgs.orb.net/stable/openwrt/key.pub | tee /etc/opkg/keys/744a82bfef3c5690
+```
+
+Optionally, you can create a configuration file to customize Orb behavior from the start. You can set a deployment token to automatically link this Orb to your Orb Space, or adjust other settings. See the [configuration docs](/docs/deploy-and-configure/configuration) for all available options.
+
+```bash
+cat << EOF > /etc/config/orb
+config orb 'orb'
+    list env 'ORB_DATA_DIR=/root'
+    list env 'ORB_EPHEMERAL_MODE=1'
+    list env 'ORB_LOG_CONSOLE_FORMAT=syslog'
+    list env 'ORB_DEPLOYMENT_TOKEN=<YOUR-DEPLOYMENT-TOKEN-HERE>'
+EOF
 ```
 
 Install Orb
