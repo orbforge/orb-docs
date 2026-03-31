@@ -13,4 +13,4 @@ jobs:
         uses: actions/checkout@v4
         
       - name: Contributors Action
-        uses: github/contributors@v1.5.8
+        uses: github-community-projects/contributors@v1.5.8
