@@ -11,6 +11,8 @@ Orb provides a comprehensive view of your network connectivity through a variety
 
 ## The Orb Score
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1wZ77pcuDCA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 The Orb Score is a single number from 0 to 100 that represents the overall health of your network. It's calculated by combining scores from three categories of performance:
 
 - **Responsiveness**: How fast and smoothly a network responds to requests

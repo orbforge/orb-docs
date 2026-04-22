@@ -11,6 +11,8 @@ This guide will help you get started with Orb as quickly as possible. Follow the
 
 First things first, what is Orb? See our [What is Orb?](/docs/getting-started/what-is-orb.md) page for a quick overview.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Y4-DPTLEcoc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ## Install the Orb app
 
 Choose your platform and follow the installation instructions:

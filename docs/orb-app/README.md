@@ -9,6 +9,8 @@ section: Orb App
 
 This section covers everything you need to know about using the Orb app, from navigating the interface to customizing your settings.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OZ4fZ2LPjb4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ## App Overview
 
 - [The Orb app at a glance](/docs/orb-app/orb-app-at-a-glance.md) - Get a quick overview of the Orb app interface
