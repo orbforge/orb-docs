@@ -10,7 +10,7 @@ section: Getting Started
 The Orb app is your command center for monitoring and understanding your network's performance. This guide provides a quick tour of the app's interface and main features.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/OZ4fZ2LPjb4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
+<br>
 ## Main Screens
 
 ### Orb Summary
