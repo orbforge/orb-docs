@@ -8,7 +8,8 @@ section: Orb Cloud
 # Orb Cloud
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/RVG0__1iBbA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-<br>
+<br />
+
 Orb is an internet experience platform that uses continuous data collection from run-anywhere sensors (Orbs) to deliver comprehensive insight into any device’s connectivity. It focuses on three key pillars: Responsiveness, Reliability, and Speed. These pillars form the basis of a 0-100 Orb Score that can be easily understood by any internet user. The Orb Score—along with its component scores and the underlying metrics—is stored on-device for local or remote access, available in Orb Cloud, or streamable to your own data platform.
 
 Orb Cloud, accessible at [https://cloud.orb.net](https://cloud.orb.net), allows you to
