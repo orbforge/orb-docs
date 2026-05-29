@@ -78,3 +78,7 @@
 - [API](/docs/integrations/api.md)
 - [Elgato Stream Deck](/docs/integrations/stream-deck.md)
 - [Hamina Live View](/docs/integrations/hamina.md)
+
+## [Sensorbox](/docs/sensorbox)
+
+- [NanoPi Zero2](/docs/sensorbox/nanopi-zero2.md)
