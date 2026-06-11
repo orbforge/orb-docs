@@ -13,48 +13,40 @@ These features are experimental, and not yet intended for production environment
 
 ## Orb Server
 
-Orb can be run with an experimental server component, allowing you to perform responsiveness and speed testing directly to that Orb. This can be useful for:
+Every Orb Sensor runs a built-in server component (as of version 1.5), allowing you to perform responsiveness and speed testing directly to that Orb. This can be useful for:
 
 * Testing a leg of your local network rather than to internet infrastructure to troubleshoot where a bottleneck is occurring, test your Wi-Fi in isolation, or test a multi-gigabit switch or router.
 * ISPs wishing to test servers within their network infrastructure in addition to internet infrastructure.
 * Organizations in highly-regulated or industrial environments that can only test to infrastructure they control.
 
-The server component can be activated on an Orb Sensor by setting the environment variable `ORB_MEASURE_SERVER_ENABLED` to a value of `1` on Orb 1.4.10 and above.
+The server listens on port `7443` by default. If you wish to use a different port, set the `ORB_MEASURE_SERVER_PORT` environment variable (e.g. `ORB_MEASURE_SERVER_PORT=8080`). See the [Configuration](/docs/deploy-and-configure/configuration) documentation for more details.
 
-If you wish to set an alternative port, the variable `ORB_MEASURE_SERVER_PORT` can be utilized (e.g. `ORB_MEASURE_SERVER_PORT=8080`). See the [Configuration](/docs/deploy-and-configure/configuration) documentation for more details.
+If you need to disable the server, set the environment variable `ORB_MEASURE_SERVER_ENABLED=0`, or push the following via the Orb Cloud [Status](https://cloud.orb.net/status) or [Orchestration](https://cloud.orb.net/orchestration) configuration sections under the "Advanced" tab:
 
-For testing purposes, you can explicitly run `orb server` to run a standalone server-only mode. Or you can manually activate the server in a manual run of the sensor: `ORB_MEASURE_SERVER_ENABLED=1 orb sensor`.
+```json
+"sensor_api.measure_server_enabled": ["false"]
+```
 
-:::warning
-In Orb 1.4.10, there is no message in the startup logs indicating the server component is active.
-:::
+For testing purposes, you can explicitly run `orb server` to run a standalone server-only mode.
 
 ### Testing to your Orb Server
 
-Now that you have an Orb configured to act as a server, you will need to configure a different Orb to utilize this server for testing.
-
-Visit the Orb Cloud [Status](https://cloud.orb.net/status) or [Orchestration](https://cloud.orb.net/orchestration) sections to edit the configuration for an individual Orb, or in-bulk via *Configurations*, respectively. If this is your first time configuring an Orb remotely, see the [Remote Configuration documentation](/docs/deploy-and-configure/configuration#remote-configuration).
+To configure an Orb to test against another Orb's built-in server, visit the Orb Cloud [Status](https://cloud.orb.net/status) or [Orchestration](https://cloud.orb.net/orchestration) sections to edit the configuration for an individual Orb, or in-bulk via *Configurations*, respectively. If this is your first time configuring an Orb remotely, see the [Remote Configuration documentation](/docs/deploy-and-configure/configuration#remote-configuration).
 
 Changes will be made under the "Advanced" tab in the "Edit Configuration" screen.
 
-#### Responsiveness
-
-Add the following to your configuration to test Responsiveness to the previously configured server, replacing the `<ip>` placeholder with the routable IP address of the Orb Server:
+Add the following to your configuration, replacing `<ip>` with the routable IP address of the Orb Server. This single key automatically configures both Responsiveness and Speed testing to point at your server:
 
 ```json
-"collectors.response.lag_endpoints": [
-  "h3://<ip>:7443"
-],
+"orb.endpoint": ["<ip>:7443"]
 ```
 
-#### Speed
+If you configured a different port via `ORB_MEASURE_SERVER_PORT`, update the port accordingly.
 
-Add the following to your configuration to test Content Speed and Peak Speed to the previously configured server, replacing the `<ip>` placeholder with the routable IP address of the Orb Server:
+You can optionally assign a display name to the endpoint using `orb.endpoint_name`. This requires `orb.endpoint` to be set:
 
 ```json
-"collectors.bandwidth.speed_servers": [
-  "orb://<ip>:7443"
-]
+"orb.endpoint_name": ["My Local Server"]
 ```
 
 ## Experimental Speed Test Engine
@@ -66,18 +58,6 @@ Orb now offers an experimental "wave" engine, which can achieve higher throughpu
 To configure Orbs to perform speed tests with the "wave" engine, visit the Orb Cloud [Status](https://cloud.orb.net/status) or [Orchestration](https://cloud.orb.net/orchestration) sections to edit the configuration for an individual Orb, or in-bulk via *Configurations*, respectively. If this is your first time configuring an Orb remotely, see the [Remote Configuration documentation](/docs/deploy-and-configure/configuration#remote-configuration).
 
 Changes will be made under the "Advanced" tab in the "Edit Configuration" screen.
-
-### Orb Server with "wave"
-
-Add the following to your configuration to test Content Speed and Peak Speed to a [previously configured server](/docs/deploy-and-configure/endpoints#orb-server), replacing the `<ip>` placeholder with the routable IP address of the Orb Server:
-
-```json
-"collectors.bandwidth.speed_servers": [
-  "wave://<ip>:7443"
-]
-```
-
-There is no configuration step needed for the "server" Orb.
 
 ### Default Cloudflare test with "wave"
 
