@@ -49,23 +49,21 @@ You can optionally assign a display name to the endpoint using `orb.endpoint_nam
 "orb.endpoint_name": ["My Local Server"]
 ```
 
-## Experimental Speed Test Engine
+## Speed Test Engine
 
-Members of of the Orb community and Orb customers have requested that the "Peak Speed" test, which measures the maximum download and upload throughput a connection can achieve, deliver results more in-line with the tools they've utilized in the past so they can fully switch to Orb from legacy speed test tools.
+As of version 1.5, Orb uses the "wave" engine by default for Peak Speed tests against Cloudflare infrastructure. The "wave" engine achieves higher throughput in a shorter duration compared to the legacy "orb" engine and many other legacy speed test tools.
 
-Orb now offers an experimental "wave" engine, which can achieve higher throughput in a shorter duration when compared to the "orb" engine and many other legacy speed test tools.
-
-To configure Orbs to perform speed tests with the "wave" engine, visit the Orb Cloud [Status](https://cloud.orb.net/status) or [Orchestration](https://cloud.orb.net/orchestration) sections to edit the configuration for an individual Orb, or in-bulk via *Configurations*, respectively. If this is your first time configuring an Orb remotely, see the [Remote Configuration documentation](/docs/deploy-and-configure/configuration#remote-configuration).
+You can customize which speed servers are used by visiting the Orb Cloud [Status](https://cloud.orb.net/status) or [Orchestration](https://cloud.orb.net/orchestration) sections to edit the configuration for an individual Orb, or in-bulk via *Configurations*, respectively. If this is your first time configuring an Orb remotely, see the [Remote Configuration documentation](/docs/deploy-and-configure/configuration#remote-configuration).
 
 Changes will be made under the "Advanced" tab in the "Edit Configuration" screen.
 
-### Default Cloudflare test with "wave"
+### Custom test with "wave"
 
-Add the following to your configuration to use the "wave" engine when testing speed to the internet:
+To configure speed testing with the "wave" engine:
 
 ```json
 "collectors.bandwidth.speed_servers": [
-  "wave://speed.cloudflare.com"
+  "wave://<host or ip>"
 ]
 ```
 
@@ -79,7 +77,16 @@ Changes will be made under the "Advanced" tab in the "Edit Configuration" screen
 
 ```json
 "collectors.bandwidth.speed_servers": [
-  "orb://fastly-measure.prod.orb.net"
+  "wave://fastly-measure.prod.orb.net"
+]
+```
+
+When multiple speed servers are configured, Orb automatically selects the closest server by network path (lowest latency). For example, to test against both Cloudflare and Fastly and let Orb pick the nearest:
+
+```json
+"collectors.bandwidth.speed_servers": [
+  "wave://speed.cloudflare.com",
+  "wave://fastly-measure.prod.orb.net"
 ]
 ```
 
