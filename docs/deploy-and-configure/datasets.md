@@ -210,7 +210,7 @@ The Wi-Fi Dataset includes all measures related to your Wi-Fi connection. Field 
 
 Wi-Fi data is available in 30 minute, 1 minute, and 1 second aggregated buckets.
 
-Note: Wi-Fi Dataset fields are not currently available on iOS.
+Note: On iOS, Wi-Fi data is available via an optional iOS Shortcut (as of version 1.5)
 
 ### `wifi_link_(30m|1m|1s)`
 
@@ -265,21 +265,21 @@ Note: Wi-Fi Dataset fields are not currently available on iOS.
 
 ## Wi-Fi data availability by platform
 
-| Field                   | Android | Windows | Linux | macOS |
-| :---------------------- | :-----: | :-----: | :---: | :---: |
-| RSSI dBm                |   🟢    |   🟢    |  🟢   |  🟢   |
-| Frequency MHz           |   🟢    |   🟢    |  🟢   |  🟢   |
-| TX Rate Mbps            |   🟢    |   🟢    |  🟢   |  🟢   |
-| RX Rate Mbps            |   🟢    |   🟢    |  🟢   |  ❌   |
-| SNR                     |   🟢    |   🟢    |  🟢   |  🟢   |
-| Noise dBm               |   🟢    |   🟢    |  🟢   |  🟢   |
-| PHY Mode                |   🟢    |   🟢    |  🟢   |  🟢   |
-| Security                |   ❌    |   🟢    |  🟢   |  🟢   |
-| Channel Width           |   ❌    |   🟢    |  🟢   |  🟢   |
-| BSSID                   |   🟢    |   🟢    |  🟢   |  🟢   |
-| Client MAC Address      |   🟢    |   🟢    |  🟢   |  🟢   |
-| Channel Number          |   🟢    |   🟢    |  🟢   |  🟢   |
-| Channel Band            |   🟢    |   🟢    |  🟢   |  🟢   |
-| Supported WLAN Channels |   🟢    |   ❌    |  🟢   |  🟢   |
-| MCS                     |   ❌    |   ❌    |  🟢   |  ❌   |
-| NSS                     |   ❌    |   ❌    |  🟢   |  ❌   |
+| Field                   | Android | Windows | Linux | macOS | iOS (Shortcut) |
+| :---------------------- | :-----: | :-----: | :---: | :---: | :------------: |
+| RSSI dBm                |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| Frequency MHz           |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| TX Rate Mbps            |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| RX Rate Mbps            |   🟢    |   🟢    |  🟢   |  ❌   |      🟢        |
+| SNR                     |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| Noise dBm               |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| PHY Mode                |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| Security                |   ❌    |   🟢    |  🟢   |  🟢   |      🟢        |
+| Channel Width           |   ❌    |   🟢    |  🟢   |  🟢   |      ❌        |
+| BSSID                   |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| Client MAC Address      |   🟢    |   🟢    |  🟢   |  🟢   |      ❌        |
+| Channel Number          |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| Channel Band            |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| Supported WLAN Channels |   🟢    |   ❌    |  🟢   |  🟢   |      ❌        |
+| MCS                     |   ❌    |   ❌    |  🟢   |  ❌   |      ❌        |
+| NSS                     |   ❌    |   ❌    |  🟢   |  ❌   |      ❌        |
