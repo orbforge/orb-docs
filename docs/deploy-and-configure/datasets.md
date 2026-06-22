@@ -21,9 +21,9 @@ Orb Datasets requires Orb app and sensor versions 1.3 and above.
 
 The Scores Dataset focuses on Orb Score, its component scores (Responsiveness, Reliability, and Speed), and underlying measures used in these scores. For more details see [Orb Scores & Metrics](/docs/orb-app/orb-scores-metrics).
 
-As Orb Score is calculated at a minimum 1-minute sliding window, the minimum Scores dataset granularity is 1 minute.
+Scores data is available in 30 minute, 1 minute, and 1 second aggregated buckets.
 
-### `scores_1m`
+### `scores_(30m|1m|1s)`
 
 | column                 | description                                                                                                                                                                               |  type   |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-----: |
@@ -62,9 +62,9 @@ As Orb Score is calculated at a minimum 1-minute sliding window, the minimum Sco
 
 The Responsiveness Dataset includes all measures related to network responsiveness, including lag, latency, jitter, and packet loss.
 
-Responsiveness data is available in 1 second, 15 second, and 1 minute aggregated buckets.
+Responsiveness data is available in 30 minute, 1 minute, and 1 second aggregated buckets.
 
-### `responsiveness_(1m|15s|1s)`
+### `responsiveness_(30m|1m|1s)`
 
 | column | description | type |
 | ----- | ----- | :---: |
@@ -181,11 +181,11 @@ Content speed measurements are conducted once per hour by default. Therefore, ra
 
 The Wi-Fi Dataset includes all measures related to your Wi-Fi connection. Field availability varies by platform and Wi-Fi driver capabilities.
 
-Wi-Fi data is available in 1 second, 15 second, and 1 minute aggregated buckets.
+Wi-Fi data is available in 30 minute, 1 minute, and 1 second aggregated buckets.
 
 Note: Wi-Fi Dataset fields are not currently available on iOS.
 
-### `wifi_link_(1m|15s|1s)`
+### `wifi_link_(30m|1m|1s)`
 
 | column | description | type |
 | ----- | ----- | :---: |
