@@ -6,31 +6,124 @@ section: setup-sensor
 layout: guides
 subtitle: 'Difficulty: Beginner 🧑‍💻'
 ---
+# Orb Sensor on Windows
 
-# Install the Orb Sensor on Windows
+## PowerShell Install Script
 
-## Installation
+### Installation
 
-Setting up a Windows device as an Orb sensor allows you to run continuous network monitoring as a background service.
+You can install the Orb sensor on Windows using PowerShell by following these steps:
+1. Open PowerShell as Administrator.
+2. Run the following commands to download and install the Orb sensor:
+```powershell
+iwr -useb https://pkgs.orb.net/install.ps1 | iex
+```
+3. Follow the prompts to complete the installation.
+Once the installation is complete, you can verify that it succeeded by [looking at the service status](#check-service-status). You can return the previous command in the future to update the Orb sensor to the latest version.
 
-### Download
+### Management
+The installation script also provides additional functions that you can use to manage the Orb sensor:
+```powershell
+# Install only
+iex "& { $(iwr -useb https://pkgs.orb.net/install.ps1) } -InstallOnly"
 
-Download the Orb CLI for Windows from our Early Access page:
+# Update only
+iex "& { $(iwr -useb https://pkgs.orb.net/install.ps1) } -UpdateOnly"
 
-[Download Orb CLI for Windows](https://orb.net/the-forge/early-access/orb-cli-for-windows)
+# Uninstall
+iex "& { $(iwr -useb https://pkgs.orb.net/install.ps1) } -Uninstall"
+```
+
+### Automatic Updates
+
+You can configure Windows Task Scheduler to automatically check for and install Orb updates on a regular schedule.
+
+**Create a Scheduled Task using PowerShell:**
+
+Open PowerShell as Administrator and run:
+
+```powershell
+$action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument '-NoProfile -WindowStyle Hidden -Command "iwr -useb https://pkgs.orb.net/install.ps1 | iex"'
+$trigger = New-ScheduledTaskTrigger -Daily -At 3am -RandomDelay (New-TimeSpan -Hours 1)
+$principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
+$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable
+Register-ScheduledTask -TaskName "Orb Auto-Update" -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Description "Automatically updates the Orb sensor daily"
+```
+
+## Chocolatey Installation
+
+Chocolatey is a popular command-line package manager for Windows that simplifies software installation and management.
+
+### Installation
+See the [Orb package on Chocolatey](https://community.chocolatey.org/packages/orb) for available versions and package details.
+1. Ensure you have [Chocolatey installed](https://chocolatey.org/install#individual) on your Windows machine.
+2. Open Command Prompt or PowerShell as Administrator.
+3. Run the following command to install the Orb sensor and follow the prompts:
+```cmd
+choco install orb
+```
+Once the installation is complete, you can verify that it succeeded by [looking at the service status](#check-service-status).
+
+### Management
+
+You can uninstall the Orb sensor with:
+```cmd
+choco uninstall orb
+```
+
+You can upgrade the Orb sensor with:
+```cmd
+choco upgrade orb -y
+```
+The `-y` flag automatically confirms the upgrade without prompting.
+
+
+### Automatic Updates
+
+To ensure Orb stays up to date automatically, you can set up a Windows Task Scheduler task to run regular updates.
+
+Open PowerShell as Administrator and run:
+
+```powershell
+Register-ScheduledTask -TaskName "Orb Auto-Update" `
+  -Action (New-ScheduledTaskAction -Execute "C:\ProgramData\chocolatey\bin\choco.exe" -Argument "upgrade orb -y") `
+  -Trigger (New-ScheduledTaskTrigger -Daily -At 3am -RandomDelay (New-TimeSpan -Hours 1)) `
+  -Principal (New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest) `
+  -Settings (New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable) `
+  -Description "Automatically updates Orb sensor via Chocolatey"
+```
+
+To verify the task was created successfully:
+
+```powershell
+Get-ScheduledTask -TaskName "Orb Auto-Update"
+```
+
+You can manually run the task to test it:
+
+```powershell
+Start-ScheduledTask -TaskName "Orb Auto-Update"
+```
 
 :::note
-The Orb CLI for Windows is currently Early Access software.
+After Chocolatey updates Orb, the Windows service will automatically restart with the new version.
 :::
+
+## Manual Installation
+
+### Installation
+
+#### Download
+Download the Orb CLI for Windows from our Early Access page:
+[Download Orb CLI for Windows](https://orb.net/the-forge/early-access/orb-cli-for-windows)
 
 After downloading, extract `orb.exe` to a permanent location on your system (e.g., `C:\Program Files\Orb\orb.exe`).
 
-## Setting Up as a Windows Service
+#### Setting up the Windows Service
 
 You can install Orb as a Windows service using either PowerShell or the `sc.exe` command.
 
-### Option 1: Using PowerShell (Recommended)
-
+**PowerShell:**
 Open PowerShell as Administrator and run:
 
 ```powershell
@@ -39,10 +132,8 @@ New-Service -Name "Orb" -BinaryPathName "C:\Program Files\Orb\orb.exe windowsser
 
 Replace `C:\Program Files\Orb\orb.exe` with the actual path where you placed the Orb executable.
 
-### Option 2: Using sc.exe
-
+**Command Prompt:**
 Open Command Prompt as Administrator and run:
-
 ```cmd
 sc.exe create Orb binPath= "C:\Program Files\Orb\orb.exe windowsservice" DisplayName= "Orb Sensor Service" start= auto
 ```
@@ -51,7 +142,7 @@ sc.exe create Orb binPath= "C:\Program Files\Orb\orb.exe windowsservice" Display
 Note the space after `binPath=`, `DisplayName=`, and `start=` in the `sc.exe` command. This is required syntax.
 :::
 
-## Starting the Service
+#### Start the Service
 
 After creating the service, start it using:
 
@@ -64,22 +155,60 @@ Start-Service -Name "Orb"
 ```cmd
 sc.exe start Orb
 ```
-
 The service will now start automatically on system boot.
 
-## Data Storage
+### Management
 
-When running as LocalSystem (the default), Orb saves data in:
+**Uninstall:**
+First, stop the service, then remove it:
 
+**PowerShell:**
+```powershell
+Stop-Service -Name "Orb"
+Remove-Service -Name "Orb"
 ```
-C:\ProgramData\Orb
+
+**Command Prompt:**
+```cmd
+sc.exe stop Orb
+sc.exe delete Orb
+```
+The Orb.exe file can then be deleted from your system if desired.
+
+## Check Service Status
+
+**PowerShell:**
+```powershell
+Get-Service -Name "Orb"
 ```
 
-## Using Deployment Tokens
+**Command Prompt:**
+```cmd
+sc.exe query Orb
+```
+
+
+## Configuration
+You can configure the Orb sensor with any options from [Orb Configuration](/docs/deploy-and-configure/configuration) docs.
+
+### Environment Variables
+To set environment variables for the Orb sensor Windows Service, you can use the `New-ItemProperty` cmdlet in PowerShell.
+
+
+Example with `ORB_FIRSTHOP_DISABLED` and `ORB_DEPLOYMENT_TOKEN` environment variables:
+```powershell
+New-ItemProperty `
+  -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Orb" `
+  -Name "Environment" `
+  -PropertyType MultiString `
+  -Value @("ORB_FIRSTHOP_DISABLED=1", "ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678")
+```
+
+### Using Deployment Tokens
 
 You can automatically link your Orb sensor to your Orb Cloud Space using a deployment token. This is especially useful for deploying multiple sensors or automating setup.
 
-To use a deployment token, create a file named `deployment_token.txt` in the Orb configuration directory containing your token:
+To use a deployment token, you can use the [Environment Variables](#environment-variables) approach above to set `ORB_DEPLOYMENT_TOKEN`, or create a file named `deployment_token.txt` in the Orb configuration directory containing your token:
 
 ```cmd
 echo orb-dt1-yourdeploymenttoken678 > C:\ProgramData\Orb\deployment_token.txt
@@ -91,7 +220,15 @@ When the Orb service starts, it will automatically read this file and link to yo
 
 For more details on deployment tokens and other linking methods, see the [Deployment Tokens](/docs/deploy-and-configure/deployment-tokens) guide.
 
-## Orb CLI Commands
+### Data Storage
+
+When running as LocalSystem (the default), Orb saves data in:
+
+```
+C:\ProgramData\Orb
+```
+
+### Orb CLI Commands
 
 The Orb CLI provides a set of commands to manage your Orb sensors and interact with your Orb account. To use these commands, run `orb.exe` directly (not as a service):
 
@@ -111,48 +248,6 @@ Available Commands:
 Flags:
   -h, --help     help for example
   -r  --remote   connect to remote host
-```
-
-## Managing the Service
-
-### Stop the Service
-
-**PowerShell:**
-```powershell
-Stop-Service -Name "Orb"
-```
-
-**Command Prompt:**
-```cmd
-sc.exe stop Orb
-```
-
-### Check Service Status
-
-**PowerShell:**
-```powershell
-Get-Service -Name "Orb"
-```
-
-**Command Prompt:**
-```cmd
-sc.exe query Orb
-```
-
-### Uninstall the Service
-
-First, stop the service, then remove it:
-
-**PowerShell:**
-```powershell
-Stop-Service -Name "Orb"
-Remove-Service -Name "Orb"
-```
-
-**Command Prompt:**
-```cmd
-sc.exe stop Orb
-sc.exe delete Orb
 ```
 
 ## Troubleshooting

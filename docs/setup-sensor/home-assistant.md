@@ -73,7 +73,7 @@ Now that you've added the repository, you can install the Orb add-on:
 After installation, you'll need to configure and start the add-on:
 
 1. Once installation completes, toggle on **Start on boot** to ensure the add-on starts automatically when Home Assistant restarts
-2. Toggle on **Auto update** to keep the add-on up to date with the latest features and security patches
+2. (Optional) If your Home Assistant user profile has [Advanced Mode](https://www.home-assistant.io/blog/2019/07/17/release-96/#advanced-mode) enabled, you will see a **Auto Update** Toggle. Turn it on to keep the add-on up to date with the latest features and security patches
 
 ![Configure Orb add-on settings](../../images/home-assistant/3.2.png)
 

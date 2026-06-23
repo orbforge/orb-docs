@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         
       - name: Contributors Action
-        uses: github/contributors@v1.5.8
+        uses: github-community-projects/contributors@v1.5.8

@@ -30,6 +30,7 @@
 - [Proxmox](/docs/setup-sensor/proxmox.md)
 - [UniFi Routers](/docs/setup-sensor/unifi-routers.md)
 - [MikroTik](/docs/setup-sensor/mikrotik.md)
+- [Cisco IOx](/docs/setup-sensor/cisco)
 - [Firewalla](/docs/setup-sensor/firewalla.md)
 - [Synology NAS](/docs/setup-sensor/synology.md)
 - [QNAP NAS](/docs/setup-sensor/qnap.md)
@@ -68,9 +69,16 @@
 - [Local Analytics](/docs/deploy-and-configure/local-analytics.md)
 - [Deployment Tokens](/docs/deploy-and-configure/deployment-tokens.md)
 - [MDM](/docs/deploy-and-configure/mdm)
+- [Guest Orbs](/docs/deploy-and-configure/guest-orbs)
+- [Endpoints & Engines](/docs/deploy-and-configure/endpoints)
+- [Orb LAN Tester](/docs/deploy-and-configure/orb-lan-tester)
 
 ## [Integrations](/docs/integrations)
 
 - [API](/docs/integrations/api.md)
 - [Elgato Stream Deck](/docs/integrations/stream-deck.md)
 - [Hamina Live View](/docs/integrations/hamina.md)
+
+## [Sensorbox](/docs/sensorbox)
+
+- [NanoPi Zero2](/docs/sensorbox/nanopi-zero2.md)
