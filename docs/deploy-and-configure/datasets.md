@@ -11,7 +11,7 @@ Orb applications and sensors are capable of producing **Datasets** for Scores, R
 
 ## Current Version
 
-The current version of Orb Datasets is 1.0
+The current version of Orb Datasets is 1.5
 
 :::info
 Orb Datasets requires Orb app and sensor versions 1.3 and above.
@@ -21,9 +21,9 @@ Orb Datasets requires Orb app and sensor versions 1.3 and above.
 
 The Scores Dataset focuses on Orb Score, its component scores (Responsiveness, Reliability, and Speed), and underlying measures used in these scores. For more details see [Orb Scores & Metrics](/docs/orb-app/orb-scores-metrics).
 
-As Orb Score is calculated at a minimum 1-minute sliding window, the minimum Scores dataset granularity is 1 minute.
+Scores data is available in 30 minute, 1 minute, and 1 second aggregated buckets.
 
-### `scores_1m`
+### `scores_(30m|1m|1s)`
 
 | column                 | description                                                                                                                                                                               |  type   |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-----: |
@@ -32,8 +32,10 @@ As Orb Score is calculated at a minimum 1-minute sliding window, the minimum Sco
 | `orb_name`             | Current Orb friendly name (masked unless identifiable=true)                                                                                                                               | string  |
 | `device_name`          | Hostname or name of the device as identified by the OS (masked unless identifiable=true)                                                                                                  | string  |
 | `timestamp`            | Interval start timestamp in epoch milliseconds                                                                                                                                            | integer |
+| `interval_ms`          | Length of the aggregation window in milliseconds                                                                                                                                                  | integer |
 | `score_version`        | Semantic version of scoring methodology                                                                                                                                                   | string  |
 | `orb_version`          | Semantic version of collecting Orb                                                                                                                                                        | string  |
+| `dataset`              | Dataset type identifier                                                                                                                                                                   | string  |
 | **measures**           |                                                                                                                                                                                           |         |
 | `orb_score`            | Orb Score over interval (0-100)                                                                                                                                                           |  float  |
 | `responsiveness_score` | Responsiveness Score over interval (0-100)                                                                                                                                                |  float  |
@@ -43,28 +45,35 @@ As Orb Score is calculated at a minimum 1-minute sliding window, the minimum Sco
 | `lag_avg_us`           | Lag in microseconds (MAX 5000000 at which point the lag considered "unresponsive", avg if interval)                                                                                       |  float  |
 | `download_avg_kbps`    | Content download speed in Kbps                                                                                                                                                            | integer |
 | `upload_avg_kbps`      | Content upload speed in Kbps                                                                                                                                                              | integer |
-| `unresponsive_ms`      | Time spent in unresponsive state in Milliseconds                                                                                                                                          |  float  |
-| `measured_ms`          | Time spent actively measuring in Milliseconds                                                                                                                                             |  float  |
+| `unresponsive_ms`      | Time spent in unresponsive state in Milliseconds                                                                                                                                          | integer |
+| `measured_ms`          | Time spent actively measuring in Milliseconds                                                                                                                                             | integer |
 | `lag_count`            | Count of Lag samples included                                                                                                                                                             | integer |
 | `speed_count`          | Count of speed samples included                                                                                                                                                           | integer |
 | **dimensions**         |                                                                                                                                                                                           |         |
-| `network_type`         | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`                                                                                                        | integer |
+| `bssid`                | Access point MAC address (masked unless identifiable=true)                                                                                                                                | string  |
+| `mac_address`          | Client MAC address (masked unless identifiable=true)                                                                                                                                      | string  |
+| `network_name`         | Network name (SSID, if available, masked unless identifiable=true)                                                                                                                        | string  |
+| `network_type`         | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`<br>`4: cellular`                                                                                       | integer |
 | `network_state`        | Speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: content upload`<br>`3: peak upload`<br>`4: content download`<br>`5: peak download`<br>`6: content`<br>`7: peak` | integer |
 | `country_code`         | Geocoded 2-digit ISO country code                                                                                                                                                         | string  |
-| `city_name`            | Geocoded city name                                                                                                                                                                        | string  |
+| `state`                | Geocoded state or province name                                                                                                                                                           | string  |
+| `city`                 | Geocoded city name                                                                                                                                                                        | string  |
 | `isp_name`             | ISP name from GeoIP lookup                                                                                                                                                                | string  |
 | `public_ip`            | Public IP address (masked unless identifiable=true)                                                                                                                                       | string  |
+| `private_ip`           | Local IP address (masked unless identifiable=true)                                                                                                                                        | string  |
 | `latitude`             | Orb location latitude (max 2-decimals,unless identifiable=true)                                                                                                                           |  float  |
 | `longitude`            | Orb location longitude (max 2-decimals,unless identifiable=true)                                                                                                                          |  float  |
 | `location_source`      | Location Source<br>`0: unknown`<br>`1: geoip`                                                                                                                                             | integer |
+| `measure_endpoint`     | Measurement endpoint URL or IP address (only included when configured for Orb-to-Orb testing)                                                                                           | string  |
+| `measure_endpoint_name` | Human-readable name of the measurement endpoint (only included when configured for Orb-to-Orb testing)                                                                                | string  |
 
 ## Responsiveness
 
 The Responsiveness Dataset includes all measures related to network responsiveness, including lag, latency, jitter, and packet loss.
 
-Responsiveness data is available in 1 second, 15 second, and 1 minute aggregated buckets.
+Responsiveness data is available in 30 minute, 1 minute, and 1 second aggregated buckets.
 
-### `responsiveness_(1m|15s|1s)`
+### `responsiveness_(30m|1m|1s)`
 
 | column | description | type |
 | ----- | ----- | :---: |
@@ -74,35 +83,40 @@ Responsiveness data is available in 1 second, 15 second, and 1 minute aggregated
 | `device_name` | Hostname or name of the device as identified by the OS (masked unless identifiable=true) | string |
 | `orb_version` | Semantic version of collecting Orb | string |
 | `timestamp` | Timestamp in epoch milliseconds | integer |
+| `interval_ms` | Length of the aggregation window in milliseconds | integer |
+| `dataset` | Dataset type identifier | string |
 | **measures** |  |  |
 | `lag_avg_us` | Avg Lag in microseconds (MAX 5000000 at which point the lag considered "unresponsive") | integer |
 | `latency_avg_us` | Avg round trip latency in microseconds for successful round trip | integer |
 | `jitter_avg_us` | Avg Interpacket interarrival difference (jitter) in microseconds | integer |
-| `latency_count` | Count of round trip latency measurements that succeeded | float |
+| `latency_count` | Count of round trip latency measurements that succeeded | integer |
 | `latency_lost_count` | Count of round trip latency measurements that were lost | integer |
-| `packet_loss_pct` | latency_lost_count / (latency_count+latency_loss_count) | float |
+| `packet_loss_pct` | latency_lost_count / (latency_count+latency_lost_count) * 100 | float |
 | `lag_count` | Lag sample count | integer |
 | `router_lag_avg_us` | Avg Lag in microseconds (MAX 5000000 at which point the lag considered "unresponsive") | integer |
 | `router_latency_avg_us` | Avg round trip latency in microseconds for successful round trip | integer |
 | `router_jitter_avg_us` | Avg Interpacket interarrival difference (jitter) in microseconds | integer |
-| `router_latency_count` | Count of round trip latency measurements that succeeded | float |
+| `router_latency_count` | Count of round trip latency measurements that succeeded | integer |
 | `router_latency_lost_count` | Count of round trip latency measurements that were lost | integer |
-| `router_packet_loss_pct` | latency_lost_count / (latency_count+latency_loss_count) | float |
+| `router_packet_loss_pct` | router_latency_lost_count / (router_latency_count+router_latency_lost_count) * 100 | float |
 | `router_lag_count` | Lag sample count | integer |
 | **dimensions** |  |  |
 | `bssid` | Access point MAC address (masked unless identifiable=true) | string |
 | `mac_address` | Client MAC address (masked unless identifiable=true) | string |
 | `network_name` | Network name (SSID, if available, masked unless identifiable=true) | string |
-| `network_type` | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other` | integer |
+| `network_type` | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`<br>`4: cellular` | integer |
 | `network_state` | Speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: content upload`<br>`3: peak upload`<br>`4: content download`<br>`5: peak download`<br>`6: content`<br>`7: peak` | integer |
 | `country_code` | Geocoded 2-digit ISO country code | string |
-| `city_name` | Geocoded city name | string |
+| `state` | Geocoded state or province name | string |
+| `city` | Geocoded city name | string |
 | `isp_name` | ISP name from GeoIP lookup | string |
 | `public_ip` | Public IP address (masked unless identifiable=true) | string |
 | `private_ip` | Local IP address (masked unless identifiable=true) | string |
 | `latitude` | Orb location latitude (max 2-decimals,unless identifiable=true) | float |
 | `longitude` | Orb location longitude (max 2-decimals,unless identifiable=true) | float |
 | `location_source` | Location Source<br>`0: unknown`<br>`1: geoip` | integer |
+| `measure_endpoint` | Measurement endpoint URL or IP address (only included when configured for Orb-to-Orb testing) | string |
+| `measure_endpoint_name` | Human-readable name of the measurement endpoint (only included when configured for Orb-to-Orb testing) | string |
 | `pingers` | List (CSV) of {protocol}|{endpoint}|{ipversion} strings of all active pingers (measurers) | string |
 
 ## Web Responsiveness
@@ -121,6 +135,8 @@ Web Responsiveness measurements are conducted once per minute by default. Theref
 | `device_name`     | Hostname or name of the device as identified by the OS (masked unless identifiable=true)                                                                                                  | string  |
 | `orb_version`     | Semantic version of collecting Orb                                                                                                                                                        | string  |
 | `timestamp`       | Timestamp in epoch milliseconds                                                                                                                                                           | integer |
+
+| `dataset`         | Dataset type identifier                                                                                                                                                                   | string  |
 | **measures**      |                                                                                                                                                                                           |         |
 | `ttfb_us`         | Time to First Byte loading a web page in microseconds (MAX 5000000 at which point considered “unresponsive”)                                                                              | integer |
 | `dns_us`          | DNS resolver response time in microseconds (MAX 5000000 at which point the lag considered “unresponsive”)                                                                                 | integer |
@@ -128,16 +144,19 @@ Web Responsiveness measurements are conducted once per minute by default. Theref
 | `bssid` | Access point MAC address (masked unless identifiable=true) | string |
 | `mac_address` | Client MAC address (masked unless identifiable=true) | string |
 | `network_name`    | Network name (SSID, if available, masked unless identifiable=true)                                                                                                                        | string  |
-| `network_type`    | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`                                                                                                        | integer |
+| `network_type`    | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`<br>`4: cellular`                                                                                       | integer |
 | `network_state`   | Speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: content upload`<br>`3: peak upload`<br>`4: content download`<br>`5: peak download`<br>`6: content`<br>`7: peak` | integer |
 | `country_code`    | Geocoded 2-digit ISO country code                                                                                                                                                         | string  |
-| `city_name`       | Geocoded city name                                                                                                                                                                        | string  |
+| `state`           | Geocoded state or province name                                                                                                                                                           | string  |
+| `city`            | Geocoded city name                                                                                                                                                                        | string  |
 | `isp_name`        | ISP name from GeoIP lookup                                                                                                                                                                | string  |
 | `public_ip`       | Public IP address (masked unless identifiable=true)                                                                                                                                       | string  |
 | `private_ip` | Local IP address (masked unless identifiable=true) | string |
 | `latitude`        | Orb location latitude (max 2-decimals,unless identifiable=true)                                                                                                                           |  float  |
 | `longitude`       | Orb location longitude (max 2-decimals,unless identifiable=true)                                                                                                                          |  float  |
 | `location_source` | Location Source<br>`0: unknown`<br>`1: geoip`                                                                                                                                             | integer |
+| `measure_endpoint` | Measurement endpoint URL or IP address (only included when configured for Orb-to-Orb testing)                                                                                          | string  |
+| `measure_endpoint_name` | Human-readable name of the measurement endpoint (only included when configured for Orb-to-Orb testing)                                                                           | string  |
 | `web_url`         | URL endpoint for web test                                                                                                                                                                 | string  |
 
 ## Speed
@@ -156,24 +175,31 @@ Content speed measurements are conducted once per hour by default. Therefore, ra
 | `device_name`       | Hostname or name of the device as identified by the OS (masked unless identifiable=true)                                                                                                  | string  |
 | `orb_version`       | Semantic version of collecting Orb                                                                                                                                                        | string  |
 | `timestamp`         | Timestamp in epoch milliseconds                                                                                                                                                           | integer |
+
+| `dataset`           | Dataset type identifier                                                                                                                                                                   | string  |
 | **measures**        |                                                                                                                                                                                           |         |
 | `download_kbps`     | Download speed in Kbps                                                                                                                                                                    | integer |
+| `download_status`   | Download test result status<br>`0: unknown`<br>`1: success`<br>`2: fail`                                                                                                                  | integer |
 | `upload_kbps`       | Upload speed in Kbps                                                                                                                                                                      | integer |
+| `upload_status`     | Upload test result status<br>`0: unknown`<br>`1: success`<br>`2: fail`                                                                                                                    | integer |
 | **dimensions**      |                                                                                                                                                                                           |         |
 | `bssid` | Access point MAC address (masked unless identifiable=true) | string |
 | `mac_address` | Client MAC address (masked unless identifiable=true) | string |
 | `network_name`      | Network name (SSID, if available, masked unless identifiable=true)                                                                                                                        | string  |
-| `network_type`      | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`                                                                                                        | integer |
+| `network_type`      | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`<br>`4: cellular`                                                                                       | integer |
 | `network_state`     | Speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: content upload`<br>`3: peak upload`<br>`4: content download`<br>`5: peak download`<br>`6: content`<br>`7: peak` | integer |
 | `country_code`      | Geocoded 2-digit ISO country code                                                                                                                                                         | string  |
-| `city_name`         | Geocoded city name                                                                                                                                                                        | string  |
+| `state`             | Geocoded state or province name                                                                                                                                                           | string  |
+| `city`              | Geocoded city name                                                                                                                                                                        | string  |
 | `isp_name`          | ISP name from GeoIP lookup                                                                                                                                                                | string  |
 | `public_ip`         | Public IP address (masked unless identifiable=true)                                                                                                                                       | string  |
 | `private_ip` | Local IP address (masked unless identifiable=true) | string |
 | `latitude`          | Orb location latitude (max 2-decimals,unless identifiable=true)                                                                                                                           |  float  |
 | `longitude`         | Orb location longitude (max 2-decimals,unless identifiable=true)                                                                                                                          |  float  |
 | `location_source`   | Location Source<br>`0: unknown`<br>`1: geoip`                                                                                                                                             | integer |
-| `speed_test_engine` | Testing engine<br>`0: orb`<br>`1: iperf`                                                                                                                                                  | integer |
+| `measure_endpoint`  | Measurement endpoint URL or IP address (only included when configured for Orb-to-Orb testing)                                                                                           | string  |
+| `measure_endpoint_name` | Human-readable name of the measurement endpoint (only included when configured for Orb-to-Orb testing)                                                                              | string  |
+| `speed_test_engine` | Testing engine<br>`-1: unknown`<br>`0: orb`<br>`1: iperf`<br>`2: wave`                                                                                                                   | integer |
 | `speed_test_server` | Server URL or identifier                                                                                                                                                                  | string  |
 
 
@@ -181,11 +207,11 @@ Content speed measurements are conducted once per hour by default. Therefore, ra
 
 The Wi-Fi Dataset includes all measures related to your Wi-Fi connection. Field availability varies by platform and Wi-Fi driver capabilities.
 
-Wi-Fi data is available in 1 second, 15 second, and 1 minute aggregated buckets.
+Wi-Fi data is available in 30 minute, 1 minute, and 1 second aggregated buckets.
 
-Note: Wi-Fi Dataset fields are not currently available on iOS.
+Note: On iOS, Wi-Fi data is available via an optional iOS Shortcut (as of version 1.5)
 
-### `wifi_link_(1m|15s|1s)`
+### `wifi_link_(30m|1m|1s)`
 
 | column | description | type |
 | ----- | ----- | :---: |
@@ -195,17 +221,19 @@ Note: Wi-Fi Dataset fields are not currently available on iOS.
 | `device_name` | Hostname or name of the device as identified by the OS (masked unless identifiable=true) | string |
 | `orb_version` | Semantic version of collecting Orb | string |
 | `timestamp` | Timestamp in epoch milliseconds | integer |
+| `interval_ms` | Length of the aggregation window in milliseconds | integer |
+| `dataset` | Dataset type identifier | string |
 | **measures** |  |  |
-| `rssi_avg` | Average received Wi-Fi signal strength in dBm | float |
+| `rssi_avg` | Average received Wi-Fi signal strength in dBm | integer |
 | `rssi_count` | Count of received signal strength measurements that succeeded | integer |
 | `frequency_mhz` | Frequency of the connected channel in MHz | integer |
-| `tx_rate_mbps` | Average transmit link rate in Mbps | float |
+| `tx_rate_mbps` | Average transmit link rate in Mbps | integer |
 | `tx_rate_count` | Count of transmit link rate measurements that succeeded | integer |
-| `rx_rate_mbps` | Average receive link rate in Mbps (not available on macOS) | float |
+| `rx_rate_mbps` | Average receive link rate in Mbps (not available on macOS) | integer |
 | `rx_rate_count` | Count of receive link rate measurements that succeeded | integer |
-| `snr_avg` | Average signal-to-noise ratio in dB | float |
+| `snr_avg` | Average signal-to-noise ratio in dB | integer |
 | `snr_count` | Count of signal-to-noise ratio measurements that succeeded | integer |
-| `noise_avg` | Average background radio frequency noise level in dBm | float |
+| `noise_avg` | Average background radio frequency noise level in dBm | integer |
 | `noise_count` | Count of noise measurements that succeeded | integer |
 | `phy_mode` | Wi-Fi standard (e.g., 802.11n, 802.11ac, 802.11ax) | string |
 | `security` | Wi-Fi security protocol (not available on Android)| string |
@@ -219,36 +247,38 @@ Note: Wi-Fi Dataset fields are not currently available on iOS.
 | `bssid` | Access point MAC address (masked unless identifiable=true) | string |
 | `mac_address` | Client MAC address (masked unless identifiable=true) | string |
 | `network_name` | Network name (SSID, if available, masked unless identifiable=true) | string |
-| `network_type` | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other` | integer |
+| `network_type` | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`<br>`4: cellular` | integer |
 | `network_state` | Speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: content upload`<br>`3: peak upload`<br>`4: content download`<br>`5: peak download`<br>`6: content`<br>`7: peak` | integer |
 | `country_code` | Geocoded 2-digit ISO country code | string |
-| `city_name` | Geocoded city name | string |
+| `state` | Geocoded state or province name | string |
+| `city` | Geocoded city name | string |
 | `isp_name` | ISP name from GeoIP lookup | string |
 | `public_ip` | Public IP address (masked unless identifiable=true) | string |
 | `private_ip` | Local IP address (masked unless identifiable=true) | string |
 | `latitude` | Orb location latitude (max 2-decimals,unless identifiable=true) | float |
 | `longitude` | Orb location longitude (max 2-decimals,unless identifiable=true) | float |
 | `location_source` | Location Source<br>`0: unknown`<br>`1: geoip` | integer |
-| `speed_test_engine` | Testing engine<br>`0: orb`<br>`1: iperf`                                                                                                                                                  | integer |
+| `measure_endpoint` | Measurement endpoint URL or IP address (only included when configured for Orb-to-Orb testing) | string |
+| `measure_endpoint_name` | Human-readable name of the measurement endpoint (only included when configured for Orb-to-Orb testing) | string |
 
 
 ## Wi-Fi data availability by platform
 
-| Field                   | Android | Windows | Linux | macOS |
-| :---------------------- | :-----: | :-----: | :---: | :---: |
-| RSSI dBm                |   🟢    |   🟢    |  🟢   |  🟢   |
-| Frequency MHz           |   🟢    |   🟢    |  🟢   |  🟢   |
-| TX Rate Mbps            |   🟢    |   🟢    |  🟢   |  🟢   |
-| RX Rate Mbps            |   🟢    |   🟢    |  🟢   |  ❌   |
-| SNR                     |   🟢    |   🟢    |  🟢   |  🟢   |
-| Noise dBm               |   🟢    |   🟢    |  🟢   |  🟢   |
-| PHY Mode                |   🟢    |   🟢    |  🟢   |  🟢   |
-| Security                |   ❌    |   🟢    |  🟢   |  🟢   |
-| Channel Width           |   ❌    |   🟢    |  🟢   |  🟢   |
-| BSSID                   |   🟢    |   🟢    |  🟢   |  🟢   |
-| Client MAC Address      |   🟢    |   🟢    |  🟢   |  🟢   |
-| Channel Number          |   🟢    |   🟢    |  🟢   |  🟢   |
-| Channel Band            |   🟢    |   🟢    |  🟢   |  🟢   |
-| Supported WLAN Channels |   🟢    |   ❌    |  🟢   |  🟢   |
-| MCS                     |   ❌    |   ❌    |  🟢   |  ❌   |
-| NSS                     |   ❌    |   ❌    |  🟢   |  ❌   |
+| Field                   | Android | Windows | Linux | macOS | iOS (Shortcut) |
+| :---------------------- | :-----: | :-----: | :---: | :---: | :------------: |
+| RSSI dBm                |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| Frequency MHz           |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| TX Rate Mbps            |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| RX Rate Mbps            |   🟢    |   🟢    |  🟢   |  ❌   |      🟢        |
+| SNR                     |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| Noise dBm               |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| PHY Mode                |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| Security                |   ❌    |   🟢    |  🟢   |  🟢   |      🟢        |
+| Channel Width           |   ❌    |   🟢    |  🟢   |  🟢   |      ❌        |
+| BSSID                   |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| Client MAC Address      |   🟢    |   🟢    |  🟢   |  🟢   |      ❌        |
+| Channel Number          |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| Channel Band            |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| Supported WLAN Channels |   🟢    |   ❌    |  🟢   |  🟢   |      ❌        |
+| MCS                     |   ❌    |   ❌    |  🟢   |  ❌   |      ❌        |
+| NSS                     |   ❌    |   ❌    |  🟢   |  ❌   |      ❌        |
