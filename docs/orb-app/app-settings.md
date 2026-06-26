@@ -5,6 +5,8 @@ metaDescription: Learn about the different app settings in Orb and how to config
 section: Orb app
 ---
 
+# App Settings
+
 # Display Language
 This explains the Display Language setting found within App Settings menu.
 
@@ -102,6 +104,18 @@ Sensor Mode is an easy way to configure your Orb sensor to run continuously. Ava
 3. Choose to dim your display by tapping "Dim Display" (optional).
 
 <img src="../../images/orb-app/keep-awake-2.png" alt="Keep Awake" width=40% style="margin-left: 2em;">
+
+# Run in Background (Android only)
+This explains the Run in Background setting found within the App Settings menu.
+
+## What is Run in Background?
+Available on Android only, Run in Background allows the app to continue monitoring when the app is in the background or closed. Note, the Android OS may deprioritize apps that are backgrounded or closed - this may impact your measurement results.
+
+## Engaging Run in Background
+1. Navigate to the App Settings menu by tapping the gear icon in the top right corner of the app.
+2. Toggle on the "Run in Background" setting.
+
+<img src="../../images/orb-app/run-in-background.jpg" alt="Run in Background" width=40% style="margin-left: 2em;">
 
 # Reduce Motion
 This explains the Reduce Motion setting found within the App Settings menu.
