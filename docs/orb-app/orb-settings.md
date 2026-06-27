@@ -13,8 +13,8 @@ To interact with the Orb settings menu, click or tap on the ... next to the Orb 
 ## Add to favorites
 Adding an Orb to favorites promotes this Orb in your summary view. 
 
-- To add an Orb to favorites, open the menu and select "Add to favorites"
-- To remove an Orb from favorites, open the menu and select "Remove from favorites"
+- To add an Orb to favorites, open the menu and select "Add to favorites".
+- To remove an Orb from favorites, open the menu and select "Remove from favorites".
 
 <img src="../../images/orb-app/favorite-orb-2.png" alt="Favorite Orb" width=40% style="margin-left: 2em;">
 <img src="../../images/orb-app/remove-favorite-orb.png" alt="Remove Favorite" width=40% style="margin-left: 2em;">
@@ -22,7 +22,7 @@ Adding an Orb to favorites promotes this Orb in your summary view.
 ## Rename
 Renaming a device.
 
-- to rename a device, select "Rename", type the new name, and click "Save"
+- To rename a device, select "Rename", type the new name, and click "Save".
 
 <img src="../../images/orb-app/rename-orb-3.png" alt="Rename Orb" width=40% style="margin-left: 2em;">
 
@@ -49,7 +49,6 @@ Managing Orb account links.
 <img src="../../images/orb-app/guest-orb-link-menu.png" alt="Guest Orb Link" width=40% style="margin-left: 2em;">
 
 ## Advanced Settings
-Adjust advanced settings.
 
 ### Router Responsiveness
 Enables the Router Lag measurements (on by default). Disabling can be useful when the network blocks ICMP traffic or the Orb is running on your router.
@@ -83,7 +82,6 @@ Change the measurement endpoint from the internet to another Orb on your network
 
 Now that you've configured your Orb settings, learn more about:
 
-- [Using a spare iPhone as a dedicated sensor](/docs/setup-sensor/spare-iphone.md)
-- [Using a spare Android as a dedicated sensor](/docs/setup-sensor/spare-android.md)
+- [App Settings](/docs/orb-app/app-settings.md)
 - [Notifications](/docs/orb-app/notifications.md)
 - [Linking multiple sensors](/docs/orb-app/linking-orb-to-account.md)
