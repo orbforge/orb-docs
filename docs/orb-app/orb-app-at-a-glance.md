@@ -14,7 +14,7 @@ This guide provides a quick tour of the Orb app interface to help you get orient
 
 ## Main Screens
 
-The Orb app consists of two key screens that you'll use to monitor and manage your network:
+The Orb app consists of two key screens that you'll use to monitor your network:
 
 ### Orb Summary
 
@@ -66,19 +66,15 @@ In addition to the information above, the detail screen includes:
 - Status message tailored to your internet experience
 - Improve Connection feature (when score is below 80)
 
-### Account Settings
+### Settings Menu
 
-The account settings menu allows you to customize your Orb experience.
+The settings menu allows you to customize your Orb experience.
 
 Important settings:
 
-- Account management (signing in and out)
-- Reset password
-- Delete account
-- Notification preferences
-- Sensor configurations (keep awake)
-- Submit feedback & report bugs
-- Privacy policy and terms of use
+- App Settings
+- Notification Settings
+- Account Settings
 
 <img src="../../images/orb-app/orb-account-menu-v2.png" alt="Orb Account Menu" width=40% style="margin-left: 2em;">
 

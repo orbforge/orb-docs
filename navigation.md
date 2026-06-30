@@ -54,6 +54,7 @@
 - [Deleting an Orb account](/docs/orb-app/deleting-orb-account.md)
 - [Notifications](/docs/orb-app/notifications.md)
 - [App Settings](/docs/orb-app/app-settings.md)
+- [Orb Settings](/docs/orb-app/orb-settings.md)
 
 ## [Using Orb Cloud](/docs/orb-cloud)
 
