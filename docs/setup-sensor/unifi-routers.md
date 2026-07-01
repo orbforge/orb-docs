@@ -48,13 +48,18 @@ curl -fsSL https://pkgs.orb.net/stable/ubuntu/ubuntu.orbforge-keyring.list | sud
 # disable mdns discovery, as it collides with Protect ports
 cat <<'EOD' > /etc/default/orb
 ORB_ZEROCONF_BROWSE=0
-ORB_ZEROCONF_PUBLISH=0
+ORB_ZEROCONF_PUBLISH=1
 ORB_FIRSTHOP_DISABLED=1
 ORB_EPHEMERAL_MODE=1
+# We need to set a port because our default ports can clash with the Protect ports if running
+ORB_SENSOR_API_PORT=7555
 EOD
 
 # install Orb (no-op if already installed)
 sudo apt-get update && sudo apt-get install orb
+
+# add the orb package to the dpkg-cache so we have a better chance of surviving a reinstall
+echo 'DPKG_CACHE_UBNT_PKGS+=" orb"' >> /etc/default/ubnt-dpkg-cache
 
 # enable auto-update
 sudo systemctl enable --now orb-update.timer
@@ -74,3 +79,6 @@ sudo -u orb orb link
 ```
 
 5. Done
+
+> [!NOTE]
+> Future Unifi OS upgrades might cause issues with your installation of Orb, especially with major version releases. If this happens, rerunning the script is usually good enough to get things up and running again.
