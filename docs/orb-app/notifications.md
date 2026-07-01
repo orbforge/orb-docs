@@ -19,7 +19,7 @@ Orb can send notifications to keep you informed about your network:
 
 ### Advanced Events & Alerts
 
-Available in our paid subscription tiers, create rules and get alerted for changes in connectivity or performance including:
+Available for all tiers, create rules and get alerted for changes in connectivity or performance including:
 
 - Score changes: monitor for changes to Orb, Responsiveness, Reliability, and Speed Scores
 - Location changes: monitor for changes to country, country code, state, city, or ISP name
