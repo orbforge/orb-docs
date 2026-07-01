@@ -81,7 +81,7 @@ Under advanced settings, you can set the "Compare Against" field for determining
    - Webhook: send your alerts to a tool, dashboard, website, or more
    - Slack: Send your alerts to a Slack channel
    - Microsoft Teams: send your alerts to a Teams channel
-5. Enter the desination or select users to receive alerts
+5. Enter the destination or select users to receive alerts
 
 <img src="../../images/orb-app/cloud-slack-destination.png" alt="Slack Destination" width=40% style="margin-left: 2em;"/>
 <img src="../../images/orb-app/cloud-user-destination.png" alt="User Destination" width=40% style="margin-left: 2em;"/>
