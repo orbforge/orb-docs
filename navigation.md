@@ -59,6 +59,7 @@
 ## [Using Orb Cloud](/docs/orb-cloud)
 
 - [Status](/docs/orb-cloud/status.md)
+- [Events and Alerts](/docs/orb-cloud/events-alerts.md)
 - [Analytics](/docs/orb-cloud/analytics.md)
 - [Manage Users](/docs/orb-cloud/manage-users.md)
 
