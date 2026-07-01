@@ -66,7 +66,7 @@ Available for all tiers, create rules and get alerted for changes in connectivit
  <img src="../../images/orb-app/cloud-create-rule-modal.png" alt="Create Rule Detail" width=40% style="margin-left: 2em;"/>
 
 ### Advanced Rule Settings
-Under advanced settings, you can set the "Compare Against" field for determining the delta in current performance to previous performance. Additionally, set the cooldown to minimize repeat alerts.
+Under advanced settings, you can set the "Compare Against" field for determining the delta in current performance to previous performance. Additionally, set the cooldown to minimize repeat alerts. You can also select which destinations a rule should be send to.
 
 ## Creating and Managing Rule Alert Desinations
 
