@@ -59,7 +59,7 @@ Available for all users, create rules and get alerted for changes in connectivit
 4. Select the Orbs or Group of Orbs to which the rule applies
 5. Choose the field that the rule will be based on.
 6. Select the "period" or time threshold that will drive the alert. Options include: instant, 1 min, 2 min, 5 min, 10 min, 15 min, 30 min, 1 hr, 2 hr, 6 hr, 12 hr, 24 hr. Note: `instant` might be very noisy.
-7. Select a Static Value (such as a Score below 80 or Download Speed below 100 Mbps) or Anomoly Detection (Orb will select a band based on the field and performance of your network experience).
+7. Select a Static Value (such as a Score below 80 or Download Speed below 100 Mbps) or Anomaly Detection (Orb will select a band based on the field and performance of your network experience).
 8. Select your preferred Sensitivty Level (Low, Medium, High, Custom)
 9. Select "Create Rule"
 
