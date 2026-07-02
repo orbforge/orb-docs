@@ -22,7 +22,7 @@ By visiting the [Orchestration](https://cloud.orb.net/orchestration) section of 
 Each Orb Cloud Space comes with a Token by default, named "Default Token".
 
 :::info
-Generating additional Tokens is limited to the Pro and Enterprise Orb Cloud plans.
+Generating additional Tokens is limited to the Pro plan and service contracts.
 :::
 
 Generating Deployment Tokens is simple. Visit the [Orchestration](https://cloud.orb.net/orchestration) section of Orb Cloud and click "+ Create new configuration". Enter a name for your Configuration and click "Create". Your Configuration will now be available in the table, and you will see the Deployment Token in the "Token" column. You may click "Edit" to modify the Tags and Configuration (see [Configuration](/docs/deploy-and-configure/configuration)).
