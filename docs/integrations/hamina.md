@@ -30,7 +30,7 @@ Before setting up the integration, ensure you have:
 
 - A Hamina Network Planner Plus subscription
 - A Hamina project with Live View enabled
-- An Orb Cloud [Pro plan](https://orb.net/plans/pro) or [contract service](https://orb.net/plans/contract)
+- An Orb Cloud [Pro plan](https://orb.net/plans/pro), legacy Plus or Business plan, or a [service contract](https://orb.net/plans/contract)
 - Admin access to your Orb Cloud account
 
 ## Setup Instructions

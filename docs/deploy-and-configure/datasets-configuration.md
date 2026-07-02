@@ -64,7 +64,7 @@ The default configuration:
 * Sends the Scores Dataset to Orb Cloud
 * Does not include Identifiable Information
 
-Sending additional Datasets to Orb Cloud requires a Pro subscription or service contract. In addition, while the Local API is available to Free users, Data Push requires a Pro plan or service contract.
+Sending additional Datasets to Orb Cloud requires a Pro subscription (previously Plus or Business) or service contract (previously Enterprise). In addition, while the Local API is available to Free users, Data Push requires a Pro plan or service contract.
 
 ## Disable Orb Cloud
 
@@ -84,7 +84,7 @@ See [Remote Configuration](/docs/deploy-and-configure/configuration#remote-confi
 
 ### Orb Cloud
 
-Sending your Datasets to Orb Cloud is the easiest way to leverage your Orb Pro plan or service contract. When you send your data to Orb Cloud, the data is fully managed by Orb in our secure cloud, with access to [Orb Cloud Analytics](/docs/orb-cloud/analytics) on a per-Orb and aggregate basis to view the health of your Orbs at scale.
+Sending your Datasets to Orb Cloud is the easiest way to leverage your Orb Pro (previously Plus or Business) plan or service contract (previously Enterprise). When you send your data to Orb Cloud, the data is fully managed by Orb in our secure cloud, with access to [Orb Cloud Analytics](/docs/orb-cloud/analytics) on a per-Orb and aggregate basis to view the health of your Orbs at scale.
 
 Configuring your Orbs to send Datasets to Orb Cloud can be accomplished with a simple configuration that enables all datasets and pushes them to Orb Cloud:
 
