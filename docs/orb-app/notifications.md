@@ -33,7 +33,10 @@ Available for all users, create rules and get alerted for changes in connectivit
 1. Open the Orb app.
 2. Go to Settings > Notifications.
 3. Allow Notifications: Toggling this allows the device to receive notifications from your Orbs. For multi-user accounts or accounts with more than 25 Orbs, notifications are managed in Orb Cloud only.
-   Note: Receiving status notifications from mobile devices may be too noisy as these Orbs will go online and offline frequently (when the app is closed or backgrounded). Exceptions include using a spare phone as a dedicated sensor, using the "keep awake" or "run in background" modes.
+
+:::info
+Note: Receiving status notifications from mobile devices may be too noisy as these Orbs will go online and offline frequently (when the app is closed or backgrounded). Exceptions include using a spare phone as a dedicated sensor, using the "keep awake" or "run in background" modes.
+:::
 
 4. Manage space event rules: launches Orb Cloud where you can create and manage rules and destinations.
 
@@ -45,14 +48,16 @@ Available for all users, create rules and get alerted for changes in connectivit
 2. Go to the Orb settings menu (...).
 3. Use the notification toggle to enable/disable notifications for that specific Orb.
 
-<img src="../../images/orb-app/app-notification-orb-menu.png" alt="Notifications Orb Menu" width=40% style="margin-left: 2em;"
+   <img src="../../images/orb-app/app-notification-orb-menu.png" alt="Notifications Orb Menu" width=40% style="margin-left: 2em;"/>
 
 ## Creating and Managing Alert Rules
 
 1. In Orb Cloud, navigate to "Event Rules" in the menu.
+
   <img src="../../images/orb-app/cloud-menu-event-rules.png" alt="Manage Rules App Menu" width=40% style="margin-left: 2em;"/>
 
 2. Click/tap on "Create Rule" in the top, left-hand corner
+
  <img src="../../images/orb-app/cloud-create-rule.png" alt="Create Rule" width=40% style="margin-left: 2em;"/>
 
 3. Name the rule (tip: use a name that is descriptive)
@@ -74,9 +79,13 @@ Under advanced settings, users can:
 ## Creating and Managing Rule Alert Desinations
 
 1. Navigate to the "Destinations" tab
-<img src="../../images/orb-app/cloud-destination-tab.png" alt="Destination Tab" width=40% style="margin-left: 2em;"/>
+
+   <img src="../../images/orb-app/cloud-destination-tab.png" alt="Destination Tab" width=40% style="margin-left: 2em;"/>
+
 2. Click/tap "Add Destination"
-<img src="../../images/orb-app/cloud-add-destination.png" alt="Add Destination" width=40% style="margin-left: 2em;"/>
+
+   <img src="../../images/orb-app/cloud-add-destination.png" alt="Add Destination" width=40% style="margin-left: 2em;"/>
+
 3. Name the destination
 4. Select the type of destination
    - Space users: choose all or select users in your Orb space to receive alerts
