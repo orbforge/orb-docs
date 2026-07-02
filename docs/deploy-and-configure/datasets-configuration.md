@@ -64,7 +64,7 @@ The default configuration:
 * Sends the Scores Dataset to Orb Cloud
 * Does not include Identifiable Information
 
-Sending additional Datsets to Orb Cloud requires an Orb Cloud Personal, Business, or Enterprise subscription. In addition, while the Local API is available to Free users, Data Push requires a Personal, Business, or Enterprise plan.
+Sending additional Datasets to Orb Cloud requires a Pro subscription or service contract. In addition, while the Local API is available to Free users, Data Push requires a Pro plan or service contract.
 
 ## Disable Orb Cloud
 
@@ -84,7 +84,7 @@ See [Remote Configuration](/docs/deploy-and-configure/configuration#remote-confi
 
 ### Orb Cloud
 
-Sending your Datasets to Orb Cloud is the easiest way to leverage your Orb Personal, Business, or Enterprise plan. When you send your data to Orb Cloud, the data is fully managed by Orb in our secure cloud, with access to [Orb Cloud Analytics](/docs/orb-cloud/analytics) on a per-Orb and aggregate basis to view the health of your Orbs at scale.
+Sending your Datasets to Orb Cloud is the easiest way to leverage your Orb Pro plan or service contract. When you send your data to Orb Cloud, the data is fully managed by Orb in our secure cloud, with access to [Orb Cloud Analytics](/docs/orb-cloud/analytics) on a per-Orb and aggregate basis to view the health of your Orbs at scale.
 
 Configuring your Orbs to send Datasets to Orb Cloud can be accomplished with a simple configuration that enables all datasets and pushes them to Orb Cloud:
 
@@ -152,7 +152,7 @@ GET http://localhost:7080/api/v2/datasets/speed_results.json?id=123
 
 Data Push allows you to configure an HTTP or HTTPS endpoint to which each Orb sensor will POST data to. The posted payloads will contain JSON objects with each key described in the [Datasets](/docs/deploy-and-configure/datasets) documentation.
 
-Data Push is a great option if you have lots of Orbs across different networks, and want to utilize an existing analytics solution or build your own. The Data Push capability requires a Business or Enterprise plan.
+Data Push is a great option if you have lots of Orbs across different networks, and want to utilize an existing analytics solution or build your own. The Data Push capability requires Pro plan or service contract.
 
 You can either configure/build your own receiver listener, or use the open source and well supported [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) collector with the [HTTP Listener V2 input plugin](https://docs.influxdata.com/telegraf/v1/plugins/#input-http_listener_v2).
 
