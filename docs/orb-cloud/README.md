@@ -31,7 +31,7 @@ To use the latest Orb Cloud features, Orb app and sensor versions 1.3 and above 
 
 You're done! As a next step, you can [Configure](/docs/deploy-and-configure/configuration) your Orb or set up [Local Analytics](/docs/deploy-and-configure/local-analytics) to create your personal internet experience dashboard.
 
-## Plus and Business quickstart
+## Pro plan quickstart
 
 1. Visit [https://plans.orb.net/plans-pricing](https://plans.orb.net/plans-pricing), select a plan, and start a trial.
 2. Link an Orb to your Space using the Deployment Token generated at onboarding by opening an Orb app, tap or click the device menu button (dots) and select "Link to a Space". Paste in your Deployment Token and hit "Link with Deployment Token". See ["Using Tokens for Deployment"](/docs/deploy-and-configure/deployment-tokens#using-tokens-for-deployment) for more details and additional options.
