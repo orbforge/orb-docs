@@ -48,9 +48,13 @@ Under advanced settings, users can:
 ## Creating and Managing Rule Alert Desinations
 
 1. Navigate to the "Destinations" tab
+
 <img src="../../images/orb-app/cloud-destination-tab.png" alt="Destination Tab" width=40% style="margin-left: 2em;"/>
-2. Click/tap "Add Destination"
+
+2.  Click/tap "Add Destination"
+
 <img src="../../images/orb-app/cloud-add-destination.png" alt="Add Destination" width=40% style="margin-left: 2em;"/>
+
 3. Name the destination
 4. Select the type of destination
    - Space users: choose all or select users in your Orb space to receive alerts
