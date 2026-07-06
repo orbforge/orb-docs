@@ -11,7 +11,7 @@ The Orb platform supports a range of deployment options and is highly configurab
 
 ## Guides
 
-* [Set up Orb Cloud Analytics](/docs/orb-cloud#plus-and-business-quickstart) - view, manage, and analyze your data in the cloud
+* [Set up Orb Cloud Analytics](/docs/orb-cloud#pro-plan-quickstart) - view, manage, and analyze your data in the cloud
 * [Set up Local Analytics](/docs/deploy-and-configure/local-analytics) - host your own Orb analytics dashboard
 * [Link Orbs with Deployment Tokens](/docs/deploy-and-configure/deployment-tokens) - configure and link Orbs at scale
 * [Windows & macOS MDM](/docs/deploy-and-configure/mdm) - easily deploy to corporate laptops or POS systems
