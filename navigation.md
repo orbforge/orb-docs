@@ -77,9 +77,14 @@
 
 ## [Integrations](/docs/integrations)
 
+- [Hamina Live](/docs/integrations/hamina.md)
 - [API](/docs/integrations/api.md)
+- [MCP](/docs/integrations/mcp.md)
+- [Claude](/docs/integrations/claude-mcp.md)
+- [OpenAI Codex](/docs/integrations/codex.md)
+- [Copilot Studio](/docs/integrations/copilot.md)
+- [OpenCode](/docs/integrations/opencode.md)
 - [Elgato Stream Deck](/docs/integrations/stream-deck.md)
-- [Hamina Live View](/docs/integrations/hamina.md)
 
 ## [Sensorbox](/docs/sensorbox)
 
