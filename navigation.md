@@ -62,6 +62,7 @@
 - [Events and Alerts](/docs/orb-cloud/events-alerts.md)
 - [Analytics](/docs/orb-cloud/analytics.md)
 - [Manage Users](/docs/orb-cloud/manage-users.md)
+- [Subspace Management](/docs/orb-cloud/subspace-management.md)
 
 ## [Deploy & Configure](/docs/deploy-and-configure)
 
