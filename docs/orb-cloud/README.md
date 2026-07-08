@@ -16,6 +16,7 @@ Orb Cloud, accessible at [https://cloud.orb.net](https://cloud.orb.net), allows 
 
 * View the [Status](/docs/orb-cloud/status) of your Orbs and manage them
 * [Orchestrate](/docs/deploy-and-configure) your Orbs with advanced deployment and configuration options
+* [Create event rules & alerts](/docs/orb-cloud/events-alerts) for your Orbs and team
 * Invite [Users](/docs/orb-cloud/manage-users) to your shared Space
 * View [Analytics](/docs/orb-cloud/analytics) for individual Orbs or at scale (optional)
 
