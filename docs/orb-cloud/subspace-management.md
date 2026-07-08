@@ -14,7 +14,7 @@ This is especially useful for Managed Service Providers (MSPs), distributed IT t
 ::: info
 Subspace Management is available for organizations that need multi-tenant management, delegated access, or space-level resource controls.
 
-Interested in subspaces? Reach out to [Orb](support@orb.net) to start a conversation.
+Interested in subspaces? Reach out to [Orb](https://orb.net/contact) to start a conversation.
 :::
 
 ## Overview
