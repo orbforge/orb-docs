@@ -267,5 +267,5 @@ Use space-specific rules so alerts go to the right people. This is especially he
 Now that you've configured your subspaces, learn more about:
 
 - [Events & Alerts](/docs/orb-cloud/events-alerts.md)
-- [Analytics](/docs/orb-cloudp/analytics.md)
+- [Analytics](/docs/orb-cloud/analytics.md)
 - [Deployment & Configuration](/docs/deploy-and-configure/README.md)
