@@ -11,7 +11,7 @@ Subspace Management allows organizations to divide their Orb Cloud environment i
 
 This is especially useful for Managed Service Providers (MSPs), distributed IT teams, and larger organizations that want to organize Orbs by customer, building, team, region, department, or site.
 
-::: info
+:::info
 Subspace Management is available for organizations that need multi-tenant management, delegated access, or space-level resource controls.
 
 Interested in subspaces? Reach out to [Orb](https://orb.net/contact) to start a conversation.
