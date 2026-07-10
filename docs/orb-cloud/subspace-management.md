@@ -83,7 +83,7 @@ To create a new space:
 9. Select which **Features** should be available for the space.
 10. Click "Create Space".
 
-![Managing Space](../../images/orb-cloud/subspace-create-space.png)
+![Creating Space](../../images/orb-cloud/subspace-create-space.png)
 
 The available resource counters show how many spots are left for each resource type. For example, if your overarching space has 394 Orb spots left, the new space can only be allocated up to that remaining amount.
 
