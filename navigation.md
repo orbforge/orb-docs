@@ -85,6 +85,7 @@
 - [OpenAI Codex](/docs/integrations/codex.md)
 - [Copilot Studio](/docs/integrations/copilot.md)
 - [OpenCode](/docs/integrations/opencode.md)
+- [Microsoft Teams](/docs/integrations/microsoft-teams.md)
 - [Elgato Stream Deck](/docs/integrations/stream-deck.md)
 
 ## [Sensorbox](/docs/sensorbox)
