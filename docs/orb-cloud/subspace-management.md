@@ -11,7 +11,7 @@ Subspace Management allows organizations to divide their Orb Cloud environment i
 
 This is especially useful for Managed Service Providers (MSPs), distributed IT teams, and larger organizations that want to organize Orbs by customer, building, team, region, department, or site.
 
-::: info
+:::info
 Subspace Management is available for organizations that need multi-tenant management, delegated access, or space-level resource controls.
 
 Interested in subspaces? Reach out to [Orb](https://orb.net/contact) to start a conversation.
@@ -62,7 +62,7 @@ To access Subspace Management:
 3. Review the available resources summary at the top of the page.
 4. Use the spaces table to view, create, edit, or manage existing spaces.
 
-<img src="../../images/orb-cloud/subspace-managing-space.png" alt="Managing Space" width=40% style="margin-left: 2em;"/>
+![Managing Space](../../images/orb-cloud/subspace-managing-space.png)
 
 The Spaces page includes a summary of available resources, including Orbs, Spaces, Users, Configurations, and Rules.
 
@@ -83,7 +83,7 @@ To create a new space:
 9. Select which **Features** should be available for the space.
 10. Click "Create Space".
 
-<img src="../../images/orb-cloud/subspace-create-space.png" alt="Create Space" width=40% style="margin-left: 2em;"/>
+![Creating Space](../../images/orb-cloud/subspace-create-space.png)
 
 The available resource counters show how many spots are left for each resource type. For example, if your overarching space has 394 Orb spots left, the new space can only be allocated up to that remaining amount.
 
