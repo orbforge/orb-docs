@@ -32,6 +32,7 @@ Scores data is available in 30 minute, 1 minute, and 1 second aggregated buckets
 | `orb_name`             | Current Orb friendly name (masked unless identifiable=true)                                                                                                                               | string  |
 | `device_name`          | Hostname or name of the device as identified by the OS (masked unless identifiable=true)                                                                                                  | string  |
 | `timestamp`            | Interval start timestamp in epoch milliseconds                                                                                                                                            | integer |
+| `utc_offset`           | UTC offset of the device's local timezone in minutes                                                                                                                                      | integer |
 | `interval_ms`          | Length of the aggregation window in milliseconds                                                                                                                                                  | integer |
 | `score_version`        | Semantic version of scoring methodology                                                                                                                                                   | string  |
 | `orb_version`          | Semantic version of collecting Orb                                                                                                                                                        | string  |
@@ -83,6 +84,7 @@ Responsiveness data is available in 30 minute, 1 minute, and 1 second aggregated
 | `device_name` | Hostname or name of the device as identified by the OS (masked unless identifiable=true) | string |
 | `orb_version` | Semantic version of collecting Orb | string |
 | `timestamp` | Timestamp in epoch milliseconds | integer |
+| `utc_offset` | UTC offset of the device's local timezone in minutes | integer |
 | `interval_ms` | Length of the aggregation window in milliseconds | integer |
 | `dataset` | Dataset type identifier | string |
 | **measures** |  |  |
@@ -135,6 +137,7 @@ Web Responsiveness measurements are conducted once per minute by default. Theref
 | `device_name`     | Hostname or name of the device as identified by the OS (masked unless identifiable=true)                                                                                                  | string  |
 | `orb_version`     | Semantic version of collecting Orb                                                                                                                                                        | string  |
 | `timestamp`       | Timestamp in epoch milliseconds                                                                                                                                                           | integer |
+| `utc_offset`      | UTC offset of the device's local timezone in minutes                                                                                                                                                           | integer |
 
 | `dataset`         | Dataset type identifier                                                                                                                                                                   | string  |
 | **measures**      |                                                                                                                                                                                           |         |
@@ -175,6 +178,7 @@ Content speed measurements are conducted once per hour by default. Therefore, ra
 | `device_name`       | Hostname or name of the device as identified by the OS (masked unless identifiable=true)                                                                                                  | string  |
 | `orb_version`       | Semantic version of collecting Orb                                                                                                                                                        | string  |
 | `timestamp`         | Timestamp in epoch milliseconds                                                                                                                                                           | integer |
+| `utc_offset`        | UTC offset of the device's local timezone in minutes                                                                                                                                                           | integer |
 
 | `dataset`           | Dataset type identifier                                                                                                                                                                   | string  |
 | **measures**        |                                                                                                                                                                                           |         |
@@ -221,6 +225,7 @@ Note: On iOS, Wi-Fi data is available via an optional iOS Shortcut (as of versio
 | `device_name` | Hostname or name of the device as identified by the OS (masked unless identifiable=true) | string |
 | `orb_version` | Semantic version of collecting Orb | string |
 | `timestamp` | Timestamp in epoch milliseconds | integer |
+| `utc_offset` | UTC offset of the device's local timezone in minutes | integer |
 | `interval_ms` | Length of the aggregation window in milliseconds | integer |
 | `dataset` | Dataset type identifier | string |
 | **measures** |  |  |
