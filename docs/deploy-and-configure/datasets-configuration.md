@@ -48,7 +48,7 @@ Below is an example configuration, which enables the Scores, Responsiveness, Web
 
 This same configuration can also be achieved using the visual configuration editor:
 
-![Example Configuration](../../images/deploy-and-configure/example-configuration.png)
+![Example Configuration](../../images/deploy-and-configure/example-configuration-2.png)
 
 See [Remote Configuration](/docs/deploy-and-configure/configuration#remote-configuration) for details on editing your configuration.
 
@@ -64,7 +64,7 @@ The default configuration:
 * Sends the Scores Dataset to Orb Cloud
 * Does not include Identifiable Information
 
-Sending additional Datasets to Orb Cloud requires a Pro subscription (previously Plus or Business) or service contract (previously Enterprise). In addition, while the Local API is available to Free users, Data Push requires a Pro plan or service contract.
+Sending additional Datasets to Orb Cloud requires a Pro subscription (previously Plus or Business) or service contract (previously Enterprise). In addition, while the Local API and scores Data Push is available to all users, detailed metrics Data Push requires a Pro plan or service contract.
 
 ## Disable Orb Cloud
 
@@ -88,7 +88,7 @@ Sending your Datasets to Orb Cloud is the easiest way to leverage your Orb Pro (
 
 Configuring your Orbs to send Datasets to Orb Cloud can be accomplished with a simple configuration that enables all datasets and pushes them to Orb Cloud:
 
-![Cloud Analytics Configuration](../../images/deploy-and-configure/cloud-analytics-configuration.png)
+![Cloud Analytics Configuration](../../images/orb-cloud/orb-cloud-analytics-configuration-2.png)
 
 :::info
 Datasets Configuration requires Orb app and sensor versions 1.3 and above.
@@ -166,7 +166,7 @@ You can either configure/build your own receiver listener, or use the open sourc
 
 #### Example configuration
 
-![Push Configuration](../../images/deploy-and-configure/local-api-configuration.png)
+![Push Configuration](../../images/deploy-and-configure/deploy-configure-local-api-configuration-2.png)
 
 :::info
 Datasets Configuration requires Orb app and sensor versions 1.3 and above.

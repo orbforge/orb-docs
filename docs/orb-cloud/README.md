@@ -29,6 +29,10 @@ To use the latest Orb Cloud features, Orb app and sensor versions 1.3 and above 
 1. Create a free account at [https://cloud.orb.net](https://cloud.orb.net)
 2. [Link](/docs/orb-app/linking-orb-to-account) an Orb to your Space
 3. Confirm the Orb is visible in [https://cloud.orb.net/status](https://cloud.orb.net/status)
+4. Tap on the ... in next to your Orb(s) in Status, click "edit", and toggle on "Orb Cloud" and "Scores".
+5. After a few minutes, visit [https://cloud.orb.net/analytics](https://cloud.orb.net/analytics) to see your score data.
+
+Alternatively, use a deployment token as documented under [deploy and configure](/docs/deploy-and-configure/configuration) for both linking an Orb to your account and configuring your Orb to send score data to Orb Cloud.
 
 You're done! As a next step, you can [Configure](/docs/deploy-and-configure/configuration) your Orb or set up [Local Analytics](/docs/deploy-and-configure/local-analytics) to create your personal internet experience dashboard.
 
