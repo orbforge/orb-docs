@@ -64,7 +64,7 @@ The default configuration:
 * Sends the Scores Dataset to Orb Cloud
 * Does not include Identifiable Information
 
-Sending additional Datasets to Orb Cloud requires a Pro subscription (previously Plus or Business) or service contract (previously Enterprise). In addition, while the Local API and scores Data Push is available to all users, detailed metrics Data Push requires a Pro plan or service contract.
+Sending additional Datasets to Orb Cloud requires a Pro subscription (previously Plus or Business) or service contract (previously Enterprise). In addition, while the Local API is available to all users, detailed metrics Data Push requires a Pro plan or service contract.
 
 ## Disable Orb Cloud
 
