@@ -9,7 +9,7 @@ subtitle: 'Difficulty: Beginner 🧑‍💻'
 
 # Install the Orb Sensor on FreeBSD
 
-These instructions are for installing Orb on FreeBSD with the `pkg` package manager. Run the commands below as `root`.
+Orb supports FreeBSD 13, 14, and 15. These instructions install Orb with the `pkg` package manager; run the commands below as `root`.
 
 ## Add the Orb repository and key
 
