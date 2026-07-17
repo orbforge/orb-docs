@@ -9,179 +9,77 @@ subtitle: 'Difficulty: Beginner 🧑‍💻'
 
 # Install the Orb Sensor on FreeBSD
 
-## Installation
+These instructions are for installing Orb on FreeBSD with the `pkg` package manager. Run the commands below as `root`.
 
-Setting up a FreeBSD system as an Orb sensor allows you to run continuous network monitoring.
+## Add the Orb repository and key
 
-### Download
+Create the directories used by `pkg` and download the Orb repository configuration and public key:
 
-Download the Orb CLI for FreeBSD from our Early Access page:
+```bash
+mkdir -p /usr/local/etc/pkg/repos /usr/local/share/keys
+fetch -o /usr/local/etc/pkg/repos/Orb.conf https://pkgs.orb.net/stable/freebsd/Orb.conf
+fetch -o /usr/local/share/keys/orb-repo.pub https://pkgs.orb.net/stable/freebsd/repo.pub
+```
 
-**AMD64:**
-[Download Orb CLI for FreeBSD (AMD64)](https://pkgs.orb.net/earlyaccess/orb-freebsd-amd64.zip)
+## Install Orb
 
-**ARM64:**
-[Download Orb CLI for FreeBSD (ARM64)](https://pkgs.orb.net/earlyaccess/orb-freebsd-arm64.zip)
+Force-refresh the package catalogue, then install Orb:
 
-:::note
-The Orb CLI for FreeBSD is currently Early Access software. This is an experimental release that is not yet packaged, does not auto-update, and does not yet run as a service automatically.
+```bash
+pkg update -f
+pkg install orb
+```
+
+The package installs the Orb service script at `/usr/local/etc/rc.d/orb`.
+
+## Enable and start Orb
+
+Enable Orb at boot and start the service:
+
+```bash
+sysrc orb_enable=YES
+service orb start
+```
+
+Confirm that Orb is running:
+
+```bash
+service orb status
+```
+
+## FreeBSD-specific Configuration
+
+### Measure router responsiveness (optional)
+
+By default, the Orb service runs as the unprivileged `orb` user. With these permissions, Orb cannot measure responsiveness to your router.
+
+:::warning
+Running Orb as `root` gives the service full system privileges. Only make this change if measuring router responsiveness is required and you accept the additional security risk.
 :::
 
-After downloading, extract the archive and move the `orb` binary to a location in your PATH (e.g., `/usr/local/bin/orb`):
+To run Orb as `root`, set the service user and restart Orb:
 
 ```bash
-unzip orb-freebsd-amd64.zip
-sudo mv orb /usr/local/bin/orb
-sudo chmod +x /usr/local/bin/orb
+sysrc orb_user=root
+service orb restart
 ```
 
-## Usage
+### Environment variables (optional)
 
-### Running Manually
-
-To start the Orb sensor, run:
+To configure the Orb service with [environment variables](/docs/deploy-and-configure/configuration), create `/usr/local/etc/orb.env`. Each variable must be written as a shell export. For example, to enable ephemeral mode:
 
 ```bash
-orb sensor
+export ORB_EPHEMERAL_MODE=1
 ```
 
-If you would like to use other CLI functions, you can run:
-
-```bash
-orb help
-```
-
-for a list of available commands.
-
-### Running as a Service
-
-To run Orb continuously in the background (so it persists after your shell session ends), you can set it up as an rc.d service.
-
-Create an rc.d script at `/usr/local/etc/rc.d/orb`:
-
-```bash
-sudo ee /usr/local/etc/rc.d/orb
-```
-
-Add the following content:
-
-```bash
-#!/bin/sh
-#
-# PROVIDE: orb
-# REQUIRE: NETWORKING
-# KEYWORD: shutdown
-
-. /etc/rc.subr
-
-name="orb"
-rcvar=orb_enable
-
-command="/usr/local/bin/orb"
-command_args="sensor"
-pidfile="/var/run/${name}.pid"
-
-orb_user="root"
-
-start_cmd="${name}_start"
-stop_cmd="${name}_stop"
-
-orb_start()
-{
-    echo "Starting ${name}."
-    /usr/sbin/daemon -p ${pidfile} -u ${orb_user} ${command} ${command_args}
-}
-
-orb_stop()
-{
-    if [ -f ${pidfile} ]; then
-        echo "Stopping ${name}."
-        kill -TERM `cat ${pidfile}`
-        rm -f ${pidfile}
-    else
-        echo "${name} is not running."
-    fi
-}
-
-load_rc_config $name
-run_rc_command "$1"
-```
-
-Make the script executable:
-
-```bash
-sudo chmod +x /usr/local/etc/rc.d/orb
-```
-
-Enable the service to start at boot:
-
-```bash
-sudo sysrc orb_enable="YES"
-```
-
-Start the service:
-
-```bash
-sudo service orb start
-```
-
-To check the status:
-
-```bash
-sudo service orb status
-```
-
-To stop the service:
-
-```bash
-sudo service orb stop
-```
-
-:::tip
-You can modify `orb_user="root"` in the rc.d script to run Orb as a different user if desired. Make sure that user has appropriate permissions.
+:::info
+[Ephemeral mode](/docs/deploy-and-configure/configuration) stores measurement data in memory instead of a local database. This prevents frequent disk writes, but the locally stored measurement data is lost whenever Orb stops or restarts.
 :::
 
-## Orb CLI Commands
-
-The Orb CLI provides a set of commands to manage your Orb sensors and interact with your Orb account. Below are some common commands you can use:
+Restart Orb after creating or changing the environment file:
 
 ```bash
-orb [command]
+service orb restart
 ```
 
-Available Commands:
-```
-  sensor      Run the Orb sensor
-  listen      Connect to a running Orb service
-  link        Link this Orb to an account
-  version     Current version of Orb
-  summary     Show the latest summary for this Orb
-  help        This screen
-
-Flags:
-  -h, --help     help for example
-  -r  --remote   connect to remote host
-```
-
-## Using Deployment Tokens
-
-You can automatically link your Orb sensor to your Orb Cloud Space using a deployment token. This is especially useful for deploying multiple sensors or automating setup.
-
-To use a deployment token, create a file named `deployment_token.txt` in the Orb configuration directory (typically `~/.config/orb`) containing your token:
-
-```bash
-mkdir -p ~/.config/orb
-echo "orb-dt1-yourdeploymenttoken678" > ~/.config/orb/deployment_token.txt
-```
-
-Replace `orb-dt1-yourdeploymenttoken678` with your actual deployment token from the [Orchestration](https://cloud.orb.net/orchestration) section of Orb Cloud.
-
-Alternatively, you can use the `ORB_DEPLOYMENT_TOKEN` environment variable:
-
-```bash
-ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678 orb sensor
-```
-
-For more details on deployment tokens and other linking methods, see the [Deployment Tokens](/docs/deploy-and-configure/deployment-tokens) guide.
-
-For instructions on linking your Orb sensor to your account, refer to the [Linking an Orb to Your Account](/docs/orb-app/linking-orb-to-account.md) guide.
+Your FreeBSD system is now running an Orb sensor. See [Linking an Orb to your account](/docs/orb-app/linking-orb-to-account.md) to connect it to your Orb account.
