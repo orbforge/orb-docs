@@ -139,7 +139,7 @@ You can also create a dashboard from the dashboard management view:
 4. Choose a dashboard template.
 5. Click Create.
 
-![New Dashboard](../../images/orb-cloud/orb-cloud-manage-dash-new-dash.png)
+![New Dashboard](../../images/orb-cloud/orb-cloud-manage-dash-new-dash-2.png)
 
 ![Create Dashboard](../../images/orb-cloud/orb-cloud-create-dashboard.png)
 
@@ -154,7 +154,7 @@ Use **Manage dashboards** to open, rename, share, make default, or delete dashbo
 3. Find the dashboard you want to manage.
 4. Click "Open" to view the dashboard, or "Edit" to update its settings.
 
-![Manage Dashboards](../../images/orb-cloud/orb-cloud-manage-dashboards.png)
+![Manage Dashboards](../../images/orb-cloud/orb-cloud-manage-dashboards-2.png)
 
 From the edit menu, you can update the dashboard name, change sharing settings, make the dashboard your default, or delete the dashboard.
 
@@ -165,7 +165,7 @@ From the edit menu, you can update the dashboard name, change sharing settings, 
 To rename a dashboard:
 
 1. Click "Manage dashboards".
-2. Click "Edit" on the dashboard you want to rename.
+2. Click ..., then "Edit" on the dashboard you want to rename.
 3. Update the "Name" field.
 4. Click "Save".
 
@@ -176,7 +176,7 @@ Dashboards can be shared with other users in your Orb Space. Sharing a dashboard
 To share a dashboard:
 
 1. Click "Manage dashboards".
-2. Click "Edit" on the dashboard you want to share.
+2. Click ..., then "Edit" on the dashboard you want to share.
 3. Open the "Sharing" dropdown.
 4. Choose the access level you want to allow.
 5. Click "Save".
@@ -200,16 +200,17 @@ A default dashboard opens automatically when you visit Analytics.
 To make a dashboard your default:
 
 1. Click "Manage dashboards".
-2. Click "Edit" on the dashboard you want to use by default.
+2. Click ... on the dashboard you want to use by default.
 3. Click "Make default".
-4. Click "Save".
+
+![Make Default](../../images/orb-cloud/orb-cloud-manage-dash-make-default.png)
 
 ### Delete a dashboard
 
 To delete a dashboard:
 
 1. Click "Manage dashboards".
-2. Click "Edit" on the dashboard you want to delete.
+2. Click ... on the dashboard you want to delete.
 3. Click "Delete".
 4. Confirm the deletion.
 
