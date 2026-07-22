@@ -81,12 +81,31 @@ Changes will be made under the "Advanced" tab in the "Edit Configuration" screen
 ]
 ```
 
-When multiple speed servers are configured, Orb automatically selects the closest server by network path (lowest latency). For example, to test against both Cloudflare and Fastly and let Orb pick the nearest:
+When multiple speed servers are configured, Orb chooses among them according to `collectors.bandwidth.server_selection_method`:
+
+- **`best`**: Pings each candidate and selects the closest server by network path (lowest latency)
+- **`round_robin`**: Cycles through servers in order
+- **`random`**: Randomly selects a server for each test
+- Default (if not specified): `best`
+
+For example, to test against both Cloudflare and Fastly and let Orb pick the nearest:
 
 ```json
 "collectors.bandwidth.speed_servers": [
   "wave://speed.cloudflare.com",
   "wave://fastly-measure.prod.orb.net"
+]
+```
+
+Or to randomly distribute tests between them instead:
+
+```json
+"collectors.bandwidth.speed_servers": [
+  "wave://speed.cloudflare.com",
+  "wave://fastly-measure.prod.orb.net"
+],
+"collectors.bandwidth.server_selection_method": [
+  "random"
 ]
 ```
 
@@ -168,6 +187,7 @@ Once per minute, the default Orb configuration conducts Web Responsiveness tests
 **Selection Method (`web_selection_method`)**
 - **`round_robin`**: Cycles through URLs in order
 - **`random`**: Randomly selects a URL for each test
+- Default (if not specified): `round_robin`
 
 ### Configuration
 
