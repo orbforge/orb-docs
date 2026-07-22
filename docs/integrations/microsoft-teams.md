@@ -54,7 +54,7 @@ Treat the webhook URL like a secret. Anyone with the URL can post messages to yo
 
 ## Step 2: Create the Destination in Orb Cloud
 
-1. In Orb Cloud, create a new Destination of type **Microsoft Teams**. See the [Events & Alerts documentation](/docs/orb-cloud/events-alerts#creating-and-managing-rule-alert-desinations) for details on managing Destinations.
+1. In Orb Cloud, create a new Destination of type **Microsoft Teams**. See the [Events & Alerts documentation](/docs/orb-cloud/events-alerts#create-and-manage-destinations) for details on managing Destinations.
 2. Give the Destination a descriptive name.
 3. Paste the webhook link you copied from Teams into the **Teams Webhook URL** field, then save.
 
