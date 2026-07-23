@@ -117,7 +117,7 @@ Responsiveness data is available in 30 minute, 1 minute, and 1 second aggregated
 | `location_source` | Location Source<br>`0: unknown`<br>`1: geoip` | integer |
 | `measure_endpoint` | Measurement endpoint URL or IP address (only included when configured for Orb-to-Orb testing) | string |
 | `measure_endpoint_name` | Human-readable name of the measurement endpoint (only included when configured for Orb-to-Orb testing) | string |
-| `pingers` | List (CSV) of {protocol}|{endpoint}|{ipversion} strings of all active pingers (measurers) | string |
+| `pingers` | List (CSV) of {protocol}\|{endpoint}\|{ipversion} strings of all active pingers (measurers) | string |
 
 ## Web Responsiveness
 
@@ -135,7 +135,6 @@ Web Responsiveness measurements are conducted once per minute by default. Theref
 | `device_name`     | Hostname or name of the device as identified by the OS (masked unless identifiable=true)                                                                                                  | string  |
 | `orb_version`     | Semantic version of collecting Orb                                                                                                                                                        | string  |
 | `timestamp`       | Timestamp in epoch milliseconds                                                                                                                                                           | integer |
-
 | `dataset`         | Dataset type identifier                                                                                                                                                                   | string  |
 | **measures**      |                                                                                                                                                                                           |         |
 | `ttfb_us`         | Time to First Byte loading a web page in microseconds (MAX 5000000 at which point considered “unresponsive”)                                                                              | integer |
@@ -175,7 +174,6 @@ Content speed measurements are conducted once per hour by default. Therefore, ra
 | `device_name`       | Hostname or name of the device as identified by the OS (masked unless identifiable=true)                                                                                                  | string  |
 | `orb_version`       | Semantic version of collecting Orb                                                                                                                                                        | string  |
 | `timestamp`         | Timestamp in epoch milliseconds                                                                                                                                                           | integer |
-
 | `dataset`           | Dataset type identifier                                                                                                                                                                   | string  |
 | **measures**        |                                                                                                                                                                                           |         |
 | `download_kbps`     | Download speed in Kbps                                                                                                                                                                    | integer |
