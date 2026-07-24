@@ -1,0 +1,13 @@
+- name: orb-sensor
+  descr: Monitor internet responsiveness and reliability directly from your MikroTik device.
+  page: https://orb.net
+  category: network
+  default-credential: none
+  services:
+    orb:
+      image: docker.io/orbforge/orb-busybox:latest
+      environment:
+        - ORB_EPHEMERAL_MODE=1
+        # - ORB_DEPLOYMENT_TOKEN=your-deployment-token # Recommended: links this Orb to your account on first boot
+        # - ORB_FIRSTHOP_DISABLED=1 # Recommended for router deployments
+        # - ORB_BANDWIDTH_DISABLED=1 # Recommended for ARMv5 devices (see compatibility table)
