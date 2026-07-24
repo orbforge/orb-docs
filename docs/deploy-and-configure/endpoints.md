@@ -7,10 +7,6 @@ section: Deploy & Configure
 
 # Endpoints & Engines
 
-:::danger
-These features are experimental, and not yet intended for production environments. We appreciate your testing and feedback. Please use our [Help & Support](https://orb.net/support) page or [Discord](https://discord.gg/orbforge) to report issues and ask questions.
-:::
-
 ## Orb Server
 
 Every Orb Sensor runs a built-in server component (as of version 1.5), allowing you to perform responsiveness and speed testing directly to that Orb. This can be useful for:
@@ -35,7 +31,7 @@ To configure an Orb to test against another Orb's built-in server, visit the Orb
 
 Changes will be made under the "Advanced" tab in the "Edit Configuration" screen.
 
-Add the following to your configuration, replacing `<ip>` with the routable IP address of the Orb Server. This single key automatically configures both Responsiveness and Speed testing to point at your server:
+Add the following to your configuration, replacing `<ip>` with the routable IP address or hostname of the Orb Server. This single key automatically configures Responsiveness, Speed, and Web Responsiveness testing to point at your server:
 
 ```json
 "orb.endpoint": ["<ip>:7443"]
