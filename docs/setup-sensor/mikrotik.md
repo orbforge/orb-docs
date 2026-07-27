@@ -28,12 +28,12 @@ The following table shows MikroTik device compatibility:
 | Device | Supported | Validated | Notes |
 |--------|-----------|-----------|-------|
 | RouterOS on AMD64 | ✓ | | |
-| hEX refresh | ✓ | ✓ | Consider disabling bandwidth tests¹ |
+| hEX refresh | ✓ | ✓ | ARMv5 (EN7562CT CPU) — Apps menu unavailable, see [Manual /container setup](#manual-container-setup)¹ |
 | hEX S (2025) | ✓ | ✓ | Consider disabling bandwidth tests¹ |
 | L009UiGS-RM | ✓ | | Consider disabling bandwidth tests¹ |
 | RB4011iGS+RM | ✓ | | |
 | RB5009UG+S+IN | ✓ | | |
-| RB5009UPr+S+IN | ✓ | | |
+| RB5009UPr+S+IN | ✓ | ✓ | |
 | RB5009UPr+S+OUT | ✓ | | |
 | RB1100AHx4 | ✓ | | |
 | RB1100AHx4 Dude Edition | ✓ | | |
@@ -73,10 +73,113 @@ The following table shows MikroTik device compatibility:
 ¹ ARMv5 devices have limited CPU performance. If using these devices for routing without hardware offload, disable bandwidth tests using `ORB_BANDWIDTH_DISABLED=1` to prevent CPU spikes.
 
 :::note
-After installation, ensure the device has at least 20MB of disk space remaining for the Orb database and logs.
+These instructions assume you will run Orb with `ORB_EPHEMERAL_MODE=1`, disabling local storage of Orb telemetry to disk. Disabling ephemeral mode will require you to increase the size of the app data partition to accommodate local storage. This is only recommended for add-on storage (e.g. via USB).
 :::
 
-## Prerequisites
+## Recommended: Install via the Apps menu
+
+Starting with RouterOS v7.22, the `/app` menu provides a catalog-based way to deploy containerized apps in a couple of clicks, with networking, storage, and firewall rules configured automatically. This is now the easiest way to get Orb running on a supported MikroTik device — no manual bridge, veth, or NAT configuration required.
+
+:::note
+The `/app` system requires **arm64 or x86** architecture. Devices with the **EN7562CT CPU** (e.g. **hEX Refresh**) are not supported and must use the [manual /container setup](#manual-container-setup) below instead.
+:::
+
+### Requirements
+
+- A MikroTik device with **arm64 or x86** architecture, running **RouterOS v7.22+**
+- Physical access to your device (required once, for the device-mode confirmation when enabling containers)
+- The `container` package installed
+
+:::note
+The unpacked Orb sensor image needs roughly 20MB. Extraction itself briefly needs more headroom than that, so we recommend a dedicated **scratch disk** for extraction (set via `/container/config/set tmpdir=...`) separate from the app disk — see [Step 2](#step-2-configure-app-storage) below for the exact sizes and commands we validated (25MB app disk + 20MB scratch disk).
+:::
+
+### Step 1: Enable container support
+
+1. Connect to your device via WebFig.
+2. Select the **Advanced** tab in the top-right.
+3. Navigate to **System > Packages**.
+4. Click **Check for Updates**, and update RouterOS if a newer version is available (recommended — v7.22+ is required).
+5. Once on v7.22+, install the **container** package if it isn't already installed, then **Apply Changes**.
+6. Select the **Terminal** tab and run:
+
+   ```routeros
+   /system/device-mode/update container=yes
+   ```
+
+7. Press the physical reset or mode button on your device within the 5-minute countdown as instructed, or power-cycle the device. If nothing happens within 5 minutes, the change is cancelled and you'll need to re-run the command.
+
+### Step 2: Configure app storage
+
+If your device has an external USB/NVMe/SATA drive attached, RouterOS will detect it automatically — select it under **System > Disks** and format it with `ext4` or `btrfs` if needed.
+
+If you don't have external storage, you can create small file-backed virtual disks directly on internal flash. We recommend **two** disks: one for the app itself, and one dedicated **scratch disk** used only during image download/extraction. Separating these matters — image extraction briefly needs more space than the final installed app, and giving that transient overhead its own disk lets the main app disk be sized much closer to the app's real footprint:
+
+```routeros
+/disk/add type=file file-path=orb-appdisk file-size=25M
+/disk/format file-orb-appdisk file-system=ext4
+
+/disk/add type=file file-path=orb-scratch file-size=20M
+/disk/format file-orb-scratch file-system=ext4
+```
+
+Point the Apps system at the app disk, and point the container extraction directory (`tmpdir`) at the scratch disk:
+
+```routeros
+/app/settings/set disk=file-orb-appdisk
+/container/config/set tmpdir=file-orb-scratch/tmp
+```
+
+:::note
+`tmpdir` is a global `/container` setting, separate from the `disk`/`media-path`/`download-path` settings under `/app settings` — it controls where container image layers are extracted, regardless of which app triggers the extraction. Without a separate `tmpdir`, extraction and final storage compete for space on the same disk, and the app disk needs to be considerably larger (**40MB+** in our testing) to have enough transient headroom. With `tmpdir` on its own disk, **25MB** is sufficient for the app disk (with a 20MB scratch disk, which is barely touched — extraction is fast and cleans up after itself).
+:::
+
+### Step 3: Add the Orb app store
+
+Add the Orb custom app store:
+
+```routeros
+/app/settings/set app-store-urls=https://orb.net/docs/scripts/mikrotik/orb-app-store.yml
+```
+
+:::note
+The custom app-store catalog is only refreshed **at boot** — it won't appear in the Apps list right away. **Reboot your device once** after setting `app-store-urls` for the first time.
+:::
+
+After rebooting, open WebFig, navigate to **Apps**, and you should see **orb-sensor** available in the catalog alongside MikroTik's official apps.
+
+### Step 4: Install and configure Orb
+
+1. Select **orb-sensor** from the catalog and click **Install**.
+2. Before enabling, set the **Network** to `lan` if appropriate for your network topology so the sensor gets a real address on your LAN (rather than being NATed behind the router), matching how a normal Orb sensor would see your network.
+3. Add your deployment token as an environment variable so the sensor links to your account automatically on first boot — under the app's **Environment** settings, add:
+   - `ORB_DEPLOYMENT_TOKEN` = *your deployment token* (see [Configuration](https://orb.net/docs/deploy-and-configure/configuration) for how to generate one)
+4. If this device is also routing traffic (rather than just observing it), consider also adding:
+   - `ORB_FIRSTHOP_DISABLED=1` — disables first-hop monitoring, appropriate for router deployments.
+5. Since **use-https** defaults to on and expects the app to expose a web UI (Orb doesn't), disable it so the app doesn't stall waiting on a reverse-proxy certificate.
+6. Optionally, enable **Auto Update** so the app pulls newer Orb image versions on its own, without you needing to click **Update** manually (see [Updating the Container](#updating-the-container) below for how this compares to a manual update).
+7. Click **Enable**. The app will download and extract the image, then start automatically.
+
+Once running, your MikroTik device should appear in your Orb dashboard within a minute or two.
+
+#### Equivalent via terminal
+
+Steps 2–7 above can also be done from the **Terminal** tab. Note that `environment` values must be prefixed with the service name (`orb:`, matching the `services.orb` key in the app's YAML):
+
+```routeros
+/app/set [find name=orb-sensor] network=lan use-https=no auto-update=yes environment="orb:ORB_EPHEMERAL_MODE=1,orb:ORB_DEPLOYMENT_TOKEN=your-deployment-token"
+/app/enable [find name=orb-sensor]
+```
+
+Drop `auto-update=yes` from the command above if you'd rather update manually (see below).
+
+## Manual /container setup
+
+:::note
+This method is reserved for devices with the **EN7562CT CPU** (e.g. **hEX Refresh**), which do not support the `/app` system at all. If your device supports `/app` (see [Compatibility](#compatibility)), use the [Apps menu method](#recommended-install-via-the-apps-menu) above instead — it's simpler and handles networking/storage automatically.
+:::
+
+### Prerequisites
 
 Before you begin, make sure you have:
 
@@ -85,7 +188,7 @@ Before you begin, make sure you have:
 - Access to your MikroTik device via WebFig
 - Basic familiarity with RouterOS configuration
 
-## Step 1: Enable Container Support
+### Step 1: Enable Container Support
 
 First, you need to install and enable the container package:
 
@@ -108,17 +211,17 @@ Next, update the device mode to enable container support:
 
 3. Press the physical reset or mode button on your device within the 5-minute countdown as instructed.
 
-## Step 2: Configure Container Networking
+### Step 2: Configure Container Networking
 
 Create a dedicated network for the Orb container:
 
-### Create Container Bridge
+#### Create Container Bridge
 
 Navigate to **Bridge > New**.
    - Name: `containers`
    - Click **OK**.
 
-### Create Virtual Ethernet Interface
+#### Create Virtual Ethernet Interface
 
 Navigate to **Interfaces > New > VETH**.
    - Name: `veth-orb`
@@ -127,16 +230,16 @@ Navigate to **Interfaces > New > VETH**.
    - Gateway: `172.19.0.1`.
    - Click **OK**.
 
-### Add Interface to Bridge
+#### Add Interface to Bridge
 
 Navigate to **Bridge > Ports > New**.
    - Interface: `veth-orb`.
    - Bridge: `containers`.
    - Click **OK**.
 
-## Step 3: Configure Container Storage and Environment
+### Step 3: Configure Container Storage and Environment
 
-### Create Data Mount
+#### Create Data Mount
 
 Navigate to **Container > Mounts > New**.
    - Name: `MOUNT_ORB_DATA`.
@@ -144,7 +247,7 @@ Navigate to **Container > Mounts > New**.
    - Dst: `/root/.config/orb`.
    - Click **OK**.
 
-### Configure Environment Variables
+#### Configure Environment Variables
 
 Enable ephemeral mode to prevent writing to flash:
 
@@ -170,9 +273,9 @@ Navigate to **Container > Envs > New**.
    - Value: `1`.
    - Click **OK**.
 
-## Step 4: Deploy the Orb Container
+### Step 4: Deploy the Orb Container
 
-### Add Container
+#### Add Container
 
 1. Navigate to **Container > Container > New**.
 2. Click the **+** next to **Remote Image** and enter:
@@ -191,7 +294,7 @@ Navigate to **Container > Envs > New**.
 4. Click **Apply**.
 5. Click **Start**.
 
-### Configure NAT for Outbound Traffic
+#### Configure NAT for Outbound Traffic
 
 1. Select the **Terminal** tab.
 2. Enter the following command:
@@ -200,7 +303,7 @@ Navigate to **Container > Envs > New**.
    /ip/firewall/nat/add chain=srcnat action=masquerade src-address=172.19.0.0/24
    ```
 
-## Step 5: Link Your Orb to Your Account
+### Step 5: Link Your Orb to Your Account
 
 The final step is to link your new Orb sensor to your account:
 
@@ -221,34 +324,56 @@ The final step is to link your new Orb sensor to your account:
 
 ## Troubleshooting
 
+### orb-sensor Doesn't Appear in the Apps Catalog
+
+If you've set `app-store-urls` but don't see **orb-sensor** in the Apps list:
+
+- The custom app-store catalog is only refreshed at boot, not live. **Reboot the device once** after setting `app-store-urls` for the first time.
+- Confirm the setting was saved: **Apps > Configuration > Settings**, check the **App Store Urls** field.
+- Check the view filter next to the item count (top-right of the Apps list) — it may be set to a specific view that hides store-sourced entries.
+
+:::note
+If the terminal commands in [Step 4](#step-4-install-and-configure-orb) (`/app/set [find name=orb-sensor] ...`, `/app/enable [find name=orb-sensor] ...`) run with **no output and no error**, that doesn't mean they succeeded — `[find name=orb-sensor]` silently resolves to nothing if the app isn't in the catalog yet, and RouterOS doesn't warn you when a command's target matches zero items. Before troubleshooting further, confirm the app actually exists first: `/app print where name=orb-sensor` should show one row. If it shows nothing, the catalog issue above hasn't been resolved yet — go back and fix that first.
+:::
+
+### App Won't Enable / Stuck Waiting
+
+If an app installed via the Apps menu shows a status like "wait for reverse proxy" and never progresses to downloading:
+
+- Orb doesn't expose a web UI, so the default `use-https=yes` reverse-proxy/certificate step will stall indefinitely. Disable it: `/app/set [find name=orb-sensor] use-https=no`.
+
 ### Container Not Starting
 
 If the Orb container fails to start:
 
-- Check container status in **Container > Container**.
+- Check container status in **Container > Container** (or **Apps**, if installed via the Apps menu).
 - View logs in Terminal: `/log/print` (ensure logging is enabled in container settings).
 - Verify the veth interface has the correct IP configuration.
-- Ensure the NAT rule is properly configured.
+- Ensure the NAT rule is properly configured (manual `/container` setup only — the Apps menu handles this automatically).
+
+### "Not Enough Disk Space" During Download/Extract, or App Crashes Right After Starting
+
+These are two symptoms of the same underlying issue — the app disk is too small:
+
+- **`not enough disk space to download/extract`**: extraction needs more transient headroom than the final image size. Set a separate `tmpdir` on a dedicated scratch disk (see [Step 2](#step-2-configure-app-storage) above) rather than just making the app disk bigger — it's a more effective fix and keeps the app disk small.
+- **App extracts fine but exits immediately (`exited with status 1`)**: the app disk is *just barely* big enough to extract into, but leaves too little room for the app to actually write config and certs on first run. Increase the disk size.
 
 ### Network Connectivity Issues
 
 If the container cannot reach the internet:
 
-- Verify the NAT rule source address matches your container network.
+- Verify the NAT rule source address matches your container network (manual `/container` setup only).
 - Check firewall rules aren't blocking container traffic.
 - Ensure DNS is properly configured for the container.
 
-### Resource Constraints
-
-For devices experiencing high CPU usage:
-
-- Ensure `ORB_BANDWIDTH_DISABLED=1` is set for ARMv5 devices.
-- Monitor CPU usage via **System > Resources**.
-- Consider upgrading to a more powerful device if issues persist.
-
 ### Updating the Container
 
-Unfortunately, RouterOS does not support a mechanism for easily updating to the latest version of the Orb image—automated or otherwise. The solution is to delete the container and create a new container with the same configuration, which will pull the :latest tagged image from Docker Hub. As we set up persistent storage, you will not need to re-link, and your history will be preserved.
+**For /app-based installs**, there are two options:
+
+- **Manual (recommended for predictable timing)**: select **orb-sensor** in WebFig's Apps list and click **Update**, or run `/app/update [find name=orb-sensor]` from the Terminal. This pulls the latest image immediately.
+- **Automatic**: set `auto-update=yes` on the app (`/app/set [find name=orb-sensor] auto-update=yes`, or the **Auto Update** checkbox in WebFig — see [Step 4](#step-4-install-and-configure-orb)). There's also a global equivalent, `/app/settings/set auto-update=yes`, which applies to every installed app rather than just Orb. Neither MikroTik's documentation nor the RouterOS community forums specify exactly when or how often an automatic check happens — treat this as a convenience, not a guarantee, and use the manual update above if you need to confirm you're on a specific version.
+
+**For /container-based installs** (manual `/container` setup only), RouterOS does not support a mechanism for easily updating to the latest version of the Orb image — this is specific to raw `/container`, the `/app` system above has its own update commands. The solution is to delete the container and recreate it with the same configuration, which will pull the `:latest` tagged image from Docker Hub. As we set up persistent storage, you will not need to re-link, and your history will be preserved.
 
 ### Container Shell Access Issues
 
@@ -260,6 +385,7 @@ If you cannot access the container shell:
 
 ## Additional Resources
 
+- For more details on the Apps menu, see [MikroTik's Apps documentation](https://help.mikrotik.com/docs/spaces/ROS/pages/343244823/Apps).
 - For more details on RouterOS containers, see [MikroTik's Container documentation](https://help.mikrotik.com/docs/spaces/ROS/pages/84901929/Container).
 - To find compatible devices, use [MikroTik's hardware catalog](https://mikrotik.com/products?filter&s=c&a=%5B%22arm%22,%22arm64%22%5D#).
 - For alternative installation methods, see [Install Orb on Docker](/docs/setup-sensor/docker).
