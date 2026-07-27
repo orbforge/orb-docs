@@ -28,7 +28,7 @@ The following table shows MikroTik device compatibility:
 | Device | Supported | Validated | Notes |
 |--------|-----------|-----------|-------|
 | RouterOS on AMD64 | ✓ | | |
-| hEX refresh | ✓ | ✓ | ARMv5 (EN7562CT CPU) — Apps menu unavailable, see [Manual /container setup](#manual-container-setup-for-en7562ct-devices)¹ |
+| hEX refresh | ✓ | ✓ | ARMv5 (EN7562CT CPU) — Apps menu unavailable, see [Manual /container setup](#manual-container-setup)¹ |
 | hEX S (2025) | ✓ | ✓ | Consider disabling bandwidth tests¹ |
 | L009UiGS-RM | ✓ | | Consider disabling bandwidth tests¹ |
 | RB4011iGS+RM | ✓ | | |
@@ -73,7 +73,7 @@ The following table shows MikroTik device compatibility:
 ¹ ARMv5 devices have limited CPU performance. If using these devices for routing without hardware offload, disable bandwidth tests using `ORB_BANDWIDTH_DISABLED=1` to prevent CPU spikes.
 
 :::note
-If you run Orb **without** `ORB_EPHEMERAL_MODE=1` (i.e. with persistent storage), its local database and logs grow over time — ensure at least 20MB of disk space remains free for that growth. This does **not** apply to the ephemeral-mode setup recommended below: with ephemeral mode, persistent data stays under 5KB (just certs and config), so the much smaller disk sizes in [Step 2](#step-2-configure-app-storage) are sufficient and intentional, not an oversight.
+These instructions assume you will run Orb with `ORB_EPHEMERAL_MODE=1`, disabling local storage of Orb telemetry to disk. Disabling ephemeral mode will require you to increase the size of the app data partition to accommodate local storage. This is only recommended for add-on storage (e.g. via USB).
 :::
 
 ## Recommended: Install via the Apps menu
@@ -81,15 +81,14 @@ If you run Orb **without** `ORB_EPHEMERAL_MODE=1` (i.e. with persistent storage)
 Starting with RouterOS v7.22, the `/app` menu provides a catalog-based way to deploy containerized apps in a couple of clicks, with networking, storage, and firewall rules configured automatically. This is now the easiest way to get Orb running on a supported MikroTik device — no manual bridge, veth, or NAT configuration required.
 
 :::note
-The `/app` system requires **arm64 or x86** architecture. Devices with the **EN7562CT CPU** (e.g. **hEX Refresh**) are explicitly not supported and must use the [manual `/container` setup](#manual-container-setup-for-en7562ct-devices) below instead.
+The `/app` system requires **arm64 or x86** architecture. Devices with the **EN7562CT CPU** (e.g. **hEX Refresh**) are not supported and must use the [manual /container setup](#manual-container-setup) below instead.
 :::
 
 ### Requirements
 
 - A MikroTik device with **arm64 or x86** architecture, running **RouterOS v7.22+**
-- Physical access to your device (required once, for the device-mode confirmation below)
+- Physical access to your device (required once, for the device-mode confirmation when enabling containers)
 - The `container` package installed
-- A formatted disk for app storage — an external USB/NVMe/SATA drive is recommended for best performance, but on internal-flash-only devices a small file-backed virtual disk works too (see note below)
 
 :::note
 The unpacked Orb sensor image needs roughly 20MB. Extraction itself briefly needs more headroom than that, so we recommend a dedicated **scratch disk** for extraction (set via `/container/config/set tmpdir=...`) separate from the app disk — see [Step 2](#step-2-configure-app-storage) below for the exact sizes and commands we validated (25MB app disk + 20MB scratch disk).
@@ -132,12 +131,12 @@ Point the Apps system at the app disk, and point the container extraction direct
 ```
 
 :::note
-`tmpdir` is a global `/container` setting, separate from the `disk`/`media-path`/`download-path` settings under `/app settings` — it controls where container image layers are extracted, regardless of which app triggers the extraction. Without a separate `tmpdir`, extraction and final storage compete for space on the same disk, and the app disk needs to be considerably larger (**40MB+** in our testing) to have enough transient headroom. With `tmpdir` on its own disk, **25MB** is sufficient for the app disk (with a 20MB scratch disk, which is barely touched — extraction is fast and cleans up after itself). We found 22MB technically extracts but leaves so little headroom that the app crashes shortly after starting (`exited with status 1`) — 25MB is the validated floor, not just close enough.
+`tmpdir` is a global `/container` setting, separate from the `disk`/`media-path`/`download-path` settings under `/app settings` — it controls where container image layers are extracted, regardless of which app triggers the extraction. Without a separate `tmpdir`, extraction and final storage compete for space on the same disk, and the app disk needs to be considerably larger (**40MB+** in our testing) to have enough transient headroom. With `tmpdir` on its own disk, **25MB** is sufficient for the app disk (with a 20MB scratch disk, which is barely touched — extraction is fast and cleans up after itself).
 :::
 
 ### Step 3: Add the Orb app store
 
-Orb's app definition is hosted alongside our other install scripts. Add it as a custom app store:
+Add the Orb custom app store:
 
 ```routeros
 /app/settings/set app-store-urls=https://orb.net/docs/scripts/mikrotik/orb-app-store.yml
@@ -147,32 +146,34 @@ Orb's app definition is hosted alongside our other install scripts. Add it as a 
 The custom app-store catalog is only refreshed **at boot** — it won't appear in the Apps list right away. **Reboot your device once** after setting `app-store-urls` for the first time.
 :::
 
-After rebooting, open WebFig, navigate to **Apps**, and you should see **orb-sensor** available in the catalog alongside MikroTik's official apps (you may need to switch the view filter from "all" to "store", or scroll to it alphabetically).
+After rebooting, open WebFig, navigate to **Apps**, and you should see **orb-sensor** available in the catalog alongside MikroTik's official apps.
 
 ### Step 4: Install and configure Orb
 
 1. Select **orb-sensor** from the catalog and click **Install**.
-2. Before enabling, set the **Network** to `lan` so the sensor gets a real address on your LAN (rather than being NATed behind the router), matching how a normal Orb sensor would see your network.
+2. Before enabling, set the **Network** to `lan` if appropriate for your network topology so the sensor gets a real address on your LAN (rather than being NATed behind the router), matching how a normal Orb sensor would see your network.
 3. Add your deployment token as an environment variable so the sensor links to your account automatically on first boot — under the app's **Environment** settings, add:
    - `ORB_DEPLOYMENT_TOKEN` = *your deployment token* (see [Configuration](https://orb.net/docs/deploy-and-configure/configuration) for how to generate one)
 4. If this device is also routing traffic (rather than just observing it), consider also adding:
    - `ORB_FIRSTHOP_DISABLED=1` — disables first-hop monitoring, appropriate for router deployments.
-   - `ORB_BANDWIDTH_DISABLED=1` — for ARMv5 devices, to avoid CPU spikes from bandwidth tests.
 5. Since **use-https** defaults to on and expects the app to expose a web UI (Orb doesn't), disable it so the app doesn't stall waiting on a reverse-proxy certificate.
-6. Click **Enable**. The app will download and extract the image, then start automatically.
+6. Optionally, enable **Auto Update** so the app pulls newer Orb image versions on its own, without you needing to click **Update** manually (see [Updating the Container](#updating-the-container) below for how this compares to a manual update).
+7. Click **Enable**. The app will download and extract the image, then start automatically.
 
 Once running, your MikroTik device should appear in your Orb dashboard within a minute or two.
 
 #### Equivalent via terminal
 
-Steps 2–6 above can also be done from the **Terminal** tab. Note that `environment` values must be prefixed with the service name (`orb:`, matching the `services.orb` key in the app's YAML):
+Steps 2–7 above can also be done from the **Terminal** tab. Note that `environment` values must be prefixed with the service name (`orb:`, matching the `services.orb` key in the app's YAML):
 
 ```routeros
-/app/set [find name=orb-sensor] network=lan use-https=no environment="orb:ORB_EPHEMERAL_MODE=1,orb:ORB_DEPLOYMENT_TOKEN=your-deployment-token"
+/app/set [find name=orb-sensor] network=lan use-https=no auto-update=yes environment="orb:ORB_EPHEMERAL_MODE=1,orb:ORB_DEPLOYMENT_TOKEN=your-deployment-token"
 /app/enable [find name=orb-sensor]
 ```
 
-## Manual `/container` setup (for EN7562CT devices)
+Drop `auto-update=yes` from the command above if you'd rather update manually (see below).
+
+## Manual /container setup
 
 :::note
 This method is reserved for devices with the **EN7562CT CPU** (e.g. **hEX Refresh**), which do not support the `/app` system at all. If your device supports `/app` (see [Compatibility](#compatibility)), use the [Apps menu method](#recommended-install-via-the-apps-menu) above instead — it's simpler and handles networking/storage automatically.
@@ -355,7 +356,7 @@ If the Orb container fails to start:
 These are two symptoms of the same underlying issue — the app disk is too small:
 
 - **`not enough disk space to download/extract`**: extraction needs more transient headroom than the final image size. Set a separate `tmpdir` on a dedicated scratch disk (see [Step 2](#step-2-configure-app-storage) above) rather than just making the app disk bigger — it's a more effective fix and keeps the app disk small.
-- **App extracts fine but exits immediately (`exited with status 1`)**: the app disk is *just barely* big enough to extract into, but leaves too little room for the app to actually write anything at runtime. In our testing, 22MB exhibited exactly this — looks like it worked, then silently died. 25MB (with a separate scratch disk for `tmpdir`) is the validated floor.
+- **App extracts fine but exits immediately (`exited with status 1`)**: the app disk is *just barely* big enough to extract into, but leaves too little room for the app to actually write config and certs on first run. Increase the disk size.
 
 ### Network Connectivity Issues
 
@@ -365,17 +366,14 @@ If the container cannot reach the internet:
 - Check firewall rules aren't blocking container traffic.
 - Ensure DNS is properly configured for the container.
 
-### Resource Constraints
-
-For devices experiencing high CPU usage:
-
-- Ensure `ORB_BANDWIDTH_DISABLED=1` is set for ARMv5 devices.
-- Monitor CPU usage via **System > Resources**.
-- Consider upgrading to a more powerful device if issues persist.
-
 ### Updating the Container
 
-Unfortunately, RouterOS does not support a mechanism for easily updating to the latest version of the Orb image—automated or otherwise. The solution is to delete the container/app and recreate it with the same configuration, which will pull the `:latest` tagged image from Docker Hub. As we set up persistent storage, you will not need to re-link, and your history will be preserved.
+**For /app-based installs**, there are two options:
+
+- **Manual (recommended for predictable timing)**: select **orb-sensor** in WebFig's Apps list and click **Update**, or run `/app/update [find name=orb-sensor]` from the Terminal. This pulls the latest image immediately.
+- **Automatic**: set `auto-update=yes` on the app (`/app/set [find name=orb-sensor] auto-update=yes`, or the **Auto Update** checkbox in WebFig — see [Step 4](#step-4-install-and-configure-orb)). There's also a global equivalent, `/app/settings/set auto-update=yes`, which applies to every installed app rather than just Orb. Neither MikroTik's documentation nor the RouterOS community forums specify exactly when or how often an automatic check happens — treat this as a convenience, not a guarantee, and use the manual update above if you need to confirm you're on a specific version.
+
+**For /container-based installs** (manual `/container` setup only), RouterOS does not support a mechanism for easily updating to the latest version of the Orb image — this is specific to raw `/container`, the `/app` system above has its own update commands. The solution is to delete the container and recreate it with the same configuration, which will pull the `:latest` tagged image from Docker Hub. As we set up persistent storage, you will not need to re-link, and your history will be preserved.
 
 ### Container Shell Access Issues
 
