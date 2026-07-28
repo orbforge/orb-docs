@@ -49,7 +49,7 @@ The Orb Cloud MCP server supports two authentication methods, depending on your 
 
 ### OAuth
 
-Clients that support OAuth can authenticate interactively: you'll be redirected to sign into Orb Cloud and approve access, without creating or copying any credentials. This is the simplest option, and is used by Claude, Codex, and OpenCode below.
+Clients that support OAuth can authenticate interactively: you'll be redirected to sign into Orb Cloud and approve access, without creating or copying any credentials. This is the simplest option, and is used by Claude, ChatGPT and Codex, and OpenCode in the setup guides below.
 
 ### API Key
 
@@ -66,14 +66,25 @@ Authorization: Bearer orb-ok1-YourAPIToken
 Orb's MCP server works with any MCP-compatible client. Setup instructions are provided for the following clients:
 
 - [Claude](/docs/integrations/claude-mcp) — Claude Code and Claude Desktop
-- [Codex](/docs/integrations/codex)
+- [ChatGPT Desktop & Codex](/docs/integrations/codex) - ChatGPT desktop app, Codex CLI, and Codex IDE extension
+- [ChatGPT web](/docs/integrations/chatgpt-web)
 - [Copilot Studio](/docs/integrations/copilot)
 - [OpenCode](/docs/integrations/opencode)
 - [Other MCP Clients](#other-mcp-clients)
 
+| Client                          | How Orb is configured                       | Configuration scope                     |
+| ------------------------------- | ------------------------------------------- | --------------------------------------- |
+| ChatGPT desktop app, Codex mode | Settings → MCP servers                      | Shared with Codex CLI and IDE extension |
+| Codex CLI                       | `codex mcp add`                             | Shared with desktop and IDE extension   |
+| Codex IDE extension             | Gear menu → MCP servers                     | Shared with desktop and CLI             |
+| ChatGPT web                     | Create or install an MCP-powered app/plugin | Stored in the ChatGPT workspace         |
+
+
 ### Other MCP Clients
 
-Any client that supports remote MCP servers over Streamable HTTP can connect to Orb using the server URL `https://panel.orb.net/mcp`. Use OAuth where the client supports it, or an [API key](#api-key) as a Bearer token where it does not. OAuth Dynamic Client Registration (DCR) is currently not supported.
+Any client that supports remote MCP servers over Streamable HTTP can connect to Orb using the server URL `https://panel.orb.net/mcp`. Use OAuth where the client supports it, or an [API key](#api-key) as a Bearer token where it does not. 
+
+OAuth Dynamic Client Registration (DCR) is currently not supported by Orb. Clients must use another compatible OAuth client-registration method or an API key.
 
 ## Using the Integration
 
