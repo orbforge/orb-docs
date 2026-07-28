@@ -49,7 +49,13 @@ The Orb Cloud MCP server supports two authentication methods, depending on your 
 
 ### OAuth
 
-Clients that support OAuth can authenticate interactively: you'll be redirected to sign into Orb Cloud and approve access, without creating or copying any credentials. This is the simplest option, and is used by Claude, ChatGPT and Codex, and OpenCode in the setup guides below.
+Clients that support Orb's OAuth flow can authenticate interactively. You will be redirected to sign in to Orb Cloud and approve access without creating or copying credentials.
+
+OAuth is the recommended method for Claude, ChatGPT desktop, Codex, and OpenCode.
+
+:::note
+ChatGPT web cannot currently use Orb's OAuth flow because Orb does not support Dynamic Client Registration (DCR), Client ID Metadata Documents (CIMD), or a predefined ChatGPT OAuth client. Use an Orb Cloud API key when connecting ChatGPT web.
+:::
 
 ### API Key
 
@@ -72,13 +78,13 @@ Orb's MCP server works with any MCP-compatible client. Setup instructions are pr
 - [OpenCode](/docs/integrations/opencode)
 - [Other MCP Clients](#other-mcp-clients)
 
-| Client                          | How Orb is configured                       | Configuration scope                     |
-| ------------------------------- | ------------------------------------------- | --------------------------------------- |
-| ChatGPT desktop app, Codex mode | Settings → MCP servers                      | Shared with Codex CLI and IDE extension |
-| Codex CLI                       | `codex mcp add`                             | Shared with desktop and IDE extension   |
-| Codex IDE extension             | Gear menu → MCP servers                     | Shared with desktop and CLI             |
-| ChatGPT web                     | Create or install an MCP-powered app/plugin | Stored in the ChatGPT workspace         |
-
+| Client | How Orb is configured | Authentication |
+| --- | --- | --- |
+| ChatGPT web | Create a custom MCP app in Developer mode | Orb Cloud API key |
+| ChatGPT desktop app | **Settings → MCP servers** | OAuth |
+| Codex CLI | `codex mcp add` | OAuth |
+| Codex IDE extension | **Gear menu → MCP servers** | OAuth |
+| Other compatible clients | Remote Streamable HTTP server | OAuth or Bearer API key, depending on client support |
 
 ### Other MCP Clients
 
