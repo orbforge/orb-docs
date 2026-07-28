@@ -29,46 +29,54 @@ The following table shows MikroTik device compatibility:
 |--------|-----------|-----------|-------|
 | RouterOS on AMD64 | ✓ | | |
 | hEX refresh | ✓ | ✓ | ARMv5 (EN7562CT CPU) — Apps menu unavailable, see [Manual /container setup](#manual-container-setup)¹ |
-| hEX S (2025) | ✓ | ✓ | Consider disabling bandwidth tests¹ |
+| hEX S (2025) | ✓ | ✓ | ARMv5 (EN7562CT CPU) — Apps menu unavailable, see [Manual /container setup](#manual-container-setup)¹ |
 | L009UiGS-RM | ✓ | | Consider disabling bandwidth tests¹ |
-| RB4011iGS+RM | ✓ | | |
-| RB5009UG+S+IN | ✓ | | |
+| RB4011iGS+RM | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
+| RB5009UG+S+IN | ✓ | ✓ | |
 | RB5009UPr+S+IN | ✓ | ✓ | |
-| RB5009UPr+S+OUT | ✓ | | |
-| RB1100AHx4 | ✓ | | |
-| RB1100AHx4 Dude Edition | ✓ | | |
+| RB5009UPr+S+OUT | ✓ | ✓ | |
+| RB1100AHx4 | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
+| RB1100AHx4 Dude Edition | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
 | CCR2004-16G-2S+PC | ✓ | | |
 | CCR2004-16G-2S+ | ✓ | | |
 | CCR2004-1G-12S+2XS | ✓ | | |
+| CCR2004-1G-2XS-PCIe | ✓ | | |
+| CCR2116-12G-4S+ | ✓ | | |
 | ROSE Data server (RDS) | ✓ | | |
 | CCR2216-1G-12XS-2XQ | ✓ | | |
 | CRS520-4XS-16XQ-RM | ✓ | | |
-| SXTsq 5 ax | ✓ | | |
-| LHG-5axD | ✓ | | |
-| NetBox 5 ax | ✓ | | |
-| LHG XL 5 ax | ✓ | | |
-| NetMetal ax | ✓ | | |
-| mANTBox ax 15s | ✓ | | |
-| hAP ax lite | ✓ | | |
-| wAP ax | ✓ | | |
+| CRS418-8P-8G-2S+RM | ✓ | | |
+| CRS418-8P-8G-2S+5axQ2axQ-RM | ✓ | | |
+| CRS812 DDQ | ✓ | | |
+| CRS804 DDQ | ✓ | | |
+| SXTsq 5 ax | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
+| LHG-5axD | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
+| NetBox 5 ax | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
+| LHG XL 5 ax | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
+| NetMetal ax | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
+| mANTBox ax 15s | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
+| hAP ax lite | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
+| wAP ax | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
 | hAP ax² | ✓ | | |
-| hAP ax lite LTE6 | ✓ | | |
-| hAP ac³ | ✓ | | |
+| hAP ax lite LTE6 | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
+| hAP ac³ | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
 | cAP ax | ✓ | | |
-| L009UiGS-2HaxD-IN | ✓ | | |
+| L009UiGS-2HaxD-IN | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
 | hAP ax³ | ✓ | | |
-| Chateau LTE6 | ✓ | | Requires USB storage |
-| Audience | ✓ | | |
+| hAP be³ Media | ✓ | | |
+| Chateau LTE6 | ✓ | | Requires USB storage; ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
+| Audience | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
 | Chateau PRO ax | ✓ | | |
-| RB4011iGS+5HacQ2HnD-IN | ✓ | | |
-| L11UG-5HaxD | ✓ | | |
-| L23UGSR-5HaxD2HaxD | ✓ | | |
-| RB450Gx4 | ✓ | | |
+| RB4011iGS+5HacQ2HnD-IN | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
+| L11UG-5HaxD | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
+| L23UGSR-5HaxD2HaxD | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
+| RB450Gx4 | ✓ | | ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
 | Chateau LTE6 ax | ✓ | | |
+| Chateau LTE7 ax | ✓ | | |
 | cAP LTE12 ax | ✓ | | |
 | Chateau LTE18 ax | ✓ | | |
 | Chateau 5G R17 ax | ✓ | | |
-| Chateau 5G R16 | ✓ | | Requires USB storage |
+| Chateau 5G R16 | ✓ | | Requires USB storage; ARM 32-bit — Apps menu unavailable, see [Manual /container setup](#manual-container-setup) |
 
 ¹ ARMv5 devices have limited CPU performance. If using these devices for routing without hardware offload, disable bandwidth tests using `ORB_BANDWIDTH_DISABLED=1` to prevent CPU spikes.
 
@@ -81,7 +89,7 @@ These instructions assume you will run Orb with `ORB_EPHEMERAL_MODE=1`, disablin
 Starting with RouterOS v7.22, the `/app` menu provides a catalog-based way to deploy containerized apps in a couple of clicks, with networking, storage, and firewall rules configured automatically. This is now the easiest way to get Orb running on a supported MikroTik device — no manual bridge, veth, or NAT configuration required.
 
 :::note
-The `/app` system requires **arm64 or x86** architecture. Devices with the **EN7562CT CPU** (e.g. **hEX Refresh**) are not supported and must use the [manual /container setup](#manual-container-setup) below instead.
+The `/app` system requires **arm64 or x86** architecture. Devices with a 32-bit **ARM** processor (e.g. **hEX Refresh**, **hEX S (2025)**, and other ARM-based MikroTik models — see the [Compatibility](#compatibility) table) are not supported and must use the [manual /container setup](#manual-container-setup) below instead.
 :::
 
 ### Requirements
@@ -176,7 +184,7 @@ Drop `auto-update=yes` from the command above if you'd rather update manually (s
 ## Manual /container setup
 
 :::note
-This method is reserved for devices with the **EN7562CT CPU** (e.g. **hEX Refresh**), which do not support the `/app` system at all. If your device supports `/app` (see [Compatibility](#compatibility)), use the [Apps menu method](#recommended-install-via-the-apps-menu) above instead — it's simpler and handles networking/storage automatically.
+This method is reserved for devices with a 32-bit **ARM** processor (e.g. **hEX Refresh**, **hEX S (2025)**, and other ARM-based MikroTik models — see the [Compatibility](#compatibility) table), which do not support the `/app` system at all. If your device supports `/app` (see [Compatibility](#compatibility)), use the [Apps menu method](#recommended-install-via-the-apps-menu) above instead — it's simpler and handles networking/storage automatically.
 :::
 
 ### Prerequisites
