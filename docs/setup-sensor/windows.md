@@ -218,7 +218,9 @@ Replace `orb-dt1-yourdeploymenttoken678` with your actual deployment token from 
 
 When the Orb service starts, it will automatically read this file and link to your Space.
 
-For more details on deployment tokens and other linking methods, see the [Deployment Tokens](/docs/deploy-and-configure/deployment-tokens) guide.
+Set this before the service first starts, or restart the service afterwards with `Restart-Service -Name "Orb"` — the token is only read at startup.
+
+For more details on deployment tokens and other linking methods, see the [Deployment Tokens](/docs/deploy-and-configure/deployment-tokens) guide and [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install#windows). To deploy the Windows app across a fleet, see [Microsoft Intune](/docs/deploy-and-configure/mdm/intune).
 
 ### Data Storage
 

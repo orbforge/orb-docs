@@ -20,6 +20,26 @@ curl -fsSL https://pkgs.orb.net/install.sh | sh
 
 On supported platforms, the installation will provide a prompt (y/n) asking if you would like to enable automated updates to keep Orb up to date. We recommend enabling automated updates.
 
+## Pre-configure before installing (recommended)
+
+Rather than installing first and linking afterwards, you can put a [Deployment Token](/docs/deploy-and-configure/deployment-tokens) in place beforehand so the sensor links itself to your Orb Space the first time it starts.
+
+On distributions using systemd — Ubuntu, Debian, Raspberry Pi OS, RHEL, Fedora, CentOS, Arch — the Orb service reads `/etc/default/orb`:
+
+```bash
+sudo tee /etc/default/orb >/dev/null <<'EOF'
+ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678
+EOF
+```
+
+On Alpine and other OpenRC systems, use `/etc/conf.d/orb` instead, and `export` each variable.
+
+Any other [configuration](/docs/deploy-and-configure/configuration) option can go in the same file. See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) for details, other platforms, and troubleshooting.
+
+## Linking
+
+If you didn't pre-configure a Deployment Token, link the sensor after installing — see [Linking an Orb to your account](/docs/orb-app/linking-orb-to-account).
+
 ## Advanced Installation Options
 
 For detailed manual installation steps for specific Linux distributions, please see the following pages:

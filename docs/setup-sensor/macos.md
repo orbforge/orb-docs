@@ -27,6 +27,22 @@ To start orbforge/orb/orb immediately and restart at login:
 brew services start orbforge/orb/orb
 ```
 
+## Linking with a Deployment Token
+
+To have the sensor link itself to your Orb Space on first start, place a [Deployment Token](/docs/deploy-and-configure/deployment-tokens) in Orb's configuration directory before starting the service:
+
+```bash
+mkdir -p ~/.config/orb
+echo "orb-dt1-yourdeploymenttoken678" > ~/.config/orb/deployment_token.txt
+brew services restart orbforge/orb/orb
+```
+
+A token file is used here rather than an environment variable because `brew services` generates its own launchd job and won't pass through your shell environment. If you run the sensor in the foreground yourself, `ORB_DEPLOYMENT_TOKEN=... orb sensor` works as expected.
+
+See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install#macos) for details, and the [MDM guides](/docs/deploy-and-configure/mdm) for deploying the macOS app across a fleet.
+
+## Other CLI usage
+
 If you don't want or need a background service or would like to use other CLI functions, you can run:
 
 ```bash

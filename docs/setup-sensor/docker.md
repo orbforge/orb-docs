@@ -156,6 +156,17 @@ Depending on your Docker version, you may need to use "`docker compose`" rather 
 
 ## Step 3: Link your new Orb sensor
 
+### Pre-configured with a Deployment Token (recommended)
+
+If you add a [Deployment Token](/docs/deploy-and-configure/deployment-tokens) to the container's `environment:` section before starting it, the sensor links itself to your Orb Space on first start and there is nothing else to do:
+
+```yaml
+    environment:
+      - ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678
+```
+
+Run `docker compose up -d` to apply it, then confirm the sensor appears on the [Status](https://cloud.orb.net/status) page in Orb Cloud. This is the only linking method that works regardless of network topology, mDNS, or shell access — see [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install).
+
 ### Device on the same network
 
 If your Docker container is running on the same network as your phone or computer and your network supports Bonjour/zeroconf, you can link it to your account using the Orb app.

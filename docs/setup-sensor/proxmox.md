@@ -56,6 +56,10 @@ If you have a Proxmox cluster and want to monitor multiple nodes, repeat Step 1 
 
 ## Step 4: Link Your Orb to Your Account
 
+:::tip
+When adding several nodes, pre-configure a [Deployment Token](/docs/deploy-and-configure/deployment-tokens) instead of linking each one by hand — every node then links itself on first start with identical configuration. See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install).
+:::
+
 The final step is to link your new Orb sensor(s) to your account:
 
 1. Open the Orb app on your mobile device or computer.

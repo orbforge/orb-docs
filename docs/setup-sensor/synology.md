@@ -101,6 +101,10 @@ You can verify the container is running by checking its status in the Container 
 
 ## Step 8: Link Your Orb to Your Account
 
+:::tip
+You can skip this step by adding `ORB_DEPLOYMENT_TOKEN` to the container's environment variables in Container Manager before starting it — the sensor then links itself to your Orb Space on first start. See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install).
+:::
+
 The final step is to link your new Orb sensor to your account:
 
 1. Open the Orb app on your mobile device or computer

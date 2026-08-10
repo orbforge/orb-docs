@@ -41,8 +41,11 @@ Before you begin, make sure you have:
 3. If prompted about the authenticity of the host, type `yes` and press Enter.
 4. Enter the root password for your OpenWrt device when prompted. You should now have a command prompt logged into your OpenWrt device.
 
-## Step 2: Pre-configure Orb (Optional)
-You can optionally create a configuration file to customize Orb behavior from the start. You can set a deployment token to automatically link this Orb to your Orb Space, or adjust other settings. See the [configuration docs](/docs/deploy-and-configure/configuration) for all available options.
+## Step 2: Pre-configure Orb (Recommended)
+
+Creating `/etc/config/orb` before you install lets you set a [Deployment Token](/docs/deploy-and-configure/deployment-tokens), so this Orb links itself to your Orb Space the moment it starts — no discovery or manual linking needed in Step 4. You can set any other [configuration](/docs/deploy-and-configure/configuration) option here at the same time.
+
+On OpenWrt the Orb service reads its environment from this UCI config file, one `list env` entry per variable. Create it **before** running the install script, since Orb starts as soon as the package is installed.
 
 1. Create the configuration file:
 
@@ -55,6 +58,12 @@ You can optionally create a configuration file to customize Orb behavior from th
         list env 'ORB_DEPLOYMENT_TOKEN=<YOUR-DEPLOYMENT-TOKEN-HERE>'
     EOF
     ```
+
+    Replace `<YOUR-DEPLOYMENT-TOKEN-HERE>` with the token from the [Orchestration](https://cloud.orb.net/orchestration) section of Orb Cloud.
+
+:::tip
+For the equivalent file on other platforms, and the other options worth setting before first start, see [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install).
+:::
 
 ## Step 3: Install Orb
 
@@ -72,13 +81,17 @@ You can optionally create a configuration file to customize Orb behavior from th
     - Enable auto-updates to keep Orb up-to-date.
 3. Wait for the script to complete. You should see output indicating the progress of the installation.
 
-## Step 4: Link your new Orb Sensor (Optional)
+## Step 4: Link your new Orb Sensor
 
-If you didn't configure a Deployment Token to auto-link your new Orb in Step 2, you can link it to your Orb Space now.
+If you set a Deployment Token in Step 2, your Orb has already linked itself — check the [Status](https://cloud.orb.net/status) page in Orb Cloud and skip to the end.
+
+Otherwise, link it from the Orb app:
 
 1. Once the installation script finishes, the Orb Sensor should be running on your OpenWrt device.
-2. Open the Orb app on your phone or personal computer.
+2. Open the Orb app on your phone or personal computer, on the same network.
 3. Your new Orb Sensor should be automatically detected on your network and appear in the app, ready to be linked to your account. Follow the prompts in the app to link it.
+
+For other linking options, see [Linking an Orb to your account](/docs/orb-app/linking-orb-to-account).
 
 Congratulations! Your OpenWrt device is now running as an Orb Sensor, monitoring your network.
 
@@ -112,7 +125,7 @@ Add the Orb public key
 curl https://pkgs.orb.net/stable/openwrt/key.pub | tee /etc/opkg/keys/744a82bfef3c5690
 ```
 
-Optionally, you can create a configuration file to customize Orb behavior from the start. You can set a deployment token to automatically link this Orb to your Orb Space, or adjust other settings. See the [configuration docs](/docs/deploy-and-configure/configuration) for all available options.
+Create a configuration file to customize Orb behavior from the start (recommended). Setting a deployment token here automatically links this Orb to your Orb Space on first start. See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) and the [configuration docs](/docs/deploy-and-configure/configuration) for all available options.
 
 ```bash
 cat << EOF > /etc/config/orb

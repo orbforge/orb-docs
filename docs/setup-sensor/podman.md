@@ -121,6 +121,10 @@ Quadlets are systemd unit files with a `.container` extension that define contai
 
 ## Step 3: Link your new Orb sensor
 
+:::tip
+You can skip this step entirely by adding an `Environment=ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678` line to the `[Container]` section of the quadlet before starting it. The sensor then links itself to your Orb Space on first start, with no discovery or CLI step. See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install#podman).
+:::
+
 1. Once the Orb container is running, it should start broadcasting its presence on your network.
 2. Open the Orb app on your phone or personal computer (which must be on the same network).
 3. Your new Podman-based Orb sensor should be automatically detected and appear in the app, ready to be linked to your account. Follow the prompts in the app to link it.
