@@ -82,7 +82,7 @@
 - [API](/docs/integrations/api.md)
 - [MCP](/docs/integrations/mcp.md)
 - [Claude](/docs/integrations/claude-mcp.md)
-- [ChatGPT & Codex](/docs/integrations/codex.md)
+- [ChatGPT Desktop & Codex](/docs/integrations/codex.md)
 - [ChatGPT Web](/docs/integrations/chatgpt-web.md)
 - [Copilot Studio](/docs/integrations/copilot.md)
 - [OpenCode](/docs/integrations/opencode.md)

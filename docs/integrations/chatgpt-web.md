@@ -24,7 +24,7 @@ Before connecting Orb Cloud, you need:
 - An Orb Cloud account with access to the Space(s) you want to query
 - An Orb Cloud API key
 - A ChatGPT account with access to Developer mode
-- Permission to create custom MCP apps in your ChatGPT account or workspace
+- Permission to create developer-mode MCP connections in ChatGPT
 
 Full MCP support, including actions that modify data or trigger operations, depends on your ChatGPT plan and workspace policy. In a managed ChatGPT workspace, an administrator may need to enable Developer mode or authorize you to create custom apps.
 
@@ -51,7 +51,11 @@ Your API key provides access to Orb Cloud according to the permissions you grant
 
 ## Step 2: Enable Developer mode
 
-The available controls depend on your ChatGPT plan and workspace role.
+1. Open ChatGPT Settings.
+2. Select Security and login.
+3. Turn on Developer mode.
+
+In a managed Business, Enterprise, or Edu workspace, your administrator may need to enable access to Developer mode first.
 
 ### ChatGPT Business
 
@@ -73,16 +77,16 @@ Your workspace administrator may need to grant Developer mode access before the 
 
 ## Step 3: Add the Orb Cloud MCP server
 
-1. Open **Settings → Apps → Create**.
-
-   Workspace administrators can also use **Workspace settings → Apps → Create**.
-
-2. Enter the following details:
-   - **Name:** `Orb Cloud`
+1. Open **Plugins** in ChatGPT.
+2. Click the **+** button.
+3. Enter:
+   - **Name**: Orb Cloud
    - **Description:** `Access Orb Cloud scores, measurements, events, devices, and supported tests.`
    - **MCP server URL:** `https://panel.orb.net/mcp`
-3. Select **API key** as the authentication method.
-4. Enter your Orb Cloud API key.
+4. Select **API key** as the authentication method.
+5. Enter your Orb Cloud API key.
+6. Create the connection.
+7. Review the tools discovered from Orb Cloud.
 
    If ChatGPT asks for separate header settings, use:
 
@@ -91,17 +95,15 @@ Your workspace administrator may need to grant Developer mode access before the 
    Header value: Bearer orb-ok1-YourAPIToken
    ```
 
-5. Click **Scan Tools** and wait for ChatGPT to discover the tools exposed by Orb Cloud.
-6. Review the discovered tools.
-7. Click **Create**.
-
 After configuration, the app appears under **Settings → Apps → Enabled Apps** with a **Dev** label. In a managed workspace, it also appears as a draft under **Workspace settings → Apps → Drafts**.
 
 ## Step 4: Test Orb Cloud in ChatGPT
 
 1. Start a new ChatGPT conversation.
-2. Select **Orb Cloud** from the available apps or tools.
-3. Ask ChatGPT a question about your Orb Cloud data.
+2. Open the **+** menu in the composer.
+3. Select **Developer mode**.
+4. Select **Orb Cloud**.
+5. Ask ChatGPT a question about your Orb Cloud data.
 
 For example:
 
@@ -129,24 +131,28 @@ A workspace administrator or owner can publish the Orb Cloud app for other membe
 Once published, Orb Cloud appears in the workspace's approved apps.
 
 :::warning
-A published app may use the same configured Orb Cloud API key for everyone who can access it. Before publishing, confirm that the key's permissions and Space access are appropriate for every intended user. For least-privilege access, consider separate apps and keys for different teams or access levels.
+Do not publish an Orb Cloud connection backed by a personal API key unless the key is intentionally intended to be shared by everyone with access to the connection. All users may act with the permissions and Orb Cloud access granted to that API key.
+:::
+
+:::warning
+If the published Orb Cloud app uses a shared API key, users of the app may access Orb Cloud with the permissions and Space access granted to that key. Before publishing, make sure the API key follows least-privilege access and is appropriate for all intended users.
 :::
 
 ## Refreshing the Integration
 
 ChatGPT stores a snapshot of the tools provided by the Orb Cloud MCP server. If Orb adds or changes MCP tools:
 
-1. Open **Settings → Apps**.
-2. Select **Orb Cloud**.
+1. Open **Plugins**.
+2. Open the Orb Cloud MCP connection.
 3. Click **Refresh**.
-4. Review any new or updated tools.
+4. Confirm that the updated tools and metadata appear.
 5. Start a new conversation before testing the changes.
 
 For a published workspace app, an administrator may need to review and publish the updated version. On ChatGPT Business, a published app may need to be recreated and republished when its tools or metadata change.
 
 ## Rotating or Revoking the API Key
 
-To replace a ChatGPT API key:
+Update the API key for the Orb Cloud MCP connection in ChatGPT.
 
 1. Create a replacement key in Orb Cloud with the required permissions.
 2. Update the authentication settings for the Orb Cloud app in ChatGPT.
@@ -172,8 +178,8 @@ Confirm that:
 
 ### Orb Cloud does not appear in a conversation
 
-- Confirm that the Orb Cloud app was created successfully
-- Start a new conversation after creating or refreshing the app
+- Confirm that the Orb Cloud MCP connection was created successfully
+- Open the Orb Cloud connection in Plugins and click Refresh.
 - Select Orb Cloud from the available apps or tools
 - Refer to Orb Cloud explicitly in your prompt
 

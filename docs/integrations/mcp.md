@@ -51,17 +51,25 @@ The Orb Cloud MCP server supports two authentication methods, depending on your 
 
 Clients that support Orb's OAuth flow can authenticate interactively. You will be redirected to sign in to Orb Cloud and approve access without creating or copying credentials.
 
-OAuth is the recommended method for Claude, ChatGPT desktop, Codex, and OpenCode.
+OAuth is the recommended method for Claude and OpenCode.
 
 :::note
-ChatGPT web cannot currently use Orb's OAuth flow because Orb does not support Dynamic Client Registration (DCR), Client ID Metadata Documents (CIMD), or a predefined ChatGPT OAuth client. Use an Orb Cloud API key when connecting ChatGPT web.
+ChatGPT web, ChatGPT desktop, Codex CLI, and the Codex IDE extension currently use an Orb Cloud API key instead of OAuth because Orb does not yet support the OAuth client-registration methods required by these clients.
 :::
 
 ### API Key
 
-Clients that only support static Bearer token authentication require an Orb Cloud API key. Using Orb Cloud API keys for authentication also allows you to restrict which API permissions the MCP can access.
+Clients that support Bearer-token authentication can connect using an Orb Cloud API key. This is currently the required authentication method for ChatGPT web, ChatGPT desktop, Codex CLI, and the Codex IDE extension because Orb's OAuth implementation is not currently compatible with the OAuth client-registration methods used by these clients.
 
-To create one, follow [Creating an API Key](/docs/integrations/api#creating-an-api-key) in the Orb Cloud API guide. Grant at least **Organizations: Read** and **Devices: Read** access; add **Devices: Stream** if you also want the assistant to access real-time data. Pass the key in the `Authorization` header as a Bearer token:
+Using Orb Cloud API keys for authentication also allows you to restrict which API permissions the MCP server can access.
+
+API keys are currently used for:
+ - ChatGPT web
+ - ChatGPT desktop
+ - Codex CLI
+ - Codex IDE extension
+
+To create one, follow [Creating an API Key](/docs/integrations/api#creating-an-api-key) in the Orb Cloud API guide. Grant at least **Organizations: Read**, **Devices: Read**, and **MCP** access; add **Devices: Stream** if you also want the assistant to access real-time data. Pass the key in the `Authorization` header as a Bearer token:
 
 ```
 Authorization: Bearer orb-ok1-YourAPIToken
@@ -71,7 +79,7 @@ Authorization: Bearer orb-ok1-YourAPIToken
 
 Orb's MCP server works with any MCP-compatible client. Setup instructions are provided for the following clients:
 
-- [Claude](/docs/integrations/claude-mcp) — Claude Code and Claude Desktop
+- [Claude](/docs/integrations/claude-mcp) — Claude Code and Claude desktop
 - [ChatGPT Desktop & Codex](/docs/integrations/codex) - ChatGPT desktop app, Codex CLI, and Codex IDE extension
 - [ChatGPT web](/docs/integrations/chatgpt-web)
 - [Copilot Studio](/docs/integrations/copilot)
@@ -80,17 +88,17 @@ Orb's MCP server works with any MCP-compatible client. Setup instructions are pr
 
 | Client | How Orb is configured | Authentication |
 | --- | --- | --- |
-| ChatGPT web | Create a custom MCP app in Developer mode | Orb Cloud API key |
-| ChatGPT desktop app | **Settings → MCP servers** | OAuth |
-| Codex CLI | `codex mcp add` | OAuth |
-| Codex IDE extension | **Gear menu → MCP servers** | OAuth |
+| ChatGPT web | Developer-mode MCP connection in ChatGPT | Orb Cloud API key |
+| ChatGPT desktop app | Shared Codex MCP configuration (`~/.codex/config.toml`) | Bearer API key |
+| Codex CLI | Shared Codex MCP configuration (`~/.codex/config.toml`) | Bearer API key |
+| Codex IDE extension | Shared Codex MCP configuration (`~/.codex/config.toml`) | Bearer API key |
 | Other compatible clients | Remote Streamable HTTP server | OAuth or Bearer API key, depending on client support |
 
 ### Other MCP Clients
 
 Any client that supports remote MCP servers over Streamable HTTP can connect to Orb using the server URL `https://panel.orb.net/mcp`. Use OAuth where the client supports it, or an [API key](#api-key) as a Bearer token where it does not. 
 
-OAuth Dynamic Client Registration (DCR) is currently not supported by Orb. Clients must use another compatible OAuth client-registration method or an API key.
+Orb does not currently support DCR or CIMD. Clients must use an OAuth flow compatible with Orb’s current implementation or an API key where Bearer-token authentication is supported.
 
 ## Using the Integration
 
@@ -103,7 +111,7 @@ Once connected, ask your assistant to query or act on your Orb Cloud data in nat
 - "Were there any alerts across my Home space in the last 30 days?"
 - "Trigger a peak speed test on my office Orb."
 
-Your assistant will call the appropriate Orb MCP tool using your connected account's access to your Spaces and Orbs.
+Your assistant will call the appropriate Orb MCP tool using the permissions associated with your connected Orb Cloud account or API key.
 
 ## Troubleshooting
 
@@ -112,12 +120,12 @@ Your assistant will call the appropriate Orb MCP tool using your connected accou
 - Confirm you're signing into Orb Cloud with the same account that has access to the Space you want to query
 - Some clients require you to start a new chat session after configuring the MCP server
 - If using an API key, confirm it hasn't been deleted or regenerated in the Orb Cloud [Orchestration](https://cloud.orb.net/orchestration) section
+- For ChatGPT and Codex, confirm that the Orb Cloud API key is configured as a Bearer token rather than attempting an OAuth login
 
 ### No Devices or Data Returned
 
 - Confirm your Orb Cloud account or API key has access to the Space containing the Orb
 - If using an API key, confirm it has at least **Organizations: Read** and **Devices: Read** permissions
-- Confirm your subscription plan includes MCP access (see [Requirements](#requirements))
 
 ## Support
 
