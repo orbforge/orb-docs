@@ -17,46 +17,64 @@ ChatGPT web uses a separate MCP app or plugin configuration and does not read th
 See the [Orb Cloud MCP](/docs/integrations/mcp) guide for a complete list of features, authentication options, and troubleshooting steps.
 :::
 
-You can add the Orb Cloud MCP server from ChatGPT desktop, Codex CLI, or the Codex IDE extension.
+Configure the Orb Cloud MCP server once in your shared Codex configuration, then use it from ChatGPT desktop, Codex CLI, or the Codex IDE extension.
+
+## API Key Authentication/Bearer Token Configuration
+
+Orb Cloud MCP currently uses an Orb Cloud API key for authentication with ChatGPT desktop, Codex CLI, and the Codex IDE extension.
+
+Before configuring Orb Cloud MCP, [create an API key](https://orb.net/docs/integrations/api) and store it in an environment variable named `ORB_API_KEY`.
+
+For example:
+
+```bash
+export ORB_API_KEY="orb-ok1-YourAPIToken"
+```
+
+:::note
+The `ORB_API_KEY` environment variable must be available to the application running ChatGPT or Codex. If you launch ChatGPT desktop outside of a terminal, make sure the environment variable is configured so the desktop app can access it.
+:::
+
+Then add Orb Cloud MCP to your shared Codex configuration at `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.orb]
+url = "https://panel.orb.net/mcp"
+bearer_token_env_var = "ORB_API_KEY"
+```
+
+This configuration sends your Orb Cloud API key as a Bearer token in the `Authorization` header without storing the API key directly in your Codex configuration file.
 
 ## ChatGPT desktop app
 
-1. Open the ChatGPT desktop app.
+After configuring Orb Cloud MCP:
+
+1. Open or restart the ChatGPT desktop app.
 2. Open **Settings**, then select **MCP servers**.
-3. Click **Add server**.
-4. Enter the following details:
-   - **Name:** `Orb Cloud MCP`
-   - **Transport:** `Streamable HTTP`
-   - **URL:** `https://panel.orb.net/mcp`
-5. Click **Save**, then click **Restart**.
-6. Click **Authenticate** next to Orb Cloud MCP and sign in to Orb Cloud.
-7. In the composer, enter `/mcp` to confirm that the server is connected.
+3. Confirm that **orb** appears in the server list and is enabled.
+4. In the composer, enter `/mcp` to confirm that Orb Cloud MCP is connected.
+
+Orb Cloud MCP uses your API key as a Bearer token, so you do not need to click **Authenticate**.
 
 ## Codex CLI
 
-Run the following commands:
+Run the following command:
 
 ```bash
-codex mcp add orb --url https://panel.orb.net/mcp
-codex mcp login orb
 codex mcp list
 ```
-
-The first command adds the Orb Cloud server, the second starts OAuth authentication, and the third confirms that the server is configured.
-
 In the interactive Codex terminal interface, enter `/mcp` to view active MCP servers.
 
 ## Codex IDE extension
 
-1. Open the gear menu in the Codex IDE extension.
-2. Select **MCP servers**.
-3. Click **Add server**.
-4. Enter the following details:
-   - **Name:** `Orb Cloud MCP`
-   - **Transport:** `Streamable HTTP`
-   - **URL:** `https://panel.orb.net/mcp`
-5. Click **Save**, then click **Restart extension**.
-6. Click **Authenticate** next to Orb Cloud MCP and sign in to Orb Cloud.
+After configuring Orb Cloud MCP:
+
+1. Restart the Codex IDE extension.
+2. Open the gear menu.
+3. Select **MCP servers**.
+4. Confirm that **orb** appears in the server list and is enabled.
+
+Orb Cloud MCP uses your API key as a Bearer token, so you do not need to click **Authenticate**.
 
 ## Using the Integration
 
