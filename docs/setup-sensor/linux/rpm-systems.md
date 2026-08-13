@@ -43,3 +43,13 @@ Enable ephemeral mode (optional)
 echo 'ORB_EPHEMERAL_MODE=1' | sudo tee -a /etc/default/orb >/dev/null
 sudo systemctl restart orb
 ```
+
+Link Orb to account
+
+:::info
+If you want to link your sensor to your Orb account you need to run the link command under the `orb` user created during installation, not the user you are logged in as.
+:::
+
+```bash
+sudo -u orb orb link
+```
