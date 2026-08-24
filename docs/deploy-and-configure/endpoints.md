@@ -90,6 +90,22 @@ When multiple speed servers are configured, Orb automatically selects the closes
 This features is experimental, and not yet intended for production environments. We appreciate your testing and feedback. Please use our [Help & Support](https://orb.net/support) page or [Discord](https://discord.gg/orbforge) to report issues and ask questions.
 :::
 
+### Selecting Between Multiple Speed Servers
+
+When more than one speed server is configured, `collectors.bandwidth.server_selection_method` controls how Orb chooses between them:
+
+- **`best`** (default): Pings all configured servers and selects the one with the lowest latency
+- **`round_robin`**: Cycles through servers in order across test runs
+- **`random`**: Selects a server at random for each test
+- **`first`**: Always tries servers in the order configured, restarting from the first server every test run
+
+If a test fails against the selected server, Orb automatically retries against another configured server (chosen the same way) before giving up. To disable this and only ever test against the initially selected server, set `collectors.bandwidth.speed_disable_fallback` to `true`:
+
+```json
+"collectors.bandwidth.server_selection_method": ["random"],
+"collectors.bandwidth.speed_disable_fallback": ["true"]
+```
+
 ## Custom Responsiveness Endpoints
 
 Orb measures network responsiveness by conducting latency measurements to various internet endpoints. Orb can be configured to use alternative endpoints should you wish to:
@@ -141,6 +157,7 @@ Once per minute, the default Orb configuration conducts Web Responsiveness tests
 - **`collectors.bandwidth.web_interval`**: Interval between tests
 - **`collectors.bandwidth.web_timeout`**: Timeout for individual tests
 - **`collectors.bandwidth.web_selection_method`**: Method for choosing which URL to test
+- **`collectors.bandwidth.web_disable_fallback`**: Disable retrying another URL if the selected one fails
 
 ### Configuration Parameters
 
@@ -162,8 +179,14 @@ Once per minute, the default Orb configuration conducts Web Responsiveness tests
 - Format: Duration string (e.g., `5s`, `2s`, `500ms`)
 
 **Selection Method (`web_selection_method`)**
-- **`round_robin`**: Cycles through URLs in order
+- **`round_robin`** (default): Cycles through URLs in order
 - **`random`**: Randomly selects a URL for each test
+- **`first`**: Always tries URLs in the order configured, restarting from the first one every test run
+
+**Fallback (`web_disable_fallback`)**
+- If a test fails against the selected URL, Orb automatically retries against another configured URL (chosen the same way) before giving up
+- Set to `true` to disable this and only ever test against the initially selected URL
+- Default value: `false` (fallback enabled)
 
 ### Configuration
 
@@ -187,6 +210,9 @@ Modify the below example as desired, and add to your configuration:
   ],
   "collectors.bandwidth.web_selection_method": [
     "round_robin"
+  ],
+  "collectors.bandwidth.web_disable_fallback": [
+    "false"
   ]
 }
 ```
