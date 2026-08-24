@@ -15,9 +15,11 @@ Orb can integrate with various third-party applications and services to display 
 - [API](/docs/integrations/api.md)
 - [MCP](/docs/integrations/mcp.md)
 - [Claude](/docs/integrations/claude-mcp.md)
-- [OpenAI Codex](/docs/integrations/codex.md)
+- [ChatGPT & Codex](/docs/integrations/codex.md)
+- [ChatGPT Web](/docs/integrations/chatgpt-web.md)
 - [Copilot Studio](/docs/integrations/copilot.md)
 - [OpenCode](/docs/integrations/opencode.md)
+- [Microsoft Teams](/docs/integrations/microsoft-teams.md)
 - [Elgato Stream Deck](/docs/integrations/stream-deck.md)
 
 ## Integration Support

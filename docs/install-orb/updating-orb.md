@@ -13,7 +13,7 @@ Keeping your Orb app and sensors up to date ensures you have access to the lates
 
 ### iOS
 
-1. Open Orb on TestFlight
+1. Open Orb in the App Store or TestFlight
 2. Click "Update" next to the Orb app if available
 
 ### Android
@@ -27,7 +27,7 @@ Keeping your Orb app and sensors up to date ensures you have access to the lates
 
 ### macOS
 
-1. Open Orb on TestFlight
+1. Open Orb the the App Store or TestFlight
 2. Click "Update" next to the Orb app if available
 
 ### Windows

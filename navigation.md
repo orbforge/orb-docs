@@ -62,6 +62,7 @@
 - [Events and Alerts](/docs/orb-cloud/events-alerts.md)
 - [Analytics](/docs/orb-cloud/analytics.md)
 - [Manage Users](/docs/orb-cloud/manage-users.md)
+- [Subspace Management](/docs/orb-cloud/subspace-management.md)
 
 ## [Deploy & Configure](/docs/deploy-and-configure)
 
@@ -81,9 +82,11 @@
 - [API](/docs/integrations/api.md)
 - [MCP](/docs/integrations/mcp.md)
 - [Claude](/docs/integrations/claude-mcp.md)
-- [OpenAI Codex](/docs/integrations/codex.md)
+- [ChatGPT Desktop & Codex](/docs/integrations/codex.md)
+- [ChatGPT Web](/docs/integrations/chatgpt-web.md)
 - [Copilot Studio](/docs/integrations/copilot.md)
 - [OpenCode](/docs/integrations/opencode.md)
+- [Microsoft Teams](/docs/integrations/microsoft-teams.md)
 - [Elgato Stream Deck](/docs/integrations/stream-deck.md)
 
 ## [Sensorbox](/docs/sensorbox)
