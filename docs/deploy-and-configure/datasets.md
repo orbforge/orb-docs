@@ -285,3 +285,50 @@ Note: On iOS, Wi-Fi data is available via an optional iOS Shortcut (as of versio
 | Supported WLAN Channels |   🟢    |   ❌    |  🟢   |  🟢   |      ❌        |
 | MCS                     |   ❌    |   ❌    |  🟢   |  ❌   |      ❌        |
 | NSS                     |   ❌    |   ❌    |  🟢   |  ❌   |      ❌        |
+
+## System Telemetry
+
+The System Telemetry Dataset reports the host device's own CPU, memory, swap, and disk utilization, plus the resource usage of the Orb sensor process itself (`orb_*` fields).
+
+:::warning
+This feature is experimental, and not yet intended for production environments. We appreciate your testing and feedback. Please use our [Help & Support](https://orb.net/support) page or [Discord](https://discord.gg/orbforge) to report issues and ask questions.
+:::
+
+System Telemetry is **disabled by default** and must be enabled via configuration — see [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration#system-telemetry). Unlike other datasets, records are not persisted to local storage — only the most recent buffer of samples is retained in memory, available via [Orb Local Analytics](/docs/deploy-and-configure/local-analytics) and MCP.
+
+System Telemetry is currently only available on Windows, Linux, and macOS. It is not supported on Android or iOS.
+
+System Telemetry data is available in 1 minute and 1 second aggregated buckets.
+
+### `system_telemetry_(1m|1s)`
+
+| column | description | type |
+| ----- | ----- | :---: |
+| **identifiers** |  |  |
+| `orb_id` | Orb Sensor identifier | string |
+| `orb_name` | Current Orb friendly name (masked unless identifiable=true) | string |
+| `device_name` | Hostname or name of the device as identified by the OS (masked unless identifiable=true) | string |
+| `orb_version` | Semantic version of collecting Orb | string |
+| `timestamp` | Interval start timestamp in epoch milliseconds | integer |
+| `utc_offset` | UTC offset of the device's local timezone in minutes | integer |
+| `interval_ms` | Length of the aggregation window in milliseconds | integer |
+| `dataset` | Dataset type identifier | string |
+| **measures** |  |  |
+| `cpu_avg_percent` | Average device-wide CPU utilization over the interval | float |
+| `mem_used_avg_bytes` | Average device memory used, in bytes | integer |
+| `swap_used_avg_bytes` | Average device swap/page file used, in bytes | integer |
+| `swap_avg_percent` | Average device swap/page file utilization over the interval | float |
+| `disk_used_avg_bytes` | Average used space on the volume containing Orb's data directory, in bytes | integer |
+| `orb_cpu_avg_percent` | Average CPU utilization of the Orb sensor process itself over the interval | float |
+| `orb_mem_avg_bytes` | Average memory (RSS) used by the Orb sensor process, in bytes | integer |
+| `orb_disk_avg_bytes` | Average on-disk footprint of Orb's data directory, config directory, and binary, in bytes | integer |
+| `sample_count` | Count of samples included in this bucket | integer |
+| **dimensions** |  |  |
+| `device_model` | Device model identifier (may be empty if unresolvable on the platform) | string |
+| `cpu_model` | CPU model name (may be empty if unresolvable on the platform) | string |
+| `total_mem_bytes` | Total device memory, in bytes | integer |
+| `total_disk_bytes` | Total capacity of the volume containing Orb's data directory, in bytes | integer |
+| `nic_driver` | Driver name for the active network interface | string |
+| `nic_model_name` | Human-readable model name for the active network interface (not available on all platforms) | string |
+| `nic_model_id` | `vendor:device` hex identifier for the active network interface | string |
+
