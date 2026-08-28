@@ -324,6 +324,22 @@ System Telemetry data is available in 1 minute and 1 second aggregated buckets.
 | `orb_disk_avg_bytes` | Average on-disk footprint of Orb's data directory, config directory, and binary, in bytes | integer |
 | `sample_count` | Count of samples included in this bucket | integer |
 | **dimensions** |  |  |
+| `bssid` | Access point MAC address (masked unless identifiable=true) | string |
+| `mac_address` | Client MAC address (masked unless identifiable=true) | string |
+| `network_name` | Network name (SSID, if available, masked unless identifiable=true) | string |
+| `network_type` | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`<br>`4: cellular` | integer |
+| `network_state` | Speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: content upload`<br>`3: peak upload`<br>`4: content download`<br>`5: peak download`<br>`6: content`<br>`7: peak` | integer |
+| `country_code` | Geocoded 2-digit ISO country code | string |
+| `state` | Geocoded state or province name | string |
+| `city` | Geocoded city name | string |
+| `isp_name` | ISP name from GeoIP lookup | string |
+| `public_ip` | Public IP address (masked unless identifiable=true) | string |
+| `private_ip` | Local IP address (masked unless identifiable=true) | string |
+| `latitude` | Orb location latitude (max 2-decimals,unless identifiable=true) | float |
+| `longitude` | Orb location longitude (max 2-decimals,unless identifiable=true) | float |
+| `location_source` | Location Source<br>`0: unknown`<br>`1: geoip` | integer |
+| `measure_endpoint` | Measurement endpoint URL or IP address (only included when configured for Orb-to-Orb testing) | string |
+| `measure_endpoint_name` | Human-readable name of the measurement endpoint (only included when configured for Orb-to-Orb testing) | string |
 | `device_model` | Device model identifier (may be empty if unresolvable on the platform) | string |
 | `cpu_model` | CPU model name (may be empty if unresolvable on the platform) | string |
 | `total_mem_bytes` | Total device memory, in bytes | integer |
