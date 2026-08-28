@@ -82,18 +82,18 @@ See [Remote Configuration](/docs/deploy-and-configure/configuration#remote-confi
 
 ## System Telemetry
 
-Unlike other Datasets, [System Telemetry](/docs/deploy-and-configure/datasets#system-telemetry) is not sampled unless explicitly enabled.
+Unlike other Datasets, [System Telemetry](/docs/deploy-and-configure/datasets#system-telemetry) is not polled unless explicitly enabled.
 
 :::warning
 This feature is experimental, and not yet intended for production environments. We appreciate your testing and feedback. Please use our [Help & Support](https://orb.net/support) page or [Discord](https://discord.gg/orbforge) to report issues and ask questions.
 :::
 
-To enable System Telemetry and set its sample rate, visit the Orb Cloud [Status](https://cloud.orb.net/status) or [Orchestration](https://cloud.orb.net/orchestration) sections to edit the configuration for an individual Orb, or in-bulk via *Configurations*, respectively. If this is your first time configuring an Orb remotely, see the [Remote Configuration documentation](/docs/deploy-and-configure/configuration#remote-configuration).
+To enable System Telemetry and set its poll rate, visit the Orb Cloud [Status](https://cloud.orb.net/status) or [Orchestration](https://cloud.orb.net/orchestration) sections to edit the configuration for an individual Orb, or in-bulk via *Configurations*, respectively. If this is your first time configuring an Orb remotely, see the [Remote Configuration documentation](/docs/deploy-and-configure/configuration#remote-configuration).
 
 Changes will be made under the "Advanced" tab in the "Edit Configuration" screen.
 
-**Sample Interval (`collectors.system_telemetry.sample_interval`)**
-- Controls how often the device is sampled, and enables/disables collection entirely
+**Poll Interval (`collectors.system_telemetry.poll_interval`)**
+- Controls how often the device is polled, and enables/disables collection entirely
 - Set to `0` to disable (the default)
 - Minimum value: `1s` (1 second)
 - Maximum value: `1m` (1 minute)
@@ -101,13 +101,13 @@ Changes will be made under the "Advanced" tab in the "Edit Configuration" screen
 
 ```json
 {
-  "collectors.system_telemetry.sample_interval": [
+  "collectors.system_telemetry.poll_interval": [
     "1s"
   ]
 }
 ```
 
-Enabling `sample_interval` only starts sampling — to actually route `system_telemetry_1s`/`system_telemetry_1m` records to a Destination, add them to `datasets.api`, `datasets.push` like any other Dataset (see [Example Configuration](#example-configuration) above).
+Enabling `poll_interval` only starts sampling — to actually route `system_telemetry_1s`/`system_telemetry_1m` records to a Destination, add them to `datasets.api`, `datasets.push` like any other Dataset (see [Example Configuration](#example-configuration) above).
 
 ## Datasets Modes
 
