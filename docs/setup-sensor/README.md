@@ -32,6 +32,7 @@ The best sensor device for you depends on your specific needs:
 - [OpenWrt](/docs/setup-sensor/linux/openwrt.md)
 - [Docker](/docs/setup-sensor/docker.md)
 - [Docker Multi-WAN](/docs/setup-sensor/docker-multiple-interfaces.md)
+- [Interface Binding](/docs/setup-sensor/interface-binding.md)
 - [Podman](/docs/setup-sensor/podman.md)
 - [Home Assistant](/docs/setup-sensor/home-assistant.md)
 - [Proxmox](/docs/setup-sensor/proxmox.md)

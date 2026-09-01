@@ -16,6 +16,8 @@ On a device or VM with multiple networks (multiple physical network interfaces a
 
 This guide shows how to configure multiple Orb sensors in Docker, where each container attaches to a separate VLAN or network interface and receives its own DHCP lease. This allows a single VM or host to measure multiple network connections independently.
 
+If you'd rather not use Docker — for example, the interfaces already have working DHCP/static configuration at the OS level and you don't need per-container network isolation — see [Interface Binding](/docs/setup-sensor/interface-binding) instead.
+
 This guide uses:
 
 - Docker + Docker Compose
