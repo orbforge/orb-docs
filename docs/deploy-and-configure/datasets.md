@@ -182,8 +182,14 @@ Content speed measurements are conducted once per hour by default. Therefore, ra
 | **measures**        |                                                                                                                                                                                           |         |
 | `download_kbps`     | Download speed in Kbps                                                                                                                                                                    | integer |
 | `download_status`   | Download test result status<br>`0: unknown`<br>`1: success`<br>`2: fail`                                                                                                                  | integer |
+| `download_start_time` | Download test start time in epoch milliseconds                                                                                                                                          | integer |
+| `download_end_time` | Download test end time in epoch milliseconds                                                                                                                                              | integer |
+| `download_bytes`    | Bytes transferred during the download test                                                                                                                                                | integer |
 | `upload_kbps`       | Upload speed in Kbps                                                                                                                                                                      | integer |
 | `upload_status`     | Upload test result status<br>`0: unknown`<br>`1: success`<br>`2: fail`                                                                                                                    | integer |
+| `upload_start_time` | Upload test start time in epoch milliseconds                                                                                                                                              | integer |
+| `upload_end_time`   | Upload test end time in epoch milliseconds                                                                                                                                                | integer |
+| `upload_bytes`      | Bytes transferred during the upload test                                                                                                                                                  | integer |
 | **dimensions**      |                                                                                                                                                                                           |         |
 | `bssid` | Access point MAC address (masked unless identifiable=true) | string |
 | `mac_address` | Client MAC address (masked unless identifiable=true) | string |
