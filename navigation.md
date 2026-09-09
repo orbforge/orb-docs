@@ -91,4 +91,5 @@
 
 ## [Sensorbox](/docs/sensorbox)
 
+- [Radxa E20C](/docs/sensorbox/radxa-e20c.md)
 - [NanoPi Zero2](/docs/sensorbox/nanopi-zero2.md)

@@ -17,7 +17,7 @@ Sensorbox is currently in **beta**.
 
 ## What you'll need
 
-- A supported single-board computer or router (see the [NanoPi Zero2 hardware build](/docs/sensorbox/nanopi-zero2.md) for a worked example).
+- A supported single-board computer or router (see the [NanoPi Zero2 hardware build](/docs/sensorbox/nanopi-zero2.md) or [Radxa E20C setup](/docs/sensorbox/radxa-e20c.md) for examples).
 - A computer to run Sensorbox and flash the resulting image. The setup below is written for macOS and Linux.
 - [Podman](https://podman.io/) and `podman-compose`. Sensorbox runs on Podman because ASU's build worker spawns one container per build via the Podman API — Docker is not a tested drop-in substitute.
 - An SD card (or eMMC) and a way to flash it: [Raspberry Pi Imager](https://www.raspberrypi.com/software/), [balenaEtcher](https://etcher.balena.io/), or `dd`.
