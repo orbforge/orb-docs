@@ -20,7 +20,7 @@ curl -fsSL https://pkgs.orb.net/install.sh | sh
 
 On supported platforms, the installation will provide a prompt (y/n) asking if you would like to enable automated updates to keep Orb up to date. We recommend enabling automated updates.
 
-## Pre-configure before installing (recommended)
+## Pre-configure Orb
 
 Rather than installing first and linking afterwards, you can put a [Deployment Token](/docs/deploy-and-configure/deployment-tokens) in place beforehand so the sensor links itself to your Orb Space the first time it starts.
 
@@ -32,9 +32,15 @@ ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678
 EOF
 ```
 
-On Alpine and other OpenRC systems, use `/etc/conf.d/orb` instead, and `export` each variable.
+Get your token from the [Orchestration](https://cloud.orb.net/orchestration) section of Orb Cloud.
 
-Any other [configuration](/docs/deploy-and-configure/configuration) option can go in the same file. See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) for details, other platforms, and troubleshooting.
+:::note
+`/etc/default/orb` is a systemd environment file, not a shell script. Use plain `KEY=VALUE` lines — no `export`, no quotes, and no shell expansion. On Alpine and other OpenRC systems the file is [`/etc/conf.d/orb`](/docs/setup-sensor/linux/alpine#pre-configure-orb) instead, and each variable there *must* be exported.
+:::
+
+Any other [configuration](/docs/deploy-and-configure/configuration) option can go in the same file — `ORB_EPHEMERAL_MODE=1` is worth setting on SD cards and other flash storage. If Orb is already installed, apply changes with `sudo systemctl restart orb`.
+
+See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) for other platforms and troubleshooting.
 
 ## Linking
 

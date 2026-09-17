@@ -39,7 +39,7 @@ brew services restart orbforge/orb/orb
 
 A token file is used here rather than an environment variable because `brew services` generates its own launchd job and won't pass through your shell environment. If you run the sensor in the foreground yourself, `ORB_DEPLOYMENT_TOKEN=... orb sensor` works as expected.
 
-See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install#macos) for details, and the [MDM guides](/docs/deploy-and-configure/mdm) for deploying the macOS app across a fleet.
+See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) for details, and the [MDM guides](/docs/deploy-and-configure/mdm) for deploying the macOS app across a fleet.
 
 ## Other CLI usage
 

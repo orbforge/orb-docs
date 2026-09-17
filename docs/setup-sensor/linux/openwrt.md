@@ -41,7 +41,7 @@ Before you begin, make sure you have:
 3. If prompted about the authenticity of the host, type `yes` and press Enter.
 4. Enter the root password for your OpenWrt device when prompted. You should now have a command prompt logged into your OpenWrt device.
 
-## Step 2: Pre-configure Orb (Recommended)
+## Step 2: Pre-configure Orb (Optional)
 
 Creating `/etc/config/orb` before you install lets you set a [Deployment Token](/docs/deploy-and-configure/deployment-tokens), so this Orb links itself to your Orb Space the moment it starts — no discovery or manual linking needed in Step 4. You can set any other [configuration](/docs/deploy-and-configure/configuration) option here at the same time.
 
@@ -125,7 +125,7 @@ Add the Orb public key
 curl https://pkgs.orb.net/stable/openwrt/key.pub | tee /etc/opkg/keys/744a82bfef3c5690
 ```
 
-Create a configuration file to customize Orb behavior from the start (recommended). Setting a deployment token here automatically links this Orb to your Orb Space on first start. See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) and the [configuration docs](/docs/deploy-and-configure/configuration) for all available options.
+Optionally, create a configuration file to customize Orb behavior from the start. Setting a deployment token here automatically links this Orb to your Orb Space on first start. See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) and the [configuration docs](/docs/deploy-and-configure/configuration) for all available options.
 
 ```bash
 cat << EOF > /etc/config/orb

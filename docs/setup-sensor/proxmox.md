@@ -50,17 +50,29 @@ Now, run the Orb installation script:
 
 2. The script will detect your operating system (Proxmox VE is based on Debian) and install the appropriate package. Follow any on-screen prompts if necessary.
 
+### Pre-configure Orb (Optional)
+
+Proxmox VE is Debian-based, so the Orb service reads `/etc/default/orb`. Creating that file *before* running the install script lets you set a [Deployment Token](/docs/deploy-and-configure/deployment-tokens), and each node then links itself to your Orb Space on first start — worth doing if you're adding more than one node:
+
+```bash
+sudo tee /etc/default/orb >/dev/null <<'EOF'
+ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678
+EOF
+```
+
+Get your token from the [Orchestration](https://cloud.orb.net/orchestration) section of Orb Cloud. If Orb is already installed, add the file and run `sudo systemctl restart orb`.
+
+See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) for the other options worth setting here.
+
 ## Step 3: Repeat for Other Nodes (Optional)
 
 If you have a Proxmox cluster and want to monitor multiple nodes, repeat Step 1 and Step 2 for each node in your cluster.
 
 ## Step 4: Link Your Orb to Your Account
 
-:::tip
-When adding several nodes, pre-configure a [Deployment Token](/docs/deploy-and-configure/deployment-tokens) instead of linking each one by hand — every node then links itself on first start with identical configuration. See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install).
-:::
+If you set a Deployment Token in [Pre-configure Orb](#pre-configure-orb-optional-) above, your sensors have already linked themselves — confirm them on the [Status](https://cloud.orb.net/status) page in Orb Cloud and you're done.
 
-The final step is to link your new Orb sensor(s) to your account:
+Otherwise, the final step is to link your new Orb sensor(s) to your account:
 
 1. Open the Orb app on your mobile device or computer.
 2. Your new Orb sensor(s) running on the Proxmox node(s) should be automatically detected on your local network.

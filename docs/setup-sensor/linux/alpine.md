@@ -18,7 +18,7 @@ echo https://pkgs.orb.net/stable/alpine | tee -a /etc/apk/repositories
 wget -O /etc/apk/keys/packages@orb.net.rsa.pub https://pkgs.orb.net/stable/alpine/orb.pub
 ```
 
-Pre-configure Orb (recommended)
+## Pre-configure Orb
 
 Alpine runs Orb under OpenRC, which reads `/etc/conf.d/orb`. Creating this file before installing lets you set a [Deployment Token](/docs/deploy-and-configure/deployment-tokens) so the sensor links itself to your Orb Space on first start.
 

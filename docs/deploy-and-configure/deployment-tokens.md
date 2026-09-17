@@ -81,15 +81,18 @@ This only works when you launch the sensor yourself. In most real deployments Or
 
 | Platform | Where `ORB_DEPLOYMENT_TOKEN` goes |
 | -------- | --------------------------------- |
-| Ubuntu, Debian, Raspberry Pi OS, RHEL/Fedora/CentOS, Arch | [`/etc/default/orb`](/docs/deploy-and-configure/preconfigure-at-install#linux-with-systemd) |
-| Alpine and other OpenRC systems | [`/etc/conf.d/orb`](/docs/deploy-and-configure/preconfigure-at-install#alpine-linux-and-other-openrc-systems) |
-| OpenWrt, GL.iNet | [`/etc/config/orb`](/docs/deploy-and-configure/preconfigure-at-install#openwrt) |
-| Docker, Synology, QNAP, Firewalla, Proxmox | [container `environment:`](/docs/deploy-and-configure/preconfigure-at-install#docker) |
-| Podman | [quadlet `Environment=`](/docs/deploy-and-configure/preconfigure-at-install#podman) |
-| Windows | [service registry key or installer flag](/docs/deploy-and-configure/preconfigure-at-install#windows) |
-| macOS | [MDM profile, or a token file for Homebrew](/docs/deploy-and-configure/preconfigure-at-install#macos) |
-| MikroTik RouterOS | [app environment settings](/docs/deploy-and-configure/preconfigure-at-install#mikrotik-routeros) |
-| Cisco IOx | [`package.yaml`](/docs/deploy-and-configure/preconfigure-at-install#cisco-iox) |
+| Ubuntu, Debian, RHEL/Fedora/CentOS, Arch | [`/etc/default/orb`](/docs/setup-sensor/linux#pre-configure-orb) |
+| Raspberry Pi OS | [`/etc/default/orb`](/docs/setup-sensor/raspberry-pi#step-4-pre-configure-orb-optional-) |
+| Alpine and other OpenRC systems | [`/etc/conf.d/orb`](/docs/setup-sensor/linux/alpine#pre-configure-orb) |
+| OpenWrt | [`/etc/config/orb`](/docs/setup-sensor/linux/openwrt#step-2-pre-configure-orb-optional-) |
+| Docker | [container `environment:`](/docs/setup-sensor/docker#pre-configure-orb-optional-) |
+| Podman | [quadlet `Environment=`](/docs/setup-sensor/podman#pre-configure-orb-optional-) |
+| Windows | [service registry key or installer flag](/docs/setup-sensor/windows#using-deployment-tokens) |
+| macOS | [MDM profile, or a token file for Homebrew](/docs/setup-sensor/macos#linking-with-a-deployment-token) |
+| MikroTik RouterOS | [app environment settings](/docs/setup-sensor/mikrotik#step-4-install-and-configure-orb) |
+| Cisco IOx | [`package.yaml`](/docs/setup-sensor/cisco/ioxclient#step-3-create-the-package-descriptor) |
+
+Synology, QNAP, Firewalla, Proxmox, UniFi routers, and WLAN Pi are covered there too.
 
 :::warning
 As macOS apps run in restricted sandboxes, they do not have access to your shell environment. Therefore, using an environment variable does not function for the macOS app. The Orb macOS binary, Docker images, and Homebrew install options all support environment variables.
@@ -108,7 +111,7 @@ echo "orb-dt1-yourdeploymenttoken678" > ~/.config/orb/deployment_token.txt
 
 Ensure you replace the deployment token and specify the correct configuration directory for your system. Orb will utilize the Deployment Token in the text file on the next run.
 
-Note that the file must live in the configuration directory of the user the Orb *service* runs as, which is often not your own user. This is the recommended approach on platforms with no service environment file, such as [FreeBSD](/docs/deploy-and-configure/preconfigure-at-install#freebsd) and [Homebrew on macOS](/docs/deploy-and-configure/preconfigure-at-install#macos).
+Note that the file must live in the configuration directory of the user the Orb *service* runs as, which is often not your own user. This is the recommended approach on platforms with no service environment file, such as [FreeBSD](/docs/setup-sensor/freebsd#using-deployment-tokens) and [Homebrew on macOS](/docs/setup-sensor/macos#linking-with-a-deployment-token).
 
 ### Using MDM
 

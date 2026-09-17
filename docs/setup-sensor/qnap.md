@@ -54,6 +54,23 @@ The Orb sensor requires host network mode to function properly:
 5. Select **Apply**.
 6. This allows the container to access your network directly.
 
+## Pre-configure Orb (Optional)
+
+Setting a [Deployment Token](/docs/deploy-and-configure/deployment-tokens) here, before the container first starts, means the sensor links itself to your Orb Space automatically — you can skip Step 5 entirely.
+
+1. Still in **Advanced Settings**, click **Environment** in the left-hand side menu
+2. Add a variable named `ORB_DEPLOYMENT_TOKEN` with your token as the value
+3. Get the token from the [Orchestration](https://cloud.orb.net/orchestration) section of Orb Cloud
+4. Select **Apply**
+
+Add any other [configuration](/docs/deploy-and-configure/configuration) option the same way, one variable per row.
+
+If the container is already running, add the variable and restart the container to apply it.
+
+:::tip
+See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) for the equivalent on other platforms and for what else is worth setting before first start.
+:::
+
 ## Step 4: Start the Container
 
 Now you're ready to launch the Orb sensor:
@@ -64,11 +81,9 @@ Now you're ready to launch the Orb sensor:
 
 ## Step 5: Link Your Orb to Your Account
 
-:::tip
-You can skip this step by adding `ORB_DEPLOYMENT_TOKEN` to the container's environment variables in Container Station before starting it — the sensor then links itself to your Orb Space on first start. See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install).
-:::
+If you set a Deployment Token in [Pre-configure Orb](#pre-configure-orb-optional-) above, your sensor has already linked itself — confirm it on the [Status](https://cloud.orb.net/status) page in Orb Cloud and you're done.
 
-The final step is to link your new Orb sensor to your account:
+Otherwise, the final step is to link your new Orb sensor to your account:
 
 1. Open the Orb app on your mobile device or computer.
 2. Your new Orb sensor should be automatically detected on your local network.
