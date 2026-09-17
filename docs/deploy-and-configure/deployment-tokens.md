@@ -37,6 +37,10 @@ Deployment Tokens can be utilized to easily link Orbs to your Space and ensure t
 4. [Utilizing Mobile Device Management (MDM) tools for Windows and macOS](/docs/deploy-and-configure/deployment-tokens#using-mdm)
 
 :::tip
+Setting a token before the Orb ever starts is the recommended way to deploy sensors at scale. For the exact usage on each platform, see [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install).
+:::
+
+:::info
 If you are using Orb as an individual with a handful of Orbs to manage, Deployment Tokens are not necessary for Linking or Configuration, as you may use other options such as logging into the application, discovery from another logged in Orb application, or using the CLI. See [Linking an Orb to your account](/docs/orb-app/linking-orb-to-account) for more details.
 :::
 
@@ -63,26 +67,35 @@ Your Orb is now linked to your Space! If you receive an error, the Orb is likely
 
 The environment variable `ORB_DEPLOYMENT_TOKEN` can be used to set the Deployment Token and link an Orb with your Space.
 
-:::warning
-As macOS apps run in restricted sandboxes, they do not have access to your shell environment. Therefore, using an environment variable does not function for the macOS app. The Orb macOS binary, Docker images, and Homebrew install options all support environment variables.
-:::
-
 You can simply insert the environment variable before running `orb sensor`:
 
 ```bash
 ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678 orb sensor
 ```
 
-Alternatively, you can export the environment variable to make it available to your shell and Orb.
+:::warning
+This only works when you launch the sensor yourself. In most real deployments Orb runs as a service, and service managers do not inherit your shell environment. Setting the variable in your shell or exporting it from `.bashrc` will have no effect on the running Orb. The variable has to go in the config file that your platform's service reads.
+:::
 
-```bash
-export ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678
-```
+**[Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install)** lists that file for every supported platform:
 
-Adding this line to your shell's configuration is outside of the scope of this document.
+| Platform | Where `ORB_DEPLOYMENT_TOKEN` goes |
+| -------- | --------------------------------- |
+| Ubuntu, Debian, RHEL/Fedora/CentOS, Arch | [`/etc/default/orb`](/docs/setup-sensor/linux#pre-configure-orb) |
+| Raspberry Pi OS | [`/etc/default/orb`](/docs/setup-sensor/raspberry-pi#step-4-pre-configure-orb-optional-) |
+| Alpine and other OpenRC systems | [`/etc/conf.d/orb`](/docs/setup-sensor/linux/alpine#pre-configure-orb) |
+| OpenWrt | [`/etc/config/orb`](/docs/setup-sensor/linux/openwrt#step-2-pre-configure-orb-optional-) |
+| Docker | [container `environment:`](/docs/setup-sensor/docker#pre-configure-orb-optional-) |
+| Podman | [quadlet `Environment=`](/docs/setup-sensor/podman#pre-configure-orb-optional-) |
+| Windows | [service registry key or installer flag](/docs/setup-sensor/windows#using-deployment-tokens) |
+| macOS | [MDM profile, or a token file for Homebrew](/docs/setup-sensor/macos#linking-with-a-deployment-token) |
+| MikroTik RouterOS | [app environment settings](/docs/setup-sensor/mikrotik#step-4-install-and-configure-orb) |
+| Cisco IOx | [`package.yaml`](/docs/setup-sensor/cisco/ioxclient#step-3-create-the-package-descriptor) |
 
-:::tip
-If you're unsure how to add ORB_DEPLOYMENT_TOKEN to your shell's configuration file and source it, an AI chatbot can walk you through this task.
+Synology, QNAP, Firewalla, Proxmox, UniFi routers, and WLAN Pi are covered there too.
+
+:::warning
+As macOS apps run in restricted sandboxes, they do not have access to your shell environment. Therefore, using an environment variable does not function for the macOS app. The Orb macOS binary, Docker images, and Homebrew install options all support environment variables.
 :::
 
 ### Using a .txt file
@@ -97,6 +110,8 @@ echo "orb-dt1-yourdeploymenttoken678" > ~/.config/orb/deployment_token.txt
 ```
 
 Ensure you replace the deployment token and specify the correct configuration directory for your system. Orb will utilize the Deployment Token in the text file on the next run.
+
+Note that the file must live in the configuration directory of the user the Orb *service* runs as, which is often not your own user. This is the recommended approach on platforms with no service environment file, such as [FreeBSD](/docs/setup-sensor/freebsd#using-deployment-tokens) and [Homebrew on macOS](/docs/setup-sensor/macos#linking-with-a-deployment-token).
 
 ### Using MDM
 

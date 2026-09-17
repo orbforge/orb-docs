@@ -72,6 +72,7 @@
 - [Datasets](/docs/deploy-and-configure/datasets.md)
 - [Local Analytics](/docs/deploy-and-configure/local-analytics.md)
 - [Deployment Tokens](/docs/deploy-and-configure/deployment-tokens.md)
+- [Pre-configure at install](/docs/deploy-and-configure/preconfigure-at-install.md)
 - [MDM](/docs/deploy-and-configure/mdm)
 - [Guest Orbs](/docs/deploy-and-configure/guest-orbs)
 - [Endpoints & Engines](/docs/deploy-and-configure/endpoints)

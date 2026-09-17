@@ -13,6 +13,15 @@ An Orb sensor is the Orb software that continuously monitors your network connec
 
 The Orb app can be installed on phones, tablets, or computers and runs an Orb sensor while active. However, for continuous monitoring, we recommend setting up a dedicated device (like a Raspberry Pi or a spare phone) that runs an Orb sensor 24/7. You can access the information from this device through any Orb app.
 
+## Before you install: pre-configure and link
+
+Orb sensors work best when linked to your Orb Cloud Space for central viewing and management. You have two good options to link sensors:
+
+- **A simple home network, one or two Orbs** — install first, then link from the Orb app on the same network. Each install guide below ends with these steps.
+- **Anything else** — put a [Deployment Token](/docs/deploy-and-configure/deployment-tokens) in place *before* the sensor first starts, and it links itself with the right configuration and tags already applied. This is the recommended path for remote sites, fleets, and any device you won't have hands on.
+
+[Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) shows exactly which config file to use on each platform. [Linking an Orb to your account](/docs/orb-app/linking-orb-to-account) covers every linking method.
+
 ## Choosing the Right Device
 
 The best sensor device for you depends on your specific needs:

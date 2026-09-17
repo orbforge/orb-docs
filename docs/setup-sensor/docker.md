@@ -128,6 +128,25 @@ Otherwise, read on!
     - `wud`: (Optional but recommended) Defines the WUD service to automatically update the Orb container when new images are published.
     - `volumes: orb-data:`: Declares the named volume used by the `orb-docker` service.
 
+## Pre-configure Orb (Optional)
+
+Adding a [Deployment Token](/docs/deploy-and-configure/deployment-tokens) to the container's environment before you start it means the sensor links itself to your Orb Space on first start — no discovery step, no CLI, and it works regardless of what network the host is on.
+
+Uncomment the `environment:` block in the compose file above and add your token:
+
+```yaml
+    environment:
+      - ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678
+```
+
+Get your token from the [Orchestration](https://cloud.orb.net/orchestration) section of Orb Cloud. Any other [configuration](/docs/deploy-and-configure/configuration) option goes in the same block — `ORB_EPHEMERAL_MODE=1` and `ORB_FIRSTHOP_DISABLED=1` are common on router and NAS hardware.
+
+If the container is already running, `docker-compose up -d` recreates it with the new environment.
+
+:::tip
+See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) for the equivalent on other platforms and for what else is worth setting before first start.
+:::
+
 ## Step 2: Start the Orb Container
 
 1. Make sure you are still in the directory containing your `docker-compose.yml` file in your terminal.
@@ -155,6 +174,8 @@ Depending on your Docker version, you may need to use "`docker compose`" rather 
     ```
 
 ## Step 3: Link your new Orb sensor
+
+If you set a Deployment Token in [Pre-configure Orb](#pre-configure-orb-optional-) above, the sensor has already linked itself — confirm it on the [Status](https://cloud.orb.net/status) page in Orb Cloud and skip the rest of this step.
 
 ### Device on the same network
 
