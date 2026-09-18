@@ -82,7 +82,7 @@ See [Remote Configuration](/docs/deploy-and-configure/configuration#remote-confi
 
 ## System Telemetry
 
-Unlike other Datasets, [System Telemetry](/docs/deploy-and-configure/datasets#system-telemetry) is not polled unless explicitly enabled.
+[System Telemetry](/docs/deploy-and-configure/datasets#system-telemetry) is enabled by default with a 1 second poll rate.
 
 :::warning
 This feature is experimental, and not yet intended for production environments. We appreciate your testing and feedback. Please use our [Help & Support](https://orb.net/support) page or [Discord](https://discord.gg/orbforge) to report issues and ask questions.
@@ -94,7 +94,8 @@ Changes will be made under the "Advanced" tab in the "Edit Configuration" screen
 
 **Poll Interval (`collectors.system_telemetry.poll_interval`)**
 - Controls how often the device is polled, and enables/disables collection entirely
-- Set to `0` to disable (the default)
+- Defaults to `1s` (1 second)
+- Set to `0` to disable
 - Minimum value: `1s` (1 second)
 - Maximum value: `1m` (1 minute)
 - Format: Duration string (e.g., `1s`, `10s`, `1m`)
