@@ -84,11 +84,7 @@ See [Remote Configuration](/docs/deploy-and-configure/configuration#remote-confi
 
 [System Telemetry](/docs/deploy-and-configure/datasets#system-telemetry) is enabled by default with a 1 second poll rate.
 
-:::warning
-This feature is experimental, and not yet intended for production environments. We appreciate your testing and feedback. Please use our [Help & Support](https://orb.net/support) page or [Discord](https://discord.gg/orbforge) to report issues and ask questions.
-:::
-
-To enable System Telemetry and set its poll rate, visit the Orb Cloud [Status](https://cloud.orb.net/status) or [Orchestration](https://cloud.orb.net/orchestration) sections to edit the configuration for an individual Orb, or in-bulk via *Configurations*, respectively. If this is your first time configuring an Orb remotely, see the [Remote Configuration documentation](/docs/deploy-and-configure/configuration#remote-configuration).
+To disable System Telemetry or change its poll rate, visit the Orb Cloud [Status](https://cloud.orb.net/status) or [Orchestration](https://cloud.orb.net/orchestration) sections to edit the configuration for an individual Orb, or in-bulk via *Configurations*, respectively. If this is your first time configuring an Orb remotely, see the [Remote Configuration documentation](/docs/deploy-and-configure/configuration#remote-configuration).
 
 Changes will be made under the "Advanced" tab in the "Edit Configuration" screen.
 

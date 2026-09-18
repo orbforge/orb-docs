@@ -290,10 +290,6 @@ Note: On iOS, Wi-Fi data is available via an optional iOS Shortcut (as of versio
 
 The System Telemetry Dataset reports the host device's own CPU, memory, swap, and disk utilization, plus the resource usage of the Orb sensor process itself (`orb_*` fields).
 
-:::warning
-This feature is experimental, and not yet intended for production environments. We appreciate your testing and feedback. Please use our [Help & Support](https://orb.net/support) page or [Discord](https://discord.gg/orbforge) to report issues and ask questions.
-:::
-
 System Telemetry is **enabled by default** with a 1 second poll rate — see [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration#system-telemetry) to adjust the poll rate or disable it. Unlike other datasets, records are not persisted to local storage — only the most recent buffer of samples is retained in memory, available via [Orb Local Analytics](/docs/deploy-and-configure/local-analytics) and MCP.
 
 System Telemetry is currently only available on Windows, Linux, and macOS. It is not supported on Android or iOS.
