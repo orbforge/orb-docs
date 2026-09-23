@@ -142,8 +142,8 @@ Web Responsiveness measurements are conducted once per minute by default. Theref
 | **measures**      |                                                                                                                                                                                           |         |
 | `ttfb_us`         | Time to First Byte loading a web page in microseconds (MAX 5000000 at which point considered “unresponsive”)                                                                              | integer |
 | `dns_us`          | DNS resolver response time in microseconds (MAX 5000000 at which point the lag considered “unresponsive”)                                                                                 | integer |
-| `dns_resolver`    | IP address of the DNS resolver that answered (masked unless identifiable=true)                                                                                                            | string  |
-| `dns_failed_resolvers` | List (CSV) of DNS resolver IP addresses that failed to answer (masked unless identifiable=true)                                                                             | string  |
+| `dns_resolver`    | IP address of the DNS resolver that answered (masked unless identifiable=true). Not included on iOS, Android, or when no DNS query was sent | string  |
+| `dns_failed_resolvers` | List (CSV) of DNS resolver IP addresses that were tried and failed to answer, in order tried (masked unless identifiable=true). Only included when a retry or failover occurred | string  |
 | `server_pop`      | Point of presence (edge location) of the server that responded to the web test. Typically a 3-letter IATA airport code (e.g. `SJC`). Omitted if unavailable | string  |
 | **dimensions**    |                                                                                                                                                                                           |         |
 | `bssid` | Access point MAC address (masked unless identifiable=true) | string |
