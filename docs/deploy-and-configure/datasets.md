@@ -142,6 +142,8 @@ Web Responsiveness measurements are conducted once per minute by default. Theref
 | **measures**      |                                                                                                                                                                                           |         |
 | `ttfb_us`         | Time to First Byte loading a web page in microseconds (MAX 5000000 at which point considered “unresponsive”)                                                                              | integer |
 | `dns_us`          | DNS resolver response time in microseconds (MAX 5000000 at which point the lag considered “unresponsive”)                                                                                 | integer |
+| `dns_resolver` | IP address of the DNS server that answered the lookup (not included on iOS, Android, or when no DNS query was sent) | string |
+| `dns_failed_resolvers` | Comma-separated DNS server IPs that were tried and did not respond before the lookup succeeded, in order tried (only included when a retry or failover occurred) | string |
 | **dimensions**    |                                                                                                                                                                                           |         |
 | `bssid` | Access point MAC address (masked unless identifiable=true) | string |
 | `mac_address` | Client MAC address (masked unless identifiable=true) | string |
@@ -160,6 +162,7 @@ Web Responsiveness measurements are conducted once per minute by default. Theref
 | `measure_endpoint` | Measurement endpoint URL or IP address (only included when configured for Orb-to-Orb testing)                                                                                          | string  |
 | `measure_endpoint_name` | Human-readable name of the measurement endpoint (only included when configured for Orb-to-Orb testing)                                                                           | string  |
 | `web_url`         | URL endpoint for web test                                                                                                                                                                 | string  |
+| `server_pop` | Point of presence (edge location) of the web test server, when it can be determined from the server's response (e.g. `SEA`) | string |
 
 ## Speed
 
@@ -203,6 +206,7 @@ Content speed measurements are conducted once per hour by default. Therefore, ra
 | `measure_endpoint_name` | Human-readable name of the measurement endpoint (only included when configured for Orb-to-Orb testing)                                                                              | string  |
 | `speed_test_engine` | Testing engine<br>`-1: unknown`<br>`0: orb`<br>`1: iperf`<br>`2: wave`                                                                                                                   | integer |
 | `speed_test_server` | Server URL or identifier                                                                                                                                                                  | string  |
+| `server_pop` | Point of presence (edge location) of the speed test server, if reported by the server (e.g. `SEA`) | string |
 
 
 ## Wi-Fi
