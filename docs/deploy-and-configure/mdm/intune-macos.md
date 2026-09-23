@@ -422,7 +422,6 @@ Allow by **Team ID** `YL5R46QP4A` rather than by file hash, which changes with e
 | `remoteconfig.json` | Local copy of the configuration pushed from Orb Cloud. | No |
 | `orbstore/filestore/` | Local measurement database. It holds `catalog.json`, a `filestore.lock`, and one folder per dataset (for example `scores_1m`, `responsiveness_1s`, `wifi_link_1m`, `speed_results`), partitioned by day into `.jsonl` files that are compressed to `.jsonl.gz`. Written continuously. | No |
 | `logs/orb_YYYY-MM-DD.log` | Daily sensor log, one JSON object per line. | No |
-| `sensor.lock` | Stops a second sensor instance from starting for the same user. | No |
 
 Each user who logs in gets their own `~/.config/orb`, and so their own identity. A Mac shared by several users can therefore appear in your Space once per user.
 
