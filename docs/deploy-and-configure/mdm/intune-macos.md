@@ -14,6 +14,7 @@ This guide walks you through deploying the Orb **sensor** to a macOS fleet using
 3. Allowing the sensor's background item so it starts at login
 4. Adding the package as a macOS PKG app, and assigning it
 5. Verifying, controlling updates, and uninstalling
+6. The files and processes to allow-list in endpoint security tools
 
 Requirements:
 
@@ -369,6 +370,73 @@ Removing `~/.config/orb` discards the Orb's identity, so a later installation en
 Also remove the configuration profile assignment, so the Deployment Token is withdrawn from the device.
 
 Lastly, login to Orb Cloud, select the Orb, and select "Remove device" to ensure the Orb license is reclaimed.
+
+## Files and processes for endpoint security
+
+Use this section to allow-list the Orb sensor in antivirus, EDR and data loss prevention tools. It describes what the package installs and what the sensor writes while it runs.
+
+### Code signing
+
+| Item | Signed by |
+|---|---|
+| The `.pkg` | `Developer ID Installer: Orb Forge Inc. (YL5R46QP4A)` |
+| `Orb Sensor.app` (bundle ID `net.orb.sensor`) | `Developer ID Application: Orb Forge Inc. (YL5R46QP4A)` |
+
+Allow by **Team ID** `YL5R46QP4A` rather than by file hash, which changes with every release. The same Team ID is what the [Service Management profile](#allow-the-sensor-s-background-item) uses.
+
+### Processes
+
+| Process | Runs as | When |
+|---|---|---|
+| `/Applications/Orb Sensor.app/Contents/MacOS/orb-sensor --background` | The logged-in user, from the LaunchAgent `net.orb.sensor` | Continuously, in each GUI session. launchd restarts it if it exits abnormally. |
+| `/bin/bash "/Library/Application Support/Orb/updater.sh"` | `root`, from the LaunchDaemon `net.orb.updater` | Once a day. It calls `curl`, `pkgutil`, `spctl` and `installer`, and only runs `installer` when a newer release is available. |
+
+### Files
+
+**Installed by the package**, owned by `root`:
+
+| Path | Purpose |
+|---|---|
+| `/Applications/Orb Sensor.app` | The sensor. |
+| `/usr/local/bin/orb` | Symlink to the sensor binary, for use as a command-line tool. Created by the post-install script. |
+| `/Library/LaunchAgents/net.orb.sensor.plist` | Starts the sensor in each user's GUI session. |
+| `/Library/LaunchDaemons/net.orb.updater.plist` | Runs the updater daily as `root`. |
+| `/Library/Application Support/Orb/updater.sh` | Self-updater. It downloads from `https://pkgs.orb.net/stable/macos/` and installs a release only if its SHA-256 matches, it is signed by the Developer ID Installer identity above, it passes Gatekeeper, and its package ID and version match the release. |
+| `/Library/Application Support/Orb/updater.lock` | Stops two updater runs from overlapping. Created the first time the updater runs, which is a day after installation. |
+| `/Library/Logs/Orb/updater.log`, `updater-error.log` | Updater output. |
+
+**Configuration**, written by macOS or an administrator rather than the package:
+
+| Path | Purpose | Sensitive |
+|---|---|---|
+| `/Library/Managed Preferences/net.orb.orb.plist` | Written by macOS from your [configuration profile](#deploy-the-configuration-profile-first). Contains your Deployment Token. macOS makes this file readable by every account on the Mac (`0644`, owned by `root`). | **Yes** |
+| `/Library/Preferences/net.orb.plist` | Optional. Read by the post-install script for installation settings. | No |
+
+**Per-user data**, in `~/.config/orb`. The sensor writes this folder as the logged-in user. The folder is `0700` and its files are `0600`, so other accounts on the Mac cannot read it.
+
+| Path | Purpose | Sensitive |
+|---|---|---|
+| `private.key` | The Orb's private key (ECC, PEM). This is the device's identity in Orb Cloud. | **Yes** |
+| `certificate.crt` | Client certificate for that key, issued by *Orb Intermediate CA*. Short-lived and renewed automatically, so expect this file to be rewritten regularly. | No |
+| `deployment_token.txt` | Not created on an Intune deployment, which delivers the token through managed preferences. The sensor reads it if someone creates it by hand. | **Yes** |
+| `remoteconfig.json` | Local copy of the configuration pushed from Orb Cloud. | No |
+| `orbstore/filestore/` | Local measurement database. It holds `catalog.json`, a `filestore.lock`, and one folder per dataset (for example `scores_1m`, `responsiveness_1s`, `wifi_link_1m`, `speed_results`), partitioned by day into `.jsonl` files that are compressed to `.jsonl.gz`. Written continuously. | No |
+| `logs/orb_YYYY-MM-DD.log` | Daily sensor log, one JSON object per line. | No |
+| `sensor.lock` | Stops a second sensor instance from starting for the same user. | No |
+
+Each user who logs in gets their own `~/.config/orb`, and so their own identity. A Mac shared by several users can therefore appear in your Space once per user.
+
+**Updater working files:**
+
+| Path | Purpose |
+|---|---|
+| `/private/tmp/net.orb.updater.XXXXXX/` | Created for each update check, readable only by `root`. Holds the downloaded package and its checksum. Removed when the run ends. |
+
+### Recommendations
+
+- **Treat `private.key` and the managed preferences file as secrets.** Anyone who has them can impersonate this Orb, or link a device to your Space. Keep them out of backups and support bundles that leave the device, and rotate the token in [Orchestration](https://cloud.orb.net/orchestration) if it leaks.
+- **Exclude `~/.config/orb/orbstore` from real-time scanning** if scanning causes high CPU. The sensor writes many small files there continuously. Leave the rest of `~/.config/orb` monitored.
+- **Do not quarantine or block `updater.sh`** while the sensor updates itself. A blocked updater leaves the Mac on its installed version and logs a failure every day.
 
 ## Troubleshooting
 

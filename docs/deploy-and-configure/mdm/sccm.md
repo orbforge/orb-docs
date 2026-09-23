@@ -13,6 +13,7 @@ This guide walks you through deploying Orb across a Windows fleet using Microsof
 2. Building the content source and keeping your Deployment Token out of logs
 3. Creating the Application and its deployment type
 4. Deploying, verifying, updating and uninstalling
+5. The files and processes to allow-list in endpoint security tools
 
 Requirements:
 
@@ -323,6 +324,78 @@ When you decommission or repurpose a device, remove `C:\ProgramData\Orb` as well
 msiexec /x {ProductCode} /q PURGEDATA=1
 ```
 :::
+
+## Files and processes for endpoint security
+
+Use this section to allow-list the Orb sensor in antivirus, EDR, application control (AppLocker, WDAC) and data loss prevention tools. It describes what the sensor MSI installs and what the sensor writes while it runs. It covers the sensor only, not the Orb app.
+
+### Code signing
+
+The MSI, `Orb.exe` and `update.ps1` are all Authenticode-signed with Orb Forge's EV code-signing certificate:
+
+| Field | Value |
+|---|---|
+| Subject | `CN=Orb Forge Inc, O=Orb Forge Inc, SERIALNUMBER=7541876, L=Wilmington, S=Delaware, C=US` |
+| Issuer | `CN=SSL.com EV Code Signing Intermediate CA RSA R3, O=SSL Corp` |
+
+Allow by **publisher** (`O=Orb Forge Inc`) rather than by file hash or certificate thumbprint. The hash changes with every release and the thumbprint changes each time the certificate is renewed. The subject stays the same.
+
+### Processes
+
+| Process | Runs as | When |
+|---|---|---|
+| `C:\Program Files\Orb Sensor\Orb.exe windowsservice` | `LocalSystem` (service `Orb`) | Continuously, from boot. Restarts itself 60 seconds after a failure. Starts no child processes. |
+| `powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "C:\Program Files\Orb Sensor\update.ps1"` | `SYSTEM`, from the scheduled task **Orb Sensor Update** | Every 4 hours, only when installed with `AUTOUPDATE=1`. |
+| `msiexec.exe /i <downloaded MSI> /qn /norestart` | `SYSTEM` | Only when `update.ps1` finds a newer release. It starts `msiexec` through WMI (`Win32_Process.Create`) so the upgrade survives removal of the task it runs under. EDR tools that flag WMI process creation will report this. |
+
+During installation and uninstallation, Windows Installer also runs the package's custom-action DLLs from `C:\Windows\Installer\MSI*.tmp`, and calls `schtasks.exe` and `netsh.exe` to manage the update task and remove legacy firewall rules.
+
+### Files
+
+**Program files**, installed and removed by the MSI:
+
+| Path | Purpose |
+|---|---|
+| `C:\Program Files\Orb Sensor\Orb.exe` | The sensor service and the `orb` command-line tool. |
+| `C:\Program Files\Orb Sensor\update.ps1` | Self-updater. Installed every time, but only scheduled when `AUTOUPDATE=1`. It checks `HKLM\SOFTWARE\Orb\Sensor\AutoUpdate` on each run and exits if updates are off. |
+
+**Data**, in `C:\ProgramData\Orb`. The service writes these files as `SYSTEM`. The folder is kept on uninstall unless you pass `PURGEDATA=1`.
+
+| Path | Purpose | Sensitive |
+|---|---|---|
+| `deployment_token.txt` | Your Deployment Token. Written by the MSI during installation from `DEPLOYMENTTOKEN` or `DEPLOYMENTTOKENFILE`, and read by the service to link to your Space. | **Yes** |
+| `private.key` | The Orb's private key (ECC, PEM). This is the device's identity in Orb Cloud. | **Yes** |
+| `certificate.crt` | Client certificate for that key, issued by *Orb Intermediate CA*. Valid for 7 days and renewed automatically, so expect this file to be rewritten about once a week. | No |
+| `remoteconfig.json` | Local copy of the configuration pushed from Orb Cloud. | No |
+| `orbstore\filestore\` | Local measurement database. It holds `catalog.json`, a `filestore.lock`, and one folder per dataset (for example `scores_1m`, `responsiveness_1s`, `speed_results`), partitioned by day into `.jsonl` files that are compressed to `.jsonl.gz`. Written continuously. | No |
+| `spool\` | Queue for results that are waiting to be sent to Orb Cloud. | No |
+| `logs\orb_YYYY-MM-DD.log` | Daily sensor log, one JSON object per line. | No |
+
+On a test device, the folder grew to about 70 MB in its first day.
+
+**Updater working files**, only present when `AUTOUPDATE=1`:
+
+| Path | Purpose |
+|---|---|
+| `C:\Windows\Temp\OrbSensorUpdate-<random>\` | Created for each update check, accessible only to `SYSTEM` and Administrators. Holds the downloaded MSI, `update.log` and `msiexec.log`. Folders older than 7 days are removed on the next run. |
+
+The updater downloads only from `https://pkgs.orb.net/stable/windows/latest/` (`version.txt` and `orb-sensor-amd64.msi`). It refuses to install any file whose Authenticode signature does not match the subject above.
+
+### Registry, firewall and scheduled task
+
+| Item | Purpose |
+|---|---|
+| `HKLM\SYSTEM\CurrentControlSet\Services\Orb` | The service definition. |
+| `HKLM\SOFTWARE\Orb\Sensor` | `Version` and `AutoUpdate`, read by `update.ps1`. `LegacyCleanup` marks that a scripted installation was migrated. |
+| `HKLM\SOFTWARE\Orb\Sensor\Environment` | The [configuration properties](#configuration-properties) you set on the MSI, kept here so they survive upgrades. |
+| Firewall rule **Orb Sensor** | Inbound, all profiles, for `Orb.exe` only. The sensor listens on TCP `7080` (the [local Data API](/docs/deploy-and-configure/datasets-configuration)) and TCP/UDP `7443` (the [measurement endpoint](/docs/deploy-and-configure/endpoints)). |
+| Scheduled task **Orb Sensor Update** | Present only with `AUTOUPDATE=1`. Runs `update.ps1` as `SYSTEM` every 4 hours. |
+
+### Recommendations
+
+- **Treat `deployment_token.txt` and `private.key` as secrets.** Anyone who has them can link a device to your Space, or impersonate this Orb. Keep them out of backups and support bundles that leave the device, and rotate the token in [Orchestration](https://cloud.orb.net/orchestration) if it leaks.
+- **Exclude `C:\ProgramData\Orb\orbstore` from real-time scanning** if scanning causes high CPU. The sensor writes many small files there continuously. Leave the rest of `C:\ProgramData\Orb` monitored.
+- **Do not quarantine or block `update.ps1`** on devices where you install with `AUTOUPDATE=1`. If Configuration Manager manages versions, leave `AUTOUPDATE` at `0` and the script never runs.
 
 ## Troubleshooting
 
