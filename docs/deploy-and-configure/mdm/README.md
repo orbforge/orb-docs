@@ -11,7 +11,8 @@ A common use case for Orb Cloud is to install Orb across employee laptops or poi
 
 Walk-through guides are available for:
 
-* [Microsoft Intune](/docs/deploy-and-configure/mdm/intune)
+* [Microsoft Intune (Windows)](/docs/deploy-and-configure/mdm/intune)
+* [Microsoft Intune (macOS sensor)](/docs/deploy-and-configure/mdm/intune-macos)
 * [Microsoft Configuration Manager (SCCM)](/docs/deploy-and-configure/mdm/sccm)
 * [Jamf Pro](/docs/deploy-and-configure/mdm/jamf-pro)
 * [Mosyle](/docs/deploy-and-configure/mdm/mosyle)

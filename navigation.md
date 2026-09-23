@@ -74,6 +74,7 @@
 - [Deployment Tokens](/docs/deploy-and-configure/deployment-tokens.md)
 - [MDM](/docs/deploy-and-configure/mdm)
 - [Microsoft Intune](/docs/deploy-and-configure/mdm/intune.md)
+- [Microsoft Intune (macOS sensor)](/docs/deploy-and-configure/mdm/intune-macos.md)
 - [Microsoft Configuration Manager](/docs/deploy-and-configure/mdm/sccm.md)
 - [Jamf Pro](/docs/deploy-and-configure/mdm/jamf-pro.md)
 - [Mosyle](/docs/deploy-and-configure/mdm/mosyle.md)
