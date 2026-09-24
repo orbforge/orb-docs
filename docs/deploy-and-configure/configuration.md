@@ -25,6 +25,7 @@ The following environment variables can be set:
 | `ORB_DEVICE_NAME_OVERRIDE` | Sets this Orb's name which appears in Orb apps and Orb Cloud | `ORB_DEVICE_NAME_OVERRIDE=MyDeviceName` | 1.4.1 |
 | `ORB_MEASURE_SERVER_ENABLED` | Enables the Orb to act as a server for speed and responsiveness testing | `ORB_MEASURE_SERVER_ENABLED=1` | 1.4.10 |
 | `ORB_MEASURE_SERVER_PORT` | Set the port for the Orb measurement server | `ORB_MEASURE_SERVER_PORT=8080` | 1.4.10 |
+| `ORB_SERVER_POP` | Sets a point of presence description for the Orb measurement server, reported to Orbs running Orb-to-Orb measurements against it. By convention, the nearest 3-character airport code, but any short string works | `ORB_SERVER_POP=sea` | 1.6.0 |
 
 ## Remote Configuration
 
