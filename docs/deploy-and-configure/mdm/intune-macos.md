@@ -389,7 +389,7 @@ Allow by **Team ID** `YL5R46QP4A` rather than by file hash, which changes with e
 | Process | Runs as | When |
 |---|---|---|
 | `/Applications/Orb Sensor.app/Contents/MacOS/orb-sensor --background` | The logged-in user, from the LaunchAgent `net.orb.sensor` | Continuously, in each GUI session. launchd restarts it if it exits abnormally. |
-| `/bin/bash "/Library/Application Support/Orb/updater.sh"` | `root`, from the LaunchDaemon `net.orb.updater` | Once a day. It calls `curl`, `pkgutil`, `spctl` and `installer`, and only runs `installer` when a newer release is available. |
+| `/bin/bash "/Library/Application Support/Orb/updater.sh"` | `root`, from the LaunchDaemon `net.orb.updater` | Once a day, unless the updater is disabled. It calls `curl`, `pkgutil`, `spctl` and `installer`, and only runs `installer` when a newer release is available. A disabled updater never runs, and none of these tools are called. |
 
 ### Files
 
@@ -421,6 +421,7 @@ Allow by **Team ID** `YL5R46QP4A` rather than by file hash, which changes with e
 | `deployment_token.txt` | Not created on an Intune deployment, which delivers the token through managed preferences. The sensor reads it if someone creates it by hand. | **Yes** |
 | `remoteconfig.json` | Local copy of the configuration pushed from Orb Cloud. | No |
 | `orbstore/filestore/` | Local measurement database. It holds `catalog.json`, a `filestore.lock`, and one folder per dataset (for example `scores_1m`, `responsiveness_1s`, `wifi_link_1m`, `speed_results`), partitioned by day into `.jsonl` files that are compressed to `.jsonl.gz`. Written continuously. | No |
+| `spool/` | Queue for results that are waiting to be sent to Orb Cloud. | No |
 | `logs/orb_YYYY-MM-DD.log` | Daily sensor log, one JSON object per line. | No |
 
 Each user who logs in gets their own `~/.config/orb`, and so their own identity. A Mac shared by several users can therefore appear in your Space once per user.
