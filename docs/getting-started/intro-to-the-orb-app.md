@@ -24,7 +24,7 @@ The Orb Summary is the first screen you'll see when opening the app. It provides
 - Timeframe selector to view performance over different periods of time
 - Compare Orb Scores across multiple Orbs linked to your account or found nearby
 
-<img src="../../images/orb-app/orb-summary-signed-in.png" alt="Orb Summary" width=60% style="margin-left: 2em;">
+<img src="../../images/orb-app/summary-view-2.png" alt="Orb Summary" width=60% style="margin-left: 2em;">
 
 ### Orb Detail View
 
@@ -35,27 +35,40 @@ Tap on any Orb card to access the detail view, which shows:
   - A score for each
   - Expand the card to view the metrics used to calculate each score
   - Expand the card to view graphical representations of the data
-- Content and peak speed tests that can be manually initiated at any time. Note: content speed tests run automatically once per hour and on app start by default. This can be disabled or configured to run less frequently by expanding the speed card and changing the settings.
+- Check speed score and initiate speed tests at any time. Note: speed score checks run automatically once per hour and on app start by default. This can be disabled or configured to run less frequently by expanding the speed card and changing the settings.
 - Timeframe selector to view performance over different periods of time
 
-<img src="../../images/orb-app/orb-detail-v2.png" alt="Orb Detail" width=60% style="margin-left: 2em;">
+<img src="../../images/orb-app/simple-detail-view-2.png" alt="Orb Detail" width=60% style="margin-left: 2em;">
 
-### Account Settings
+To access advanced detail view, toggle on the chart icon.
 
-Access your account settings by tapping on the gear icon in the top right corner.
+<img src="../../images/orb-app/detail-view-toggle.png" alt="Orb Detail Advanced View" width=100%>
+
+### Settings
+
+Access your app, notification, and account settings by tapping on the gear icon in the top right corner.
 
 - Manage your notification settings
 - Sign in and out of your account
+- Change your app settings
 - Reset password
 - Delete your account
 - Provide feedback or submit bug reports directly from the app
 
-<img src="../../images/orb-app/orb-account-menu-v2.png" alt="Orb Account" height=30% width=30% style="margin-left: 2em;">
+<img src="../../images/orb-app/account-app-settings.png" alt="Orb Account" height=30% width=30% style="margin-left: 2em;">
+
+Access individual Orb settings by tapping on the ... near the Orb name. Here you can:
+
+- Favorite an Orb
+- Link and an Orb to your account
+- Rename an Orb
+- Share your Orb Score
+- Advanced settings (example: change testing endpoint)
 
 ### Notifications
 
 Access your notifications by tapping the bell icon in the top right corner. When enabled, notifications will be catalogued here.
 
-<img src="../../images/orb-app/notifications.png" alt="notifications" height=20% width=30% style="margin-left: 2em;">
+<img src="../../images/orb-app/notifications-timeline-filters.png" alt="notifications" height=20% width=30% style="margin-left: 2em;">
 
-For more detailed information about specific features, check out the [Orb app](/docs/orb-app) section (coming soon!).
+For more detailed information about specific features, check out the [Orb app](/docs/orb-app) section.

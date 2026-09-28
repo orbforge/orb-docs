@@ -20,7 +20,7 @@ The Orb app consists of two key screens that you'll use to monitor your network:
 
 The Orb Summary is your home screen in the Orb app and provides an at-a-glance view of your network health.
 
-<img src="../../images/orb-app/orb-summary-signed-in.png" alt="Orb Summary" width=50% style="margin-left: 2em;">
+<img src="../../images/orb-app/summary-view-2.png" alt="Orb Summary" width=50% style="margin-left: 2em;">
 
 Key elements:
 
@@ -35,18 +35,22 @@ Key elements:
 - Orb sensor setting menu
 - Timeline selector for viewing different time periods
 - Access to all Orb sensors linked to your account
-- Orbs found on the network
+- Orbs found on the network (not linked)
 
-### Orb Detail
+### Orb Detail (Simple)
 
 Tapping on any Orb sensor card will launch the Orb detail screen, which provides in-depth information about that specific sensor.
 
-<img src="../../images/orb-app/orb-detail-v2.png" alt="Orb Detail" width=50% style="margin-left: 2em;">
+<img src="../../images/orb-app/simple-detail-view-2.png" alt="Orb Detail" width=50% style="margin-left: 2em;">
 
 Key elements: <br>
 In addition to the information above, the detail screen includes:
 
 - Detailed metrics across the following categories (expand cards to view):
+  - Connection details
+    - Wi-Fi Signal (Noise, Band, Channel, Signal-to-Noise, Transmit Rate)
+    - BSSID, Mac Address, PHY Mode, Security
+    - Operating System, Orb App Version, Orb Sensor Version, IP Address, Private IP, Network Endpoint
   - Responsiveness
     - Lag (ms) (best, worst, typical)
     - Latency (ms)
@@ -59,12 +63,73 @@ In addition to the information above, the detail screen includes:
     - % of time in the following states: responsive, laggy, unresponsive, inactive
     - Packet loss over time
   - Speed
-    - Content download speed (Mbps)
-    - Content upload speed (Mbps)
-    - Peak download speed (Mbps)
-    - Peak upload speed (Mbps)
-- Status message tailored to your internet experience
+    - Test speed (Full buffer download, upload throughput - Mbps)
+    - Check score (10 MB content download, upload - Mbps)
 - Improve Connection feature (when score is below 80)
+
+### Orb Detail (Advanced)
+
+Switch to **Advanced Detail view** using the view toggle in the upper-right corner of the Orb detail screen. Advanced view provides time-series charts and additional diagnostic information for troubleshooting changes in network performance.
+
+<img src="../../images/orb-app/detail-view-toggle.png" alt="Orb Detail Advanced View" width=100%>
+
+<img src="../../images/orb-app/advanced-detail-view.png" alt="Orb Detail Advanced View" width=100%>
+
+Key elements: <br>
+
+In addition to the information above, the advanced detail screen includes:
+
+- **Orb Score**
+  - Orb Score over time
+  - Responsiveness Score over time
+  - Reliability Score over time
+  - Speed Score over time
+
+- **Responsiveness**
+  - Detailed charts for both router and internet performance, including:
+    - Lag (ms)
+    - Latency (ms)
+    - Jitter (ms)
+    - Packet loss (%)
+  - Each chart includes summary values for the selected time range:
+    - Average or latest value
+    - Minimum
+    - Maximum
+
+- **Wi-Fi**
+  - Detailed Wi-Fi charts and connection information, including:
+    - Wi-Fi Signal
+    - Noise
+    - Transmit Rate
+    - SSID
+    - BSSID
+    - Channel
+    - Band
+    - Channel Width
+    - PHY Mode
+
+- **Nearby Wi-Fi Networks**
+  - Scan for nearby Wi-Fi networks directly from the detail screen
+  - View neighboring networks and compare:
+    - SSID
+    - Band
+    - Channel
+    - Signal strength
+  - Detect overlapping channel usage that may contribute to interference
+
+<img src="../../images/orb-app/advanced-detail-view-scan.png" alt="Nearby Wi-Fi Networks" width=100%>
+<img src="../../images/orb-app/advanced-detail-view-ap-scan-output.png" alt="Nearby Wi-Fi Networks" width=100%>
+
+- **Filters and chart highlights**
+  - Use activity filters to highlight periods associated with:
+    - Testing Speed
+    - Checking Speed Score
+    - Custom events/alerts based on rules
+  - Highlighted regions on the charts make it easier to correlate score or responsiveness changes with Orb activity
+
+<img src="../../images/orb-app/advanced-detail-view-filters.png" alt="Advanced View Filters" width=100%>
+
+<img src="../../images/orb-app/advanced-detail-view filtered-charts.png" alt="Advanced View Filters" width=100%>
 
 ### Settings Menu
 
@@ -76,14 +141,14 @@ Important settings:
 - Notification Settings
 - Account Settings
 
-<img src="../../images/orb-app/orb-account-menu-v2.png" alt="Orb Account Menu" width=40% style="margin-left: 2em;">
+<img src="../../images/orb-app/account-app-settings.png" alt="Orb Account Menu" width=40% style="margin-left: 2em;">
 
 ### Notifications
 
 - See all account notifications
-- Mark as read or clear all
+- Filter by Orb(s) or event type(s)
 
-<img src="../../images/orb-app/notifications.png" alt="Notifications" width=40% style="margin-left: 2em;">
+<img src="../../images/orb-app/notifications-timeline-filters.png" alt="Notifications" width=40% style="margin-left: 2em;">
 
 ## Next Steps
 

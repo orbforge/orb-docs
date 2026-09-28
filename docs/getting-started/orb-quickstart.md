@@ -38,12 +38,9 @@ If installing on a mobile device, keep in mind that mobile apps have limitations
 
 ## Link the Orb Sensor to Your Account
 
-In the Orb app, tap the three dots near the Orb sensor name, and select "Link this Orb to my account." If you see "Remove this Orb from account," it means the sensor is already linked.
+In the Orb app, tap the three dots near the Orb sensor name, and select "Link Orb to space" and follow the prompts. If you see "Remove Orb from Space," it means the sensor is already linked.
 
-<div style="margin-left: 2em;">
-  <img src="../../images/orb-app/link-account.png" alt="Link Orb" width="30%" style="display: inline-block; margin-right: 2%;">
-  <img src="../../images/orb-app/remove-orb-from-account.png" alt="Remove Orb" width="30%" style="display: inline-block;">
-</div>
+  <img src="../../images/orb-app/link-orb-to-space.png" alt="Link Orb" width="30%" style="display: inline-block; margin-right: 2%;">
 
 ## Start Monitoring
 
