@@ -82,7 +82,7 @@ The Speed detail view focuses on your connection's throughput.
 
 ### Checking Speed Score
 
-- Speed Score checks are lightweight measurements performed on a one-hour cadence by default.
+- Speed Score checks are lightweight measurements performed on a one-hour cadence by default. Prior to app version 1.6, this was referred to as "Content Speed."
 - These measurements are included in the Speed score and Orb Score, even when the measurement was performed outside of the selected time period.
 - To disable or change the frequency of content speed measurements, use the dropdown menu in the expanded Speed card.
 

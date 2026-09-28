@@ -26,7 +26,7 @@ The Orb Score is based on speed score checks only, which are performed on a regu
 
 ### Speed Measurement Cadence
 
-- **Speed Score Measurements**: Performed on a regular cadence (at app launch and every hour by default)
+- **Speed Score Measurements**: Performed on a regular cadence (at app launch and every hour by default). Prior to app version 1.6, this was referred to as "Content Speed."
   - Cadence can be adjusted to every 4, 6, or 24 hours, or disabled entirely.
   <img src="../../images/orb-app/speed-check-set-frequency.png" alt="Speed" width=60% style="margin-left: 2em;"><br>
   - Results are included in the Speed score and Orb Score, even if the measurement was performed outside of the selected time period.
