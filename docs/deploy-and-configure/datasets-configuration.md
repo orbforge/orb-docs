@@ -106,6 +106,30 @@ Changes will be made under the "Advanced" tab in the "Edit Configuration" screen
 
 Enabling `poll_interval` only starts sampling — to actually route `system_telemetry_1s`/`system_telemetry_1m` records to a Destination, add them to `datasets.api`, `datasets.push` like any other Dataset (see [Example Configuration](#example-configuration) above).
 
+## Nearby Access Points
+
+[Nearby Access Points](/docs/deploy-and-configure/datasets#nearby-access-points) is disabled by default and you must set a non-zero poll rate in its configuration to enable it. Visit the Orb Cloud [Status](https://cloud.orb.net/status) or [Orchestration](https://cloud.orb.net/orchestration) sections to edit the configuration for an individual Orb, or in-bulk via *Configurations*, respectively. If this is your first time configuring an Orb remotely, see the [Remote Configuration documentation](/docs/deploy-and-configure/configuration#remote-configuration).
+
+Changes will be made under the "Advanced" tab in the "Edit Configuration" screen.
+
+**Poll Interval (`collectors.nearby_ap.poll_interval`)**
+- Controls how often the device is polled, and enables/disables collection entirely
+- Defaults to `0` (disabled)
+- Minimum value varies by operating system, the sensor will default to this value if set lower:
+    - Android: `30s`
+    - MacOS: `20s`
+    - Windows: `3s`
+    - Linux: `1s`
+- Format: Duration string (e.g., `1s`, `10s`, `1m`)
+
+```json
+{
+  "collectors.nearby_ap.poll_interval": [
+    "30s"
+  ]
+}
+```
+
 ## Datasets Modes
 
 ### Orb Cloud

@@ -358,3 +358,49 @@ System Telemetry data is available in 1 minute and 1 second aggregated buckets.
 | `nic_model_name` | Human-readable model name for the active network interface (not available on all platforms) | string |
 | `nic_model_id` | `vendor:device` hex identifier for the active network interface | string |
 
+## Nearby Access Points
+
+The Nearby Access Point dataset reports nearby access points via the given operating system's active scanning capabilities.
+
+This dataset is **disabled by default** - see [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration#nearby-access-points) to enable. Unlike other datasets, records are not persisted to local storage - only the most recent buffer of samples is retained in memory, available via [Orb Local Analytics](/docs/deploy-and-configure/local-analytics).
+
+Nearby Access Points is currently only available on Windows, Linux, Android, and macOS. Is is not supported on iOS.
+
+### `nearby_ap_results`
+
+| column | description | type |
+| ----- | ----- | :---: |
+| **identifiers** |  |  |
+| `orb_id` | Orb Sensor identifier | string |
+| `orb_name` | Current Orb friendly name (masked unless identifiable=true) | string |
+| `device_name` | Hostname or name of the device as identified by the OS (masked unless identifiable=true) | string |
+| `orb_version` | Semantic version of collecting Orb | string |
+| `timestamp` | Interval start timestamp in epoch milliseconds | integer |
+| `utc_offset` | UTC offset of the device's local timezone in minutes | integer |
+| `interval_ms` | Length of the aggregation window in milliseconds | integer |
+| `dataset` | Dataset type identifier | string |
+| **dimensions** |  |  |
+| `bssid` | Access point MAC address (masked unless identifiable=true) | string |
+| `mac_address` | Client MAC address (masked unless identifiable=true) | string |
+| `network_name` | Network name (SSID, if available, masked unless identifiable=true) | string |
+| `network_type` | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`<br>`4: cellular` | integer |
+| `network_state` | Speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: content upload`<br>`3: peak upload`<br>`4: content download`<br>`5: peak download`<br>`6: content`<br>`7: peak` | integer |
+| `country_code` | Geocoded 2-digit ISO country code | string |
+| `state` | Geocoded state or province name | string |
+| `city` | Geocoded city name | string |
+| `isp_name` | ISP name from GeoIP lookup | string |
+| `public_ip` | Public IP address (masked unless identifiable=true) | string |
+| `private_ip` | Local IP address (masked unless identifiable=true) | string |
+| `latitude` | Orb location latitude (max 2-decimals,unless identifiable=true) | float |
+| `longitude` | Orb location longitude (max 2-decimals,unless identifiable=true) | float |
+| `location_source` | Location Source<br>`0: unknown`<br>`1: geoip` | integer |
+| **measures** |  |  |
+| `nearby_aps` | List of nearby access points containing the following fields | Array |
+| `ssid` | SSID, empty string for hidden/non-broadcasting networks, masked unless identifiable=true)  | string |
+| `bssid` | Access point MAC address (masked unless identifiable=true) | string |
+| `wifi_standard` | | string |
+| `frequency_mhz` | Frequency of the connected channel in MHz | integer |
+| `channel_number` | Wi-Fi channel number  | integer |
+| `channel_width` | Channel width in MHz | string |
+| `rssi` | Received Wi-Fi signal strength in dBm | integer |
+| `last_seen | Unix timestamp of when the AP was last scanned | integer | 
