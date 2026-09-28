@@ -298,3 +298,63 @@ Note: On iOS, Wi-Fi data is available via an optional iOS Shortcut (as of versio
 | Supported WLAN Channels |   🟢    |   ❌    |  🟢   |  🟢   |      ❌        |
 | MCS                     |   ❌    |   ❌    |  🟢   |  ❌   |      ❌        |
 | NSS                     |   ❌    |   ❌    |  🟢   |  ❌   |      ❌        |
+
+## System Telemetry
+
+The System Telemetry Dataset reports the host device's own CPU, memory, swap, and disk utilization and battery charge, plus the resource usage of the Orb sensor process itself (`orb_*` fields).
+
+System Telemetry is **enabled by default** with a 1 second poll rate — see [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration#system-telemetry) to adjust the poll rate or disable it. Unlike other datasets, records are not persisted to local storage — only the most recent buffer of samples is retained in memory, available via [Orb Local Analytics](/docs/deploy-and-configure/local-analytics) and MCP.
+
+System Telemetry is currently only available on Windows, Linux, and macOS. It is not supported on Android or iOS.
+
+System Telemetry data is available in 1 minute and 1 second aggregated buckets.
+
+### `system_telemetry_(1m|1s)`
+
+| column | description | type |
+| ----- | ----- | :---: |
+| **identifiers** |  |  |
+| `orb_id` | Orb Sensor identifier | string |
+| `orb_name` | Current Orb friendly name (masked unless identifiable=true) | string |
+| `device_name` | Hostname or name of the device as identified by the OS (masked unless identifiable=true) | string |
+| `orb_version` | Semantic version of collecting Orb | string |
+| `timestamp` | Interval start timestamp in epoch milliseconds | integer |
+| `utc_offset` | UTC offset of the device's local timezone in minutes | integer |
+| `interval_ms` | Length of the aggregation window in milliseconds | integer |
+| `dataset` | Dataset type identifier | string |
+| **measures** |  |  |
+| `cpu_avg_pct` | Average device-wide CPU utilization over the interval | float |
+| `mem_used_avg_bytes` | Average device memory used, in bytes | integer |
+| `swap_used_avg_bytes` | Average device swap/page file used, in bytes | integer |
+| `swap_avg_pct` | Average device swap/page file utilization over the interval | float |
+| `disk_used_avg_bytes` | Average used space on the volume containing Orb's data directory, in bytes | integer |
+| `battery_avg_pct` | Average system battery charge (0-100) over the interval; omitted on devices without a battery | float |
+| `orb_cpu_avg_pct` | Average CPU utilization of the Orb sensor process itself over the interval | float |
+| `orb_mem_avg_bytes` | Average memory (RSS) used by the Orb sensor process, in bytes | integer |
+| `orb_disk_avg_bytes` | Average on-disk footprint of Orb's data directory, config directory, and binary, in bytes | integer |
+| `sample_count` | Count of samples included in this bucket | integer |
+| **dimensions** |  |  |
+| `bssid` | Access point MAC address (masked unless identifiable=true) | string |
+| `mac_address` | Client MAC address (masked unless identifiable=true) | string |
+| `network_name` | Network name (SSID, if available, masked unless identifiable=true) | string |
+| `network_type` | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`<br>`4: cellular` | integer |
+| `network_state` | Speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: content upload`<br>`3: peak upload`<br>`4: content download`<br>`5: peak download`<br>`6: content`<br>`7: peak` | integer |
+| `country_code` | Geocoded 2-digit ISO country code | string |
+| `state` | Geocoded state or province name | string |
+| `city` | Geocoded city name | string |
+| `isp_name` | ISP name from GeoIP lookup | string |
+| `public_ip` | Public IP address (masked unless identifiable=true) | string |
+| `private_ip` | Local IP address (masked unless identifiable=true) | string |
+| `latitude` | Orb location latitude (max 2-decimals,unless identifiable=true) | float |
+| `longitude` | Orb location longitude (max 2-decimals,unless identifiable=true) | float |
+| `location_source` | Location Source<br>`0: unknown`<br>`1: geoip` | integer |
+| `measure_endpoint` | Measurement endpoint URL or IP address (only included when configured for Orb-to-Orb testing) | string |
+| `measure_endpoint_name` | Human-readable name of the measurement endpoint (only included when configured for Orb-to-Orb testing) | string |
+| `device_model` | Device model identifier (may be empty if unresolvable on the platform) | string |
+| `cpu_model` | CPU model name (may be empty if unresolvable on the platform) | string |
+| `total_mem_bytes` | Total device memory, in bytes | integer |
+| `total_disk_bytes` | Total capacity of the volume containing Orb's data directory, in bytes | integer |
+| `nic_driver` | Driver name for the active network interface | string |
+| `nic_model_name` | Human-readable model name for the active network interface (not available on all platforms) | string |
+| `nic_model_id` | `vendor:device` hex identifier for the active network interface | string |
+
