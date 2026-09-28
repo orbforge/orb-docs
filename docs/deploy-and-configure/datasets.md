@@ -142,6 +142,9 @@ Web Responsiveness measurements are conducted once per minute by default. Theref
 | **measures**      |                                                                                                                                                                                           |         |
 | `ttfb_us`         | Time to First Byte loading a web page in microseconds (MAX 5000000 at which point considered “unresponsive”)                                                                              | integer |
 | `dns_us`          | DNS resolver response time in microseconds (MAX 5000000 at which point the lag considered “unresponsive”)                                                                                 | integer |
+| `dns_resolver`    | IP address of the DNS resolver that answered (masked unless identifiable=true)                                                                                                            | string  |
+| `dns_failed_resolvers` | List (CSV) of DNS resolver IP addresses that failed to answer (masked unless identifiable=true)                                                                             | string  |
+| `server_pop`      | Point of presence (edge location) of the server that responded to the web test. Typically a 3-letter IATA airport code (e.g. `SJC`). Omitted if unavailable | string  |
 | **dimensions**    |                                                                                                                                                                                           |         |
 | `bssid` | Access point MAC address (masked unless identifiable=true) | string |
 | `mac_address` | Client MAC address (masked unless identifiable=true) | string |
@@ -179,11 +182,20 @@ Content speed measurements are conducted once per hour by default. Therefore, ra
 | `timestamp`         | Timestamp in epoch milliseconds                                                                                                                                                           | integer |
 | `utc_offset`        | UTC offset of the device's local timezone in minutes                                                                                                                                      | integer |
 | `dataset`           | Dataset type identifier                                                                                                                                                                   | string  |
+| `test_uuid`         | Unique identifier for the speed test                                                                                                                                                      | string  |
 | **measures**        |                                                                                                                                                                                           |         |
 | `download_kbps`     | Download speed in Kbps                                                                                                                                                                    | integer |
 | `download_status`   | Download test result status<br>`0: unknown`<br>`1: success`<br>`2: fail`                                                                                                                  | integer |
+| `download_start_time` | Download test start time in epoch milliseconds                                                                                                                                          | integer |
+| `download_end_time` | Download test end time in epoch milliseconds                                                                                                                                              | integer |
+| `download_bytes`    | Bytes transferred during the download test                                                                                                                                                | integer |
+| `download_attempted_bytes` | Number of bytes attempted during the download test (not included for peak tests)                                                                                            | integer |
 | `upload_kbps`       | Upload speed in Kbps                                                                                                                                                                      | integer |
 | `upload_status`     | Upload test result status<br>`0: unknown`<br>`1: success`<br>`2: fail`                                                                                                                    | integer |
+| `upload_start_time` | Upload test start time in epoch milliseconds                                                                                                                                              | integer |
+| `upload_end_time`   | Upload test end time in epoch milliseconds                                                                                                                                                | integer |
+| `upload_bytes`      | Bytes transferred during the upload test                                                                                                                                                  | integer |
+| `upload_attempted_bytes` | Number of bytes attempted during the upload test (not included for peak tests)                                                                                                | integer |
 | **dimensions**      |                                                                                                                                                                                           |         |
 | `bssid` | Access point MAC address (masked unless identifiable=true) | string |
 | `mac_address` | Client MAC address (masked unless identifiable=true) | string |
@@ -203,6 +215,7 @@ Content speed measurements are conducted once per hour by default. Therefore, ra
 | `measure_endpoint_name` | Human-readable name of the measurement endpoint (only included when configured for Orb-to-Orb testing)                                                                              | string  |
 | `speed_test_engine` | Testing engine<br>`-1: unknown`<br>`0: orb`<br>`1: iperf`<br>`2: wave`                                                                                                                   | integer |
 | `speed_test_server` | Server URL or identifier                                                                                                                                                                  | string  |
+| `server_pop`        | Point of presence (edge location) of the server that ran the speed test. Typically a 3-letter IATA airport code (e.g. `SJC`). Omitted if unavailable | string  |
 
 
 ## Wi-Fi
