@@ -123,7 +123,7 @@ Changes will be made under the "Advanced" tab in the "Edit Configuration" screen
     - Linux: `1s`
 - Format: Duration string (e.g., `1s`, `10s`, `1m`)
 
-MacOS and Android require location permission for wifi scanning. Linux requires root or cap_net_admin capabilities set.
+MacOS and Android require location permission for Wi-Fi scanning. Linux requires root or cap_net_admin capabilities set.
 
 ```json
 {
