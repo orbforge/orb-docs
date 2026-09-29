@@ -113,7 +113,8 @@ Enabling `poll_interval` only starts sampling — to actually route `system_tele
 Changes will be made under the "Advanced" tab in the "Edit Configuration" screen.
 
 **Poll Interval (`collectors.nearby_ap.poll_interval`)**
-- Controls how often the device is polled, and enables/disables collection entirely
+- Controls how often the device is polled, and enables/disables collection entirely.
+- Poll times are best effort. Wi-Fi scans may take several seconds to complete, so more frequent polling may not result in more records.
 - Defaults to `0` (disabled)
 - Minimum value varies by operating system, the sensor will default to this value if set lower:
     - Android: `30s`
@@ -121,6 +122,8 @@ Changes will be made under the "Advanced" tab in the "Edit Configuration" screen
     - Windows: `3s`
     - Linux: `1s`
 - Format: Duration string (e.g., `1s`, `10s`, `1m`)
+
+MacOS and Android require location permission for Wi-Fi scanning. Linux requires root or cap_net_admin capabilities set.
 
 ```json
 {
