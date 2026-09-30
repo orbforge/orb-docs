@@ -11,7 +11,11 @@ The Orb detail view provides in-depth information about your network connectivit
 
 ## Accessing the Detail View
 
-You can access detailed metrics by tapping on any Orb card in the Orb Summary screen to open the detail view for that specific Orb.
+You can access detailed metrics by tapping on any Orb card in the Orb Summary screen to open the detail view for that specific Orb. 
+
+To access [advanced detail view](https://orb.net/docs/orb-app/orb-detail-view#advanced-detail-view), toggle on the chart icon.
+
+<img src="../../images/orb-app/detail-view-toggle.png" alt="Orb Detail Advanced View" width=100%>
 
 ## Common Elements
 
@@ -21,16 +25,16 @@ All detail views share certain common elements:
 
 At the top of each detail view, you'll find a time period selector that allows you to view data across different time periods, including:
 
-- Last 1 minute
+- Now (current snapshot of network connectivity)
 - Last 5 minutes
 - Last 1 hour
 - Last 24 hours
 
-<img src="../../images/orb-app/global-time-selector.png" alt="Time Selector" width=40% style="margin-left: 2em;">
+<img src="../../images/orb-app/global-time-selector-2.png" alt="Time Selector" width=40% style="margin-left: 2em;">
 
 ### Orb Score and Status Message
 
-On the left, you'll see your overall Orb Score for the time period selected. You'll also find a status message describing the current state of your network connection.
+On the left, you'll see your overall Orb Score for the time period selected.
 
 <img src="../../images/orb-app/orb-score-and-status-message.png" alt="Orb Score Status" width=40% style="margin-left: 2em;">
 
@@ -48,7 +52,9 @@ When your score is below 80, an "Improve Connection" button will appear. Tapping
 
 The Responsiveness detail view focuses on your connection's lag, latency, jitter, and packet loss for device-to-router and router-to-internet. Also included is DNS resolution time and time to first byte (TTFB) for the selected time period.
 
-<img src="../../images/orb-app/responsiveness-card-expanded-v2.png" alt="Responsiveness" width=60% style="margin-left: 2em;">
+<img src="../../images/orb-app/simple-detail-responsiveness-expanded.png" alt="Responsiveness" width=60% style="margin-left: 2em;">
+
+<img src="../../images/orb-app/advanced-detail-view.png" alt="Responsiveness" width=60% style="margin-left: 2em;">
 
 The Reliability detail view focuses on your connection's stability. It includes the amount of time spent in the following states:
 - Responsive
@@ -56,7 +62,9 @@ The Reliability detail view focuses on your connection's stability. It includes 
 - Unresponsive
 - Inactive
 
-<img src="../../images/orb-app/reliability-card-expanded-v2.png" alt="Reliability" width=60% style="margin-left: 2em;">
+<img src="../../images/orb-app/simple-detail-reliability.png" alt="Reliability" width=60% style="margin-left: 2em;">
+
+Clicking or tapping on a section in the timeline will highlight the performance for that slice of time.
 
 The detail view displays Responsiveness and Reliability scores for the selected time period. Each of these contributes to your overall Orb Score. Tap on each card to expand and view more detailed metrics.
 
@@ -70,15 +78,15 @@ Each category is represented by:
 
 The Speed detail view focuses on your connection's throughput.
 
-<img src="../../images/orb-app/speed-card-expanded-v2.png" alt="Speed" width=60% style="margin-left: 2em;">
+<img src="../../images/orb-app/speed-detail-expanded.png" alt="Speed" width=60% style="margin-left: 2em;"> 
 
-### Content Download and Upload Speed Results
+### Checking Speed Score
 
-- Content download and upload speed measurements are performed on a one-hour cadence by default.
+- Speed Score checks are lightweight measurements performed on a one-hour cadence by default. Prior to app version 1.6, this was referred to as "Content Speed."
 - These measurements are included in the Speed score and Orb Score, even when the measurement was performed outside of the selected time period.
 - To disable or change the frequency of content speed measurements, use the dropdown menu in the expanded Speed card.
 
-<img src="../../images/orb-app/speed-cadence.png" alt="Speed" width=60% style="margin-left: 2em;">
+<img src="../../images/orb-app/speed-check-set-frequency.png" alt="Speed" width=60% style="margin-left: 2em;">
 
 - The dropdown menu allows you to select from the following options:
   - Every 1 hour (default)
@@ -88,10 +96,53 @@ The Speed detail view focuses on your connection's throughput.
   - Never (disables content speed measurements)
 - Content speed measurements can also be initiated at any time by the user.
 
-### Peak Download and Upload Speed Results
+### Initiating a Speed Test
 
-- Peak download and upload speed measurements can be initiated at any time by the user.
+- Full-buffer download and upload speed throughput measurements can be initiated at any time by the user.
 - These results are informational only and not included in your speed or Orb Score.
+
+### Advanced detail view
+Switch to **Advanced Detail view** using the view toggle in the upper-right corner of the Orb detail screen. Advanced view provides time-series charts and additional diagnostic information for troubleshooting changes in network performance.
+
+<img src="../../images/orb-app/detail-view-toggle.png" alt="Orb Detail Advanced View" width=100%>
+
+<img src="../../images/orb-app/advanced-detail-view.png" alt="Orb Detail Advanced View" width=100%>
+
+- **Wi-Fi**
+  - Detailed Wi-Fi charts and connection information, including:
+    - Wi-Fi Signal
+    - Noise
+    - Transmit Rate
+    - SSID
+    - BSSID
+    - Channel
+    - Band
+    - Channel Width
+    - PHY Mode
+
+- **Nearby Wi-Fi Networks**
+  - Scan for nearby Wi-Fi networks directly from the advanced detail screen
+  - View neighboring networks and compare:
+    - SSID
+    - Band
+    - Channel
+    - Signal strength
+  - Detect overlapping channel usage that may contribute to interference
+
+<img src="../../images/orb-app/advanced-detail-view-scan.png" alt="Nearby Wi-Fi Networks" width=100%>
+<img src="../../images/orb-app/advanced-detail-view-ap-scan-output.png" alt="Nearby Wi-Fi Networks" width=100%>
+
+- **Filters and chart highlights**
+  - Use activity filters to highlight periods associated with:
+    - Testing Speed
+    - Checking Speed Score
+    - Network changes
+    - Custom events/alerts based on rules
+  - Highlighted regions on the charts make it easier to correlate score or responsiveness changes with Orb activity
+
+<img src="../../images/orb-app/advanced-detail-view-filters.png" alt="Advanced View Filters" width=100%>
+
+<img src="../../images/orb-app/advanced-detail-view filtered-charts.png" alt="Advanced View Filters" width=100%>
 
 ## Next Steps
 

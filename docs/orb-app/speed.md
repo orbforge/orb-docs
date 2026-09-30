@@ -11,26 +11,26 @@ Speed is one of the three key components of your Orb Score, measuring how quickl
 
 ## Speed Measurements
 
-Speed measures how quickly data can be transferred to and from devices. It includes:
+Speed measures how quickly 10 MB of data can be transferred to and from devices. It includes:
 
-- **Content Download Speed**: How quickly you can receive data, reported in Mbps
-- **Content Upload Speed**: How quickly you can send data, reported in Mbps
+- **Download Speed Score Check**: How quickly you can receive data, reported in Mbps
+- **Upload Speed Score Check**: How quickly you can send data, reported in Mbps
 
-Orb's primary speed measurements are important for activities like streaming videos, downloading files, video conferencing, and other relevant day-to-day activities. Content speed tests are performed by downloading and uploading a small amount of data (10 MB file) to and from your device.
+Orb's primary speed measurements are important for activities like streaming videos, downloading files, video conferencing, and other relevant day-to-day activities. Speed score checks are performed by downloading and uploading a small amount of data (10 MB file) to and from your device.
 
-<img src="../../images/orb-app/speed-card-expanded-v2.png" alt="Speed" width=60% style="margin-left: 2em;">
+<img src="../../images/orb-app/speed-detail-expanded.png" alt="Speed" width=60% style="margin-left: 2em;">
 
-While peak speed measurements are available and can be initiated by the user at any time, they are informational only and not included in the Orb Score. Peak speed tests are performed by fully flooding your connection with data to measure the maximum speed your device can achieve.
+While full-buffer speed test measurements are available and can be initiated by the user at any time, they are informational only and not included in the Orb Score. Speed tests are performed by fully flooding your connection with data to measure the maximum speed your device can achieve.
 
-The Orb Score is based on content speed measurements only, which are performed on a regular cadence by default.
+The Orb Score is based on speed score checks only, which are performed on a regular cadence by default.
 
 ### Speed Measurement Cadence
 
-- **Content Speed Measurements**: Performed on a regular cadence (at app launch and every hour by default)
+- **Speed Score Measurements**: Performed on a regular cadence (at app launch and every hour by default). Prior to app version 1.6, this was referred to as "Content Speed."
   - Cadence can be adjusted to every 4, 6, or 24 hours, or disabled entirely.
-  <img src="../../images/orb-app/speed-cadence.png" alt="Speed" width=60% style="margin-left: 2em;"><br>
+  <img src="../../images/orb-app/speed-check-set-frequency.png" alt="Speed" width=60% style="margin-left: 2em;"><br>
   - Results are included in the Speed score and Orb Score, even if the measurement was performed outside of the selected time period.
-- **Peak Speed Measurements**: Can be initiated by the user at any time.
+- **Speed Test Measurements**: Can be initiated by the user at any time.
 
 ### Download Speed
 
@@ -56,7 +56,7 @@ Upload speed affects:
 
 ### Speed Score
 
-The Speed Score (0-100) is a simplified representation of your content speed performance. Higher scores indicate faster content download and upload speeds.
+The Speed Score (0-100) is a simplified representation of your speed score checks. Higher scores indicate faster download and upload speeds.
 
 ## Factors Affecting Speed
 
