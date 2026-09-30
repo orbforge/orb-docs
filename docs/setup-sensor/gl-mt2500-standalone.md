@@ -30,7 +30,9 @@ Before you begin, make sure you have:
 
 The Brume 2 ships with the OpenWRT operating system, which is pre-configured with many features to act as a router, VPN gateway, and more. For this guide, we'll create a new OpenWRT image that installs the Orb sensor and configures the device to connect to your network as a monitoring device.
 
-1. Visit the [OpenWRT Firmware Selector](https://firmware-selector.openwrt.org/?version=24.10.6&target=mediatek%2Ffilogic&id=glinet_gl-mt2500) for the Brume 2 GL-MT2500
+> **Note:** This guide targets OpenWRT 25.12.5. OpenWRT 25.12 replaced the `opkg` package manager with `apk`, so the package list and first boot script below differ from those used with OpenWRT 24.10 and earlier. Use the instructions as a set — don't mix them with an older release.
+
+1. Visit the [OpenWRT Firmware Selector](https://firmware-selector.openwrt.org/?version=25.12.5&target=mediatek%2Ffilogic&id=glinet_gl-mt2500) for the Brume 2 GL-MT2500
 2. Click "Customize installed packages and/or first boot script" to expand the customization options
 
 ![Customize installed packages and/or first boot script](../../images/gl-mt2500/1.2.png)
@@ -38,7 +40,7 @@ The Brume 2 ships with the OpenWRT operating system, which is pre-configured wit
 3. In the "Installed Packages" text box, replace the contents with the following code exactly as shown:
 
 ```
-base-files ca-bundle dropbear firewall4 fitblk fstools kmod-crypto-hw-safexcel kmod-gpio-button-hotplug kmod-leds-gpio kmod-nft-offload kmod-phy-aquantia libc libgcc libustream-mbedtls logd mtd netifd nftables odhcp6c odhcpd-ipv6only opkg ppp ppp-mod-pppoe procd-ujail uboot-envtools uci uclient-fetch urandom-seed urngd wpad-basic-mbedtls -wpad-basic-mbedtls e2fsprogs f2fsck mkf2fs kmod-usb3 luci avahi-daemon chrony
+apk-mbedtls base-files ca-bundle dropbear firewall4 fitblk fstools kmod-crypto-hw-safexcel kmod-gpio-button-hotplug kmod-leds-gpio kmod-nft-offload libc libgcc libustream-mbedtls logd mtd netifd nftables odhcp6c odhcpd-ipv6only ppp ppp-mod-pppoe procd-ujail uboot-envtools uci uclient-fetch urandom-seed urngd wpad-basic-mbedtls -wpad-basic-mbedtls e2fsprogs f2fsck mkf2fs kmod-usb3 luci avahi-daemon chrony
 ```
 
 ![Customize installed packages](../../images/gl-mt2500/1.3.png)
@@ -48,10 +50,10 @@ base-files ca-bundle dropbear firewall4 fitblk fstools kmod-crypto-hw-safexcel k
 ```bash
 #!/bin/sh
 
-ARCHITECTURE=$(opkg info busybox | grep "Architecture" | awk '{print $2}')
-URL="https://pkgs.orb.net/stable/openwrt/$ARCHITECTURE"
-KEY_URL="https://pkgs.orb.net/stable/openwrt/key.pub"
-KEY_PATH="/etc/opkg/keys/744a82bfef3c5690"
+ARCHITECTURE=$(cat /etc/apk/arch)
+URL="https://pkgs.orb.net/stable/openwrt-apk/$ARCHITECTURE/packages.adb"
+KEY_URL="https://pkgs.orb.net/stable/openwrt-apk/orb-apk-ec.pub"
+KEY_PATH="/etc/apk/keys/orb-packages.pem"
 ORB_BINARY="/usr/bin/orb"
 
 # Set hostname
@@ -83,7 +85,8 @@ mkdir /overlay/orb
 mkdir /.config
 ln -s /overlay/orb /.config/orb
 
-echo "src/gz orb_packages $URL"  | tee -a /etc/opkg/customfeeds.conf
+mkdir -p /etc/apk/repositories.d
+echo "$URL" | tee -a /etc/apk/repositories.d/customfeeds.list
 
 # Optional: Customize Orb configuration before first launch
 # You can set a deployment token to automatically link this Orb to your Orb Space, or adjust other settings.
@@ -114,17 +117,18 @@ start() {
 				logger -t "orb-setup" "Key file not found, attempting to download..."
 
 				# Try to download the key, suppress output
-				if wget -q -O "$KEY_PATH" "$KEY_URL"; then
+				if wget -q -O "$KEY_PATH.tmp" "$KEY_URL" && [ -s "$KEY_PATH.tmp" ]; then
+					mv "$KEY_PATH.tmp" "$KEY_PATH"
 					logger -t "orb-setup" "Key downloaded successfully!"
 				else
+					rm -f "$KEY_PATH.tmp"
 					logger -t "orb-setup" "Download failed, retrying in 10 seconds..."
 					sleep 10
-					continue
 				fi
 			done
 
-			/bin/opkg update | logger -t "orb-setup"
-			/bin/opkg install orb | logger -t "orb-setup"
+			apk update | logger -t "orb-setup"
+			apk add orb | logger -t "orb-setup"
 
 			# If the orb binary is still not found, wait for 10 seconds and check again
 			logger -t "orb-setup" "orb binary not found, checking again in 10 seconds..."
@@ -215,6 +219,26 @@ Now we'll set a root password for your new device for security purposes:
 Congratulations! You now have a standalone Orb device monitoring your network.
 
 ## Troubleshooting
+
+### My Orb never appears in the app
+
+The first boot script installs Orb from the network, so the device needs working internet access before the sensor appears. SSH into the device (`ssh root@orb-1234.local`) and check the setup log:
+
+```bash
+logread -e orb-setup
+```
+
+You can also verify the package feed and key were installed correctly:
+
+```bash
+cat /etc/apk/repositories.d/customfeeds.list
+ls -l /etc/apk/keys/orb-packages.pem
+apk update && apk add orb
+```
+
+### The firmware selector shows two GL-MT2500 entries
+
+GL.iNet ships the Brume 2 with two different Ethernet PHYs, and OpenWRT builds a separate image for each: "GL-MT2500 (MaxLinear PHY)" and "GL-MT2500 (Airoha PHY)". The link in Step 1 preselects the MaxLinear PHY build. If your Ethernet ports don't come up after flashing, rebuild using the Airoha PHY profile with the same package list and first boot script.
 
 ### My device is unresponsive
 
