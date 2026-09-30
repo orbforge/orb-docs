@@ -11,7 +11,7 @@ Orb comes with local and remote configuration capabilities to control behavior.
 
 ## Environment variables
 
-The following environment variables can be set. On macOS sensors deployed with an MDM, set them with [`OrbEnvironment`](/docs/deploy-and-configure/mdm/intune-macos#set-environment-variables-with-orbenvironment) in the configuration profile.
+The following environment variables can be set:
 
 | Name | Description | Example | Minimum Version |
 | ---- | ----------- | ------- | ----------------|
