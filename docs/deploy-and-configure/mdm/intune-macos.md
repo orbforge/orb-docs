@@ -230,7 +230,7 @@ The sensor reads the name when it starts. A Mac that is already reporting picks 
 | `OrbEnvironment` | Dictionary of strings | Sets any Orb [environment variable](/docs/deploy-and-configure/configuration#environment-variables). See [above](#set-environment-variables-with-orbenvironment). |
 | `SensorOnboarding` | String | `immediate` (default) or `next-login`. With `next-login`, the introduction and Location request wait until the next login. The sensor starts monitoring immediately either way. Read only by the installer, at installation or upgrade. |
 | `OrbAllowIntroductionLater` | Boolean | Adds a **Later** button to the introduction. It closes the introduction without requesting Location, and the introduction appears again at the next login. Defaults to `false`. |
-| `OrbSkipIntroduction` | Boolean | Suppresses the first-run introduction. It does not grant any permission. See the warning below before setting this. |
+| `OrbSkipIntroduction` | Boolean | Suppresses the introduction screen and immediately prompts for permissions. |
 | `OrbEnableRestrictions` | Boolean | Skips the introduction and stops the sensor requesting permissions. It also keeps mDNS discovery off. Defaults to `false`. |
 | `OrbEnableLocationPrompt` | Boolean | With `OrbEnableRestrictions`, allows the Location request again. Ignored without restrictions. |
 | `OrbEnableNetworkPrompt` | Boolean | With `OrbEnableRestrictions`, allows mDNS discovery and direct DNS lookups. These can trigger a Local Network prompt. Ignored without restrictions. |
@@ -246,7 +246,7 @@ Earlier test builds read `OrbZeroconfPublish`, `OrbZeroconfBrowse` and `OrbDevic
 
 The sensor shows a short introduction the first time it runs for a user. That introduction tells the user that macOS requires Location permission to report the Wi-Fi network name (SSID) and access point (BSSID), and gives them the button to grant it. Two keys hide it:
 
-- **`OrbSkipIntroduction`** hides the introduction, but the sensor can still request Location. The user sees the macOS Location prompt with nothing to explain why Orb is asking.
+- **`OrbSkipIntroduction`** hides the introduction and immediately prompts for permissions. The user sees the macOS Location prompt with nothing to explain why Orb is asking.
 - **`OrbEnableRestrictions`** hides the introduction and stops the sensor requesting Location at all, unless you also set `OrbEnableLocationPrompt`. The user is never asked, and SSID and BSSID stay empty. Nothing in the console says why.
 
 Without Location, the introduction reports that Wi-Fi details are unavailable and offers **Open Location Settings**:
