@@ -29,7 +29,20 @@ This documentation covers installing the Orb **sensor** via Intune on macOS. Ins
 
 ## Orb sensor package
 
-The sensor ships as a flat, signed installer package. The package is currently available for testing on request.
+The sensor ships as a flat, signed installer package, which always points to the latest stable release:
+
+[https://pkgs.orb.net/stable/macos/orb-sensor.pkg](https://pkgs.orb.net/stable/macos/orb-sensor.pkg)
+
+To verify the download, compare its SHA-256 with the checksum published beside that release. `orb-sensor-version.txt` holds the current version number:
+
+```bash
+curl -fsSLO https://pkgs.orb.net/stable/macos/orb-sensor.pkg
+VERSION="$(curl -fsSL https://pkgs.orb.net/stable/macos/orb-sensor-version.txt)"
+curl -fsSL "https://pkgs.orb.net/stable/macos/orb-sensor-$VERSION.pkg.sha256"
+shasum -a 256 orb-sensor.pkg
+```
+
+The two hashes must match.
 
 :::info
 The macOS sensor runs as a **LaunchAgent in the user's GUI session** (`LimitLoadToSessionType` is `Aqua`), not as a system daemon. A user must be logged in for it to report.
@@ -49,6 +62,8 @@ Create and assign the configuration profile **before** the app, to the same grou
 
 Intune does not guarantee the order in which a profile and an app reach a device, so this is not a hard guarantee — but in practice a configuration profile applies well before a PKG app, because the app cannot install until the Intune management agent is itself installed. Getting the profile in place first makes the race moot.
 
+The order matters twice. The installer reads `SensorOnboarding` only while the package installs, so a profile that arrives afterwards cannot delay that Mac's introduction. And the sensor reads the token only when it starts.
+
 If a sensor does start before its token arrives, it runs unlinked and the Mac does not appear in your Space. Once the profile lands, restart the agent to pick it up:
 
 ```bash
@@ -66,7 +81,12 @@ Use a **dedicated, revocable token per deployment** so you can attribute devices
 
 ### Create the .mobileconfig
 
-Create a file named `orb-sensor.mobileconfig` with the following contents. This is the recommended baseline for a managed deployment: it links the Orb to your Space, keeps the introduction visible so users can grant Location, and keeps the sensor off mDNS.
+Create a file named `orb-sensor.mobileconfig` with the following contents. This is the recommended baseline for a managed deployment. It does three things:
+
+- links the Orb to your Space
+- keeps the sensor off mDNS
+- names each Mac after its Intune device name and serial number
+- delays the first-run introduction until the user next logs in, so no window appears on screen while someone is working
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -90,12 +110,17 @@ Create a file named `orb-sensor.mobileconfig` with the following contents. This 
             <string>Your Organization</string>
             <key>OrbDeploymentToken</key>
             <string>REPLACE-WITH-YOUR-DEPLOYMENT-TOKEN</string>
-            <key>OrbSkipIntroduction</key>
-            <false/>
-            <key>OrbZeroconfPublish</key>
-            <false/>
-            <key>OrbZeroconfBrowse</key>
-            <false/>
+            <key>OrbEnvironment</key>
+            <dict>
+                <key>ORB_ZEROCONF_PUBLISH</key>
+                <string>false</string>
+                <key>ORB_ZEROCONF_BROWSE</key>
+                <string>false</string>
+                <key>ORB_DEVICE_NAME_OVERRIDE</key>
+                <string>{{devicename}}-{{serialnumber}}</string>
+            </dict>
+            <key>SensorOnboarding</key>
+            <string>next-login</string>
         </dict>
     </array>
     <key>PayloadDisplayName</key>
@@ -128,25 +153,101 @@ Why each setting is as it is:
 
 | Setting | Why |
 |---|---|
-| `OrbSkipIntroduction` `false` | Keeps the first-run introduction visible, which is how users learn that Location is needed and where they grant it. Without it you lose SSID and BSSID. |
-| `OrbZeroconfPublish` `false` | Stops the sensor advertising itself over mDNS, which most managed fleets do not want. |
-| `OrbZeroconfBrowse` `false` | Stops the sensor discovering other Orbs over mDNS. |
+| `OrbDeploymentToken` | Links the Orb to your Space without any user action. |
+| `OrbEnvironment` → `ORB_ZEROCONF_PUBLISH` `"false"` | Stops the sensor advertising itself over mDNS, which most managed fleets do not want. |
+| `OrbEnvironment` → `ORB_ZEROCONF_BROWSE` `"false"` | Stops the sensor discovering other Orbs over mDNS. The sensor does not browse by default; setting it keeps the profile explicit. |
+| `OrbEnvironment` → `ORB_DEVICE_NAME_OVERRIDE` `"{{devicename}}-{{serialnumber}}"` | Names the Orb after the Mac's Intune device name and serial number, for example `frontdesk-mac-C02XK1ABCDEF`, so it is easy to match to the device in Intune. Intune fills in the variables for each Mac. See [Name each Mac](#name-each-mac). |
+| `SensorOnboarding` `next-login` | The sensor starts monitoring as soon as the package installs, but the introduction and its Location request wait until the user next logs in. |
 
-If you want the sensor to report a name other than the hostname, add `OrbDeviceNameOverride`. Leave the remaining keys unset unless Orb support directs otherwise.
+The profile leaves `OrbSkipIntroduction` unset on purpose. The introduction is where users grant Location, and without Location you lose SSID and BSSID. See [Keep the introduction](#keep-the-introduction).
+
+### Set environment variables with OrbEnvironment
+
+`OrbEnvironment` is a dictionary. Each key is the name of an Orb environment variable, and the sensor applies it at startup as if it had been set in the sensor's environment. Any variable listed in [Configuration](/docs/deploy-and-configure/configuration#environment-variables) can be set this way.
+
+For example, to also turn off first-hop measurement, add `ORB_FIRSTHOP_DISABLED` beside the variables already in the profile:
+
+```xml
+<key>OrbEnvironment</key>
+<dict>
+    <key>ORB_ZEROCONF_PUBLISH</key>
+    <string>false</string>
+    <key>ORB_ZEROCONF_BROWSE</key>
+    <string>false</string>
+    <key>ORB_DEVICE_NAME_OVERRIDE</key>
+    <string>{{devicename}}-{{serialnumber}}</string>
+    <key>ORB_FIRSTHOP_DISABLED</key>
+    <string>1</string>
+</dict>
+```
+
+Rules:
+
+- **Every value must be a `<string>`**, including booleans and numbers: `<string>false</string>`, `<string>1</string>`, never `<false/>` or `<integer>1</integer>`.
+- **Names must start with `ORB_`** and contain only uppercase letters, digits and underscores.
+
+:::warning
+The sensor checks the whole `OrbEnvironment` dictionary before applying any of it. If one value is not a string, or one name breaks the naming rule, the sensor ignores the **entire** profile, including `OrbDeploymentToken`. The Mac then runs unlinked. Check the profile on a test Mac before assigning it widely.
+:::
+
+The sensor reads these settings when it starts. After you change the profile, the change takes effect when the sensor next starts, for example at the user's next login. To apply it sooner, restart the agent:
+
+```bash
+launchctl kickstart -k "gui/$(id -u)/net.orb.sensor"
+```
+
+The sensor logs `Using environment setting from MDM configuration` for each variable it applies. The log line includes the variable name but never its value, so tokens do not end up in logs.
+
+If `OrbEnvironment` contains `ORB_DEPLOYMENT_TOKEN`, that value takes precedence over `OrbDeploymentToken`. Use one or the other. A setting pushed from [Remote Configuration](/docs/deploy-and-configure/configuration#remote-configuration) can block local overrides, and that includes these.
+
+### Name each Mac
+
+By default the sensor reports the Mac's hostname. To report a different name, set `ORB_DEVICE_NAME_OVERRIDE` in `OrbEnvironment`.
+
+One profile is usually assigned to many Macs, so do not use a fixed name: every Mac in the group would appear with the same name. Use Intune's device variables instead. Intune replaces them with each Mac's own values before it delivers the profile:
+
+| Value | Reports as |
+|---|---|
+| `{{devicename}}-{{serialnumber}}` | `frontdesk-mac-C02XK1ABCDEF` |
+| `{{serialnumber}}` | `C02XK1ABCDEF` |
+| `{{devicename}}` | `frontdesk-mac` |
+
+Variables are case-sensitive, and Intune does not check them when you upload the profile. A misspelled variable, such as `{{DeviceName}}`, reaches the Mac as literal text. To confirm Intune substituted the values, check the managed preferences on a Mac:
+
+```bash
+plutil -extract OrbEnvironment.ORB_DEVICE_NAME_OVERRIDE raw "/Library/Managed Preferences/net.orb.orb.plist"
+```
+
+This command should print the Mac's own values, not the text in braces. For other variables, see Microsoft's list of [supported tokens](https://learn.microsoft.com/en-us/intune/app-management/configuration/configure-managed-ios#tokens-used-in-the-property-list).
+
+The sensor reads the name when it starts. A Mac that is already reporting picks up a new name the next time its sensor starts. A package upgrade also restarts the sensor, and so does the `launchctl kickstart` command above.
 
 ### Supported keys
 
 | Key | Type | Effect |
 |---|---|---|
 | `OrbDeploymentToken` | String | Links the Orb to your Space. Required for unattended deployment. |
-| `OrbDeviceNameOverride` | String | Name the device reports in your Space. Omit to use the hostname. |
-| `OrbSkipIntroduction` | Boolean | Suppresses the first-run introduction. See the warning below before setting this. |
-| `OrbZeroconfPublish` | Boolean | `false` stops the sensor advertising itself over mDNS. |
-| `OrbZeroconfBrowse` | Boolean | `false` stops the sensor discovering other Orbs over mDNS. |
+| `OrbEnvironment` | Dictionary of strings | Sets any Orb [environment variable](/docs/deploy-and-configure/configuration#environment-variables). See [above](#set-environment-variables-with-orbenvironment). |
+| `SensorOnboarding` | String | `immediate` (default) or `next-login`. With `next-login`, the introduction and Location request wait until the next login. The sensor starts monitoring immediately either way. Read only by the installer, at installation or upgrade. |
+| `OrbAllowIntroductionLater` | Boolean | Adds a **Later** button to the introduction. It closes the introduction without requesting Location, and the introduction appears again at the next login. Defaults to `false`. |
+| `OrbSkipIntroduction` | Boolean | Suppresses the first-run introduction. It does not grant any permission. See the warning below before setting this. |
+| `OrbEnableRestrictions` | Boolean | Skips the introduction and stops the sensor requesting permissions. It also keeps mDNS discovery off. Defaults to `false`. |
+| `OrbEnableLocationPrompt` | Boolean | With `OrbEnableRestrictions`, allows the Location request again. Ignored without restrictions. |
+| `OrbEnableNetworkPrompt` | Boolean | With `OrbEnableRestrictions`, allows mDNS discovery and direct DNS lookups. These can trigger a Local Network prompt. Ignored without restrictions. |
+| `OrbAutoUpdateEnabled` | Boolean | `false` stops the sensor's own updater. Defaults to `true`. See [Control updates](#control-updates). |
+
+:::note
+Earlier test builds read `OrbZeroconfPublish`, `OrbZeroconfBrowse` and `OrbDeviceNameOverride`. Current builds ignore those keys. Set `ORB_ZEROCONF_PUBLISH`, `ORB_ZEROCONF_BROWSE` and `ORB_DEVICE_NAME_OVERRIDE` in `OrbEnvironment` instead.
+:::
+
+### Keep the introduction
 
 **Do not suppress the sensor's interface if you want SSID and BSSID.**
 
-The sensor shows a short introduction the first time it runs for a user. That introduction is where the user is told that macOS requires Location permission to report the Wi-Fi network name (SSID) and access point (BSSID), and it is where they are given the button to grant it. Setting `OrbSkipIntroduction` to `true` hides the introduction, so the user is never told and never grants Location — and those fields stay empty, with nothing in the console to indicate why.
+The sensor shows a short introduction the first time it runs for a user. That introduction tells the user that macOS requires Location permission to report the Wi-Fi network name (SSID) and access point (BSSID), and gives them the button to grant it. Two keys hide it:
+
+- **`OrbSkipIntroduction`** hides the introduction, but the sensor can still request Location. The user sees the macOS Location prompt with nothing to explain why Orb is asking.
+- **`OrbEnableRestrictions`** hides the introduction and stops the sensor requesting Location at all, unless you also set `OrbEnableLocationPrompt`. The user is never asked, and SSID and BSSID stay empty. Nothing in the console says why.
 
 Without Location, the introduction reports that Wi-Fi details are unavailable and offers **Open Location Settings**:
 
@@ -156,16 +257,21 @@ Once Location is granted, it confirms that Wi-Fi details are enabled:
 
 ![The sensor introduction with Location permission granted](../../../images/deploy-and-configure/orb-sensor-introduction-location-granted.png)
 
-Monitoring itself works either way. Only the Wi-Fi network name and access point identifier depend on this permission, and Orb does not collect geographic coordinates.
+Monitoring works either way. Only the Wi-Fi network name and access point identifier depend on this permission, and Orb does not collect geographic coordinates.
 
-Leave both unset, or set them explicitly to `false`, on any deployment where you want per-network detail. Only set them to `true` if you have accepted losing SSID and BSSID.
+On any deployment where you want per-network detail, leave both keys unset or set them to `false`. Set `OrbEnableRestrictions` to `true` only if you accept losing SSID and BSSID.
 
 :::warning
-Beware when testing this: once a user has granted Location, macOS keeps the grant in `/var/db/locationd`, keyed by bundle identifier and signature. It survives uninstalling and reinstalling the sensor, and it cannot be cleared from the command line. A Mac that has ever run Orb will therefore report SSID and BSSID even under a configuration that would fail on a fresh machine. Validate this on a Mac that has never run Orb.
+Test this on a Mac that has never run Orb. Once a user grants Location, macOS keeps the grant in `/var/db/locationd`, keyed by bundle identifier and signature. The grant survives uninstalling and reinstalling the sensor, and it cannot be cleared from the command line. A Mac that has ever run Orb will therefore report SSID and BSSID even under a configuration that would fail on a fresh machine.
 :::
 
 :::note
-The introduction appears as soon as the package installs, not at the next login: the installer loads the sensor into every GUI session already running. On a Mac where someone is working, a window will appear mid-deployment and macOS may prompt for Location on top of it. Tell users to expect it, and that granting Location is what allows Orb to report which Wi-Fi network they are on.
+When the introduction appears depends on `SensorOnboarding`, which the installer reads when the package installs:
+
+- **`next-login`** (recommended): the installer starts the sensor in every running session without the introduction. The introduction and the Location request appear at the user's next login or restart. Users can open **Orb Sensor** to finish sooner. Until they do, SSID and BSSID are not reported.
+- **`immediate`**, or no profile present at install time: the introduction appears in every running session as soon as the package installs. On a Mac where someone is working, a window appears mid-deployment, and macOS may show the Location prompt on top of it.
+
+Either way, tell users to expect the introduction, and that granting Location is what allows Orb to report which Wi-Fi network they are on.
 :::
 
 ### Upload the profile to Intune
@@ -176,9 +282,7 @@ The introduction appears as soon as the package installs, not at the next login:
 4. Give the profile a name, for example `Orb Sensor Configuration`, then select **Next**.
 5. Set **Custom configuration profile name** to `Orb Sensor Configuration`, leave **Deployment channel** set to **Device channel**, upload `orb-sensor.mobileconfig`, and select **Next**.
 
-   Intune shows the payload it parsed, which is the quickest way to confirm the profile is the `net.orb.orb` type the sensor reads.
-
-   ![The uploaded configuration profile and its parsed payload](../../../images/intune/intune-macos-custom-profile.png)
+   Intune shows the file it parsed. Check that it contains your token and the `net.orb.orb` payload type before you continue.
 
 6. On **Assignments**, add the device group you will deploy the sensor to, then select **Next**.
 7. Review and select **Create**.
@@ -253,7 +357,7 @@ The rule above allows every background item signed by Orb Forge Inc. To allow on
 
    ![Selecting the macOS app (PKG) app type](../../../images/intune/intune-macos-app-type.png)
 
-3. On **App information**, select **Select app package file**, upload the sensor `.pkg`, and select **OK**.
+3. On **App information**, select **Select app package file**, upload `orb-sensor.pkg`, and select **OK**.
 
    Intune reads the package and reports its name, platform and size before you confirm.
 
@@ -300,10 +404,13 @@ On a target Mac:
 
 ```bash
 # The package is installed
-pkgutil --pkg-info net.orb.orbcli
+pkgutil --pkg-info net.orb.sensor
 
 # The managed preferences arrived, including the token
 sudo plutil -p "/Library/Managed Preferences/net.orb.orb.plist"
+
+# The sensor applied your OrbEnvironment settings (names only, never values)
+grep -h "Using environment setting from MDM configuration" ~/.config/orb/logs/orb_*.log | tail -5
 
 # The agent is loaded in the logged-in user's session
 launchctl print "gui/$(id -u)/net.orb.sensor" | head -20
@@ -319,57 +426,60 @@ In [Orb Cloud](https://cloud.orb.net), confirm the Mac appears in your Space and
 
 ## Control updates
 
-Coming soon.
+The sensor updates itself by default: a daily updater installs new stable releases.
+
+To have Intune own the version instead, add `OrbAutoUpdateEnabled` to the `net.orb.orb` payload of your configuration profile:
+
+```xml
+<key>OrbAutoUpdateEnabled</key>
+<false/>
+```
+
+The updater reads this key on every run, so a change takes effect at the next daily check. You do not need to restart the sensor or reinstall the package. With updates off, the updater still runs daily but exits without downloading or installing anything. To upgrade, upload the new package to the app in Intune, and set **Ignore app version** to **No** so Intune replaces older installations.
+
+Removing the key, or the profile, turns self-updating back on. If the preferences file is malformed, the updater skips updates and logs an error to `/Library/Logs/Orb/updater-error.log`.
 
 ## Uninstall the sensor
 
-The package does not include an uninstaller, and Intune does not remove it for you.
+Intune does not remove the sensor for you.
 
 :::warning
 A macOS app deployed through the Intune agent is **not** removed when the device is retired or unenrolled. The sensor, its launchd jobs and its local data stay on the Mac, and it keeps reporting to your Space until it is removed explicitly. Uninstall before retiring a device.
 :::
 
-Remove it with a shell script run as root, or as an Intune **Uninstall** assignment:
+The package installs an uninstaller. Run it as root, in Terminal or as an Intune shell script (**Devices → macOS → Scripts**, with **Run script as signed-in user** set to **No**):
 
 ```bash
-#!/bin/bash
-set -euo pipefail
+sudo /bin/bash "/Library/Application Support/Orb/uninstall.sh"
+```
 
-# Stop the updater
-/bin/launchctl bootout system/net.orb.updater 2>/dev/null || true
+It removes the sensor for every user on the Mac:
 
-# Stop the sensor in every logged-in session
-while read -r uid; do
-    [[ "$uid" =~ ^[0-9]+$ ]] && (( uid > 500 )) || continue
-    /bin/launchctl bootout "gui/$uid/net.orb.sensor" 2>/dev/null || true
-done < <(/bin/ps -axo uid= | /usr/bin/sort -un)
+- It stops the updater, and the sensor in every logged-in session.
+- It removes `Orb Sensor.app`, both launchd jobs, the updater and its logs, and the `/usr/local/bin/orb` link if the package created it.
+- It forgets the package receipt.
 
-/bin/rm -f /Library/LaunchAgents/net.orb.sensor.plist
-/bin/rm -f /Library/LaunchDaemons/net.orb.updater.plist
-/bin/rm -rf "/Applications/Orb Sensor.app"
-/bin/rm -rf "/Library/Application Support/Orb"
-/bin/rm -rf /Library/Logs/Orb
-/bin/rm -f /usr/local/bin/orb /Library/Preferences/net.orb.plist
+If an update is being installed at that moment, it waits and asks you to retry rather than interrupting it.
 
-# Per-user state: identity, measurement data and logs.
+It deliberately keeps each user's `~/.config/orb` folder, the Orb's identity and data, and it keeps your configuration profiles. If you reinstall later, the Mac returns to your Space as the same Orb.
+
+To remove the Orb for good, also delete each user's data after running the uninstaller:
+
+```bash
 for home in /Users/*; do
     [[ -d "$home/.config/orb" ]] && /bin/rm -rf "$home/.config/orb"
 done
-
-# Clear any administrator disable overrides, which outlive the job definitions
-# and would otherwise stop a later installation from starting the sensor.
-/bin/launchctl enable system/net.orb.updater 2>/dev/null || true
-
-/usr/sbin/pkgutil --forget net.orb.orbcli 2>/dev/null || true
 ```
 
 :::warning
 Removing `~/.config/orb` discards the Orb's identity, so a later installation enrols as a **new** Orb rather than returning as the same one. Delete the stale entry from your Space, or keep the directory if you want the device to come back as itself.
 :::
 
-Also remove the configuration profile assignment, so the Deployment Token is withdrawn from the device.
+Then finish in Intune and Orb Cloud:
 
-Lastly, login to Orb Cloud, select the Orb, and select "Remove device" to ensure the Orb license is reclaimed.
+1. In Intune, remove the Mac from the app's **Required** assignment. Otherwise Intune reinstalls the sensor at its next check-in.
+2. Remove the Mac from the configuration profile assignment, which withdraws the Deployment Token from the device.
+3. In Orb Cloud, select the Orb and select **Remove device**. This reclaims its license.
 
 ## Files and processes for endpoint security
 
@@ -402,15 +512,15 @@ Allow by **Team ID** `YL5R46QP4A` rather than by file hash, which changes with e
 | `/Library/LaunchAgents/net.orb.sensor.plist` | Starts the sensor in each user's GUI session. |
 | `/Library/LaunchDaemons/net.orb.updater.plist` | Runs the updater daily as `root`. |
 | `/Library/Application Support/Orb/updater.sh` | Self-updater. It downloads from `https://pkgs.orb.net/stable/macos/` and installs a release only if its SHA-256 matches, it is signed by the Developer ID Installer identity above, it passes Gatekeeper, and its package ID and version match the release. |
+| `/Library/Application Support/Orb/uninstall.sh` | Uninstaller. See [Uninstall the sensor](#uninstall-the-sensor). |
 | `/Library/Application Support/Orb/updater.lock` | Stops two updater runs from overlapping. Created the first time the updater runs, which is a day after installation. |
 | `/Library/Logs/Orb/updater.log`, `updater-error.log` | Updater output. |
 
-**Configuration**, written by macOS or an administrator rather than the package:
+**Configuration**, written by macOS rather than the package:
 
 | Path | Purpose | Sensitive |
 |---|---|---|
-| `/Library/Managed Preferences/net.orb.orb.plist` | Written by macOS from your [configuration profile](#deploy-the-configuration-profile-first). Contains your Deployment Token. macOS makes this file readable by every account on the Mac (`0644`, owned by `root`). | **Yes** |
-| `/Library/Preferences/net.orb.plist` | Optional. Read by the post-install script for installation settings. | No |
+| `/Library/Managed Preferences/net.orb.orb.plist` | Written by macOS from your [configuration profile](#deploy-the-configuration-profile-first). Read by the sensor at startup, by the installer for `SensorOnboarding`, and by the updater for `OrbAutoUpdateEnabled`. Contains your Deployment Token, and any values you set in `OrbEnvironment`. macOS makes this file readable by every account on the Mac (`0644`, owned by `root`). | **Yes** |
 
 **Per-user data**, in `~/.config/orb`. The sensor writes this folder as the logged-in user. The folder is `0700` and its files are `0600`, so other accounts on the Mac cannot read it.
 
@@ -448,7 +558,15 @@ Confirm the managed preferences arrived and contain your token:
 sudo plutil -p "/Library/Managed Preferences/net.orb.orb.plist"
 ```
 
-If the file is missing, the configuration profile has not installed — check its assignment in Intune and the device's profile list under **System Settings → General → Device Management**. If the token is present but the device still does not appear, confirm the token is still valid in [Orchestration](https://cloud.orb.net/orchestration) and that the Mac can reach the internet.
+If the file is missing, the configuration profile has not installed — check its assignment in Intune and the device's profile list under **System Settings → General → Device Management**. If the token is present but the device still does not appear, check whether the sensor rejected the profile:
+
+```bash
+grep -hE "Failed to (load|decode) MDM configuration" ~/.config/orb/logs/orb_*.log | tail -5
+```
+
+A rejected profile usually means an `OrbEnvironment` value that is not a `<string>`, or a variable name that does not start with `ORB_`. When that happens, the sensor ignores every setting in the profile, including the token. See [Set environment variables with OrbEnvironment](#set-environment-variables-with-orbenvironment).
+
+Otherwise, confirm the token is still valid in [Orchestration](https://cloud.orb.net/orchestration) and that the Mac can reach the internet.
 
 ### The sensor is installed but not running
 

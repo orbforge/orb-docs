@@ -11,7 +11,7 @@ Orb comes with local and remote configuration capabilities to control behavior.
 
 ## Environment variables
 
-The following environment variables can be set:
+The following environment variables can be set. On macOS sensors deployed with an MDM, set them with [`OrbEnvironment`](/docs/deploy-and-configure/mdm/intune-macos#set-environment-variables-with-orbenvironment) in the configuration profile.
 
 | Name | Description | Example | Minimum Version |
 | ---- | ----------- | ------- | ----------------|
@@ -26,6 +26,8 @@ The following environment variables can be set:
 | `ORB_MEASURE_SERVER_ENABLED` | Enables the Orb to act as a server for speed and responsiveness testing | `ORB_MEASURE_SERVER_ENABLED=1` | 1.4.10 |
 | `ORB_MEASURE_SERVER_PORT` | Set the port for the Orb measurement server | `ORB_MEASURE_SERVER_PORT=8080` | 1.4.10 |
 | `ORB_SERVER_POP` | Sets a point of presence description for the Orb measurement server, reported to Orbs running Orb-to-Orb measurements against it. By convention, the nearest 3-character airport code, but any short string works | `ORB_SERVER_POP=sea` | 1.6.0 |
+| `ORB_ZEROCONF_PUBLISH` | Advertises this Orb on the local network over mDNS. Set to `0` or `false` to stop advertising | `ORB_ZEROCONF_PUBLISH=0` | — |
+| `ORB_ZEROCONF_BROWSE` | Discovers other Orbs on the local network over mDNS. Set to `0` or `false` to stop discovery | `ORB_ZEROCONF_BROWSE=0` | — |
 
 ## Remote Configuration
 
