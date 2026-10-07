@@ -121,7 +121,7 @@ Set any of these as `PROPERTY=value` pairs on the installation program. They are
 Other sensor options from [Orb Configuration](/docs/deploy-and-configure/configuration) are available as properties of the same name, including `ORB_FIRSTHOP_DISABLED`, `ORB_BANDWIDTH_DISABLED`, `ORB_EPHEMERAL_MODE`, `ORB_MEASURE_SERVER_ENABLED` and `ORB_MEASURE_SERVER_PORT`.
 
 :::note
-Changing a property and redeploying applies the new value. Removing a property from the command line does **not** clear it — the previous value is kept, by design, so that settings survive upgrades. To clear a setting, uninstall and reinstall.
+Changing a property and redeploying the same version applies the new value, provided the MSI has the same file name as the one the device was installed from (see [The sensor installation fails with 1603](#the-sensor-installation-fails-with-1603)). Removing a property from the command line does **not** clear it — the previous value is kept, by design, so that settings survive upgrades. To clear a setting, uninstall and reinstall.
 :::
 
 ### Migrating from a scripted sensor installation
@@ -305,6 +305,18 @@ For the sensor, add `/l*v C:\Windows\Temp\orb-sensor.log` to the installation pr
 
 Upgrading keeps the device's identity: it stays the **same Orb** in your Space rather than appearing as a duplicate, and its Deployment Token and configuration properties are preserved.
 
+:::warning
+Supersede the previous application, or delete its deployment, before you deploy a newer sensor. If the previous version is still deployed as **Required**, its product-code detection stops matching once a device upgrades, so Configuration Manager tries to install the older MSI again. Windows Installer refuses to downgrade and reports `1603` ("A newer version of Orb Sensor is already installed"). The device keeps running the newer version, but the old deployment keeps reporting failures.
+:::
+
+**Self-updating sensors.** On devices installed with `AUTOUPDATE=1`, the sensor updates itself and you do not deploy new versions. The **Orb Sensor Update** task first runs four hours after installation and every four hours after that. Each run waits a random 0–10 minutes, then compares the installed version with the latest release. If a newer one exists, the task downloads it, checks that it is signed by Orb Forge, and installs it as the same in-place upgrade. To check for an update immediately, run:
+
+```
+schtasks /run /tn "Orb Sensor Update"
+```
+
+Each check writes `update.log` (and, when it installs an update, `msiexec.log`) to a new `C:\Windows\Temp\OrbSensorUpdate-<random>\` folder. After a self-update, the version installed on the device no longer matches the application you deployed, which is why we recommend leaving `AUTOUPDATE` at `0` when Configuration Manager manages versions.
+
 **App.** Replace `Orb-installer.exe` in the content source, update the distribution points, and raise `$MinVersion` in the detection script so clients re-evaluate.
 
 :::warning
@@ -398,6 +410,21 @@ The updater downloads only from `https://pkgs.orb.net/stable/windows/latest/` (`
 - **Do not quarantine or block `update.ps1`** on devices where you install with `AUTOUPDATE=1`. If Configuration Manager manages versions, leave `AUTOUPDATE` at `0` and the script never runs.
 
 ## Troubleshooting
+
+### The sensor installation fails with 1603
+
+`1603` is Windows Installer's generic failure code. The device's Application event log says which failure it was. In **Event Viewer → Windows Logs → Application**, filter on the source **MsiInstaller** around the time of the failure:
+
+| Event | Cause | What to do |
+|---|---|---|
+| `10005`: *A newer version of Orb Sensor is already installed.* | An older sensor MSI was deployed to a device that already runs a newer one. The device keeps the newer version. | Supersede or remove the older application's deployment, as described in [Update Orb](#update-orb). |
+| `1013`: *The Deployment Token was rejected by Orb Cloud.* | The token is wrong or was revoked. The installation is rolled back, so the device keeps its previous version and token. | Check the token in [Orchestration](https://cloud.orb.net/orchestration) and see [Orb does not link to my Space](#orb-does-not-link-to-my-space). |
+| `11316`: *Error 1316* | The same sensor version was installed again from an MSI with a different **file name** than the one it was originally installed from. A device that updated itself was installed from `orb-sensor-<version>.msi`. The device is unaffected. | Deploy the MSI under the file name the device was installed from, or deploy a newer version. |
+| `11708` with any other message | The installation failed and was rolled back. | Read the verbose log, as described below. |
+
+If the cause is not clear, add `/l*v C:\Windows\Temp\orb-sensor.log` to the installation program and redeploy, then search the log for `Return value 3`. The lines just above it name the step that failed. Include that log, the MsiInstaller events and `C:\Windows\CCM\Logs\AppEnforce.log` when you contact support.
+
+A failure that does not repeat on the next attempt points to something else happening on the device at that moment, such as another installation in progress or security software scanning the newly installed files. A failed installation is rolled back and leaves the previous version running. Configuration Manager retries a **Required** deployment at the client's next application deployment evaluation cycle, or you can trigger the cycle from **Configuration Manager** in Control Panel (**Actions → Application Deployment Evaluation Cycle**).
 
 ### The application installs but reports as failed
 
