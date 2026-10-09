@@ -377,6 +377,48 @@ If the token was rejected, the sensor MSI fails the installation immediately wit
 | `1618` | Another installation is in progress. Intune retries. |
 | `0x80070005` | Access denied. Confirm **Install behavior** is *System*. |
 
+### Wi-Fi network name and access point are missing
+
+Windows 11 only gives Wi-Fi network details (network name, access point, link rates, Wi-Fi standard and security) to apps that are allowed to use location, and it applies this to services such as the Orb sensor too. When location is blocked, the sensor still reports scores, signal strength and channel, but the network name and access point are empty.
+
+To confirm, open the newest log in `C:\ProgramData\Orb\logs` and search for `windows wifi: query results changed`:
+
+```text
+"msg":"windows wifi: query results changed",...,"connection":5,...,"location_denied":true
+```
+
+`"location_denied":true` means Windows refused the sensor's request for Wi-Fi details. Once location is allowed, the next line shows `"connection":0` and `"location_denied":false`.
+
+Location is blocked when **Location services** is turned off in **Settings → Privacy & security → Location**, or when a policy forces it off. Policies from Intune do not appear in `gpresult`. To see the ones that apply to a device, run:
+
+```text
+reg query HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\System /v AllowLocation
+reg query HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Privacy /v LetAppsAccessLocation
+```
+
+| Value | Intune setting | Effect on the sensor |
+|---|---|---|
+| `AllowLocation` = `0` | **System → Allow Location** = *Force Location Off* | Blocks location for the whole device. Nothing else can override it. |
+| `LetAppsAccessLocation` = `2` | **Privacy → Let Apps Access Location** = *Force deny* | Blocks location for every app, including the sensor. |
+| Neither value is present | | **Location services** in Settings decides. When it is off, the sensor is blocked. |
+
+To allow location for the sensor, create a settings catalog profile:
+
+1. In the [Intune admin center](https://intune.microsoft.com), go to **Devices → Windows → Configuration → Create → New Policy**.
+2. Set **Platform** to *Windows 10 and later* and **Profile type** to *Settings catalog*, then select **Create**.
+3. Name the profile, for example *Allow location for Orb*.
+4. In **Configuration settings**, select **Add settings**, search for *Let Apps Access Location*, select the **Privacy** category, and check **Let Apps Access Location**.
+5. Set **Let Apps Access Location** to *Force allow*.
+6. Assign the profile to the device group that contains your Orb devices, then select **Review + create**.
+
+This works even when **Location services** is turned off on the device. If another profile sets **System → Allow Location** to *Force Location Off*, change that profile; otherwise it keeps blocking the sensor. If another profile sets **Let Apps Access Location** to a different value, Intune reports a conflict for the device; remove the setting from one of the profiles.
+
+Devices pick up the profile at their next check-in. To apply it sooner, select **Sync** on the device in Intune. The sensor picks up the change within seconds; you do not need to restart it or the device. On the device, `LetAppsAccessLocation` under `PolicyManager\current\device\Privacy` then reads `1`.
+
+:::warning
+*Force allow* lets every app on the device use location, not only Orb. Windows has no setting that allows location for one desktop app or service only. Check this against your privacy policy before deploying it.
+:::
+
 ## Additional configuration
 
 Both deliverables support the configuration options described in [Orb Configuration](/docs/deploy-and-configure/configuration). For the sensor, set them as MSI properties as described above. For the app, MDM settings are read from `HKLM\SOFTWARE\Orb\MDM`, where `OrbDeviceNameOverride` sets the name the device reports in your Space.

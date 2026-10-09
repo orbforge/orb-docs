@@ -472,7 +472,7 @@ reg query HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Privacy /v LetApp
 | `LetAppsAccessLocation` = `2` | Group Policy **Let Windows apps access location**, or MDM **Privacy/LetAppsAccessLocation**, set to *Force Deny* | Blocks location for every app, including the sensor. |
 | None of the above | | **Location services** in **Settings → Privacy & security → Location** decides. When it is off, the sensor is blocked. |
 
-The value `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location` does not reliably show whether location is allowed, so do not rely on it.
+Policies from Intune do not appear in `gpresult`; they are the values under `PolicyManager` above. To check **Location services** itself, look in Settings rather than at the `ConsentStore\location` registry value: changing that value by hand does not change the setting.
 
 **Allow location for the sensor:**
 
@@ -485,7 +485,9 @@ Users can still turn off **Let desktop apps access your location** in their own 
 **Force Allow** lets every app on the device use location, not only Orb. Windows has no setting that allows location for one desktop app or service only. Check this against your privacy policy before deploying it.
 :::
 
-**Deploy the setting with Configuration Manager.** If you do not manage these devices with Group Policy, use a configuration baseline:
+**Co-managed devices.** If you set device policy with Intune and deploy Orb with Configuration Manager, set **Let Apps Access Location** in Intune, as described in [Microsoft Intune](/docs/deploy-and-configure/mdm/intune#wi-fi-network-name-and-access-point-are-missing). Do not also set it with a configuration baseline.
+
+**Deploy the setting with Configuration Manager.** If Configuration Manager manages settings on these devices and you do not use Group Policy, use a configuration baseline:
 
 1. In **Assets and Compliance → Compliance Settings → Configuration Items**, create a configuration item for Windows desktops with a **Registry value** setting:
    - **Hive:** `HKEY_LOCAL_MACHINE`
