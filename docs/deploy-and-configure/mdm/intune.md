@@ -409,7 +409,7 @@ To allow location for the sensor, create a settings catalog profile:
 3. Name the profile, for example *Allow location for Orb*.
 4. In **Configuration settings**, select **Add settings**, search for *Let Apps Access Location*, select the **Privacy** category, and check **Let Apps Access Location**. Leave the *Force Allow These Apps*, *Force Deny These Apps* and *User In Control Of These Apps* settings unchecked: they list Microsoft Store apps by package family name and cannot select a desktop service such as the Orb sensor.
 5. Set **Let Apps Access Location** to *Force allow*.
-6. Assign the profile to the device group that contains your Orb devices, then select **Review + create**.
+6. Leave **Scope tags** as they are. In **Assignments**, add the device group that contains your Orb devices, then select **Review + create → Create**.
 
 This works even when **Location services** is turned off on the device. If another profile sets **System → Allow Location** to *Force Location Off*, change that profile; otherwise it keeps blocking the sensor. If another profile sets **Let Apps Access Location** to a different value, Intune reports a conflict for the device; remove the setting from one of the profiles.
 
