@@ -474,12 +474,10 @@ reg query HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Privacy /v LetApp
 
 Policies from Intune do not appear in `gpresult`; they are the values under `PolicyManager` above. To check **Location services** itself, look in Settings rather than at the `ConsentStore\location` registry value: changing that value by hand does not change the setting.
 
-**Allow location for the sensor:**
+**Allow location for the sensor.** The sensor only needs **Location services** turned on for the device. Users can keep **Let apps access your location** and **Let desktop apps access your location** turned off, and their own apps stay blocked, so turning on **Location services** on each device is the narrowest option. No policy turns it on centrally while leaving the rest to users; the policies below allow location for every app.
 
 1. **Remove any setting that forces location off.** If `DisableLocation` is `1`, set **Computer Configuration → Administrative Templates → Windows Components → Location and Sensors → Turn off location** to **Not Configured** in the Group Policy object that sets it. If `AllowLocation` is `0`, change the policy in your MDM. Fix these at their source; a value changed only on the device is restored at the next policy refresh.
 2. **Allow apps to use location.** Either turn on **Location services** on each device, or set it centrally with Group Policy **Computer Configuration → Administrative Templates → Windows Components → App Privacy → Let Windows apps access location**: **Enabled**, *Default for all apps* = **Force Allow**. This works even when **Location services** is turned off in Settings. With Intune or another MDM, set **Privacy/LetAppsAccessLocation** to *Force Allow*.
-
-Users can still turn off **Let desktop apps access your location** in their own settings without affecting the sensor.
 
 :::warning
 **Force Allow** lets every app on the device use location, not only Orb. Windows has no setting that allows location for one desktop app or service only. Check this against your privacy policy before deploying it.
