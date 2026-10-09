@@ -487,13 +487,19 @@ Policies from Intune do not appear in `gpresult`; they are the values under `Pol
 
 **Deploy the setting with Configuration Manager.** If Configuration Manager manages settings on these devices and you do not use Group Policy, use a configuration baseline:
 
-1. In **Assets and Compliance → Compliance Settings → Configuration Items**, create a configuration item for Windows desktops with a **Registry value** setting:
+1. In **Assets and Compliance → Compliance Settings → Configuration Items**, create a configuration item of type **Windows Desktops and Servers (custom)**, and add a setting:
+   - **Setting type:** Registry value
+   - **Data type:** Integer
    - **Hive:** `HKEY_LOCAL_MACHINE`
    - **Key:** `SOFTWARE\Policies\Microsoft\Windows\AppPrivacy`
    - **Value name:** `LetAppsAccessLocation`
-   - **Data type:** Integer
-2. Add a compliance rule: the value **equals** `1`, with **Remediate noncompliant rules when supported** and **Report noncompliance if this setting instance is not found** selected.
+   - Select **Create the registry value as a REG_DWORD data type if remediated for noncompliant rules**.
+2. Add a compliance rule: the value **Equals** `1`, with **Remediate noncompliant rules when supported** and **Report noncompliance if this setting instance is not found** selected.
 3. Add the configuration item to a configuration baseline and deploy the baseline to the device collection with **Remediate noncompliant rules when supported** selected.
+
+:::warning
+Without the **REG_DWORD** option, remediation creates the value as a 64-bit `REG_QWORD`. Windows ignores the policy in that form, but the baseline still reports the device as compliant. If a device already has a `REG_QWORD` value, delete it (`reg delete HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy /v LetAppsAccessLocation /f`) so the next evaluation recreates it as a `REG_DWORD`. `reg query` shows the type.
+:::
 
 The sensor picks up the change within seconds. You do not need to restart it or the device. If a Group Policy object also sets `LetAppsAccessLocation`, the Group Policy value wins at the next refresh, so change it there instead.
 
