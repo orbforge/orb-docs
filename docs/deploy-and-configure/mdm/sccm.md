@@ -444,6 +444,65 @@ The sensor does not have this constraint: it runs as a service and reports witho
 
 If the token was rejected, the sensor MSI fails the installation immediately with `1603` and gives the reason in its verbose log, rather than installing a sensor that never links. If Orb Cloud is merely unreachable, installation succeeds and the device links when it next has connectivity.
 
+### Wi-Fi network name and access point are missing
+
+Windows 11 only gives Wi-Fi network details (network name, access point, link rates, Wi-Fi standard and security) to apps that are allowed to use location, and it applies this to services such as the Orb sensor too. When location is blocked, the sensor still reports scores, signal strength and channel, but the network name and access point are empty.
+
+To confirm, open the newest log in `C:\ProgramData\Orb\logs` and search for `windows wifi: query results changed`:
+
+```text
+"msg":"windows wifi: query results changed",...,"connection":5,...,"location_denied":true
+```
+
+`"location_denied":true` means Windows refused the sensor's request for Wi-Fi details. Once location is allowed, the next line shows `"connection":0` and `"location_denied":false`.
+
+**Find what blocks location.** Run these on an affected device:
+
+```text
+reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors /v DisableLocation
+reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy /v LetAppsAccessLocation
+reg query HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\System /v AllowLocation
+reg query HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Privacy /v LetAppsAccessLocation
+```
+
+| Value | Set by | Effect on the sensor |
+|---|---|---|
+| `DisableLocation` = `1` | Group Policy **Turn off location** | Blocks location for the whole device. Nothing else can override it. |
+| `AllowLocation` = `0` | Intune or another MDM: **System/AllowLocation**, *Force Location Off* | Blocks location for the whole device. Nothing else can override it. |
+| `LetAppsAccessLocation` = `2` | Group Policy **Let Windows apps access location**, or MDM **Privacy/LetAppsAccessLocation**, set to *Force Deny* | Blocks location for every app, including the sensor. |
+| None of the above | | **Location services** in **Settings → Privacy & security → Location** decides. When it is off, the sensor is blocked. |
+
+Policies from Intune do not appear in `gpresult`; they are the values under `PolicyManager` above. To check **Location services** itself, look in Settings rather than at the `ConsentStore\location` registry value: changing that value by hand does not change the setting.
+
+**Allow location for the sensor.** The sensor only needs **Location services** turned on for the device. Users can keep **Let apps access your location** and **Let desktop apps access your location** turned off, and their own apps stay blocked, so turning on **Location services** on each device is the narrowest option. No policy turns it on centrally while leaving the rest to users; the policies below allow location for every app.
+
+1. **Remove any setting that forces location off.** If `DisableLocation` is `1`, set **Computer Configuration → Administrative Templates → Windows Components → Location and Sensors → Turn off location** to **Not Configured** in the Group Policy object that sets it. If `AllowLocation` is `0`, change the policy in your MDM. Fix these at their source; a value changed only on the device is restored at the next policy refresh.
+2. **Allow apps to use location.** Either turn on **Location services** on each device, or set it centrally with Group Policy **Computer Configuration → Administrative Templates → Windows Components → App Privacy → Let Windows apps access location**: **Enabled**, *Default for all apps* = **Force Allow**. This works even when **Location services** is turned off in Settings. With Intune or another MDM, set **Privacy/LetAppsAccessLocation** to *Force Allow*.
+
+:::warning
+**Force Allow** lets every app on the device use location, not only Orb. Windows has no setting that allows location for one desktop app or service only. Check this against your privacy policy before deploying it.
+:::
+
+**Co-managed devices.** If you set device policy with Intune and deploy Orb with Configuration Manager, set **Let Apps Access Location** in Intune, as described in [Microsoft Intune](/docs/deploy-and-configure/mdm/intune#wi-fi-network-name-and-access-point-are-missing). Do not also set it with a configuration baseline.
+
+**Deploy the setting with Configuration Manager.** If Configuration Manager manages settings on these devices and you do not use Group Policy, use a configuration baseline:
+
+1. In **Assets and Compliance → Compliance Settings → Configuration Items**, create a configuration item of type **Windows Desktops and Servers (custom)**, and add a setting:
+   - **Setting type:** Registry value
+   - **Data type:** Integer
+   - **Hive:** `HKEY_LOCAL_MACHINE`
+   - **Key:** `SOFTWARE\Policies\Microsoft\Windows\AppPrivacy`
+   - **Value name:** `LetAppsAccessLocation`
+   - Select **Create the registry value as a REG_DWORD data type if remediated for noncompliant rules**.
+2. Add a compliance rule: the value **Equals** `1`, with **Remediate noncompliant rules when supported** and **Report noncompliance if this setting instance is not found** selected.
+3. Add the configuration item to a configuration baseline and deploy the baseline to the device collection with **Remediate noncompliant rules when supported** selected.
+
+:::warning
+Without the **REG_DWORD** option, remediation creates the value as a 64-bit `REG_QWORD`. Windows ignores the policy in that form, but the baseline still reports the device as compliant. If a device already has a `REG_QWORD` value, delete it (`reg delete HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy /v LetAppsAccessLocation /f`) so the next evaluation recreates it as a `REG_DWORD`. `reg query` shows the type.
+:::
+
+The sensor picks up the change within seconds. You do not need to restart it or the device. If a Group Policy object also sets `LetAppsAccessLocation`, the Group Policy value wins at the next refresh, so change it there instead.
+
 ## Additional configuration
 
 Both deliverables support the configuration options described in [Orb Configuration](/docs/deploy-and-configure/configuration). For the sensor, set them as MSI properties as described above. For the app, MDM settings are read from `HKLM\SOFTWARE\Orb\MDM`, where `OrbDeviceNameOverride` sets the name the device reports in your Space.
