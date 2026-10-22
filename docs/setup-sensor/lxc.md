@@ -42,10 +42,10 @@ Each architecture has two files:
 
 | File | Contents |
 |---|---|
-| `orb-lxc-<arch>-rootfs.tar.gz` | The container's root filesystem |
-| `orb-lxc-<arch>-meta.tar.gz` | Container settings for `lxc-create` |
+| `orb-lxc-<arch>-rootfs.tar.xz` | The container's root filesystem |
+| `orb-lxc-<arch>-meta.tar.xz` | Container settings for `lxc-create` |
 
-These names always point at the latest release. Each file has a matching `.sha256` checksum, and versioned copies such as `orb-lxc-1.6.5-arm64-rootfs.tar.gz` are kept alongside them.
+These names always point at the latest release. Each file has a matching `.sha256` checksum, and versioned copies such as `orb-lxc-1.6.5-arm64-rootfs.tar.xz` are kept alongside them.
 
 To set the architecture automatically, run:
 
@@ -73,16 +73,16 @@ Use these steps with LXC 3.0 or newer. The `xz` tool must also be installed on t
 1. Download the image:
 
     ```bash
-    curl -fsSLO https://pkgs.orb.net/stable/lxc/orb-lxc-$ARCH-meta.tar.gz
-    curl -fsSLO https://pkgs.orb.net/stable/lxc/orb-lxc-$ARCH-rootfs.tar.gz
+    curl -fsSLO https://pkgs.orb.net/stable/lxc/orb-lxc-$ARCH-meta.tar.xz
+    curl -fsSLO https://pkgs.orb.net/stable/lxc/orb-lxc-$ARCH-rootfs.tar.xz
     ```
 
 2. Create the container:
 
     ```bash
     lxc-create -n orb -t local -- \
-      --metadata orb-lxc-$ARCH-meta.tar.gz \
-      --fstree orb-lxc-$ARCH-rootfs.tar.gz
+      --metadata orb-lxc-$ARCH-meta.tar.xz \
+      --fstree orb-lxc-$ARCH-rootfs.tar.xz
     ```
 
     The container uses the network and ID mapping settings in your LXC default configuration (`/etc/lxc/default.conf`, or `~/.config/lxc/default.conf` for unprivileged users). We recommend unprivileged containers. When you create the container as root, add `lxc.idmap` entries to `/etc/lxc/default.conf` first.
@@ -111,14 +111,14 @@ Use these steps on devices with LXC 2.1 or newer that don't have `lxc-create -t 
     mkdir -p /var/lib/lxc/orb/rootfs
     chown 100000:100000 /var/lib/lxc/orb/rootfs
     lxc-usernsexec -m b:0:100000:65536 -- \
-      tar -xpzf orb-lxc-$ARCH-rootfs.tar.gz --numeric-owner -C /var/lib/lxc/orb/rootfs
+      tar -xpJf orb-lxc-$ARCH-rootfs.tar.xz --numeric-owner -C /var/lib/lxc/orb/rootfs
     ```
 
     For a privileged container, extract it directly and leave out the `lxc.idmap` lines:
 
     ```bash
     mkdir -p /var/lib/lxc/orb/rootfs
-    tar -xpzf orb-lxc-$ARCH-rootfs.tar.gz --numeric-owner -C /var/lib/lxc/orb/rootfs
+    tar -xpJf orb-lxc-$ARCH-rootfs.tar.xz --numeric-owner -C /var/lib/lxc/orb/rootfs
     ```
 
 2. Create `/var/lib/lxc/orb/config`. Set `lxc.arch` from the [table above](#choose-your-image), and `lxc.net.0.link` to a bridge on your LAN:
@@ -238,7 +238,7 @@ lxc-attach -n orb -- logread       # show the log
 lxc-attach -n orb -- logread -f    # follow it
 ```
 
-Boot messages, such as network and service startup, are written to `/var/lib/lxc/orb/console.log` on the host.
+Boot messages, such as network and service startup, go to the container console. If you used the [manual installation](#manual-installation) config, they are saved to `/var/lib/lxc/orb/console.log` on the host. Otherwise, add `lxc.console.logfile = /var/lib/lxc/orb/console.log` to the container's config to save them.
 
 For more detail, add `export ORB_LOG_CONSOLE_LEVEL=debug` to `/etc/conf.d/orb` and restart the sensor.
 
