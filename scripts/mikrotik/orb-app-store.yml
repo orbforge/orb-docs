@@ -1,7 +1,7 @@
 - name: orb-sensor
   descr: Monitor internet responsiveness and reliability directly from your MikroTik device.
   page: https://orb.net
-  category: network
+  category: monitoring
   default-credential: none
   services:
     orb:
@@ -11,3 +11,6 @@
         # - ORB_DEPLOYMENT_TOKEN=your-deployment-token # Recommended: links this Orb to your account on first boot
         # - ORB_FIRSTHOP_DISABLED=1 # Recommended for router deployments
         # - ORB_BANDWIDTH_DISABLED=1 # Recommended for ARMv5 devices (see compatibility table)
+      volumes:
+        # Keeps the Orb's identity outside the image, so updates don't turn it into a new Orb
+        - config:/root/.config/orb

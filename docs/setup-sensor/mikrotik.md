@@ -99,7 +99,7 @@ The `/app` system requires **arm64 or x86** architecture. Devices with a 32-bit 
 - The `container` package installed
 
 :::note
-The unpacked Orb sensor image needs roughly 20MB. Extraction itself briefly needs more headroom than that, so we recommend a dedicated **scratch disk** for extraction (set via `/container/config/set tmpdir=...`) separate from the app disk — see [Step 2](#step-2-configure-app-storage) below for the exact sizes and commands we validated (25MB app disk + 20MB scratch disk).
+The unpacked Orb sensor image needs roughly 21MB, and grows a little with each release. We recommend a **64MB app disk** plus a 20MB **scratch disk** for extraction (set via `/container/config/set tmpdir=...`) — see [Step 2](#step-2-configure-app-storage) below for the exact commands we validated.
 :::
 
 ### Step 1: Enable container support
@@ -124,12 +124,16 @@ If your device has an external USB/NVMe/SATA drive attached, RouterOS will detec
 If you don't have external storage, you can create small file-backed virtual disks directly on internal flash. We recommend **two** disks: one for the app itself, and one dedicated **scratch disk** used only during image download/extraction. Separating these matters — image extraction briefly needs more space than the final installed app, and giving that transient overhead its own disk lets the main app disk be sized much closer to the app's real footprint:
 
 ```routeros
-/disk/add type=file file-path=orb-appdisk file-size=25M
+/disk/add type=file file-path=orb-appdisk file-size=64M smb-sharing=no media-sharing=no
 /disk/format file-orb-appdisk file-system=ext4
 
-/disk/add type=file file-path=orb-scratch file-size=20M
+/disk/add type=file file-path=orb-scratch file-size=20M smb-sharing=no media-sharing=no
 /disk/format file-orb-scratch file-system=ext4
 ```
+
+:::note
+RouterOS shares new disks over SMB (as `guest`, with no password) and as a media share by default. The app disk holds your Orb's identity, so `smb-sharing=no media-sharing=no` keeps it off the network. If you created the disks without these options, turn sharing off with `/disk/set file-orb-appdisk,file-orb-scratch smb-sharing=no media-sharing=no`.
+:::
 
 Point the Apps system at the app disk, and point the container extraction directory (`tmpdir`) at the scratch disk:
 
@@ -139,7 +143,9 @@ Point the Apps system at the app disk, and point the container extraction direct
 ```
 
 :::note
-`tmpdir` is a global `/container` setting, separate from the `disk`/`media-path`/`download-path` settings under `/app settings` — it controls where container image layers are extracted, regardless of which app triggers the extraction. Without a separate `tmpdir`, extraction and final storage compete for space on the same disk, and the app disk needs to be considerably larger (**40MB+** in our testing) to have enough transient headroom. With `tmpdir` on its own disk, **25MB** is sufficient for the app disk (with a 20MB scratch disk, which is barely touched — extraction is fast and cleans up after itself).
+`tmpdir` is a global `/container` setting, separate from the `disk`/`media-path`/`download-path` settings under `/app settings` — it controls where container image layers are downloaded before extraction, regardless of which app triggers it. The 20MB scratch disk is barely touched; downloads are deleted once extraction finishes.
+
+**64MB** leaves room for one installed image plus headroom for future releases. RouterOS never deletes an app's old image layers when it updates the app, so each update adds about 20MB to the app disk. That's why we recommend updating with the [update script](#updating-the-container) below, which reinstalls Orb from scratch and keeps the disk at a single image.
 :::
 
 ### Step 3: Add the Orb app store
@@ -151,35 +157,35 @@ Add the Orb custom app store:
 ```
 
 :::note
-The custom app-store catalog is only refreshed **at boot** — it won't appear in the Apps list right away. **Reboot your device once** after setting `app-store-urls` for the first time.
+The catalog usually loads within a few seconds of setting `app-store-urls`. If **orb-sensor** doesn't appear, open **Apps > Settings** in WinBox and click **Apply**, or **reboot your device once**.
 :::
 
-After rebooting, open WebFig, navigate to **Apps**, and you should see **orb-sensor** available in the catalog alongside MikroTik's official apps.
+Then open **Apps** and you should see **orb-sensor** available in the catalog alongside MikroTik's official apps.
 
 ### Step 4: Install and configure Orb
 
 1. Select **orb-sensor** from the catalog and click **Install**.
-2. Before enabling, set the **Network** to `lan` if appropriate for your network topology so the sensor gets a real address on your LAN (rather than being NATed behind the router), matching how a normal Orb sensor would see your network.
+2. Before enabling, set the **Network** to `lan` if appropriate for your network topology so the sensor gets a real address on your LAN (rather than being NATed behind the router), matching how a normal Orb sensor would see your network. With `lan`, the sensor gets its address from the DHCP server on the router's LAN bridge (`lan-bridge` in `/app/settings`). If that bridge has no DHCP server, leave **Network** on its default.
 3. Add your deployment token as an environment variable so the sensor links to your account automatically on first boot — under the app's **Environment** settings, add:
    - `ORB_DEPLOYMENT_TOKEN` = *your deployment token* (see [Configuration](https://orb.net/docs/deploy-and-configure/configuration) for how to generate one)
 4. If this device is also routing traffic (rather than just observing it), consider also adding:
    - `ORB_FIRSTHOP_DISABLED=1` — disables first-hop monitoring, appropriate for router deployments.
 5. Since **use-https** defaults to on and expects the app to expose a web UI (Orb doesn't), disable it so the app doesn't stall waiting on a reverse-proxy certificate.
-6. Optionally, enable **Auto Update** so the app pulls newer Orb image versions on its own, without you needing to click **Update** manually (see [Updating the Container](#updating-the-container) below for how this compares to a manual update).
+6. Leave **Auto Update** off. Each RouterOS app update leaves the previous image on the app disk, so automatic updates eventually fill it and the sensor stops. Use the [update script](#updating-the-container) instead.
 7. Click **Enable**. The app will download and extract the image, then start automatically.
 
 Once running, your MikroTik device should appear in your Orb dashboard within a minute or two.
+
+Finally, add the [update script](#updating-the-container) so it's ready when you want to update.
 
 #### Equivalent via terminal
 
 Steps 2–7 above can also be done from the **Terminal** tab. Note that `environment` values must be prefixed with the service name (`orb:`, matching the `services.orb` key in the app's YAML):
 
 ```routeros
-/app/set [find name=orb-sensor] network=lan use-https=no auto-update=yes environment="orb:ORB_EPHEMERAL_MODE=1,orb:ORB_DEPLOYMENT_TOKEN=your-deployment-token"
+/app/set [find name=orb-sensor] network=lan use-https=no environment="orb:ORB_EPHEMERAL_MODE=1,orb:ORB_DEPLOYMENT_TOKEN=your-deployment-token"
 /app/enable [find name=orb-sensor]
 ```
-
-Drop `auto-update=yes` from the command above if you'd rather update manually (see below).
 
 ## Manual /container setup
 
@@ -336,7 +342,7 @@ The final step is to link your new Orb sensor to your account:
 
 If you've set `app-store-urls` but don't see **orb-sensor** in the Apps list:
 
-- The custom app-store catalog is only refreshed at boot, not live. **Reboot the device once** after setting `app-store-urls` for the first time.
+- The catalog may not have refreshed yet. Open **Apps > Settings** in WinBox and click **Apply**, or **reboot the device once**.
 - Confirm the setting was saved: **Apps > Configuration > Settings**, check the **App Store Urls** field.
 - Check the view filter next to the item count (top-right of the Apps list) — it may be set to a specific view that hides store-sourced entries.
 
@@ -361,10 +367,45 @@ If the Orb container fails to start:
 
 ### "Not Enough Disk Space" During Download/Extract, or App Crashes Right After Starting
 
-These are two symptoms of the same underlying issue — the app disk is too small:
+These usually mean the app disk is too small:
 
-- **`not enough disk space to download/extract`**: extraction needs more transient headroom than the final image size. Set a separate `tmpdir` on a dedicated scratch disk (see [Step 2](#step-2-configure-app-storage) above) rather than just making the app disk bigger — it's a more effective fix and keeps the app disk small.
+- **`not enough disk space to download/extract`** on a first install: set a separate `tmpdir` on a dedicated scratch disk and use a 64MB app disk (see [Step 2](#step-2-configure-app-storage) above).
 - **App extracts fine but exits immediately (`exited with status 1`)**: the app disk is *just barely* big enough to extract into, but leaves too little room for the app to actually write config and certs on first run. Increase the disk size.
+- **The errors start after an update**: see the next section.
+
+### Updates Fail With "No Space Left on Device" or "Extract Layer Failed" Errors
+
+RouterOS keeps every previous Orb image on the app disk when it updates the app, so after one or more updates with the **Update** button or **Auto Update** the disk fills and the new image can't be extracted. The app retries in a loop and the sensor stays offline.
+
+**If you installed Orb with the current app store YAML**, run the [update script](#updating-the-container). It frees the disk and reinstalls the latest image with the same Orb identity. To check whether your install keeps its identity in a volume, run:
+
+```routeros
+/file/print where name~"apps/orb-sensor/config/private.key"
+```
+
+If that prints a file, the update script will work. Turn off **Auto Update** afterwards (`/app/set orb-sensor auto-update=no`).
+
+**If it prints nothing**, Orb was installed before its identity was moved into a volume. That identity lives inside the old image and can't be carried over, so reinstall Orb on a 64MB disk. It will appear in your dashboard as a new Orb, and you can remove the old one.
+
+1. Remove the old app and its disk. When `/app/cleanup` asks `App data will be lost, continue?`, answer `y`:
+
+   ```routeros
+   /app/disable orb-sensor
+   /app/cleanup orb-sensor
+   /disk/remove file-orb-appdisk
+   /file/remove orb-appdisk
+   ```
+
+2. Recreate the app disk at 64MB and point the Apps system at it, as in [Step 2](#step-2-configure-app-storage):
+
+   ```routeros
+   /disk/add type=file file-path=orb-appdisk file-size=64M smb-sharing=no media-sharing=no
+   /disk/format file-orb-appdisk file-system=ext4
+   /app/settings/set disk=file-orb-appdisk
+   /disk/set file-orb-scratch smb-sharing=no media-sharing=no
+   ```
+
+3. Reload the Orb app store so RouterOS picks up the current YAML: open **Apps > Settings** in WinBox and click **Apply**, or reboot. Then follow [Step 4](#step-4-install-and-configure-orb) again, including your deployment token.
 
 ### Network Connectivity Issues
 
@@ -376,10 +417,48 @@ If the container cannot reach the internet:
 
 ### Updating the Container
 
-**For /app-based installs**, there are two options:
+**For /app-based installs**, update Orb with the `orb-update` script below instead of the **Update** button or **Auto Update**. RouterOS keeps every previous image on the app disk when it updates an app, so the built-in update fills the disk after a few releases and the sensor stops (see [the troubleshooting entry](#updates-fail-with-no-space-left-on-device-or-extract-layer-failed-errors)). The script moves your Orb's identity out of the app, removes the app with `/app/cleanup` (which frees all of its images), moves the identity back, restores your environment settings, and reinstalls the latest image. Your Orb keeps its ID and history.
 
-- **Manual (recommended for predictable timing)**: select **orb-sensor** in WebFig's Apps list and click **Update**, or run `/app/update [find name=orb-sensor]` from the Terminal. This pulls the latest image immediately.
-- **Automatic**: set `auto-update=yes` on the app (`/app/set [find name=orb-sensor] auto-update=yes`, or the **Auto Update** checkbox in WebFig — see [Step 4](#step-4-install-and-configure-orb)). There's also a global equivalent, `/app/settings/set auto-update=yes`, which applies to every installed app rather than just Orb. Neither MikroTik's documentation nor the RouterOS community forums specify exactly when or how often an automatic check happens — treat this as a convenience, not a guarantee, and use the manual update above if you need to confirm you're on a specific version.
+Add the script once by pasting this into the **Terminal**:
+
+```routeros
+/system/script/add name=orb-update source={
+:local app "orb-sensor"
+:local disk [/app/settings get disk]
+:local dir ($disk . "/apps/" . $app)
+:local vol ($dir . "/config")
+:local keep ($disk . "/orb-identity")
+:local envfile ($disk . "/orb-environment.txt")
+:if ([:len [/file find name=($vol . "/private.key")]] > 0) do={
+  /file remove [find name=$keep]
+  /file remove [find name=$envfile]
+  :local env ""
+  :foreach e in=[/app get $app environment] do={ :if ($env != "") do={ :set env ($env . ",") }; :set env ($env . $e) }
+  /file add name=$envfile contents=$env
+  /file set [find name=$vol] name=$keep
+}
+:if ([:len [/file find name=($keep . "/private.key")]] = 0) do={ :error "orb-update: no Orb identity found, nothing changed" }
+/app disable $app
+:execute ("/app cleanup " . $app)
+:local i 0
+:while ([:len [/file find name=$dir]] > 0 && $i < 120) do={ :delay 1s; :set i ($i + 1) }
+:if ([:len [/file find name=$dir]] > 0) do={ :error "orb-update: cleanup did not finish, run the script again" }
+:delay 5s
+/file add name=$dir type=directory
+/file set [find name=$keep] name=$vol
+:if ([:len [/file find name=$envfile]] > 0) do={ /app set $app environment=[/file get $envfile contents] }
+/app enable $app
+:log info "orb-update: reinstalled $app with its saved identity"
+}
+```
+
+Then, whenever you want to update Orb, run:
+
+```routeros
+/system/script/run orb-update
+```
+
+The sensor goes offline for about a minute while the latest image downloads. While the update runs, the script keeps your Orb's identity in an `orb-identity` folder and your environment settings in `orb-environment.txt` on the app disk, so if an update is interrupted (for example by a power cut), run the script again. If the script stops with `no Orb identity found`, your install predates the identity volume — see [the troubleshooting entry](#updates-fail-with-no-space-left-on-device-or-extract-layer-failed-errors).
 
 **For /container-based installs** (manual `/container` setup only), RouterOS does not support a mechanism for easily updating to the latest version of the Orb image — this is specific to raw `/container`, the `/app` system above has its own update commands. The solution is to delete the container and recreate it with the same configuration, which will pull the `:latest` tagged image from Docker Hub. As we set up persistent storage, you will not need to re-link, and your history will be preserved.
 
