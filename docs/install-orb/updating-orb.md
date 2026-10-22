@@ -58,6 +58,16 @@ docker pull orbforge/orb:latest
 # Then restart your container
 ```
 
+#### LXC
+
+Orb's LXC containers update automatically every day. To update now:
+
+```bash
+lxc-attach -n orb -- orb-update
+```
+
+See [Updates](/docs/setup-sensor/lxc.md#updates) in the LXC guide.
+
 ### Router Sensors (GL-MT2500, etc.)
 
 Router-based sensors typically update automatically. You can check for updates in the router's web interface:
