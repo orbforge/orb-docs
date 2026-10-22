@@ -91,6 +91,29 @@ Quadlets are systemd unit files with a `.container` extension that define contai
    - `AutoUpdate=registry`: Enables automatic image updates when new versions are released.
    - `Restart=always`: Ensures the container restarts if it stops or on system reboot.
 
+## Pre-configure Orb (Optional)
+
+Adding a [Deployment Token](/docs/deploy-and-configure/deployment-tokens) to the quadlet before you start it means the sensor links itself to your Orb Space on first start — no discovery step and no `orb link` command.
+
+Add an `Environment=` line to the `[Container]` section:
+
+```ini
+Environment=ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678
+```
+
+Get your token from the [Orchestration](https://cloud.orb.net/orchestration) section of Orb Cloud. Add one `Environment=` line per variable for any other [configuration](/docs/deploy-and-configure/configuration) option.
+
+If the container is already running, apply the change with:
+
+```bash
+systemctl daemon-reload
+systemctl restart orb-sensor
+```
+
+:::tip
+See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) for the equivalent on other platforms and for what else is worth setting before first start.
+:::
+
 ## Step 2: Start the Orb Container
 
 1. Reload systemd to recognize the quadlet, enable auto updates, and start the Orb sensor service:
@@ -120,6 +143,8 @@ Quadlets are systemd unit files with a `.container` extension that define contai
    ```
 
 ## Step 3: Link your new Orb sensor
+
+If you set a Deployment Token in [Pre-configure Orb](#pre-configure-orb-optional-) above, the sensor has already linked itself — confirm it on the [Status](https://cloud.orb.net/status) page in Orb Cloud and skip this step.
 
 1. Once the Orb container is running, it should start broadcasting its presence on your network.
 2. Open the Orb app on your phone or personal computer (which must be on the same network).

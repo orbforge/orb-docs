@@ -72,20 +72,45 @@ When prompted with **"Use OS customization?"**, click **"EDIT SETTINGS"** and co
 6. Enter your password and press Enter (the cursor will not move as you type).
 7. You are now connected when you see: `orb@raspberrypi-orb:~$`
 
-## Step 4: Install the Orb Service
+## Step 4: Pre-configure Orb (Optional)
+
+The Orb service on Raspberry Pi OS reads its environment from `/etc/default/orb`. Creating this file before you install lets you set a [Deployment Token](/docs/deploy-and-configure/deployment-tokens) — so the sensor links itself to your Orb Space on first start, with no discovery or manual linking needed — along with any other settings you want applied from the beginning.
+
+```bash
+sudo tee /etc/default/orb >/dev/null <<'EOF'
+ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678
+ORB_EPHEMERAL_MODE=1
+EOF
+```
+
+Replace the token with the one from the [Orchestration](https://cloud.orb.net/orchestration) section of Orb Cloud, or leave that line out if you'd rather link from the Orb app in Step 6.
+
+:::info
+If you are using an SD card as instructed in this guide (rather than using an M.2 hat), it is recommended you run your Orb in [ephemeral mode](/docs/deploy-and-configure/configuration) to preserve the life of your SD card and prevent your Orb sensor from failing. That's the `ORB_EPHEMERAL_MODE=1` line above.
+:::
+
+:::tip
+`/etc/default/orb` is a systemd environment file — use plain `KEY=VALUE` lines, with no `export` and no quotes. The same file works on Ubuntu, Debian, RHEL, Fedora, CentOS, and Arch. See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) for the equivalent on every other platform, and for the full list of options worth setting here.
+:::
+
+If Orb is already installed when you create or edit this file, apply it with `sudo systemctl restart orb`.
+
+## Step 5: Install the Orb Service
 
 ```bash
 curl -fsSL https://pkgs.orb.net/install.sh | sh
 ```
 
-:::info
-If you are using an SD card as instructed in this guide (rather than using an M.2 hat), it is recommended you run your Orb in [ephemeral mode](/docs/deploy-and-configure/configuration) to preserve the life of your SD card and prevent your Orb sensor from failing. To do so, add the line `ORB_EPHEMERAL_MODE=1` to `/etc/default/orb`
-:::
+## Step 6: Link to your Orb account
 
-## Step 5: Link to your Orb account
+If you set a Deployment Token in Step 4, your Orb has already linked itself — check the [Status](https://cloud.orb.net/status) page in Orb Cloud, or open the Orb app, and you're done.
+
+Otherwise:
 
 1. Once the installation script finishes, the Orb sensor should be running on your Raspberry Pi device.
-2. Open the Orb app on your phone or personal computer.
+2. Open the Orb app on your phone or personal computer, on the same network.
 3. Your new Orb sensor should be automatically detected on your network and appear in the app, ready to be linked to your account. Follow the prompts in the app to link it.
+
+For other linking options, see [Linking an Orb to your account](/docs/orb-app/linking-orb-to-account).
 
 Congratulations! Your Raspberry Pi is now running as an Orb sensor, monitoring your network.

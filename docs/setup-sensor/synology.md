@@ -89,6 +89,22 @@ The Orb sensor needs a persistent volume for configuration and the local databas
 4. Give the folder the name "`/docker/orb`" and map it to "`/root/.config/orb`" with "Read/Write" permissions
 5. Click **Next** to save the advanced settings
 
+## Pre-configure Orb (Optional)
+
+Setting a [Deployment Token](/docs/deploy-and-configure/deployment-tokens) here, before the container first starts, means the sensor links itself to your Orb Space automatically — you can skip Step 8 entirely.
+
+1. Remaining in **Advanced Settings**, find the **Environment** section
+2. Click **Add** and enter `ORB_DEPLOYMENT_TOKEN` as the variable, with your token as the value
+3. Get the token from the [Orchestration](https://cloud.orb.net/orchestration) section of Orb Cloud
+
+Add any other [configuration](/docs/deploy-and-configure/configuration) option the same way, one variable per row.
+
+If the container is already running, add the variable and restart the container to apply it.
+
+:::tip
+See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) for the equivalent on other platforms and for what else is worth setting before first start.
+:::
+
 ## Step 7: Start the Container
 
 Now you're ready to start the Orb sensor:
@@ -101,7 +117,9 @@ You can verify the container is running by checking its status in the Container 
 
 ## Step 8: Link Your Orb to Your Account
 
-The final step is to link your new Orb sensor to your account:
+If you set a Deployment Token in [Pre-configure Orb](#pre-configure-orb-optional-) above, your sensor has already linked itself — confirm it on the [Status](https://cloud.orb.net/status) page in Orb Cloud and you're done.
+
+Otherwise, the final step is to link your new Orb sensor to your account:
 
 1. Open the Orb app on your mobile device or computer
 2. Your new Orb sensor should be automatically detected on your local network

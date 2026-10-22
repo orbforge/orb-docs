@@ -61,6 +61,20 @@ Before you begin, make sure you have:
     - Enable auto-updates to keep Orb up-to-date.
 3. Wait for the script to complete. You should see output indicating the progress of the installation. You might be prompted for your password again during the installation if `sudo` is required.
 
+### Pre-configure Orb (Optional)
+
+The WLAN Pi is Debian-based, so the Orb service reads `/etc/default/orb`. Creating that file *before* running the install script above lets you set a [Deployment Token](/docs/deploy-and-configure/deployment-tokens), and the sensor then links itself to your Orb Space on first start — no app or discovery step needed:
+
+```bash
+sudo tee /etc/default/orb >/dev/null <<'EOF'
+ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678
+EOF
+```
+
+Get your token from the [Orchestration](https://cloud.orb.net/orchestration) section of Orb Cloud. If Orb is already installed, add the file and run `sudo systemctl restart orb`.
+
+See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) for the other options worth setting here.
+
 ## Step 3: Open Firewall Port
 
 1. WLAN Pi uses `ufw` (Uncomplicated Firewall). To allow the Orb app to communicate with the sensor, you need to open port 7443. Run the following command:
@@ -72,6 +86,10 @@ Before you begin, make sure you have:
 2. Enter your password if prompted. This command configures the firewall to allow incoming TCP traffic on port 7443, which Orb uses.
 
 ## Step 4: Link your new Orb Sensor
+
+If you set a Deployment Token in [Pre-configure Orb](#pre-configure-orb-optional-) above, your sensor has already linked itself — confirm it on the [Status](https://cloud.orb.net/status) page in Orb Cloud and you're done.
+
+Otherwise:
 
 1. Once the installation and firewall configuration are done, the Orb Sensor should be running on your WLAN Pi device.
 2. Open the Orb app on your phone or personal computer.

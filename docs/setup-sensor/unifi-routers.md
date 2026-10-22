@@ -53,6 +53,8 @@ ORB_FIRSTHOP_DISABLED=1
 ORB_EPHEMERAL_MODE=1
 # We need to set a port because our default ports can clash with the Protect ports if running
 ORB_SENSOR_API_PORT=7555
+# Optional: add a Deployment Token here to link this Orb automatically on first start
+# ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678
 EOD
 
 # install Orb (no-op if already installed)
@@ -72,7 +74,11 @@ EOF
 /mnt/data/on_boot.d/orb.sh
 ```
 
-4. Link the orb install to your account. Run this command and copy the link in your browser
+4. Link the orb install to your account.
+
+   If you uncommented `ORB_DEPLOYMENT_TOKEN` in the script above, this already happened on first start — confirm the Orb on the [Status](https://cloud.orb.net/status) page in Orb Cloud. This is worth doing on UniFi hardware in particular, since the script disables mDNS discovery and app-based linking won't find the sensor. See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install).
+
+   Otherwise, run this command and copy the link in your browser
 
 ```bash
 sudo -u orb orb link

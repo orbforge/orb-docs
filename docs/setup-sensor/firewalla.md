@@ -98,6 +98,14 @@ Now, create the Orb configuration and start the container:
          - ORB_FIRSTHOP_DISABLED=1
    ```
 
+   Add a [Deployment Token](/docs/deploy-and-configure/deployment-tokens) line here as well, and the sensor will link itself to your Orb Space on first start, letting you skip Step 4 entirely:
+
+   ```yaml
+         - ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678
+   ```
+
+   See [Pre-configuring an Orb at install time](/docs/deploy-and-configure/preconfigure-at-install) for details.
+
    Start the Orb sensor in the background. Orb will automatically be kept up-to-date. See [Install Orb on Docker](/docs/setup-sensor/docker) for more details.
 
    ```bash
