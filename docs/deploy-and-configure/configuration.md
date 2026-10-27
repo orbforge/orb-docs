@@ -58,16 +58,16 @@ This section was moved to the [Endpoints & Engines](/docs/deploy-and-configure/e
 Orb applications and sensors are capable of producing [Datasets](/docs/deploy-and-configure/datasets) for Scores, Responsiveness, Web Responsiveness, and Speed data. These datasets may be streamed to Orb Cloud, Orb [Local Analytics](/docs/deploy-and-configure/local-analytics), or a destination of your choice. See [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration) for details.
 
 ### Configuring Collection of Identifiable Information
-Orb can collect attributes of your device and network that may be considered identifiable information, such as public IP address, network name, or MAC address. By default, Orb collects only what's needed for core Orb functionality (like your network name) and obfuscates the rest.
+Orb can collect attributes of your device and network that may be considered identifiable information, such as public IP address, network name, or MAC address. By default, Orb collects only what's needed for core Orb functionality (like your network name) and masks the rest.
 
 Some users may want to see that extra detail in Orb Cloud, Local Analytics, or via Orb APIs to better identify their devices and networks.
 
 #### Identifiable levels
 | Level | Description |
 |-------|-------------|
-| `none` | Orb will obfuscate any fields that are known to potentially identify your device or network. Your experience in Orb apps and Orb Cloud may be impacted as networks and device details will be obfuscated and it may be hard to tell which device you are looking at. |
-| `minimal` | (Default) Orb will not obfuscate some basic potentially identifiable information, like network name, to make the normal Orb app and Orb Cloud user experiences work. Identifiable fields not required for basic app usage, like MAC Address, will still be obfuscated.  |
-| `full` | Orb will not obfuscate any fields of collected data. |
+| `none` | Orb will mask any fields that are known to potentially identify your device or network. Your experience in Orb apps and Orb Cloud may be impacted as networks and device details will be masked and it may be hard to tell which device you are looking at. |
+| `minimal` | (Default) Orb will not mask some basic potentially identifiable information, like network name, to make the normal Orb app and Orb Cloud user experiences work. Identifiable fields not required for basic app usage, like MAC Address, will still be masked.  |
+| `full` | Orb will not mask any fields of collected data. |
 
 #### Configuration
 
