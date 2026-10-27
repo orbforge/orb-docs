@@ -9,7 +9,7 @@ section: Deploy & Configure
 
 [Datasets](/docs/deploy-and-configure/datasets) can be configured on a per-Orb basis in the [Orb Cloud Status page](https://cloud.orb.net/status) or via Deployment Tokens in the [Orchestration page](https://cloud.orb.net/orchestration). For more details on configuration, see [Remote Configuration](/docs/deploy-and-configure/configuration#remote-configuration)
 
-You can configure which Datasets your Orbs generate, where they are sent, and enable the inclusion of potentially [Identifiable](/docs/deploy-and-configure/datasets-configuration#identifiable-information) yet useful information (e.g. IP address).
+You can configure which Datasets your Orbs generate, where they are sent, and optionally disable [potentially identifiable information](/docs/deploy-and-configure/datasets-configuration#identifiable-information) for any destination.
 
 :::info
 Datasets Configuration requires Orb app and sensor versions 1.3 and above.
@@ -25,12 +25,11 @@ Orbs can send data to [Orb Cloud](/docs/orb-cloud), to backends you control, or 
 
 ## Example Configuration
 
-Below is an example configuration, which enables the Scores, Responsiveness, Web Responsiveness, and Speed Datasets, enables serving these Datasets via Local API with the inclusion of identifiable data, and enables sending these Datasets to Orb Cloud:
+Below is an example configuration, which enables the Scores, Responsiveness, Web Responsiveness, and Speed Datasets, enables serving these Datasets via Local API, and enables sending these Datasets to Orb Cloud:
 
 ```json
 {
   "datasets.api": [
-    "identifiable=true",    
     "port=7080",
     "scores_1m",
     "responsiveness_1s",
@@ -54,7 +53,9 @@ See [Remote Configuration](/docs/deploy-and-configure/configuration#remote-confi
 
 ## Identifiable Information
 
-Identifiable Information is information that can potentially be used to identify an individual (e.g. public IP address, network name). By default, this information is masked, hashed, or not sent. If you want access to Identifiable Information, you must explicitely enable it via configuiration. Currently, the following fields are classified as "identifiable": `orb_name, device_name, network_name, public_ip, latitude, longitude`. For more information, see [Datasets](/docs/deploy-and-configure/datasets) and note the fields containing `identifiable=true`.
+Identifiable Information is information that can potentially be used to identify an individual (e.g. public IP address, network name).
+
+To mask identifiable fields for a destination, set `identifiable=false` on it (see [Local API](#local-api) and [Data Push](#data-push)). See [Identifiable Fields](/docs/deploy-and-configure/datasets#identifiable-fields) for the affected fields.
 
 ## Defaults and Plans
 
@@ -62,7 +63,6 @@ The default configuration:
 
 * Enables the Scores Dataset
 * Sends the Scores Dataset to Orb Cloud
-* Does not include Identifiable Information
 
 Sending additional Datasets to Orb Cloud requires a Pro subscription (previously Plus or Business) or service contract (previously Enterprise). In addition, while the Local API is available to all users, Data Push requires a Pro plan or service contract.
 
@@ -162,7 +162,7 @@ The easiest way to get started with Orb Local API is using our Orb [Local Analyt
 #### Configuration options
 
 - `port` - Port on which Data API server will start (default: `7080`)
-- `identifiable` - Whether to include Identifiable Information (default: `false`)
+- `identifiable` - Set to `false` to apply [masking](#identifiable-information) to records served by this API (default: `true`)
 - `buffer` – Maximum in-memory records to retain (default: `100`)
 
 #### Example configuration
@@ -214,7 +214,7 @@ You can either configure/build your own receiver listener, or use the open sourc
 - `url` - Endpoint to push data to
 - `interval_ms` - Push frequency in milliseconds (default: `60000`)
 - `format` - `jsonl` (ND-JSON) or `json` (array). (default: `jsonl`)
-- `identifiable` - Whether to include Identifiable Information (default: `false`)
+- `identifiable` - Set to `false` to apply [masking](#identifiable-information) to records pushed to this endpoint (default: `true`)
 - `buffer_kb` - Maximum in-memory buffer if POSTs fail (default: `2MB`)
 
 #### Example configuration
