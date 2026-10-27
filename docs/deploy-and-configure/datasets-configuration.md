@@ -55,7 +55,7 @@ See [Remote Configuration](/docs/deploy-and-configure/configuration#remote-confi
 
 Identifiable Information is information that can potentially be used to identify an individual (e.g. public IP address, network name).
 
-To mask identifiable fields for a destination, set `identifiable=false` on it (see [Local API](#local-api) and [Data Push](#data-push)). See [Identifiable Fields](/docs/deploy-and-configure/datasets#identifiable-fields) for the affected fields.
+To mask identifiable fields, set `identifiable=false` in the [Local API](#local-api) or [Data Push](#data-push) configuration. The affected fields are listed in [Identifiable Fields](/docs/deploy-and-configure/datasets#identifiable-fields).
 
 ## Defaults and Plans
 
