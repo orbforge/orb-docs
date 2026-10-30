@@ -9,7 +9,7 @@ section: Deploy & Configure
 
 [Datasets](/docs/deploy-and-configure/datasets) can be configured on a per-Orb basis in the [Orb Cloud Status page](https://cloud.orb.net/status) or via Deployment Tokens in the [Orchestration page](https://cloud.orb.net/orchestration). For more details on configuration, see [Remote Configuration](/docs/deploy-and-configure/configuration#remote-configuration)
 
-You can configure which Datasets your Orbs generate, where they are sent, and optionally disable [potentially identifiable information](/docs/deploy-and-configure/datasets-configuration#identifiable-information) for any destination.
+You can configure which Datasets your Orbs generate, where they are sent, and optionally mask [identifiable information](#identifiable-information) for any destination.
 
 :::info
 Datasets Configuration requires Orb app and sensor versions 1.3 and above.
@@ -53,9 +53,9 @@ See [Remote Configuration](/docs/deploy-and-configure/configuration#remote-confi
 
 ## Identifiable Information
 
-Identifiable Information is information that can potentially be used to identify an individual (e.g. public IP address, network name).
+Identifiable information is information that may help identify a device, network, or location, such as a public IP address or network name. See [Identifiable Fields](/docs/deploy-and-configure/datasets#identifiable-fields) for the full list.
 
-To mask identifiable fields, set `identifiable=false` in the [Local API](#local-api) or [Data Push](#data-push) configuration. The affected fields are listed in [Identifiable Fields](/docs/deploy-and-configure/datasets#identifiable-fields).
+To mask these fields for a destination, add `identifiable=false` to its [Orb Cloud](#orb-cloud), [Local API](#local-api), or [Data Push](#data-push) configuration.
 
 ## Defaults and Plans
 
@@ -143,6 +143,10 @@ Configuring your Orbs to send Datasets to Orb Cloud can be accomplished with a s
 
 ![Cloud Analytics Configuration](../../images/orb-cloud/orb-cloud-analytics-configuration-2.png)
 
+#### Configuration options
+
+- `identifiable` - Set to `false` to mask all [identifiable fields](#identifiable-information) in records sent to Orb Cloud (default: `true`)
+
 :::info
 Datasets Configuration requires Orb app and sensor versions 1.3 and above.
 :::
@@ -162,7 +166,7 @@ The easiest way to get started with Orb Local API is using our Orb [Local Analyt
 #### Configuration options
 
 - `port` - Port on which Data API server will start (default: `7080`)
-- `identifiable` - Set to `false` to apply [masking](#identifiable-information) to records served by this API (default: `true`)
+- `identifiable` - Set to `false` to mask all [identifiable fields](#identifiable-information) in records served by this API (default: `true`)
 - `buffer` – Maximum in-memory records to retain (default: `100`)
 
 #### Example configuration
@@ -214,7 +218,7 @@ You can either configure/build your own receiver listener, or use the open sourc
 - `url` - Endpoint to push data to
 - `interval_ms` - Push frequency in milliseconds (default: `60000`)
 - `format` - `jsonl` (ND-JSON) or `json` (array). (default: `jsonl`)
-- `identifiable` - Set to `false` to apply [masking](#identifiable-information) to records pushed to this endpoint (default: `true`)
+- `identifiable` - Set to `false` to mask all [identifiable fields](#identifiable-information) in records pushed to this endpoint (default: `true`)
 - `buffer_kb` - Maximum in-memory buffer if POSTs fail (default: `2MB`)
 
 #### Example configuration

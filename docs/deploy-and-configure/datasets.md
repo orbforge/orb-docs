@@ -405,15 +405,13 @@ Nearby Access Points is currently only available on Windows, Linux, Android, and
 | `channel_number` | Wi-Fi channel number  | integer |
 | `channel_width` | Channel width in MHz | string |
 | `rssi` | Received Wi-Fi signal strength in dBm | integer |
-| `last_seen | Unix timestamp of when the AP was last scanned | integer | 
+| `last_seen` | Unix timestamp of when the AP was last scanned | integer | 
 
 ## Identifiable Fields
 
-The fields below can contain information that may help identify a device, network, or location. Orb masks some of these by default to limit what is shared.
+The fields below can contain information that may help identify a device, network, or location. By default, Orb masks any fields that aren't needed for key features to work.
 
-Fields needed for core Orb functionality, like telling your Orbs and networks apart, are unmasked by default.
-
-| field | Masked by default |
+| Field | Masked by default |
 | ----- | :---------------: |
 | `mac_address` | Yes |
 | `bssid` | Yes |
@@ -426,3 +424,5 @@ Fields needed for core Orb functionality, like telling your Orbs and networks ap
 | `private_ip` | No |
 | `dns_resolver` | No |
 | `dns_failed_resolvers` | No |
+
+To change the default masking behavior, set the [identifiable level](/docs/deploy-and-configure/configuration#configuring-collection-of-identifiable-information) for your Orbs.
