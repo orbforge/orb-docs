@@ -57,6 +57,10 @@ Identifiable information is information that may help identify a device, network
 
 To mask these fields for a destination, add `identifiable=false` to its [Orb Cloud](#orb-cloud), [Local API](#local-api), or [Data Push](#data-push) configuration.
 
+:::info
+Before Orb 1.6.6, `identifiable` defaulted to `false`, so Datasets were masked unless `identifiable=true` was set for each destination.
+:::
+
 ## Defaults and Plans
 
 The default configuration:
