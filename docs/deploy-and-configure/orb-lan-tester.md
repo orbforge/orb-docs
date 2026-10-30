@@ -71,9 +71,6 @@ This configuration will be used by the Wi-Fi interface Orb running on the host. 
     "web_responsiveness_results",
     "wifi_link_1s"
   ],
-  "datasets.identifiable": [
-    "true"
-  ],
   "orb.identifiable_level": [
     "full"
   ],
@@ -90,7 +87,7 @@ This configuration will be used by the Wi-Fi interface Orb running on the host. 
 ```
 
 > [!NOTE]
-> This configuration sends full identifiable information to Orb Cloud. This means Private IP and MAC Address will be reported to Orb Cloud for your device, which can help diagnose setup issues. This is not required, you can remove the `identification_level` block if you do not want that behavior.
+> This configuration sends full identifiable information to Orb Cloud. This means MAC Address and BSSID will be reported to Orb Cloud for your device, which can help diagnose setup issues. This is not required, you can remove the `orb.identifiable_level` block if you do not want that behavior.
 
 ### 2. Config for the Ethernet Orb (Container)
 Give this configuration a reconizable name like `Orb Lan Tester (Ethernet)` (recommended, name whatever you like).
@@ -105,7 +102,7 @@ Since we are focusing on the LAN performance measurement in this guide, we will 
 <img src="../../images/deploy-and-configure/orb-lan-tester-eth-config.png" alt="App device settings" style="max-height:500px;max-width:500px;margin:auto;">
 
 > [!NOTE]
-> This configuration sends full identifiable information to Orb Cloud. This means Private IP and MAC Address will be reported to Orb Cloud for your device, which can help diagnose setup issues. This is not required, you can uncheck "Include Identifiable Information" if you do not want that behavior.
+> This configuration sends full identifiable information to Orb Cloud. This means MAC Address and BSSID will be reported to Orb Cloud for your device, which can help diagnose setup issues. This is not required, you can uncheck "Include Identifiable Information" if you do not want that behavior.
 ---
 
 ## ⚙️ Step 2: Run the Setup Script

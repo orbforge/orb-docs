@@ -58,16 +58,16 @@ This section was moved to the [Endpoints & Engines](/docs/deploy-and-configure/e
 Orb applications and sensors are capable of producing [Datasets](/docs/deploy-and-configure/datasets) for Scores, Responsiveness, Web Responsiveness, and Speed data. These datasets may be streamed to Orb Cloud, Orb [Local Analytics](/docs/deploy-and-configure/local-analytics), or a destination of your choice. See [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration) for details.
 
 ### Configuring Collection of Identifiable Information
-Orb can collect attributes of your device and network which may be considered identifiable information (e.g. public IP address, network name, or device MAC address). By default, Orb minimizes the amount of potentially identifiable information collected, collecting enough to make the experience work (like your network name) without collecting more potentially identifiable information (like your device MAC address or private IP).
+Orb can collect attributes of your device and network that may be considered identifiable information, such as public IP address, network name, or MAC address. By default, Orb masks any fields that aren't needed for key features to work.
 
 Some users may want to see that extra detail in Orb Cloud, Local Analytics, or via Orb APIs to better identify their devices and networks.
 
 #### Identifiable levels
 | Level | Description |
 |-------|-------------|
-| `none` | Orb will obfuscate any fields that are known to potentially identify your device or network. Your experience in Orb apps and Orb Cloud may be impacted as networks and device details will be obfuscated and it may be hard to tell which device you are looking at. |
-| `minimal` | (Default) Orb will not obfuscate some basic potentially identifiable information, like network name, to make the normal Orb app and Orb Cloud user experiences work. Identifiable fields not required for basic app usage, like MAC Address, will still be obfuscated.  |
-| `full` | Orb will not obfuscate any fields of collected data. |
+| `none` | Orb will mask any fields that are known to potentially identify your device or network. Your experience in Orb apps and Orb Cloud may be impacted as networks and device details will be masked and it may be hard to tell which device you are looking at. |
+| `minimal` | (Default) Orb will mask identifiable fields that aren't needed for key features to work, like MAC Address. Fields like network name will not be masked. |
+| `full` | Orb will not mask any fields of collected data. |
 
 #### Configuration
 
@@ -83,7 +83,5 @@ To set the identifiable level using the advanced configuration editor, add the f
 }
 ```
 
-#### Enabling identifiable information in datasets
-While `orb.identifiable_level` informs which attributes of your device and network an Orb obfuscates during collection, there is an additonal option to only obfuscate identifiable information in Datasets outputs.
-
-This allows you to control whether identifiable information is included in Datasets sent to Orb Cloud, Local Analytics, or custom endpoints separately from what is collected. See [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration#identifiable-information) for details.
+#### Masking in Datasets
+You can also mask identifiable information in Datasets for individual destinations, such as Orb Cloud, Local Analytics, or a custom endpoint. See [Datasets Configuration](/docs/deploy-and-configure/datasets-configuration#identifiable-information) for details.
