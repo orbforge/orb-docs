@@ -19,14 +19,20 @@ These instructions have been tested on the Dream Machine Pro, but should work on
 
 ## Step 1: Enable SSH
 
-In order to install Orb on your UniFi Router, you'll need enable SSH access. If you already have SSH access enabled, skip ahead to Step 2.
+In order to install Orb on your UniFi Router, you'll need enable SSH access. If you already have SSH access enabled, skip ahead to Step 3.
 
 1. Browse to your UniFi Router control interface.
 2. Go to Settings -> Control Plane -> Console.
 3. Enable the SSH option and click 'Confirm'.
 4. Optional: Generate a new password if you have lost it.
 
-## Step 2: Install Orb
+## Step 2: Install [UniFi-Common](https://github.com/unifi-utilities/unifi-common) community utility
+
+Since the UniFi Dream Machine (UDM, UDM Pro, UDM SE) utilizes an immutable-style root filesystem, this utility is necessary to perform post-boot app deployments and configuration changes. If unifi-common is already installed on the router, skip ahead to Step 3
+
+1. Follow the instructions at <https://github.com/unifi-utilities/unifi-common/blob/main/README.md> to complete the installation
+
+## Step 3: Install Orb
 
 You can now login to your UniFi Router over ssh, so we can install the Orb sensor:
 
@@ -35,7 +41,7 @@ You can now login to your UniFi Router over ssh, so we can install the Orb senso
 2. Create Orb install script:
 
 ```
-mkdir -p /mnt/data/on_boot.d/ && cat <<'EOF' > /mnt/data/on_boot.d/orb.sh && chmod +x /mnt/data/on_boot.d/orb.sh
+mkdir -p /data/on_boot.d/ && cat <<'EOF' > /data/on_boot.d/orb.sh && chmod +x /data/on_boot.d/orb.sh
 #!/bin/bash
 
 # install the Orb keyring
@@ -69,7 +75,7 @@ EOF
 3. Run the just created Orb installer:
 
 ```
-/mnt/data/on_boot.d/orb.sh
+/data/on_boot.d/orb.sh
 ```
 
 4. Link the orb install to your account. Run this command and copy the link in your browser
