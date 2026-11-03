@@ -27,6 +27,7 @@
 - [Docker Multi-WAN](/docs/setup-sensor/docker-multiple-interfaces.md)
 - [Interface Binding](/docs/setup-sensor/interface-binding.md)
 - [Podman](/docs/setup-sensor/podman.md)
+- [LXC](/docs/setup-sensor/lxc.md)
 - [Home Assistant](/docs/setup-sensor/home-assistant.md)
 - [Proxmox](/docs/setup-sensor/proxmox.md)
 - [UniFi Routers](/docs/setup-sensor/unifi-routers.md)
