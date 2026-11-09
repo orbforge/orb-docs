@@ -94,9 +94,9 @@ Give this configuration a reconizable name like `Orb Lan Tester (Ethernet)` (rec
 
 This configuration will be used by the Wi-Fi interface Orb running on the host. This will be the Orb acting as a measurement server for the LAN Loop.
 In addition to acting as a server, this Orb will also measure the WAN connectivity (default behavior).
-Since we are focusing on the LAN performance measurement in this guide, we will disable Speed test measurement for this Orb to keep it's WAN measurements very lightweight.
+Since we are focusing on the LAN performance measurement in this guide, we will disable speed score checks for this Orb to keep its WAN measurements very lightweight.
 
-- Disables Speed measurement
+- Disables speed score checks
 - Sends analytics data to Orb Cloud Analytics (alternatively, you can configure [Orb Local Analytics](/docs/deploy-and-configure/local-analytics))
 
 <img src="../../images/deploy-and-configure/orb-lan-tester-eth-config.png" alt="App device settings" style="max-height:500px;max-width:500px;margin:auto;">

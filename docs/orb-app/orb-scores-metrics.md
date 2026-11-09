@@ -59,14 +59,14 @@ For app versions 1.2.0 and later, Reliability now only affects your overall Orb 
 
 [Speed](/docs/orb-app/speed.md) measures how quickly data can be transferred to and from devices. It includes:
 
-- **Content Download Speed**: How quickly you can receive data, reported in Mbps
-- **Content Upload Speed**: How quickly you can send data, reported in Mbps
+- **Download Speed**: How quickly you can receive data, reported in Mbps
+- **Upload Speed**: How quickly you can send data, reported in Mbps
 
 Orb's primary speed measurements are important for activities like streaming videos, downloading files, video conferencing, and other relevant day-to-day activities.
 
-For app versions 1.2.0 and later, Speed scores are included in the overall Orb Score even if the most recent content speed test was performed outside of the selected time period.
+For app versions 1.2.0 and later, Speed scores are included in the overall Orb Score even if the most recent speed score check was performed outside of the selected time period.
 
-While peak speed measurements are available and can be initiated by the user at any time, they are informational only and not included in the Orb Score. The Orb Score is based on content speed measurements only, which are performed on a regular cadence.
+While speed tests are available and can be initiated by the user at any time, they are informational only and not included in the Orb Score. The Orb Score is based on speed score checks only, which run on a regular, configurable cadence.
 
 ## Interpreting Your Scores
 

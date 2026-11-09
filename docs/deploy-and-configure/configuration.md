@@ -19,7 +19,7 @@ The following environment variables can be set:
 | `ORB_DB_DIR` | Sets the database directory for Orb | `ORB_DB_DIR=/tmp/orb/database` | 1.3 |
 | `ORB_CONFIG_DIR` | Sets the persistent configuration directory for Orb | `ORB_CONFIG_DIR=~/orbconfig` | 1.3 |
 | `ORB_FIRSTHOP_DISABLED` | Disables measuring and storing first-hop latency. Should generally be utilized on devices that are acting as a router | `ORB_FIRSTHOP_DISABLED=1` | 1.2 |
-| `ORB_BANDWIDTH_DISABLED` | Disables perfoming periodic content speed tests | `ORB_BANDWIDTH_DISABLED=1` | 1.2 |
+| `ORB_BANDWIDTH_DISABLED` | Disables periodic speed score checks | `ORB_BANDWIDTH_DISABLED=1` | 1.2 |
 | `ORB_DEPLOYMENT_TOKEN` | Sets the [Deployment Token](/docs/deploy-and-configure/deployment-tokens#using-environment-variable) | `ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678` | 1.2 |
 | `ORB_EPHEMERAL_MODE` | Sets Orb measurement data storage to in-memory only. Protects flash memory from frequent writes. All measurement data stored on the Orb is lost when Orb is stopped or restarted.  | `ORB_EPHEMERAL_MODE=1` | 1.4.0 |
 | `ORB_DEVICE_NAME_OVERRIDE` | Sets this Orb's name which appears in Orb apps and Orb Cloud | `ORB_DEVICE_NAME_OVERRIDE=MyDeviceName` | 1.4.1 |

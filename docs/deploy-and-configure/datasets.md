@@ -46,8 +46,8 @@ Scores data is available in 30 minute, 1 minute, and 1 second aggregated buckets
 | `speed_score`          | Speed (Bandwidth) Score over interval (0-100)                                                                                                                                             |  float  |
 | `speed_age_ms`         | Age of speed used in milliseconds, if not in timeframe. If in timeframe, 0.                                                                                                               | integer |
 | `lag_avg_us`           | Lag in microseconds (MAX 5000000 at which point the lag considered "unresponsive", avg if interval)                                                                                       |  float  |
-| `download_avg_kbps`    | Content download speed in Kbps                                                                                                                                                            | integer |
-| `upload_avg_kbps`      | Content upload speed in Kbps                                                                                                                                                              | integer |
+| `download_avg_kbps`    | Download speed from the most recent speed score check, in Kbps                                                                                                                                                            | integer |
+| `upload_avg_kbps`      | Upload speed from the most recent speed score check, in Kbps                                                                                                                                                              | integer |
 | `unresponsive_ms`      | Time spent in unresponsive state in Milliseconds                                                                                                                                          | integer |
 | `measured_ms`          | Time spent actively measuring in Milliseconds                                                                                                                                             | integer |
 | `lag_count`            | Count of Lag samples included                                                                                                                                                             | integer |
@@ -57,7 +57,7 @@ Scores data is available in 30 minute, 1 minute, and 1 second aggregated buckets
 | `mac_address`          | Client MAC address                                                                                                                                      | string  |
 | `network_name`         | Network name (SSID if available)                                                                                                                        | string  |
 | `network_type`         | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`<br>`4: cellular`                                                                                       | integer |
-| `network_state`        | Speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: content upload`<br>`3: peak upload`<br>`4: content download`<br>`5: peak download`<br>`6: content`<br>`7: peak` | integer |
+| `network_state`        | Speed score check or speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: speed score check upload`<br>`3: speed test upload`<br>`4: speed score check download`<br>`5: speed test download`<br>`6: speed score check`<br>`7: speed test` | integer |
 | `country_code`         | Geocoded 2-digit ISO country code                                                                                                                                                         | string  |
 | `state`                | Geocoded state or province name                                                                                                                                                           | string  |
 | `city`                 | Geocoded city name                                                                                                                                                                        | string  |
@@ -109,7 +109,7 @@ Responsiveness data is available in 30 minute, 1 minute, and 1 second aggregated
 | `mac_address` | Client MAC address | string |
 | `network_name` | Network name (SSID if available) | string |
 | `network_type` | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`<br>`4: cellular` | integer |
-| `network_state` | Speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: content upload`<br>`3: peak upload`<br>`4: content download`<br>`5: peak download`<br>`6: content`<br>`7: peak` | integer |
+| `network_state` | Speed score check or speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: speed score check upload`<br>`3: speed test upload`<br>`4: speed score check download`<br>`5: speed test download`<br>`6: speed score check`<br>`7: speed test` | integer |
 | `country_code` | Geocoded 2-digit ISO country code | string |
 | `state` | Geocoded state or province name | string |
 | `city` | Geocoded city name | string |
@@ -152,7 +152,7 @@ Web Responsiveness measurements are conducted once per minute by default. Theref
 | `mac_address` | Client MAC address | string |
 | `network_name`    | Network name (SSID if available)                                                                                                                        | string  |
 | `network_type`    | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`<br>`4: cellular`                                                                                       | integer |
-| `network_state`   | Speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: content upload`<br>`3: peak upload`<br>`4: content download`<br>`5: peak download`<br>`6: content`<br>`7: peak` | integer |
+| `network_state`   | Speed score check or speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: speed score check upload`<br>`3: speed test upload`<br>`4: speed score check download`<br>`5: speed test download`<br>`6: speed score check`<br>`7: speed test` | integer |
 | `country_code`    | Geocoded 2-digit ISO country code                                                                                                                                                         | string  |
 | `state`           | Geocoded state or province name                                                                                                                                                           | string  |
 | `city`            | Geocoded city name                                                                                                                                                                        | string  |
@@ -168,9 +168,9 @@ Web Responsiveness measurements are conducted once per minute by default. Theref
 
 ## Speed
 
-The Speed Dataset includes the results of Orb's [speed tests](/docs/orb-app/speed).
+The Speed Dataset includes the results of Orb's [speed score checks and speed tests](/docs/orb-app/speed).
 
-Content speed measurements are conducted once per hour by default. Therefore, raw results are provided rather than time-bucketed aggregates.
+Speed score checks run once per hour by default, and the frequency is configurable. Speed tests run only when initiated. Therefore, raw results are provided rather than time-bucketed aggregates.
 
 ### `speed_results`
 
@@ -184,26 +184,26 @@ Content speed measurements are conducted once per hour by default. Therefore, ra
 | `timestamp`         | Timestamp in epoch milliseconds                                                                                                                                                           | integer |
 | `utc_offset`        | UTC offset of the device's local timezone in minutes                                                                                                                                      | integer |
 | `dataset`           | Dataset type identifier                                                                                                                                                                   | string  |
-| `test_uuid`         | Unique identifier for the speed test                                                                                                                                                      | string  |
+| `test_uuid`         | Unique identifier for the measurement                                                                                                                                                     | string  |
 | **measures**        |                                                                                                                                                                                           |         |
 | `download_kbps`     | Download speed in Kbps                                                                                                                                                                    | integer |
 | `download_status`   | Download test result status<br>`0: unknown`<br>`1: success`<br>`2: fail`                                                                                                                  | integer |
 | `download_start_time` | Download test start time in epoch milliseconds                                                                                                                                          | integer |
 | `download_end_time` | Download test end time in epoch milliseconds                                                                                                                                              | integer |
 | `download_bytes`    | Bytes transferred during the download test                                                                                                                                                | integer |
-| `download_attempted_bytes` | Number of bytes attempted during the download test (not included for peak tests)                                                                                            | integer |
+| `download_attempted_bytes` | Number of bytes attempted during the download test (not included for speed tests)                                                                                            | integer |
 | `upload_kbps`       | Upload speed in Kbps                                                                                                                                                                      | integer |
 | `upload_status`     | Upload test result status<br>`0: unknown`<br>`1: success`<br>`2: fail`                                                                                                                    | integer |
 | `upload_start_time` | Upload test start time in epoch milliseconds                                                                                                                                              | integer |
 | `upload_end_time`   | Upload test end time in epoch milliseconds                                                                                                                                                | integer |
 | `upload_bytes`      | Bytes transferred during the upload test                                                                                                                                                  | integer |
-| `upload_attempted_bytes` | Number of bytes attempted during the upload test (not included for peak tests)                                                                                                | integer |
+| `upload_attempted_bytes` | Number of bytes attempted during the upload test (not included for speed tests)                                                                                                | integer |
 | **dimensions**      |                                                                                                                                                                                           |         |
 | `bssid` | Access point MAC address | string |
 | `mac_address` | Client MAC address | string |
 | `network_name`      | Network name (SSID if available)                                                                                                                        | string  |
 | `network_type`      | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`<br>`4: cellular`                                                                                       | integer |
-| `network_state`     | Speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: content upload`<br>`3: peak upload`<br>`4: content download`<br>`5: peak download`<br>`6: content`<br>`7: peak` | integer |
+| `network_state`     | Speed score check or speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: speed score check upload`<br>`3: speed test upload`<br>`4: speed score check download`<br>`5: speed test download`<br>`6: speed score check`<br>`7: speed test` | integer |
 | `country_code`      | Geocoded 2-digit ISO country code                                                                                                                                                         | string  |
 | `state`             | Geocoded state or province name                                                                                                                                                           | string  |
 | `city`              | Geocoded city name                                                                                                                                                                        | string  |
@@ -217,7 +217,7 @@ Content speed measurements are conducted once per hour by default. Therefore, ra
 | `measure_endpoint_name` | Human-readable name of the measurement endpoint (only included when configured for Orb-to-Orb testing)                                                                              | string  |
 | `speed_test_engine` | Testing engine<br>`-1: unknown`<br>`0: orb`<br>`1: iperf`<br>`2: wave`                                                                                                                   | integer |
 | `speed_test_server` | Server URL or identifier                                                                                                                                                                  | string  |
-| `server_pop`        | Point of presence (edge location) of the server that ran the speed test. Typically a 3-letter IATA airport code (e.g. `SJC`). Omitted if unavailable | string  |
+| `server_pop`        | Point of presence (edge location) of the server that ran the measurement. Typically a 3-letter IATA airport code (e.g. `SJC`). Omitted if unavailable | string  |
 
 
 ## Wi-Fi
@@ -266,7 +266,7 @@ Note: On iOS, Wi-Fi data is available via an optional iOS Shortcut (as of versio
 | `mac_address` | Client MAC address | string |
 | `network_name` | Network name (SSID if available) | string |
 | `network_type` | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`<br>`4: cellular` | integer |
-| `network_state` | Speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: content upload`<br>`3: peak upload`<br>`4: content download`<br>`5: peak download`<br>`6: content`<br>`7: peak` | integer |
+| `network_state` | Speed score check or speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: speed score check upload`<br>`3: speed test upload`<br>`4: speed score check download`<br>`5: speed test download`<br>`6: speed score check`<br>`7: speed test` | integer |
 | `country_code` | Geocoded 2-digit ISO country code | string |
 | `state` | Geocoded state or province name | string |
 | `city` | Geocoded city name | string |
@@ -340,7 +340,7 @@ System Telemetry data is available in 1 minute and 1 second aggregated buckets.
 | `mac_address` | Client MAC address | string |
 | `network_name` | Network name (SSID if available) | string |
 | `network_type` | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`<br>`4: cellular` | integer |
-| `network_state` | Speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: content upload`<br>`3: peak upload`<br>`4: content download`<br>`5: peak download`<br>`6: content`<br>`7: peak` | integer |
+| `network_state` | Speed score check or speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: speed score check upload`<br>`3: speed test upload`<br>`4: speed score check download`<br>`5: speed test download`<br>`6: speed score check`<br>`7: speed test` | integer |
 | `country_code` | Geocoded 2-digit ISO country code | string |
 | `state` | Geocoded state or province name | string |
 | `city` | Geocoded city name | string |
@@ -386,7 +386,7 @@ Nearby Access Points is currently only available on Windows, Linux, Android, and
 | `mac_address` | Client MAC address | string |
 | `network_name` | Network name (SSID if available) | string |
 | `network_type` | Network interface type<br>`0: unknown`<br>`1: wifi`<br>`2: ethernet`<br>`3: other`<br>`4: cellular` | integer |
-| `network_state` | Speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: content upload`<br>`3: peak upload`<br>`4: content download`<br>`5: peak download`<br>`6: content`<br>`7: peak` | integer |
+| `network_state` | Speed score check or speed test load state during interval<br>`0: unknown`<br>`1: idle`<br>`2: speed score check upload`<br>`3: speed test upload`<br>`4: speed score check download`<br>`5: speed test download`<br>`6: speed score check`<br>`7: speed test` | integer |
 | `country_code` | Geocoded 2-digit ISO country code | string |
 | `state` | Geocoded state or province name | string |
 | `city` | Geocoded city name | string |

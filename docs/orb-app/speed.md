@@ -13,24 +13,24 @@ Speed is one of the three key components of your Orb Score, measuring how quickl
 
 Speed measures how quickly 10 MB of data can be transferred to and from devices. It includes:
 
-- **Download Speed Score Check**: How quickly you can receive data, reported in Mbps
-- **Upload Speed Score Check**: How quickly you can send data, reported in Mbps
+- **Download**: How quickly you can receive data, reported in Mbps
+- **Upload**: How quickly you can send data, reported in Mbps
 
 Orb's primary speed measurements are important for activities like streaming videos, downloading files, video conferencing, and other relevant day-to-day activities. Speed score checks are performed by downloading and uploading a small amount of data (10 MB file) to and from your device.
 
 <img src="../../images/orb-app/speed-detail-expanded.png" alt="Speed" width=60% style="margin-left: 2em;">
 
-While full-buffer speed test measurements are available and can be initiated by the user at any time, they are informational only and not included in the Orb Score. Speed tests are performed by fully flooding your connection with data to measure the maximum speed your device can achieve.
+While speed tests (full-buffer measurements) are available and can be initiated by the user at any time, they are informational only and not included in the Orb Score. Speed tests are performed by fully flooding your connection with data to measure the maximum speed your device can achieve.
 
-The Orb Score is based on speed score checks only, which are performed on a regular cadence by default.
+The Orb Score is based on speed score checks only, which run on a regular, configurable cadence.
 
 ### Speed Measurement Cadence
 
-- **Speed Score Measurements**: Performed on a regular cadence (at app launch and every hour by default). Prior to app version 1.6, this was referred to as "Content Speed."
+- **Speed Score Checks**: Performed on a regular cadence (at app launch and every hour by default). Prior to app version 1.6, this was referred to as "Content Speed."
   - Cadence can be adjusted to every 4, 6, or 24 hours, or disabled entirely.
   <img src="../../images/orb-app/speed-check-set-frequency.png" alt="Speed" width=60% style="margin-left: 2em;"><br>
   - Results are included in the Speed score and Orb Score, even if the measurement was performed outside of the selected time period.
-- **Speed Test Measurements**: Can be initiated by the user at any time.
+- **Speed Tests**: Can be initiated by the user at any time. Prior to app version 1.6, these were referred to as "Peak Speed" tests.
 
 ### Download Speed
 

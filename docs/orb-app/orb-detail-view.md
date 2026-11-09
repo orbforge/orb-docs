@@ -82,9 +82,9 @@ The Speed detail view focuses on your connection's throughput.
 
 ### Checking Speed Score
 
-- Speed Score checks are lightweight measurements performed on a one-hour cadence by default. Prior to app version 1.6, this was referred to as "Content Speed."
+- Speed score checks are lightweight measurements performed on a one-hour cadence by default. Prior to app version 1.6, this was referred to as "Content Speed."
 - These measurements are included in the Speed score and Orb Score, even when the measurement was performed outside of the selected time period.
-- To disable or change the frequency of content speed measurements, use the dropdown menu in the expanded Speed card.
+- Speed score checks are configurable. To disable them or change their frequency, use the dropdown menu in the expanded Speed card.
 
 <img src="../../images/orb-app/speed-check-set-frequency.png" alt="Speed" width=60% style="margin-left: 2em;">
 
@@ -93,12 +93,12 @@ The Speed detail view focuses on your connection's throughput.
   - Every 4 hours
   - Every 6 hours
   - Every 24 hours
-  - Never (disables content speed measurements)
-- Content speed measurements can also be initiated at any time by the user.
+  - Never (disables speed score checks)
+- You can also run a speed score check at any time.
 
 ### Initiating a Speed Test
 
-- Full-buffer download and upload speed throughput measurements can be initiated at any time by the user.
+- Speed tests measure full-buffer download and upload throughput and can be initiated at any time by the user. Prior to app version 1.6, these were referred to as "Peak Speed" tests.
 - These results are informational only and not included in your speed or Orb Score.
 
 ### Advanced detail view
