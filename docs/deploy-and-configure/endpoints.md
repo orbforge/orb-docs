@@ -47,7 +47,7 @@ You can optionally assign a display name to the endpoint using `orb.endpoint_nam
 
 ## Speed Test Engine
 
-As of version 1.5, Orb uses the "wave" engine by default for Peak Speed tests against Cloudflare infrastructure. The "wave" engine achieves higher throughput in a shorter duration compared to the legacy "orb" engine and many other legacy speed test tools.
+As of version 1.5, Orb uses the "wave" engine by default for speed tests against Cloudflare infrastructure. The "wave" engine achieves higher throughput in a shorter duration compared to the legacy "orb" engine and many other legacy speed test tools.
 
 You can customize which speed servers are used by visiting the Orb Cloud [Status](https://cloud.orb.net/status) or [Orchestration](https://cloud.orb.net/orchestration) sections to edit the configuration for an individual Orb, or in-bulk via *Configurations*, respectively. If this is your first time configuring an Orb remotely, see the [Remote Configuration documentation](/docs/deploy-and-configure/configuration#remote-configuration).
 

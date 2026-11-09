@@ -24,9 +24,9 @@ The [Model Context Protocol](https://modelcontextprotocol.io) (MCP) is an open s
 - **Spaces & Devices**: List the Orb Cloud Spaces you have access to, and search or filter Orbs within a Space by name, location, network, tags, status, or score
 - **Device Summaries**: Get current status, connection, location, ISP, and score details for one or more Orbs
 - **Historical Measurements**: Retrieve bucketed historical data for scores, responsiveness, web responsiveness, speed, and Wi-Fi link quality over a timeframe from 1 hour to 1 week
-- **Speed Test History**: List individual speed test results
+- **Speed History**: List individual speed score check and speed test results
 - **Events & Incidents**: Review organization events for a single Orb or across an entire Space
-- **Trigger Speed Tests**: Kick off a Content or Peak speed test on an online Orb on demand
+- **Trigger Speed Measurements**: Kick off a speed score check or a speed test on an online Orb on demand
 
 ## Requirements
 
@@ -107,9 +107,9 @@ Once connected, ask your assistant to query or act on your Orb Cloud data in nat
 - "How many Orbs do I have online right now?"
 - "What's the current Orb Score for my office sensor?"
 - "Show me responsiveness over the last 24 hours for my home Orb."
-- "Were there any outliers in my speed tests run in the past week?"
+- "Were there any outliers in my speed results from the past week?"
 - "Were there any alerts across my Home space in the last 30 days?"
-- "Trigger a peak speed test on my office Orb."
+- "Run a speed test on my office Orb."
 
 Your assistant will call the appropriate Orb MCP tool using the permissions associated with your connected Orb Cloud account or API key.
 
