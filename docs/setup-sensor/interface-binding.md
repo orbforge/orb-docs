@@ -70,3 +70,18 @@ orb --instance wired link
 orb --instance wifi link
 ```
 
+---
+
+# Host ID
+
+Instances on the same host share a **host ID**, so Orb Cloud can tell which Orbs run on the same machine. The first instance generates it and saves it to `host_id` in the Orb configuration directory (by default `~/.config/orb/host_id`).
+
+To set your own, for example an asset tag, use `ORB_HOST_ID` with the same value for every instance:
+
+```sh
+ORB_HOST_ID=rack3-probe1 orb --instance wired sensor --interface eth0
+```
+
+The value can be up to 64 letters, digits, and `- . _ ~`. `ORB_HOST_ID` can't be scoped to a single instance.
+
+The host ID appears as `host_id` on devices in the [Orb Cloud API](/docs/integrations/api), and dataset queries can filter, group by, or count distinct `host_id`.

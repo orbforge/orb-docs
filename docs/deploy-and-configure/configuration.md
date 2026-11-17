@@ -23,6 +23,7 @@ The following environment variables can be set:
 | `ORB_DEPLOYMENT_TOKEN` | Sets the [Deployment Token](/docs/deploy-and-configure/deployment-tokens#using-environment-variable) | `ORB_DEPLOYMENT_TOKEN=orb-dt1-yourdeploymenttoken678` | 1.2 |
 | `ORB_EPHEMERAL_MODE` | Sets Orb measurement data storage to in-memory only. Protects flash memory from frequent writes. All measurement data stored on the Orb is lost when Orb is stopped or restarted.  | `ORB_EPHEMERAL_MODE=1` | 1.4.0 |
 | `ORB_DEVICE_NAME_OVERRIDE` | Sets this Orb's name which appears in Orb apps and Orb Cloud | `ORB_DEVICE_NAME_OVERRIDE=MyDeviceName` | 1.4.1 |
+| `ORB_HOST_ID` | Sets the [host ID](/docs/setup-sensor/interface-binding#host-id) shared by every Orb on this machine. Up to 64 characters: letters, digits, and `- . _ ~`. Not instance-scoped | `ORB_HOST_ID=rack3-probe1` | — |
 | `ORB_MEASURE_SERVER_ENABLED` | Enables the Orb to act as a server for speed and responsiveness testing | `ORB_MEASURE_SERVER_ENABLED=1` | 1.4.10 |
 | `ORB_MEASURE_SERVER_PORT` | Set the port for the Orb measurement server | `ORB_MEASURE_SERVER_PORT=8080` | 1.4.10 |
 | `ORB_SERVER_POP` | Sets a point of presence description for the Orb measurement server, reported to Orbs running Orb-to-Orb measurements against it. By convention, the nearest 3-character airport code, but any short string works | `ORB_SERVER_POP=sea` | 1.6.0 |
