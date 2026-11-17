@@ -63,26 +63,6 @@ sets `ORB_FIRSTHOP_DISABLED` for the `wired` instance only.
 
 ---
 
-# Host ID
-
-Each instance is a separate Orb in Orb Cloud. To show which Orbs run on the same machine, every instance reports a shared **host ID**.
-
-The first instance to start generates a random 12-character ID and saves it to `host_id` in the Orb configuration directory (by default `~/.config/orb/host_id`). That directory sits above the per-instance directories, so every instance on the machine reads the same ID.
-
-To set the host ID yourself, for example to match an asset tag, use `ORB_HOST_ID`:
-
-```sh
-ORB_HOST_ID=rack3-probe1 orb --instance wired sensor --interface eth0
-```
-
-`ORB_HOST_ID` takes precedence over the file. Use the same value for every Orb on the machine. The value must be at most 64 characters: letters, digits, and `- . _ ~`. An invalid value is logged and no host ID is reported.
-
-`ORB_HOST_ID` can't be scoped to one instance: `ORB_<INSTANCE>_HOST_ID` is ignored, since the ID is shared by every instance.
-
-In Orb Cloud, the host ID appears as `host_id` on devices in the [Orb Cloud API](/docs/integrations/api). Dataset queries can select, filter, group by, or count distinct `host_id`, so instances on the same machine can be combined or counted once. Dataset records themselves don't contain it.
-
----
-
 # Link each instance
 
 ```sh
@@ -90,3 +70,18 @@ orb --instance wired link
 orb --instance wifi link
 ```
 
+---
+
+# Host ID
+
+Instances on the same host share a **host ID**, so Orb Cloud can tell which Orbs run on the same machine. The first instance generates it and saves it to `host_id` in the Orb configuration directory (by default `~/.config/orb/host_id`).
+
+To set your own, for example an asset tag, use `ORB_HOST_ID` with the same value for every instance:
+
+```sh
+ORB_HOST_ID=rack3-probe1 orb --instance wired sensor --interface eth0
+```
+
+The value can be up to 64 letters, digits, and `- . _ ~`. `ORB_HOST_ID` can't be scoped to a single instance.
+
+The host ID appears as `host_id` on devices in the [Orb Cloud API](/docs/integrations/api), and dataset queries can filter, group by, or count distinct `host_id`.
