@@ -68,6 +68,7 @@
 ## [Deploy & Configure](/docs/deploy-and-configure)
 
 - [Configuration](/docs/deploy-and-configure/configuration.md)
+- [Logging](/docs/deploy-and-configure/logging.md)
 - [Datasets configuration](/docs/deploy-and-configure/datasets-configuration.md)
 - [Datasets](/docs/deploy-and-configure/datasets.md)
 - [Local Analytics](/docs/deploy-and-configure/local-analytics.md)

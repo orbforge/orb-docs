@@ -14,6 +14,7 @@ The Orb platform supports a range of deployment options and is highly configurab
 * [Set up Orb Cloud Analytics](/docs/orb-cloud#pro-plan-quickstart) - view, manage, and analyze your data in the cloud
 * [Set up Local Analytics](/docs/deploy-and-configure/local-analytics) - host your own Orb analytics dashboard
 * [Link Orbs with Deployment Tokens](/docs/deploy-and-configure/deployment-tokens) - configure and link Orbs at scale
+* [Orb logging](/docs/deploy-and-configure/logging) - find sensor logs, set log levels, and filter debug messages
 * [Windows & macOS MDM](/docs/deploy-and-configure/mdm) - easily deploy to corporate laptops or POS systems
 * [Guest Orbs](/docs/deploy-and-configure/guest-orbs) - easily link any Orb to your account with Guest Orbs
 * [Endpoints & Engines](/docs/deploy-and-configure/endpoints) - configure testing endpoints, test engines, and run your own Orb servers

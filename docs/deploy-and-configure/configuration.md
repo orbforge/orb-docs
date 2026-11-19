@@ -11,7 +11,7 @@ Orb comes with local and remote configuration capabilities to control behavior.
 
 ## Environment variables
 
-The following environment variables can be set:
+Set these variables in the Orb service environment. To choose where Orb writes logs and how much detail each output includes, see [Orb logging](/docs/deploy-and-configure/logging).
 
 | Name | Description | Example | Minimum Version |
 | ---- | ----------- | ------- | ----------------|
