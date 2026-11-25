@@ -288,8 +288,8 @@ Note: On iOS, Wi-Fi data is available via an optional iOS Shortcut (as of versio
 | Frequency MHz           |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
 | TX Rate Mbps            |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
 | RX Rate Mbps            |   🟢    |   🟢    |  🟢   |  ❌   |      🟢        |
-| SNR                     |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
-| Noise dBm               |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
+| SNR                     |   🟢    |   ❌    |  🟢   |  🟢   |      🟢        |
+| Noise dBm               |   🟢    |   ❌    |  🟢   |  🟢   |      🟢        |
 | PHY Mode                |   🟢    |   🟢    |  🟢   |  🟢   |      🟢        |
 | Security                |   ❌    |   🟢    |  🟢   |  🟢   |      🟢        |
 | Channel Width           |   ❌    |   🟢    |  🟢   |  🟢   |      ❌        |
